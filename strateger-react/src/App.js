@@ -1,11 +1,14 @@
 // Path: strateger-react/src/App.js
 
-import './styles/App.css';
+import React from 'react';
+import AlarmList from './components/AlarmList';
 
-export default function App() {
+const App = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
-}
+    <div>
+      <AlarmList />
+    </div>
+  );
+};
+
+export default App;
