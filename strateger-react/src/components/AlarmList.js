@@ -1,1 +1,1 @@
-                
+// Path: strateger-react/src/components/AlarmList.js                
