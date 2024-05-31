@@ -33,6 +33,9 @@ const CandleChart = ({ width, height, ratio }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [interval, setInterval] = useState("1h"); // Default interval
+  const [showElderRay, setShowElderRay] = useState(true); // State to control the visibility of Elder Ray
+  const [showBottomPanel, setShowBottomPanel] = useState(false); // State to control the visibility of bottom panel (start hidden)
+  const [showVolume, setShowVolume] = useState(true); // State to control the visibility of volume
 
   const fetchData = async (interval) => {
     try {
@@ -41,7 +44,7 @@ const CandleChart = ({ width, height, ratio }) => {
           symbol: "BTC-USDT",
           interval: interval,
           limit: "1000",
-          start_date: "2024-05-31 00:00:00",
+          start_date: "2024-05-01 00:00:00",
           end_date: "2024-05-31 23:59:59"
         }
       });
@@ -91,7 +94,7 @@ const CandleChart = ({ width, height, ratio }) => {
 
   const margin = { left: 0, right: 48, top: 0, bottom: 24 };
   const pricesDisplayFormat = format('.2f');
-  const dateTimeFormat = '%d %b';
+  const dateTimeFormat = '%d %b %H:%M:%S';  // Updated format to include hours, minutes, and seconds
   const timeDisplayFormat = timeFormat(dateTimeFormat);
 
   const ema12 = ema()
@@ -127,18 +130,45 @@ const CandleChart = ({ width, height, ratio }) => {
   const openCloseColor = (data) => data.close > data.open ? '#26a69a' : '#ef5350'; // Adjusted colors
 
   return (
-    <div>
-      <div className="interval-selector">
-        <label htmlFor="interval">Interval: </label>
-        <select id="interval" value={interval} onChange={(e) => setInterval(e.target.value)}>
-          <option value="1m">1 Minute</option>
-          <option value="5m">5 Minutes</option>
-          <option value="15m">15 Minutes</option>
-          <option value="30m">30 Minutes</option>
-          <option value="1h">1 Hour</option>
-          <option value="4h">4 Hours</option>
-          <option value="1d">1 Day</option>
-        </select>
+    <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <div className="interval-selector flex items-center">
+          <label htmlFor="interval" className="mr-2">Interval: </label>
+          <select
+            id="interval"
+            value={interval}
+            onChange={(e) => setInterval(e.target.value)}
+            className="border border-gray-300 rounded px-2 py-1"
+          >
+            <option value="1m">1 Minute</option>
+            <option value="5m">5 Minutes</option>
+            <option value="15m">15 Minutes</option>
+            <option value="30m">30 Minutes</option>
+            <option value="1h">1 Hour</option>
+            <option value="4h">4 Hours</option>
+            <option value="1d">1 Day</option>
+          </select>
+        </div>
+        <div className="buttons flex gap-4">
+          <button
+            onClick={() => setShowElderRay(!showElderRay)}
+            className="border border-gray-300 rounded px-4 py-2"
+          >
+            {showElderRay ? 'Hide Elder Ray' : 'Show Elder Ray'}
+          </button>
+          <button
+            onClick={() => setShowBottomPanel(!showBottomPanel)}
+            className="border border-gray-300 rounded px-4 py-2"
+          >
+            {showBottomPanel ? 'Hide Bottom Panel' : 'Show Bottom Panel'}
+          </button>
+          <button
+            onClick={() => setShowVolume(!showVolume)}
+            className="border border-gray-300 rounded px-4 py-2"
+          >
+            {showVolume ? 'Hide Volume' : 'Show Volume'}
+          </button>
+        </div>
       </div>
       <ChartCanvas
         height={height}
@@ -153,10 +183,13 @@ const CandleChart = ({ width, height, ratio }) => {
         xExtents={xExtents}
         zoomAnchor={lastVisibleItemBasedZoomAnchor}
       >
-        <Chart id={2} height={150} origin={(w, h) => [0, h - 150]} yExtents={barChartExtents}>
-          <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
-        </Chart>
-        <Chart id={3} height={height - 300} yExtents={candleChartExtents}>
+        {showBottomPanel && showVolume && (
+          <Chart id={2} height={150} origin={(w, h) => [0, h - 150]} yExtents={barChartExtents}>
+            <BarSeries fillStyle={volumeColor} yAccessor={volumeSeries} />
+            <MouseCoordinateX displayFormat={timeDisplayFormat} />
+          </Chart>
+        )}
+        <Chart id={3} height={showBottomPanel ? (showElderRay && showVolume ? height - 300 : height - 150) : height - 24} yExtents={candleChartExtents}>
           <XAxis showGridLines showTickLabel={false} />
           <YAxis showGridLines tickFormat={pricesDisplayFormat} />
           <CandlestickSeries
@@ -168,6 +201,7 @@ const CandleChart = ({ width, height, ratio }) => {
           <CurrentCoordinate yAccessor={ema26.accessor()} fillStyle={ema26.stroke()} />
           <LineSeries yAccessor={ema12.accessor()} strokeStyle={ema12.stroke()} />
           <CurrentCoordinate yAccessor={ema12.accessor()} fillStyle={ema12.stroke()} />
+          <MouseCoordinateX displayFormat={timeDisplayFormat} />
           <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat} />
           <EdgeIndicator itemType="last" rectWidth={margin.right} fill={openCloseColor} lineStroke={openCloseColor} displayFormat={pricesDisplayFormat} yAccessor={yEdgeIndicator} />
           <MovingAverageTooltip
@@ -180,19 +214,21 @@ const CandleChart = ({ width, height, ratio }) => {
           <ZoomButtons />
           <OHLCTooltip origin={[8, 16]} />
         </Chart>
-        <Chart id={4} height={100} yExtents={[0, elder.accessor()]} origin={(w, h) => [0, h - 100]} padding={{ top: 8, bottom: 8 }}>
-          <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
-          <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
-          <MouseCoordinateX displayFormat={timeDisplayFormat} />
-          <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat} />
-          <ElderRaySeries yAccessor={elder.accessor()} />
-          <SingleValueTooltip
-            yAccessor={elder.accessor()}
-            yLabel="Elder Ray"
-            yDisplayFormat={(d) => `${pricesDisplayFormat(d.bullPower)}, ${pricesDisplayFormat(d.bearPower)}`}
-            origin={[8, 16]}
-          />
-        </Chart>
+        {showBottomPanel && showElderRay && (
+          <Chart id={4} height={100} yExtents={[0, elder.accessor()]} origin={(w, h) => [0, h - 100]} padding={{ top: 8, bottom: 8 }}>
+            <XAxis showGridLines gridLinesStrokeStyle="#e0e3eb" />
+            <YAxis ticks={4} tickFormat={pricesDisplayFormat} />
+            <MouseCoordinateX displayFormat={timeDisplayFormat} />
+            <MouseCoordinateY rectWidth={margin.right} displayFormat={pricesDisplayFormat} />
+            <ElderRaySeries yAccessor={elder.accessor()} />
+            <SingleValueTooltip
+              yAccessor={elder.accessor()}
+              yLabel="Elder Ray"
+              yDisplayFormat={(d) => `${pricesDisplayFormat(d.bullPower)}, ${pricesDisplayFormat(d.bearPower)}`}
+              origin={[8, 16]}
+            />
+          </Chart>
+        )}
         <CrossHairCursor />
       </ChartCanvas>
     </div>
