@@ -39,6 +39,7 @@ Muestra información relevante de la cuenta BingX del usuario.
 - Redux para manejo de estados globales
 - Axios para realizar peticiones HTTP
 - LogRocket para seguimiento de errores
+- React financial Charts para la implementacion grafica de activos
 
 Mi estructura de directorios actual es:
 '''
