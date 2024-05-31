@@ -18,10 +18,14 @@ const alarmSlice = createSlice({
     loading: false,
     error: null,
     page: 0,
+    selectedAlarms: [], // Añadido
   },
   reducers: {
     setPage(state, action) {
       state.page = action.payload;
+    },
+    setSelectedAlarms(state, action) {
+      state.selectedAlarms = action.payload; // Añadido
     },
   },
   extraReducers: (builder) => {
@@ -41,6 +45,6 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage } = alarmSlice.actions;
+export const { setPage, setSelectedAlarms } = alarmSlice.actions; // Añadido
 
 export default alarmSlice.reducer;
