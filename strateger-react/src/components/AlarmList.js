@@ -2,11 +2,11 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage } from '../slices/alarmSlice';
+import { fetchAlarms, setPage, setSelectedAlarms } from '../slices/alarmSlice';
 
 const AlarmList = () => {
   const dispatch = useDispatch();
-  const { alarms, loading, error, page } = useSelector((state) => state.alarms);
+  const { alarms, loading, error, page, selectedAlarms } = useSelector((state) => state.alarms);
 
   useEffect(() => {
     dispatch(fetchAlarms(page));
@@ -18,6 +18,14 @@ const AlarmList = () => {
 
   const handleNextPage = () => {
     dispatch(setPage(page + 1));
+  };
+
+  const handleSelectAlarm = (alarm) => {
+    const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
+    const newSelectedAlarms = isSelected 
+      ? selectedAlarms.filter((a) => a.id !== alarm.id)
+      : [...selectedAlarms, alarm];
+    dispatch(setSelectedAlarms(newSelectedAlarms));
   };
 
   if (loading) {
@@ -49,7 +57,11 @@ const AlarmList = () => {
         </thead>
         <tbody>
           {alarms.map((alarm) => (
-            <tr key={alarm.id} className="border-b hover:bg-gray-50">
+            <tr 
+              key={alarm.id} 
+              className={`border-b hover:bg-gray-50 cursor-pointer ${selectedAlarms.some((a) => a.id === alarm.id) ? 'bg-gray-200' : ''}`}
+              onClick={() => handleSelectAlarm(alarm)}
+            >
               <td className="py-2 px-4 border-r">{alarm.id}</td>
               <td className="py-2 px-4 border-r">{alarm.Ticker}</td>
               <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>              
