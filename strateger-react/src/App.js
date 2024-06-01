@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 gap-10">
-        <div className="border-4 border-blue-500 p-4">
+        <div className="border-4 border-blue-500 pr-10 pb-20">
           <CandleChart />
         </div>
       </div>
