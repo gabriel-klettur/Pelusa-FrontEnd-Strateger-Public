@@ -18,15 +18,17 @@ import {
   EdgeIndicator,
   ZoomButtons,
   discontinuousTimeScaleProviderBuilder,
-  ema,
-  elderRay,
   lastVisibleItemBasedZoomAnchor
 } from 'react-financial-charts';
 import { format } from 'd3-format';
 import { timeFormat } from 'd3-time-format';
+import { configureEMA } from './indicators';
 
 const ChartCanvasWrapper = ({ data, width, height, ratio, showElderRay, showBottomPanel, showVolume }) => {
-  // Configuración de la escala y el formato del gráfico.
+  if (width === 0 || height === 0) {
+    return null; // No renderizar hasta tener dimensiones válidas
+  }
+
   const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
     (d) => d.time
   );
@@ -36,27 +38,10 @@ const ChartCanvasWrapper = ({ data, width, height, ratio, showElderRay, showBott
   const dateTimeFormat = '%d %b %H:%M:%S';
   const timeDisplayFormat = timeFormat(dateTimeFormat);
 
-  // Configuración de los indicadores EMA.
-  const ema12 = ema()
-    .id(1)
-    .options({ windowSize: 12 })
-    .merge((d, c) => { d.ema12 = c; })
-    .accessor((d) => d.ema12);
-
-  const ema26 = ema()
-    .id(2)
-    .options({ windowSize: 26 })
-    .merge((d, c) => { d.ema26 = c; })
-    .accessor((d) => d.ema26);
-
-  // Configuración del indicador Elder Ray.
-  const elder = elderRay();
-
-  // Calcular los datos del gráfico con los indicadores.
-  const calculatedData = elder(ema26(ema12(data)));
+  // Obtener los indicadores configurados
+  const { ema12, ema26, elder, calculatedData } = configureEMA(data);
   const { data: chartData, xScale, xAccessor, displayXAccessor } = ScaleProvider(calculatedData);
 
-  // Configuración de las extensiones del gráfico.
   const max = xAccessor(chartData[chartData.length - 1]);
   const min = xAccessor(chartData[Math.max(0, chartData.length - 100)]);
   const xExtents = [min, max + 5];
