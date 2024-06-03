@@ -6,7 +6,7 @@ import { fetchData } from './fetchData';
 
 AnnotationsModule(Highcharts);
 
-const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate, setStartDate, setEndDate }) => {
+const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate, setStartDate, setEndDate, selectedAlarms = [] }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,53 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     console.log('Interval selected:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
+  };
+
+  const getAnnotations = () => {
+    const annotationMap = {};
+
+    selectedAlarms.forEach(alarm => {
+      const time = new Date(alarm.Time_Alert).getTime();
+      const price = alarm.Entry_Price_Alert || alarm.Exit_Price_Alert;
+
+      console.log(`Alarm time: ${time}, Alarm price: ${price}`); // Consola para verificar
+
+      // Encuentra la vela correspondiente
+      const candle = data.find(candle => time >= candle[0] && time < candle[0] + intervalToMs(interval));
+      if (candle) {
+        const key = `${candle[0]}-${price}`;
+        if (!annotationMap[key]) {
+          annotationMap[key] = {
+            point: { x: candle[0], y: price },
+            text: 'A1',
+            backgroundColor: 'yellow',
+            borderColor: 'black',
+            borderRadius: 3,
+            borderWidth: 1
+          };
+        } else {
+          const count = parseInt(annotationMap[key].text.slice(1), 10) + 1;
+          annotationMap[key].text = `A${count}`;
+        }
+      }
+    });
+
+    return Object.values(annotationMap);
+  };
+
+  const intervalToMs = (interval) => {
+    switch (interval) {
+      case '1m': return 60000;
+      case '5m': return 300000;
+      case '15m': return 900000;
+      case '30m': return 1800000;
+      case '1h': return 3600000;
+      case '4h': return 14400000;
+      case '1d': return 86400000;
+      case '1w': return 604800000;
+      case '1M': return 2592000000; // Aproximado
+      default: return 86400000;
+    }
   };
 
   const options = {
@@ -120,7 +167,10 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     },
     tooltip: {
       split: true // Split tooltip into multiple boxes, one for each series
-    }
+    },
+    annotations: [{
+      labels: getAnnotations()
+    }]
   };
 
   const buttonClasses = (interval) =>
