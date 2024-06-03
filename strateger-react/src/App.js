@@ -5,8 +5,18 @@ import CandleStickChart from './components/CandleChart/CandleChart';
 
 const App = () => {
   const initialTemporalidad = '1d';  // Define el intervalo inicial como '1d'
-  const [startDate, setStartDate] = useState("2024-05-27 00:00:00");
-  const [endDate, setEndDate] = useState("2024-05-27 23:59:59");
+  
+  // Obtener la fecha actual y formatearla
+  const currentDate = new Date();
+  const formattedCurrentDate = currentDate.toISOString().slice(0, 19).replace('T', ' ');
+
+  // Calcular la fecha de inicio (1440 días antes de la fecha actual)
+  const startDate = new Date();
+  startDate.setDate(currentDate.getDate() - 1440);
+  const formattedStartDate = startDate.toISOString().slice(0, 19).replace('T', ' ');
+
+  const [startDateState, setStartDateState] = useState(formattedStartDate);
+  const [endDate, setEndDate] = useState(formattedCurrentDate);
   const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
 
   return (
@@ -16,9 +26,9 @@ const App = () => {
           <div>
             <CandleStickChart 
               initialTemporalidad={initialTemporalidad}
-              initialStartDate={startDate}
+              initialStartDate={startDateState}
               initialEndDate={endDate}
-              setStartDate={setStartDate}
+              setStartDate={setStartDateState}
               setEndDate={setEndDate}
               selectedAlarms={selectedAlarms}
             />
