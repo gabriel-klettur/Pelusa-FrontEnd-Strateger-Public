@@ -3,8 +3,9 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import AnnotationsModule from 'highcharts/modules/annotations';
 import { fetchData } from './fetchData';
-import Toolbar from './Toolbar'; // Importa el componente Toolbar
-import RangeSelector from './RangeSelector'; // Importa el componente RangeSelector
+import Toolbar from './Toolbar';
+import RangeSelector from './RangeSelector';
+import { getAnnotations } from './annotations';
 
 AnnotationsModule(Highcharts);
 
@@ -14,12 +15,11 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const [loading, setLoading] = useState(true);
   const [interval, setInterval] = useState(initialTemporalidad);
   const [activeInterval, setActiveInterval] = useState(initialTemporalidad);
+  const chartComponentRef = useRef(null);
 
   // Initialize the dates with the props received
   const [startDateState] = useState(initialStartDate);
   const [endDateState] = useState(initialEndDate);
-  
-  const chartComponentRef = useRef(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -34,34 +34,16 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     console.log('Interval selected:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
-  };
-
-  const getAnnotations = () => {
-    return selectedAlarms.map(alarm => {
-      const time = new Date(alarm.Time_Alert).getTime();
-      const price = alarm.Entry_Price_Alert || alarm.Exit_Price_Alert;
-
-      console.log(`Alarm time: ${time}, Alarm price: ${price}`); // Consola para verificar
-
-      return {
-        point: { x: time, y: price },
-        text: 'A',
-        backgroundColor: 'yellow',
-        borderColor: 'black',
-        borderRadius: 3,
-        borderWidth: 1
-      };
-    });
-  };
+  };  
 
   const options = {
     chart: {
       type: 'candlestick',
     },
     navigator: {
-      enabled: false // Disable the navigator
+      enabled: false
     },
-    rangeSelector: RangeSelector({ setStartDate, setEndDate }), // Usa el componente RangeSelector
+    rangeSelector: RangeSelector({ setStartDate, setEndDate }),
     title: {
       text: 'Candlestick Chart'
     },
@@ -77,15 +59,15 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     series: [{
       name: 'Candlestick',
       data: data,
-      color: 'red', // Color for bearish candles
-      upColor: 'green', // Color for bullish candles
-      lineColor: 'red', // Border color for bearish candles
-      upLineColor: 'green', // Border color for bullish candles
+      color: 'red',
+      upColor: 'green',
+      lineColor: 'red',
+      upLineColor: 'green',
       tooltip: {
         valueDecimals: 2
       },
       dataGrouping: {
-        enabled: false // Disable data grouping
+        enabled: false
       }
     }],
     plotOptions: {
@@ -97,11 +79,14 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       }
     },
     tooltip: {
-      split: true // Split tooltip into multiple boxes, one for each series
+      split: true
     },
     annotations: [{
-      labels: getAnnotations()
-    }]
+      labels: getAnnotations(selectedAlarms, data)
+    }],
+    accessibility: {
+      enabled: false
+    }
   };
 
   return (
