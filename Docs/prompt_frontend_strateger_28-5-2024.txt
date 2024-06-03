@@ -34,12 +34,10 @@ Muestra información relevante de la cuenta BingX del usuario.
 #TODO Tecnologías Utilizadas:
 - React
 - Hooks personalizados, para manejo de estados locales
-- Fetch API, para realizar peticiones HTTP
 - Tailwind para estilos
 - Redux para manejo de estados globales
 - Axios para realizar peticiones HTTP
-- LogRocket para seguimiento de errores
-- React financial Charts para la implementacion grafica de activos
+- highcharts para la implementacion grafica de activos
 
 Mi estructura de directorios actual es:
 '''
