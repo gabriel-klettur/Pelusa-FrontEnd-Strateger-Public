@@ -34,7 +34,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     console.log('Interval selected:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
-  };  
+  };
 
   const options = {
     chart: {
@@ -44,9 +44,6 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       enabled: false
     },
     rangeSelector: RangeSelector({ setStartDate, setEndDate }),
-    title: {
-      text: 'Candlestick Chart'
-    },
     xAxis: {
       type: 'datetime',
     },
