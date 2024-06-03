@@ -1,5 +1,3 @@
-// Path: strateger-react/src/slices/alarmSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -18,14 +16,14 @@ const alarmSlice = createSlice({
     loading: false,
     error: null,
     page: 0,
-    selectedAlarms: [], // Añadido
+    selectedAlarms: [], 
   },
   reducers: {
     setPage(state, action) {
       state.page = action.payload;
     },
     setSelectedAlarms(state, action) {
-      state.selectedAlarms = action.payload; // Añadido
+      state.selectedAlarms = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -37,6 +35,9 @@ const alarmSlice = createSlice({
       .addCase(fetchAlarms.fulfilled, (state, action) => {
         state.alarms = action.payload;
         state.loading = false;
+        if (state.alarms.length > 0) {
+          state.selectedAlarms = [state.alarms[0]]; // Select the first alarm by default
+        }
       })
       .addCase(fetchAlarms.rejected, (state, action) => {
         state.loading = false;
@@ -45,6 +46,6 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedAlarms } = alarmSlice.actions; // Añadido
+export const { setPage, setSelectedAlarms } = alarmSlice.actions; 
 
 export default alarmSlice.reducer;
