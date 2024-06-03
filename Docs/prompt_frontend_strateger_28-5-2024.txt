@@ -46,7 +46,7 @@ Mi estructura de directorios actual es:
 '''
 
 Me ayudaras a mejorar y a implementar ideas en mi codigo.
-
+Esperaras a que yo te solicite hacer algo.
 
 
 
