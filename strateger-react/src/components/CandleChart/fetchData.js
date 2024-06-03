@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export const fetchData = async (interval, setData, setError, setLoading) => {
+export const fetchData = async (interval, startDate, endDate, setData, setError, setLoading) => {
   try {
     const response = await axios.get('http://localhost/bingx/get-k-line-data', {
       params: {
         symbol: "BTC-USDT",
         interval: interval,
-        limit: "1000",
-        start_date: "2024-05-01 00:00:00",
-        end_date: "2024-06-4 23:59:59"
+        limit: "1440",
+        start_date: startDate,
+        end_date: endDate
       }
     });
 
