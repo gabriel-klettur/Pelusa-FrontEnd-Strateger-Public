@@ -16,8 +16,8 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const [activeInterval, setActiveInterval] = useState(initialTemporalidad);
 
   // Initialize the dates with the props received
-  const [startDateState, setStartDateState] = useState(initialStartDate);
-  const [endDateState, setEndDateState] = useState(initialEndDate);
+  const [startDateState] = useState(initialStartDate);
+  const [endDateState] = useState(initialEndDate);
   
   const chartComponentRef = useRef(null);
 
