@@ -7,7 +7,7 @@
  */
 
 export const getAnnotations = (selectedAlarms) => {
-  console.log("*****************************************************************")
+  //console.log("*****************************************************************")
 
   const annotations = [];
 
@@ -17,9 +17,9 @@ export const getAnnotations = (selectedAlarms) => {
     let bgColor = '';
     let textColor = '';
 
-    console.log("-----------------------------------------")
-    console.log('Alarm:', alarm);
-    console.log("-----------------------------------------")
+    //console.log("-----------------------------------------")
+    //console.log('Alarm:', alarm);
+    //console.log("-----------------------------------------")
 
     if (alarm.Order === 'open long') {
       bgColor = 'green';
