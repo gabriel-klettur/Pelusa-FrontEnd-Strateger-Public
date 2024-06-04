@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/CandleChart/Toolbar.js
+
 import React from 'react';
 
 const Toolbar = ({ activeInterval, onIntervalChange }) => {

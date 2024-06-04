@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/CandleChart/fetchData.js
+
 import axios from 'axios';
 
 export const fetchData = async (interval, startDate, endDate, setData, setError, setLoading) => {

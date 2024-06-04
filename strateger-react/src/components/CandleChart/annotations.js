@@ -1,7 +1,9 @@
-// annotations.js
+// Path: strateger-react/src/components/CandleChart/annotations.js
 
 export const getAnnotations = (selectedAlarms, data) => {
-    return selectedAlarms.map(alarm => {
+  
+  
+  return selectedAlarms.map(alarm => {
       const time = new Date(alarm.Time_Alert).getTime();
       const price = alarm.Entry_Price_Alert || alarm.Exit_Price_Alert;
   

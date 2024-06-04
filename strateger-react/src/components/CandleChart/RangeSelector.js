@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/CandleChart/RangeSelector.js
+
 const RangeSelector = ({ setStartDate, setEndDate }) => {
     return {
       selected: 4,  // Initially select the "All" option (index 4)

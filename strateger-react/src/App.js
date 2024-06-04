@@ -1,3 +1,5 @@
+//Path: strateger-react/src/App.js
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
