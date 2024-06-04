@@ -1,13 +1,11 @@
-//Path: strateger-react/src/components/CandleChart/CandleChart.js
-
 import React, { useEffect, useState, useRef } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import AnnotationsModule from 'highcharts/modules/annotations';
 import { fetchData } from './fetchData';
 import Toolbar from './Toolbar';
-import RangeSelector from './RangeSelector';
 import { getAnnotations } from './annotations';
+import RangeSelector from './RangeSelector';
 
 AnnotationsModule(Highcharts);
 
@@ -20,12 +18,14 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const chartComponentRef = useRef(null);
 
   // Initialize the dates with the props received
-  const [startDateState] = useState(initialStartDate);
-  const [endDateState] = useState(initialEndDate);
+  
+  const [startDateState, setStartDateState] = useState(initialStartDate);
+  const [endDateState, setEndDateState] = useState(initialEndDate);
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
+      console.log('Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
       await fetchData(interval, startDateState, endDateState, setData, setError, setLoading);
     };
 
@@ -33,11 +33,22 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, [interval, startDateState, endDateState]);
 
   const handleIntervalChange = (newInterval) => {
-    console.log('Interval selected:', newInterval);
+    console.log('Temporalidad Seleccionada:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
   };
 
+  const handleStartDateChange = (newStartDate) => {
+    console.log('Nueva Fecha de Inicio:', newStartDate);
+    setStartDateState(newStartDate);
+    setStartDate(newStartDate);  // Notify parent
+  };
+
+  const handleEndDateChange = (newEndDate) => {
+    console.log('Nueva Fecha de Fin:', newEndDate);
+    setEndDateState(newEndDate);
+    setEndDate(newEndDate);  // Notify parent
+  };
 
   // --------------------------------- Highcharts configuration ---------------------------
 
@@ -51,6 +62,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     rangeSelector: RangeSelector({ setStartDate, setEndDate }),
     xAxis: {
       type: 'datetime',
+      minRange: 2,  // Set the minimum range to 5 candles
     },
     yAxis: {
       title: {
@@ -83,7 +95,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     tooltip: {
       split: true
     },
-    annotations: getAnnotations(selectedAlarms).map(annotation => ({      
+    annotations: getAnnotations(selectedAlarms).map(annotation => ({
       labels: [annotation]
     })),
     accessibility: {
@@ -93,7 +105,12 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   return (
     <div className="p-4">
-      <Toolbar activeInterval={activeInterval} onIntervalChange={handleIntervalChange} />
+      <Toolbar
+        activeInterval={activeInterval}
+        onIntervalChange={handleIntervalChange}
+        onStartDateChange={handleStartDateChange}
+        onEndDateChange={handleEndDateChange}
+      />
       <div className="relative">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
