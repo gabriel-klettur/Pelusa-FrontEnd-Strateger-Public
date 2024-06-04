@@ -2,8 +2,7 @@
 
 /**
  * Retrieves annotations for selected alarms based on the provided data.
- * @param {Array} selectedAlarms - The array of selected alarms.
- * @param {Array} data - The data array containing candle information.
+ * @param {Array} selectedAlarms - The array of selected alarms. 
  * @returns {Array} - The array of annotations.
  */
 
@@ -39,9 +38,9 @@ export const getAnnotations = (selectedAlarms) => {
       textColor = 'white';
     }
 
-    const annotation = {
-      id: 'annotation-' + index,
-      point: { xAxis: 0, yAxis: 0, x: time, y: price },
+    const annotation = {      
+      id: 'annotation-' + index,  // Assign a unique id to each annotation      
+      point: { xAxis: 0, yAxis: 0, x: time + index * 1000, y: price }, // Add a small offset based on index
       text: 'Id:'+ alarm.id + ' Index:' + index,
       backgroundColor: bgColor,
       borderColor: bgColor,      
