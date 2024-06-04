@@ -9,7 +9,7 @@ import RangeSelector from './RangeSelector';
 
 AnnotationsModule(Highcharts);
 
-const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate, setStartDate, setEndDate, selectedAlarms = [] }) => {
+const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate, selectedAlarms = [] }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,10 +17,13 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const [activeInterval, setActiveInterval] = useState(initialTemporalidad);
   const chartComponentRef = useRef(null);
 
-  // Initialize the dates with the props received
-  
   const [startDateState, setStartDateState] = useState(initialStartDate);
   const [endDateState, setEndDateState] = useState(initialEndDate);
+  const tempStartDateRef = useRef(initialStartDate);
+  const tempEndDateRef = useRef(initialEndDate);
+
+  const [toolbarStartDate, setToolbarStartDate] = useState(new Date(initialStartDate));
+  const [toolbarEndDate, setToolbarEndDate] = useState(new Date(initialEndDate));
 
   useEffect(() => {
     const loadData = async () => {
@@ -36,21 +39,23 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     console.log('Temporalidad Seleccionada:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
+
+    const startDateToUse = tempStartDateRef.current;
+    const endDateToUse = tempEndDateRef.current;
+
+    setStartDateState(startDateToUse);
+    setEndDateState(endDateToUse);
+
+    setToolbarStartDate(new Date(startDateToUse)); // Update toolbar start date
+    setToolbarEndDate(new Date(endDateToUse)); // Update toolbar end date
+
+    fetchData(newInterval, startDateToUse, endDateToUse, setData, setError, setLoading);
   };
 
-  const handleStartDateChange = (newStartDate) => {
-    console.log('Nueva Fecha de Inicio:', newStartDate);
-    setStartDateState(newStartDate);
-    setStartDate(newStartDate);  // Notify parent
+  const handleDateChange = (newStartDate, newEndDate) => {
+    setStartDateState(newStartDate.toISOString().slice(0, 19).replace('T', ' '));
+    setEndDateState(newEndDate.toISOString().slice(0, 19).replace('T', ' '));
   };
-
-  const handleEndDateChange = (newEndDate) => {
-    console.log('Nueva Fecha de Fin:', newEndDate);
-    setEndDateState(newEndDate);
-    setEndDate(newEndDate);  // Notify parent
-  };
-
-  // --------------------------------- Highcharts configuration ---------------------------
 
   const options = {
     chart: {
@@ -59,10 +64,22 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     navigator: {
       enabled: false
     },
-    rangeSelector: RangeSelector({ setStartDate, setEndDate }),
+    rangeSelector: RangeSelector(),
     xAxis: {
       type: 'datetime',
-      minRange: 2,  // Set the minimum range to 5 candles
+      minRange: 2,
+      events: {
+        afterSetExtremes: function (e) {
+          const newStartDate = new Date(e.min).toISOString().slice(0, 19).replace('T', ' ');
+          const newEndDate = new Date(e.max).toISOString().slice(0, 19).replace('T', ' ');
+
+          console.log('Temporary new start date:', newStartDate);
+          console.log('Temporary new end date:', newEndDate);
+
+          tempStartDateRef.current = newStartDate;  // Store temporarily
+          tempEndDateRef.current = newEndDate;  // Store temporarily
+        }
+      }
     },
     yAxis: {
       title: {
@@ -108,8 +125,9 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       <Toolbar
         activeInterval={activeInterval}
         onIntervalChange={handleIntervalChange}
-        onStartDateChange={handleStartDateChange}
-        onEndDateChange={handleEndDateChange}
+        startDate={toolbarStartDate}  // Pass the toolbar start date
+        endDate={toolbarEndDate}  // Pass the toolbar end date
+        onDateChange={handleDateChange} // Add this line to handle date change
       />
       <div className="relative">
         {loading && (
