@@ -38,6 +38,9 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     setInterval(newInterval);
   };
 
+
+  // --------------------------------- Highcharts configuration ---------------------------
+
   const options = {
     chart: {
       type: 'candlestick',
@@ -81,7 +84,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       split: true
     },
     annotations: [{
-      labels: getAnnotations(selectedAlarms, data)
+      labels: getAnnotations(selectedAlarms)
     }],
     accessibility: {
       enabled: false
