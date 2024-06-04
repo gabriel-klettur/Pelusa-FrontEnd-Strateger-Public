@@ -83,9 +83,9 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     tooltip: {
       split: true
     },
-    annotations: [{
-      labels: getAnnotations(selectedAlarms)
-    }],
+    annotations: getAnnotations(selectedAlarms).map(annotation => ({      
+      labels: [annotation]
+    })),
     accessibility: {
       enabled: false
     }
