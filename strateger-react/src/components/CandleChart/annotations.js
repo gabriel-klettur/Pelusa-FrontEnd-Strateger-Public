@@ -1,30 +1,60 @@
 // Path: strateger-react/src/components/CandleChart/annotations.js
 
-export const getAnnotations = (selectedAlarms, data) => {
-  
-  
-  return selectedAlarms.map(alarm => {
-      const time = new Date(alarm.Time_Alert).getTime();
-      const price = alarm.Entry_Price_Alert || alarm.Exit_Price_Alert;
-  
-      console.log(`Alarm time: ${time}, Alarm price: ${price}`); // Consola para verificar
-  
-      // Encuentra la vela correspondiente (ejemplo para intervalos diarios)
-      const candle = data.find(candle => time >= candle[0] && time < candle[0] + 86400000);
-  
-      if (candle) {
-        return {
-          point: { xAxis: 0, yAxis: 0, x: candle[0], y: price },
-          text: 'A',
-          backgroundColor: 'yellow',
-          borderColor: 'black',
-          borderRadius: 3,
-          borderWidth: 1
-        };
-      } else {
-        console.warn(`No matching candle found for time: ${time}`);
-        return null;
-      }
-    }).filter(annotation => annotation !== null);
-  };
-  
+/**
+ * Retrieves annotations for selected alarms based on the provided data.
+ * @param {Array} selectedAlarms - The array of selected alarms.
+ * @param {Array} data - The data array containing candle information.
+ * @returns {Array} - The array of annotations.
+ */
+
+export const getAnnotations = (selectedAlarms) => {
+  console.log("*****************************************************************")
+
+  const annotations = [];
+
+  selectedAlarms.forEach((alarm, index) => {
+    const time = new Date(alarm.Time_Alert).getTime();
+    const price = alarm.Entry_Price_Alert || alarm.Exit_Price_Alert;
+    let bgColor = '';
+    let textColor = '';
+
+    console.log("-----------------------------------------")
+    console.log('Alarm:', alarm);
+    console.log("-----------------------------------------")
+
+    if (alarm.Order === 'open long') {
+      bgColor = 'green';
+      textColor = 'white';
+    } else if (alarm.Order === 'open short') {
+      bgColor = 'red';
+      textColor = 'white';
+    } else if (alarm.Order === 'close long') {
+      bgColor = 'blue';
+      textColor = 'white';
+    } else if (alarm.Order === 'close short') {
+      bgColor = 'orange';
+      textColor = 'white';
+    } else {
+      bgColor = 'black';
+      textColor = 'white';
+    }
+
+    const annotation = {
+      id: 'annotation-' + index,
+      point: { xAxis: 0, yAxis: 0, x: time, y: price },
+      text: 'Id:'+ alarm.id + ' Index:' + index,
+      backgroundColor: bgColor,
+      borderColor: bgColor,      
+      borderRadius: 3,
+      borderWidth: 1,
+      style: {
+        color: textColor
+      },
+      draggable: true // Add this line to make the annotation draggable
+    };
+
+    annotations.push(annotation);
+  });
+
+  return annotations;
+};
