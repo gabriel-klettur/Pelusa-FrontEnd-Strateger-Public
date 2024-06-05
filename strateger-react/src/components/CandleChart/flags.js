@@ -1,11 +1,32 @@
 // Path: strateger-react/src/components/CandleChart/flags.js
 
-export const getFlags = (alarms, color) => {
-    return alarms.map((alarm, index) => ({
-      x: new Date(alarm.Time_Alert).getTime() + index * 1000,
-      title: 'A' + alarm.id,
-      text: `Alarm ${alarm.id}: ${alarm.Order}`,
+export const getFlags = (alarms) => {
+  return alarms.map((alarm, index) => {
+    let color;
+    switch (alarm.Order) {
+      case 'close long':
+        color = 'blue';
+        break;
+      case 'open long':
+        color = 'green';
+        break;
+      case 'open short':
+        color = 'red';
+        break;
+      case 'close short':
+        color = 'orange';
+        break;
+      default:
+        color = 'gray'; // default color if none of the conditions match
+    }
+
+    //console.log('Alarm:', alarm);
+
+    return {
+      x: new Date(alarm.Time_Alert).getTime() + index * 1000,      
+      title: `${alarm.id}`,
+      text: `${alarm.Order}`,
       color: color
-    }));
-  };
-  
+    };
+  });
+};
