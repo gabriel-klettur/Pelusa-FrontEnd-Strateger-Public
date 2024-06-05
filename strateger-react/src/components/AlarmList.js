@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/AlarmList.js
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../slices/alarmSlice';
@@ -22,10 +20,41 @@ const AlarmList = () => {
 
   const handleSelectAlarm = (alarm) => {
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
-    const newSelectedAlarms = isSelected 
-      ? selectedAlarms.filter((a) => a.id !== alarm.id)
-      : [...selectedAlarms, alarm];
-    dispatch(setSelectedAlarms(newSelectedAlarms));
+
+    if (isSelected) {
+      // Deselect the alarm if it is already selected
+      const newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
+      dispatch(setSelectedAlarms(newSelectedAlarms));
+    } else {
+      // Select the alarm and potentially find the next exit alarm
+      let newSelectedAlarms = [...selectedAlarms, alarm];
+
+      if (alarm.Entry_Price_Alert) {
+        // Find the next alarm with an Exit_Price_Alert starting from the selected alarm's index
+        let nextExitAlarm = null;
+        const alarmIndex = alarms.findIndex(a => a.id === alarm.id);
+        
+        console.log('Alarm Index:', alarmIndex);
+        console.log('alarms.length:', alarms.length)
+
+        for (let i = alarmIndex; i >= 0; i--) {
+          
+          console.log('i:', i);
+
+          if (alarms[i].Exit_Price_Alert) {
+            console.log('Exit Alarm Found:', alarms[i]);
+            nextExitAlarm = alarms[i];
+            break; // Stop at the first alarm found
+          }
+        }
+
+        if (nextExitAlarm) {
+          newSelectedAlarms = [...newSelectedAlarms, nextExitAlarm];
+        }
+      }
+
+      dispatch(setSelectedAlarms(newSelectedAlarms));
+    }
   };
 
   if (loading) {
