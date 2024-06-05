@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/CandleChart/fetchData.js
+// Path: strateger-react/src/components/CandleChart/fetchData.js
 
 import axios from 'axios';
 
@@ -25,6 +25,7 @@ export const fetchData = async (interval, startDate, endDate, setData, setError,
         parseFloat(item.close)
       ]).filter(item => !isNaN(item[0]));
 
+      // Ordenar los datos por la primera columna (el tiempo)
       formattedData.sort((a, b) => a[0] - b[0]);
 
       setData(formattedData);
