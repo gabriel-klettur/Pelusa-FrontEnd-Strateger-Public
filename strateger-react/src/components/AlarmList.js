@@ -53,6 +53,25 @@ const AlarmList = () => {
         }
       }
 
+      if (alarm.Exit_Price_Alert) {
+        // Find the previous alarm with an Entry_Price_Alert starting from the selected alarm's index
+        let previousEntryAlarm = null;
+        const alarmIndex = alarms.findIndex(a => a.id === alarm.id);
+
+        for (let i = alarmIndex; i < alarms.length; i++) {
+          if (alarms[i].Entry_Price_Alert) {
+            previousEntryAlarm = alarms[i];
+            break; // Stop at the first alarm found
+          }
+        }
+
+        if (previousEntryAlarm) {
+          newSelectedAlarms = [previousEntryAlarm, ...newSelectedAlarms];
+        }
+      }
+
+
+
       dispatch(setSelectedAlarms(newSelectedAlarms));
     }
   };
