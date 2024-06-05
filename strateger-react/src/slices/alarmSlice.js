@@ -35,9 +35,8 @@ const alarmSlice = createSlice({
       .addCase(fetchAlarms.fulfilled, (state, action) => {
         state.alarms = action.payload;
         state.loading = false;
-        if (state.alarms.length > 0) {
-          state.selectedAlarms = [state.alarms[0]]; // Select the first alarm by default
-        }
+        // Elimina esta línea para evitar seleccionar la primera alarma por defecto
+        // state.selectedAlarms = [state.alarms[0]]; 
       })
       .addCase(fetchAlarms.rejected, (state, action) => {
         state.loading = false;
