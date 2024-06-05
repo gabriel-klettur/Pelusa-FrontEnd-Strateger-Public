@@ -28,7 +28,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      console.log('Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
+      //console.log('Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
       await fetchData(interval, startDateState, endDateState, setData, setError, setLoading);
     };
 
@@ -36,7 +36,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, [interval, startDateState, endDateState]);
 
   const handleIntervalChange = (newInterval) => {
-    console.log('Temporalidad Seleccionada:', newInterval);
+    //console.log('Temporalidad Seleccionada:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
 
@@ -73,8 +73,8 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
           const newStartDate = new Date(e.min).toISOString().slice(0, 19).replace('T', ' ');
           const newEndDate = new Date(e.max).toISOString().slice(0, 19).replace('T', ' ');
 
-          console.log('Temporary new start date:', newStartDate);
-          console.log('Temporary new end date:', newEndDate);
+          //console.log('Temporary new start date:', newStartDate);
+          //console.log('Temporary new end date:', newEndDate);
 
           tempStartDateRef.current = newStartDate;  // Store temporarily
           tempEndDateRef.current = newEndDate;  // Store temporarily
@@ -104,7 +104,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     {
       type: 'flags',
       name: 'Selected Alarms',
-      data: getFlags(selectedAlarms, 'red'),
+      data: getFlags(selectedAlarms), // Pass the selectedAlarms to getFlags
       onSeries: 'candlestick',
       shape: 'flag',
       includeInDataExport: true,
