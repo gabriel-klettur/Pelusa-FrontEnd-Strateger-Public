@@ -64,7 +64,6 @@ const AlarmList = () => {
     dispatch(setSelectedAlarms(newSelectedAlarms));
 
     if (newSelectedAlarms.length > 1) {
-      // Hacer una copia del array antes de ordenarlo
       const sortedAlarms = [...newSelectedAlarms].sort((a, b) => new Date(a.Time_Alert) - new Date(b.Time_Alert));
       const startDate = sortedAlarms[0].Time_Alert;
       const endDate = sortedAlarms[sortedAlarms.length - 1].Time_Alert;
@@ -140,3 +139,4 @@ const AlarmList = () => {
 };
 
 export default AlarmList;
+

@@ -1,6 +1,8 @@
 // Path: strateger-react/src/components/CandleChart/flags.js
 
 export const getFlags = (alarms) => {
+  const uniqueIds = new Set();
+  
   return alarms.map((alarm, index) => {
     let color;
     switch (alarm.Order) {
@@ -20,7 +22,12 @@ export const getFlags = (alarms) => {
         color = 'gray'; // default color if none of the conditions match
     }
 
-    //console.log('Alarm:', alarm);
+    // Check for duplicate IDs
+    if (uniqueIds.has(alarm.id)) {      
+      return null; // Skip adding this flag
+    }
+
+    uniqueIds.add(alarm.id);
 
     return {
       x: new Date(alarm.Time_Alert).getTime() + index * 1000,      
@@ -28,5 +35,5 @@ export const getFlags = (alarms) => {
       text: `${alarm.Order}`,
       color: color
     };
-  });
+  }).filter(flag => flag !== null);
 };
