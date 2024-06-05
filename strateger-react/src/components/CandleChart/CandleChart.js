@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import { fetchData } from './fetchData';
@@ -36,7 +36,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, [interval, startDateState, endDateState]);
 
   const handleIntervalChange = (newInterval) => {
-    //console.log('Temporalidad Seleccionada:', newInterval);
+    console.log('Temporalidad Seleccionada:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
 
@@ -51,11 +51,14 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   };
 
   const handleDateChange = (newStartDate, newEndDate) => {
-    setStartDateState(newStartDate.toISOString().slice(0, 19).replace('T', ' '));
-    setEndDateState(newEndDate.toISOString().slice(0, 19).replace('T', ' '));
+    const formattedStartDate = newStartDate.toISOString().slice(0, 19).replace('T', ' ');
+    const formattedEndDate = newEndDate.toISOString().slice(0, 19).replace('T', ' ');
+    
+    setStartDateState(formattedStartDate);
+    setEndDateState(formattedEndDate);
   };
 
-  const options = {
+  const options = useMemo(() => ({
     chart: {
       type: 'candlestick',
     },
@@ -71,8 +74,8 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
           const newStartDate = new Date(e.min).toISOString().slice(0, 19).replace('T', ' ');
           const newEndDate = new Date(e.max).toISOString().slice(0, 19).replace('T', ' ');
 
-          //console.log('Temporary new start date:', newStartDate);
-          //console.log('Temporary new end date:', newEndDate);
+          console.log('Temporary new start date:', newStartDate);
+          console.log('Temporary new end date:', newEndDate);
 
           tempStartDateRef.current = newStartDate;  // Store temporarily
           tempEndDateRef.current = newEndDate;  // Store temporarily
@@ -125,7 +128,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     accessibility: {
       enabled: false
     }
-  };
+  }), [data, selectedAlarms]);
 
   return (
     <div className="p-4">
