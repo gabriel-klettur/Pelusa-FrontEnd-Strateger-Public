@@ -14,7 +14,7 @@ const App = () => {
 
   // Calcular la fecha de inicio (1440 días antes de la fecha actual)
   const startDate = new Date();
-  startDate.setDate(currentDate.getDate() - 10);
+  startDate.setDate(currentDate.getDate() - 1000);
   const formattedStartDate = startDate.toISOString().slice(0, 19).replace('T', ' ');
 
   const [startDateState, setStartDateState] = useState(formattedStartDate);
