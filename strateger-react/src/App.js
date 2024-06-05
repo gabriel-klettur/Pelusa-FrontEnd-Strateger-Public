@@ -24,7 +24,7 @@ const App = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 gap-10">
-        <div className="border-4 border-blue-500 pl-4 pt-4 pb-4">
+        <div className="border-4 border-blue-500">
           <div>
             <CandleStickChart 
               initialTemporalidad={initialTemporalidad}
@@ -37,7 +37,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="border-4 border-orange-500 grid grid-cols-1 gap-4 mt-4">
+      <div className="border-4 border-orange-500 grid grid-cols-1">
         <div>
           <AlarmList />
         </div>
