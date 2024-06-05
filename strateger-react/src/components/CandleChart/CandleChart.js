@@ -6,6 +6,7 @@ import Toolbar from './Toolbar';
 import RangeSelector from './RangeSelector';
 import { useSelector } from 'react-redux';
 import { getFlags } from './flags';
+import { addMinutes, addHours, subMinutes, subHours } from 'date-fns';
 
 const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const [data, setData] = useState([]);
@@ -24,19 +25,72 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const [toolbarEndDate, setToolbarEndDate] = useState(new Date(initialEndDate));
   
   const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
+  const chartParams = useSelector((state) => state.chart);
+
+  useEffect(() => {
+    if (chartParams.startDate && chartParams.endDate) {
+      setStartDateState(chartParams.startDate);
+      setEndDateState(chartParams.endDate);
+      setInterval(chartParams.temporalidad);
+      setToolbarStartDate(new Date(chartParams.startDate));
+      setToolbarEndDate(new Date(chartParams.endDate));
+    }
+  }, [chartParams]);
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      console.log('useEffect: Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
-      await fetchData(interval, startDateState, endDateState, setData, setError, setLoading);
+
+      // Validar y ajustar la temporalidad
+      let temporalidad = interval;
+      if (temporalidad === '1') {
+        temporalidad = '1m';
+      } 
+      // Ampliar las fechas de inicio y fin según la temporalidad
+      let expandedStartDate = new Date(startDateState);
+      let expandedEndDate = new Date(endDateState);
+
+      if (temporalidad === '1m' || temporalidad === '5m' || temporalidad === '15m' || temporalidad === '30m') {
+        expandedStartDate = subMinutes(expandedStartDate, 5);
+        expandedEndDate = addMinutes(expandedEndDate, 5);
+      } else if (temporalidad === '1h') {
+        expandedStartDate = subHours(expandedStartDate, 5);
+        expandedEndDate = addHours(expandedEndDate, 5);
+      } else if (temporalidad === '4h') {
+        expandedStartDate = subHours(expandedStartDate, 20);
+        expandedEndDate = addHours(expandedEndDate, 20);
+      } else if (temporalidad === '1d') {
+        expandedStartDate = subHours(expandedStartDate, 120); // 5 days
+        expandedEndDate = addHours(expandedEndDate, 120); // 5 days
+      } else if (temporalidad === '1w') {
+        expandedStartDate = subHours(expandedStartDate, 840); // 5 weeks
+        expandedEndDate = addHours(expandedEndDate, 840); // 5 weeks
+      } else if (temporalidad === '1M') {
+        expandedStartDate = subHours(expandedStartDate, 3600); // 5 months
+        expandedEndDate = addHours(expandedEndDate, 3600); // 5 months
+      }
+
+      // Validar las fechas
+      if (!expandedStartDate || !expandedEndDate) {
+        setError(new Error('Fechas inválidas.'));
+        setLoading(false);
+        return;
+      }
+
+      // Asegurar que la fecha de inicio sea anterior a la fecha de fin
+      if (expandedStartDate >= expandedEndDate) {
+        setError(new Error('La fecha de inicio debe ser anterior a la fecha de fin.'));
+        setLoading(false);
+        return;
+      }
+
+      await fetchData(temporalidad, expandedStartDate.toISOString().slice(0, 19).replace('T', ' '), expandedEndDate.toISOString().slice(0, 19).replace('T', ' '), setData, setError, setLoading);
     };
 
     loadData();
   }, [interval, startDateState, endDateState]);
 
   const handleIntervalChange = (newInterval) => {
-    console.log('Temporalidad Seleccionada:', newInterval);
     setActiveInterval(newInterval);
     setInterval(newInterval);
 
@@ -46,14 +100,14 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     setStartDateState(startDateToUse);
     setEndDateState(endDateToUse);
 
-    setToolbarStartDate(new Date(startDateToUse)); // Update toolbar start date
-    setToolbarEndDate(new Date(endDateToUse)); // Update toolbar end date
+    setToolbarStartDate(new Date(startDateToUse));
+    setToolbarEndDate(new Date(endDateToUse));
   };
 
   const handleDateChange = (newStartDate, newEndDate) => {
     const formattedStartDate = newStartDate.toISOString().slice(0, 19).replace('T', ' ');
     const formattedEndDate = newEndDate.toISOString().slice(0, 19).replace('T', ' ');
-    
+
     setStartDateState(formattedStartDate);
     setEndDateState(formattedEndDate);
   };
@@ -74,11 +128,8 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
           const newStartDate = new Date(e.min).toISOString().slice(0, 19).replace('T', ' ');
           const newEndDate = new Date(e.max).toISOString().slice(0, 19).replace('T', ' ');
 
-          console.log('Temporary new start date:', newStartDate);
-          console.log('Temporary new end date:', newEndDate);
-
-          tempStartDateRef.current = newStartDate;  // Store temporarily
-          tempEndDateRef.current = newEndDate;  // Store temporarily
+          tempStartDateRef.current = newStartDate;
+          tempEndDateRef.current = newEndDate;
         }
       }
     },
@@ -105,7 +156,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     {
       type: 'flags',
       name: 'Selected Alarms',
-      data: getFlags(selectedAlarms), // Pass the selectedAlarms to getFlags
+      data: getFlags(selectedAlarms),
       onSeries: 'candlestick',
       shape: 'flag',
       includeInDataExport: true,
@@ -135,9 +186,9 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       <Toolbar
         activeInterval={activeInterval}
         onIntervalChange={handleIntervalChange}
-        startDate={toolbarStartDate}  // Pass the toolbar start date
-        endDate={toolbarEndDate}  // Pass the toolbar end date
-        onDateChange={handleDateChange} // Add this line to handle date change
+        startDate={toolbarStartDate}
+        endDate={toolbarEndDate}
+        onDateChange={handleDateChange}
       />
       <div className="relative">
         {loading && (

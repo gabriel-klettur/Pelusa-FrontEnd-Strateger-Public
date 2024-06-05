@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../slices/alarmSlice';
+import { setChartParameters } from '../slices/chartSlice'; // Import the new action
 
 const AlarmList = () => {
   const dispatch = useDispatch();
@@ -21,30 +22,20 @@ const AlarmList = () => {
   const handleSelectAlarm = (alarm) => {
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
 
+    let newSelectedAlarms;
     if (isSelected) {
-      // Deselect the alarm if it is already selected
-      const newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
-      dispatch(setSelectedAlarms(newSelectedAlarms));
+      newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
     } else {
-      // Select the alarm and potentially find the next exit alarm
-      let newSelectedAlarms = [...selectedAlarms, alarm];
+      newSelectedAlarms = [...selectedAlarms, alarm];
 
       if (alarm.Entry_Price_Alert) {
-        // Find the next alarm with an Exit_Price_Alert starting from the selected alarm's index
         let nextExitAlarm = null;
         const alarmIndex = alarms.findIndex(a => a.id === alarm.id);
-        
-        //console.log('Alarm Index:', alarmIndex);
-        //console.log('alarms.length:', alarms.length)
 
         for (let i = alarmIndex; i >= 0; i--) {
-          
-          //console.log('i:', i);
-
           if (alarms[i].Exit_Price_Alert) {
-            //console.log('Exit Alarm Found:', alarms[i]);
             nextExitAlarm = alarms[i];
-            break; // Stop at the first alarm found
+            break;
           }
         }
 
@@ -54,14 +45,13 @@ const AlarmList = () => {
       }
 
       if (alarm.Exit_Price_Alert) {
-        // Find the previous alarm with an Entry_Price_Alert starting from the selected alarm's index
         let previousEntryAlarm = null;
         const alarmIndex = alarms.findIndex(a => a.id === alarm.id);
 
         for (let i = alarmIndex; i < alarms.length; i++) {
           if (alarms[i].Entry_Price_Alert) {
             previousEntryAlarm = alarms[i];
-            break; // Stop at the first alarm found
+            break;
           }
         }
 
@@ -69,10 +59,18 @@ const AlarmList = () => {
           newSelectedAlarms = [previousEntryAlarm, ...newSelectedAlarms];
         }
       }
+    }
 
+    dispatch(setSelectedAlarms(newSelectedAlarms));
 
+    if (newSelectedAlarms.length > 1) {
+      // Hacer una copia del array antes de ordenarlo
+      const sortedAlarms = [...newSelectedAlarms].sort((a, b) => new Date(a.Time_Alert) - new Date(b.Time_Alert));
+      const startDate = sortedAlarms[0].Time_Alert;
+      const endDate = sortedAlarms[sortedAlarms.length - 1].Time_Alert;
+      const temporalidad = alarm.Temporalidad;
 
-      dispatch(setSelectedAlarms(newSelectedAlarms));
+      dispatch(setChartParameters({ startDate, endDate, temporalidad }));
     }
   };
 
@@ -95,7 +93,7 @@ const AlarmList = () => {
           <tr className="w-full bg-gray-100 border-b">
             <th className="py-2 px-4 border-r">ID</th>
             <th className="py-2 px-4 border-r">Ticker</th>
-            <th className="py-2 px-2 border-r">Temporalidad</th>            
+            <th className="py-2 px-2 border-r">Temporalidad</th>
             <th className="py-2 px-4 border-r">Precio de Entrada</th>
             <th className="py-2 px-4 border-r">Precio de Salida</th>
             <th className="py-2 px-4 border-r">Hora de Alerta</th>
@@ -105,14 +103,14 @@ const AlarmList = () => {
         </thead>
         <tbody>
           {alarms.map((alarm) => (
-            <tr 
-              key={alarm.id} 
+            <tr
+              key={alarm.id}
               className={`border-b hover:bg-gray-50 cursor-pointer ${selectedAlarms.some((a) => a.id === alarm.id) ? 'bg-gray-200' : ''}`}
               onClick={() => handleSelectAlarm(alarm)}
             >
               <td className="py-2 px-4 border-r">{alarm.id}</td>
               <td className="py-2 px-4 border-r">{alarm.Ticker}</td>
-              <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>              
+              <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>
               <td className="py-2 px-4 border-r">{alarm.Entry_Price_Alert}</td>
               <td className="py-2 px-4 border-r">{alarm.Exit_Price_Alert}</td>
               <td className="py-2 px-4 border-r">{alarm.Time_Alert}</td>
