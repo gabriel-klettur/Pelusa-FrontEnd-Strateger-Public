@@ -34,15 +34,15 @@ const AlarmList = () => {
         let nextExitAlarm = null;
         const alarmIndex = alarms.findIndex(a => a.id === alarm.id);
         
-        console.log('Alarm Index:', alarmIndex);
-        console.log('alarms.length:', alarms.length)
+        //console.log('Alarm Index:', alarmIndex);
+        //console.log('alarms.length:', alarms.length)
 
         for (let i = alarmIndex; i >= 0; i--) {
           
-          console.log('i:', i);
+          //console.log('i:', i);
 
           if (alarms[i].Exit_Price_Alert) {
-            console.log('Exit Alarm Found:', alarms[i]);
+            //console.log('Exit Alarm Found:', alarms[i]);
             nextExitAlarm = alarms[i];
             break; // Stop at the first alarm found
           }
