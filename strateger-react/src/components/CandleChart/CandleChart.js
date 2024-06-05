@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
-import AnnotationsModule from 'highcharts/modules/annotations';
 import { fetchData } from './fetchData';
 import Toolbar from './Toolbar';
-import { getAnnotations } from './annotations';
 import RangeSelector from './RangeSelector';
+import { useSelector } from 'react-redux';
+import { getFlags } from './flags';
 
-AnnotationsModule(Highcharts);
-
-const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate, selectedAlarms = [] }) => {
+const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,6 +22,9 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   const [toolbarStartDate, setToolbarStartDate] = useState(new Date(initialStartDate));
   const [toolbarEndDate, setToolbarEndDate] = useState(new Date(initialEndDate));
+
+  const alarms = useSelector((state) => state.alarms.alarms);
+  const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
 
   useEffect(() => {
     const loadData = async () => {
@@ -100,6 +101,28 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       dataGrouping: {
         enabled: false
       }
+    }, {
+      type: 'flags',
+      name: 'All Alarms',
+      data: getFlags(alarms, 'blue'),
+      onSeries: 'candlestick',
+      shape: 'squarepin',
+      includeInDataExport: true,
+      width: 16,
+      style: {
+        color: 'white'
+      }
+    }, {
+      type: 'flags',
+      name: 'Selected Alarms',
+      data: getFlags(selectedAlarms, 'red'),
+      onSeries: 'candlestick',
+      shape: 'flag',
+      includeInDataExport: true,
+      width: 16,
+      style: {
+        color: 'white'
+      }
     }],
     plotOptions: {
       candlestick: {
@@ -112,9 +135,6 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     tooltip: {
       split: true
     },
-    annotations: getAnnotations(selectedAlarms).map(annotation => ({
-      labels: [annotation]
-    })),
     accessibility: {
       enabled: false
     }
