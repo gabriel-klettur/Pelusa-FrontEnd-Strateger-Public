@@ -28,7 +28,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      //console.log('Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
+      console.log('useEffect: Fetching data... Interval:', interval, 'Start Date:', startDateState, 'End Date:', endDateState);
       await fetchData(interval, startDateState, endDateState, setData, setError, setLoading);
     };
 
@@ -48,8 +48,6 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
     setToolbarStartDate(new Date(startDateToUse)); // Update toolbar start date
     setToolbarEndDate(new Date(endDateToUse)); // Update toolbar end date
-
-    fetchData(newInterval, startDateToUse, endDateToUse, setData, setError, setLoading);
   };
 
   const handleDateChange = (newStartDate, newEndDate) => {
