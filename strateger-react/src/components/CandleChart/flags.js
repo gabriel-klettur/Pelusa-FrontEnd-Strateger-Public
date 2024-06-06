@@ -6,16 +6,16 @@ export const getFlags = (alarms) => {
   return alarms.map((alarm, index) => {
     let color;
     switch (alarm.Order) {
-      case 'close long':
+      case 'order close long':
         color = 'blue';
         break;
-      case 'open long':
+      case 'order open long':
         color = 'green';
         break;
-      case 'open short':
+      case 'order open short':
         color = 'red';
         break;
-      case 'close short':
+      case 'order close short':
         color = 'orange';
         break;
       default:
