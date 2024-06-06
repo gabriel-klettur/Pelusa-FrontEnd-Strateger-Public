@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchAlarms = createAsyncThunk(
   'alarms/fetchAlarms',
   async (page) => {
-    const response = await axios.get(`http://127.0.0.1:80/alarms/alarms?limit=10&offset=${page * 10}&latest=true`);
+    const response = await axios.get(`http://51.21.128.53:80/alarms/alarms?limit=10&offset=${page * 20}&latest=true`);
     return response.data.sort((a, b) => b.id - a.id);
   }
 );
