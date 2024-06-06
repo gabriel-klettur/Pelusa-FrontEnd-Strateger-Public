@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const fetchData = async (interval, startDate, endDate, setData, setError, setLoading) => {
   try {
-    const response = await axios.get('http://localhost/bingx/get-k-line-data', {
+    const response = await axios.get('http://51.21.128.53/bingx/get-k-line-data', {
       params: {
         symbol: "BTC-USDT",
         interval: interval,
