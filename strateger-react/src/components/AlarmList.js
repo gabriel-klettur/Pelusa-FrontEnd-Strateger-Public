@@ -86,17 +86,17 @@ const AlarmList = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 text-sm">
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="w-full bg-gray-100 border-b">
             <th className="py-2 px-4 border-r">ID</th>
             <th className="py-2 px-4 border-r">Ticker</th>
-            <th className="py-2 px-2 border-r">Temporalidad</th>
-            <th className="py-2 px-4 border-r">Precio de Entrada</th>
-            <th className="py-2 px-4 border-r">Precio de Salida</th>
-            <th className="py-2 px-4 border-r">Hora de Alerta</th>
-            <th className="py-2 px-4 border-r">Orden</th>
+            <th className="py-2 px-2 border-r">T</th>
+            <th className="py-2 px-4 border-r">Entry Price</th>
+            <th className="py-2 px-4 border-r">Exit Price</th>
+            <th className="py-2 px-4 border-r">Time</th>
+            <th className="py-2 px-4 border-r">Type</th>
             <th className="py-2 px-4">Estrategia</th>
           </tr>
         </thead>
@@ -135,6 +135,7 @@ const AlarmList = () => {
         </button>
       </div>
     </div>
+
   );
 };
 
