@@ -5,7 +5,7 @@ import config from '../../config';
 
 export const fetchData = async (interval, startDate, endDate, setData, setError, setLoading) => {
   try {
-    const response = await axios.get(`${config.apiUrl}/bingx/get-k-line-data`, {
+    const response = await axios.get(`${config.apiURL}/bingx/get-k-line-data`, {
       params: {
         symbol: "BTC-USDT",
         interval: interval,

@@ -6,7 +6,7 @@ import config from '../config';
 export const fetchAlarms = createAsyncThunk(
   'alarms/fetchAlarms',
   async (page) => {
-    const response = await axios.get(`${config.apiUrl}/alarms/alarms?limit=10&offset=${page * 20}&latest=true`);
+    const response = await axios.get(`${config.apiURL}/alarms/alarms?limit=10&offset=${page * 20}&latest=true`);
     return response.data.sort((a, b) => b.id - a.id);
   }
 );

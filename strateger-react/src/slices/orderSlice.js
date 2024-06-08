@@ -7,7 +7,7 @@ import config from '../config';
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
   async (page) => {
-    const response = await axios.get(`${config.apiUrl}/strateger/orders?limit=10&offset=${page * 20}`);
+    const response = await axios.get(`${config.apiURL}/strateger/orders?limit=10&offset=${page * 20}`);
     return response.data.sort((a, b) => b.id - a.id);
   }
 );
