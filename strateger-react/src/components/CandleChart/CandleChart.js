@@ -1,94 +1,42 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
-import { fetchData } from './fetchData';
+import { useDispatch, useSelector } from 'react-redux';
 import Toolbar from './Toolbar';
 import RangeSelector from './RangeSelector';
-import { useSelector } from 'react-redux';
+import { fetchChartData, setChartParameters } from '../../slices/chartSlice';
 import { getFlags } from './flags';
-import { addMinutes, addHours, subMinutes, subHours } from 'date-fns';
 
 const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const chartState = useSelector((state) => state.chart);
+  const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
+
   const [interval, setInterval] = useState(initialTemporalidad);
   const [activeInterval, setActiveInterval] = useState(initialTemporalidad);
   const chartComponentRef = useRef(null);
 
-  const [startDateState, setStartDateState] = useState(initialStartDate);
-  const [endDateState, setEndDateState] = useState(initialEndDate);
-  const tempStartDateRef = useRef(initialStartDate);
-  const tempEndDateRef = useRef(initialEndDate);
-
   const [toolbarStartDate, setToolbarStartDate] = useState(new Date(initialStartDate));
   const [toolbarEndDate, setToolbarEndDate] = useState(new Date(initialEndDate));
   
-  const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
-  const chartParams = useSelector((state) => state.chart);
+  const tempStartDateRef = useRef(initialStartDate);
+  const tempEndDateRef = useRef(initialEndDate);
 
   useEffect(() => {
-    if (chartParams.startDate && chartParams.endDate) {
-      setStartDateState(chartParams.startDate);
-      setEndDateState(chartParams.endDate);
-      setInterval(chartParams.temporalidad);
-      setToolbarStartDate(new Date(chartParams.startDate));
-      setToolbarEndDate(new Date(chartParams.endDate));
+    if (chartState.startDate && chartState.endDate) {
+      setToolbarStartDate(new Date(chartState.startDate));
+      setToolbarEndDate(new Date(chartState.endDate));
+      setInterval(chartState.interval);
     }
-  }, [chartParams]);
+  }, [chartState]);
 
   useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-
-      // Validar y ajustar la temporalidad
-      let temporalidad = interval;
-      if (temporalidad === '1') {
-        temporalidad = '1m';
-      } 
-      // Ampliar las fechas de inicio y fin según la temporalidad
-      let expandedStartDate = new Date(startDateState);
-      let expandedEndDate = new Date(endDateState);
-
-      if (temporalidad === '1m' || temporalidad === '5m' || temporalidad === '15m' || temporalidad === '30m') {
-        expandedStartDate = subMinutes(expandedStartDate, 5);
-        expandedEndDate = addMinutes(expandedEndDate, 5);
-      } else if (temporalidad === '1h') {
-        expandedStartDate = subHours(expandedStartDate, 5);
-        expandedEndDate = addHours(expandedEndDate, 5);
-      } else if (temporalidad === '4h') {
-        expandedStartDate = subHours(expandedStartDate, 20);
-        expandedEndDate = addHours(expandedEndDate, 20);
-      } else if (temporalidad === '1d') {
-        expandedStartDate = subHours(expandedStartDate, 120); // 5 days
-        expandedEndDate = addHours(expandedEndDate, 120); // 5 days
-      } else if (temporalidad === '1w') {
-        expandedStartDate = subHours(expandedStartDate, 840); // 5 weeks
-        expandedEndDate = addHours(expandedEndDate, 840); // 5 weeks
-      } else if (temporalidad === '1M') {
-        expandedStartDate = subHours(expandedStartDate, 3600); // 5 months
-        expandedEndDate = addHours(expandedEndDate, 3600); // 5 months
-      }
-
-      // Validar las fechas
-      if (!expandedStartDate || !expandedEndDate) {
-        setError(new Error('Fechas inválidas.'));
-        setLoading(false);
-        return;
-      }
-
-      // Asegurar que la fecha de inicio sea anterior a la fecha de fin
-      if (expandedStartDate >= expandedEndDate) {
-        setError(new Error('La fecha de inicio debe ser anterior a la fecha de fin.'));
-        setLoading(false);
-        return;
-      }
-
-      await fetchData(temporalidad, expandedStartDate.toISOString().slice(0, 19).replace('T', ' '), expandedEndDate.toISOString().slice(0, 19).replace('T', ' '), setData, setError, setLoading);
-    };
-
-    loadData();
-  }, [interval, startDateState, endDateState]);
+    dispatch(fetchChartData({ 
+      interval: interval,
+      startDate: tempStartDateRef.current,
+      endDate: tempEndDateRef.current 
+    }));
+  }, [interval, dispatch]);
 
   const handleIntervalChange = (newInterval) => {
     setActiveInterval(newInterval);
@@ -97,20 +45,18 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     const startDateToUse = tempStartDateRef.current;
     const endDateToUse = tempEndDateRef.current;
 
-    setStartDateState(startDateToUse);
-    setEndDateState(endDateToUse);
-
-    setToolbarStartDate(new Date(startDateToUse));
-    setToolbarEndDate(new Date(endDateToUse));
+    dispatch(setChartParameters({ startDate: startDateToUse, endDate: endDateToUse, interval: newInterval }));
   };
 
-  const handleDateChange = (newStartDate, newEndDate) => {
+  const handleDateChange = useCallback((newStartDate, newEndDate) => {
     const formattedStartDate = newStartDate.toISOString().slice(0, 19).replace('T', ' ');
     const formattedEndDate = newEndDate.toISOString().slice(0, 19).replace('T', ' ');
 
-    setStartDateState(formattedStartDate);
-    setEndDateState(formattedEndDate);
-  };
+    tempStartDateRef.current = formattedStartDate;
+    tempEndDateRef.current = formattedEndDate;
+
+    dispatch(setChartParameters({ startDate: formattedStartDate, endDate: formattedEndDate, interval }));
+  }, [dispatch, interval]);
 
   const options = useMemo(() => ({
     chart: {
@@ -130,6 +76,8 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
           tempStartDateRef.current = newStartDate;
           tempEndDateRef.current = newEndDate;
+
+          handleDateChange(new Date(e.min), new Date(e.max));
         }
       }
     },
@@ -141,7 +89,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     },
     series: [{
       name: 'Candlestick',
-      data: data,
+      data: chartState.data,
       color: 'red',
       upColor: 'green',
       lineColor: 'red',
@@ -179,7 +127,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     accessibility: {
       enabled: false
     }
-  }), [data, selectedAlarms]);
+  }), [chartState.data, selectedAlarms, handleDateChange]);
 
   return (
     <div className="p-4">
@@ -191,7 +139,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         onDateChange={handleDateChange}
       />
       <div className="relative">
-        {loading && (
+        {chartState.loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
             <p className="text-lg font-bold">Loading...</p>
           </div>
@@ -203,7 +151,7 @@ const CandleStickChart = ({ initialTemporalidad, initialStartDate, initialEndDat
           ref={chartComponentRef}
         />
       </div>
-      {error && <p>Error: {error.message}</p>}
+      {chartState.error && <p>Error: {chartState.error}</p>}
     </div>
   );
 };
