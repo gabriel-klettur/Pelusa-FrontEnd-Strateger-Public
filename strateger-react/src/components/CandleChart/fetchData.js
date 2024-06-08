@@ -1,10 +1,11 @@
 // Path: strateger-react/src/components/CandleChart/fetchData.js
 
 import axios from 'axios';
+import config from '../../config';
 
 export const fetchData = async (interval, startDate, endDate, setData, setError, setLoading) => {
   try {
-    const response = await axios.get('http://51.21.128.53/bingx/get-k-line-data', {
+    const response = await axios.get(`${config.apiUrl}/bingx/get-k-line-data`, {
       params: {
         symbol: "BTC-USDT",
         interval: interval,
