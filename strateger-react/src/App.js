@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
+import OrderList from './components/OrderList';
 import CandleStickChart from './components/CandleChart/CandleChart';
 
 const App = () => {
@@ -37,9 +38,12 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="border-4 border-orange-500 grid grid-cols-1">
-        <div>
+      <div className="border-4 border-orange-500 grid grid-cols-4">
+        <div className='border-4 border-green-500 col-span-2'>
           <AlarmList />
+        </div>
+        <div className='border-4 border-green-500 col-span-2'>
+          <OrderList />
         </div>
       </div>
     </div>
