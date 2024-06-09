@@ -1,4 +1,4 @@
-//Path: strateger-react/src/slices/orderSlice.js
+// Path: strateger-react/src/slices/orderSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -6,9 +6,14 @@ import config from '../config';
 
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
-  async (page) => {
-    const response = await axios.get(`${config.apiURL}/strateger/orders?limit=10&offset=${page * 20}`);
-    return response.data.sort((a, b) => b.id - a.id);
+  async () => {
+    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders`);
+    const data = JSON.parse(response.data);  // Parsea la cadena JSON
+    if (data && data.data && data.data.orders) {
+      return data.data.orders;
+    } else {
+      throw new Error('Invalid response structure');
+    }
   }
 );
 
@@ -18,13 +23,9 @@ const orderSlice = createSlice({
     orders: [],
     loading: false,
     error: null,
-    page: 0,
     selectedOrderId: null,
   },
   reducers: {
-    setPage(state, action) {
-      state.page = action.payload;
-    },
     setSelectedOrderId(state, action) {
       state.selectedOrderId = action.payload;
     },
@@ -46,5 +47,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedOrderId } = orderSlice.actions;
+export const { setSelectedOrderId } = orderSlice.actions;
 export default orderSlice.reducer;
