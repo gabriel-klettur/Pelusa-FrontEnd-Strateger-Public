@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^2.0.4",
     "@react-financial-charts/axes": "^2.0.0",
     "@react-financial-charts/core": "^2.0.0",
     "@react-financial-charts/interactive": "^2.0.0",
