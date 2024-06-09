@@ -1,6 +1,5 @@
-//Path: strateger-react/src/App.js
-
 import React, { useState } from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
 import OrderList from './components/OrderList';
@@ -38,13 +37,31 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="border-4 border-orange-500 grid grid-cols-4">
-        <div className='border-4 border-green-500 col-span-2'>
-          <AlarmList />
-        </div>
-        <div className='border-4 border-green-500 col-span-2'>
-          <OrderList />
-        </div>
+      <div className="border-4 border-orange-500">
+        <TabGroup>
+          <TabList className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Alarmas
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Órdenes
+            </Tab>
+          </TabList>
+          <TabPanels className="mt-2">
+            <TabPanel className="bg-white rounded-xl p-3">
+              <AlarmList />
+            </TabPanel>
+            <TabPanel className="bg-white rounded-xl p-3">
+              <OrderList />
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
       </div>
     </div>
   );
