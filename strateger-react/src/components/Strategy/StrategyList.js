@@ -40,14 +40,39 @@ const StrategyList = () => {
     setIsEditing(false);
   };
 
-  return (
-    <div className="container mx-auto p-4 border border-gray-300 rounded">
-      {isEditing ? (        
+  const renderStrategies = (start, end) => (
+    <>
+      {strategies.slice(start, end).map((strategy) => (
+        <StrategyItem 
+          key={strategy.id}
+          strategy={strategy}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ))}
+    </>
+  );
+
+  const renderEditingView = () => {
+    const currentIndex = strategies.findIndex((s) => s.id === (currentStrategy ? currentStrategy.id : null));
+
+    return (
+      <>
+        {currentIndex > 0 && <div className="mb-4">{renderStrategies(0, currentIndex)}</div>}
         <StrategyForm 
           strategy={currentStrategy}
           onSave={handleSave}
           onCancel={handleCancel}
         />
+        {currentIndex < strategies.length - 1 && <div className="mt-4">{renderStrategies(currentIndex + 1, strategies.length)}</div>}
+      </>
+    );
+  };
+
+  return (
+    <div className="container mx-auto p-4 border border-gray-300 rounded">
+      {isEditing ? (
+        renderEditingView()
       ) : (
         <div>
           <button 
@@ -56,14 +81,7 @@ const StrategyList = () => {
           >
             Añadir Estrategia
           </button>
-          {strategies.map((strategy) => (
-            <StrategyItem 
-              key={strategy.id}
-              strategy={strategy}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          ))}
+          {renderStrategies(0, strategies.length)}
         </div>
       )}
     </div>
