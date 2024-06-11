@@ -35,7 +35,7 @@ El "Strateger FrontEnd" es una aplicación React diseñada para gestionar y visu
 - React
 - Hooks personalizados para manejo de estados locales
 - Tailwind CSS para estilos
-- https://headlessui.com/ UI componentes para tailwind
+- https://headlessui.com/ para componentes UI tailwind
 - Redux para manejo de estados globales
 - Axios para realizar peticiones HTTP
 - Highcharts para la implementación gráfica de activos

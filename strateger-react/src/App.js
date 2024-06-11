@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
 import OrderList from './components/OrderList';
 import CandleStickChart from './components/CandleChart/CandleChart';
+import StrategyList from './components/Strategy/StrategyList';
 
 const App = () => {
   const initialTemporalidad = '1d';  // Define el intervalo inicial como '1d'
@@ -52,10 +53,28 @@ const App = () => {
             }>
               Órdenes
             </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Estrategias
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Diario
+            </Tab>
           </TabList>
           <TabPanels className="mt-2">
             <TabPanel className="bg-white rounded-xl p-3">
               <AlarmList />
+            </TabPanel>
+            <TabPanel className="bg-white rounded-xl p-3">
+              <OrderList />
+            </TabPanel>
+            <TabPanel className="bg-white rounded-xl p-3">
+              <StrategyList />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <OrderList />
