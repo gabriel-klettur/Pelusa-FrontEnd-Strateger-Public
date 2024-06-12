@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Strategy/StrategyForm.js
-
 import React, { useState, useEffect, Fragment } from 'react';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition, Popover, Tab } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

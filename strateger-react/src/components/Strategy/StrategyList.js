@@ -40,7 +40,6 @@ const StrategyList = () => {
         const updatedStrategy = await apiUpdateStrategy(currentStrategy.id, strategy);
         dispatch(updateStrategy(updatedStrategy));
       } else {
-        console.log('Strategy data to insert:', strategy);  // Aquí agregamos el console.log
         const newStrategy = await createStrategy(strategy);
         dispatch(addStrategy(newStrategy));
       }

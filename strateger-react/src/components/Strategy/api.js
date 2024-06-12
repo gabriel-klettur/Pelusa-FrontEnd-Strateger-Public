@@ -1,9 +1,6 @@
-//Path: strateger-react/src/components/Strategy/api.js
-
 import axios from 'axios';
-import config from '../../config';
 
-const BASE_URL = `${config.apiURL}/strateger`;
+const BASE_URL = 'http://localhost:80/strateger';
 
 export const getStrategies = async (skip = 0, limit = 10) => {
     const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
