@@ -62,7 +62,26 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formState);
+    const adjustedFormState = {
+      ...formState,
+      longPyramiding: formState.longPyramiding === '' ? 0 : parseInt(formState.longPyramiding, 10),
+      longLeverage: formState.longLeverage === '' ? 0 : parseFloat(formState.longLeverage),
+      longQuantity: formState.longQuantity === '' ? 0 : parseFloat(formState.longQuantity),
+      longTPPerOrder: formState.longTPPerOrder === '' ? 0 : parseFloat(formState.longTPPerOrder),
+      longTPGeneral: formState.longTPGeneral === '' ? 0 : parseFloat(formState.longTPGeneral),
+      longSLPerOrder: formState.longSLPerOrder === '' ? 0 : parseFloat(formState.longSLPerOrder),
+      longSLGeneral: formState.longSLGeneral === '' ? 0 : parseFloat(formState.longSLGeneral),
+      shortPyramiding: formState.shortPyramiding === '' ? 0 : parseInt(formState.shortPyramiding, 10),
+      shortLeverage: formState.shortLeverage === '' ? 0 : parseFloat(formState.shortLeverage),
+      shortQuantity: formState.shortQuantity === '' ? 0 : parseFloat(formState.shortQuantity),
+      shortTPPerOrder: formState.shortTPPerOrder === '' ? 0 : parseFloat(formState.shortTPPerOrder),
+      shortTPGeneral: formState.shortTPGeneral === '' ? 0 : parseFloat(formState.shortTPGeneral),
+      shortSLPerOrder: formState.shortSLPerOrder === '' ? 0 : parseFloat(formState.shortSLPerOrder),
+      shortSLGeneral: formState.shortSLGeneral === '' ? 0 : parseFloat(formState.shortSLGeneral),
+    };
+  
+    console.log('Adjusted form state on submit:', adjustedFormState); // Log para verificar el estado ajustado del formulario al enviar
+    onSave(adjustedFormState);
   };
 
   const toggleButton = () => {
