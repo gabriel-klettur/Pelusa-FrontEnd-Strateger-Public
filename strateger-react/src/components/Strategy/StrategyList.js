@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import StrategyItem from './StrategyItem';
 import StrategyForm from './StrategyForm/StrategyForm';
-import { fetchStrategies, saveStrategy, removeStrategy} from '../../slices/strategySlice';
+import { fetchStrategies, saveStrategy, removeStrategy } from '../../slices/strategySlice';
 
 const StrategyList = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const StrategyList = () => {
   };
 
   const handleSave = async (strategy) => {
-    try {      
+    try {
       await dispatch(saveStrategy(strategy));
       setIsEditing(false);
     } catch (error) {
@@ -60,7 +60,7 @@ const StrategyList = () => {
             className="bg-green-500 text-white px-4 py-2 rounded mb-4"
             onClick={handleAdd}
           >
-            Agregar Estrategia 
+            Añadir Estrategia
           </button>
           {strategies.map((strategy) => (
             <StrategyItem 

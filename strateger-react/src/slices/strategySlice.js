@@ -24,8 +24,16 @@ const updateStrategy = async (strategyId, strategy) => {
 };
 
 const deleteStrategy = async (strategyId) => {
+  try {
     const response = await axios.delete(`${BASE_URL}/delete/${strategyId}`);
-    return response.data;
+    if (response.status === 200) {
+      return strategyId;
+    } else {
+      throw new Error('Failed to delete the strategy');
+    }
+  } catch (error) {
+    throw new Error(error.response ? error.response.data : error.message);
+  }
 };
 
 // Thunks for async actions
@@ -45,8 +53,12 @@ export const saveStrategy = createAsyncThunk('strategies/saveStrategy', async (s
     }
 });
 
-export const removeStrategy = createAsyncThunk('strategies/removeStrategy', async (strategyId) => {
+export const removeStrategy = createAsyncThunk('strategies/removeStrategy', async (strategyId, { rejectWithValue }) => {
+  try {
     return await deleteStrategy(strategyId);
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
 });
 
 const strategySlice = createSlice({
@@ -99,7 +111,7 @@ const strategySlice = createSlice({
       })
       .addCase(removeStrategy.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload; // Mostrar error en el estado
       });
   },
 });
