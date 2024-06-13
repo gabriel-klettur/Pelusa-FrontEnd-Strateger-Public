@@ -79,8 +79,7 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
       shortSLPerOrder: formState.shortSLPerOrder === '' ? 0 : parseFloat(formState.shortSLPerOrder),
       shortSLGeneral: formState.shortSLGeneral === '' ? 0 : parseFloat(formState.shortSLGeneral),
     };
-  
-    console.log('Adjusted form state on submit:', adjustedFormState); // Log para verificar el estado ajustado del formulario al enviar
+      
     onSave(adjustedFormState);
   };
 

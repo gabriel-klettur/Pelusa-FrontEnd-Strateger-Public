@@ -26,8 +26,7 @@ const StrategyList = () => {
   };
 
   const handleSave = async (strategy) => {
-    try {
-      console.log('Saving strategy:', strategy);
+    try {      
       await dispatch(saveStrategy(strategy));
       setIsEditing(false);
     } catch (error) {
