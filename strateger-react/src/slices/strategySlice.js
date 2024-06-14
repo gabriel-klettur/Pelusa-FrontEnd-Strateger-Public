@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import config from '../config';
 
-const BASE_URL = 'http://localhost:80/strateger';
+const BASE_URL = `${config.apiURL}/strateger`
+
+
 
 const getStrategies = async (skip = 0, limit = 10) => {
     const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
