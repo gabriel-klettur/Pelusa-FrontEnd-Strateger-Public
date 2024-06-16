@@ -7,6 +7,7 @@ import CandleStickChart from './components/CandleChart/CandleChart';
 import StrategyList from './components/Strategy/StrategyList';
 import Diary from './components/Diary/Diary'; 
 import Account from './components/Account/Account';
+import Backtesting from './components/Backtesting/Backtesting';
 
 const App = () => {
   const initialTemporalidad = '1d';  // Define el intervalo inicial como '1d'
@@ -97,7 +98,7 @@ const App = () => {
               <Account />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              <Diary />
+              <Backtesting />
             </TabPanel>
           </TabPanels>
         </TabGroup>
