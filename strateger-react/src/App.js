@@ -6,6 +6,7 @@ import OrderList from './components/OrderList';
 import CandleStickChart from './components/CandleChart/CandleChart';
 import StrategyList from './components/Strategy/StrategyList';
 import Diary from './components/Diary/Diary'; 
+import Account from './components/Account/Account';
 
 const App = () => {
   const initialTemporalidad = '1d';  // Define el intervalo inicial como '1d'
@@ -93,7 +94,7 @@ const App = () => {
               <Diary />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              <Diary />
+              <Account />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <Diary />
