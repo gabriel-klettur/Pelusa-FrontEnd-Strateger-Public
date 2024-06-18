@@ -42,10 +42,10 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   useEffect(() => {
     if (chartStartDate && chartEndDate) {
-      dispatch(fetchTradingViewChartData({ 
+      dispatch(fetchTradingViewChartData({
         interval: chartInterval,
         startDate: chartStartDate,
-        endDate: chartEndDate 
+        endDate: chartEndDate
       }));
     }
   }, [chartStartDate, chartEndDate, chartInterval, dispatch]);
@@ -74,7 +74,6 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, []);
 
   useEffect(() => {
-    console.log("Data for chart:", data);
     if (data && candlestickSeriesRef.current) {
       const formattedData = data.map(item => ({
         time: Math.floor(item[0] / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
@@ -96,17 +95,61 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   useEffect(() => {
     if (chartRef.current && selectedAlarms.length > 0) {
-      alarmMarkersRef.current = selectedAlarms.map(alarm => ({
-        time: Math.floor(new Date(alarm.Time_Alert).getTime() / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
-        position: 'aboveBar',
-        color: alarm.Entry_Price_Alert ? 'blue' : 'red',
-        shape: 'arrowDown',
-        text: alarm.Entry_Price_Alert ? 'Entry' : 'Exit'
-      }));
+      alarmMarkersRef.current = selectedAlarms.map(alarm => {
+        let color, text;
+
+        switch (alarm.Order) {
+          case 'order open long':
+            color = 'green';
+            text = 'Entry Long';
+            break;
+          case 'order close long':
+            color = 'green';
+            text = 'Close Long';
+            break;
+          case 'order open short':
+            color = 'red';
+            text = 'Entry Short';
+            break;
+          case 'order close short':
+            color = 'red';
+            text = 'Close Short';
+            break;
+          case 'indicator open long':
+              color = 'blue';
+              text = 'Indicator Open Long';
+              break;
+          case 'indicator close long':
+            color = 'orange';
+            text = 'Indicator Close Long';
+            break;
+          default:
+            color = 'black';
+            text = '?????';
+        }
+
+        return {
+          time: Math.floor(new Date(alarm.Time_Alert).getTime() / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
+          position: 'aboveBar',
+          color: color,
+          shape: 'arrowDown',
+          text: text
+        };
+      });
 
       // Ordenar los marcadores por el campo 'time'
-      const sortedMarkers = alarmMarkersRef.current.sort((a, b) => a.time - b.time);
+      const sortedMarkers = alarmMarkersRef.current
+        .sort((a, b) => a.time - b.time)
+        .filter((item, index, array) => {
+          if (index === 0 || item.time !== array[index - 1].time) {
+            return true;
+          } else {
+            console.warn("Duplicate time found and removed:", item);
+            return false;
+          }
+        });
 
+      console.log("Sorted markers for chart:", sortedMarkers);
       candlestickSeriesRef.current.setMarkers(sortedMarkers);
     }
   }, [selectedAlarms]);
