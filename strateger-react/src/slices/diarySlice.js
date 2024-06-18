@@ -20,7 +20,7 @@ const diarySlice = createSlice({
       }
     },
     deleteEntry: (state, action) => {
-      state.entries = state.entries.filter(entry => entry.id !== action.payload.id);
+      state.entries = state.entries.filter(entry => entry.id !== action.payload);
     },
   },
 });
