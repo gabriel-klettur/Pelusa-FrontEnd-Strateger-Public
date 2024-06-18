@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/CandleChart/CandleChart.js
+
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
