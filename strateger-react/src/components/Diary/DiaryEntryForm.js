@@ -26,7 +26,9 @@ const DiaryEntryForm = ({ onSave }) => {
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
-    setFormData({ ...formData, photos: files });
+    const fileUrls = files.map((file) => URL.createObjectURL(file));
+    setFormData({ ...formData, photos: fileUrls });
+    // Store the actual files separately if needed for form submission
   };
 
   const handleSubmit = (e) => {
@@ -50,7 +52,6 @@ const DiaryEntryForm = ({ onSave }) => {
       <div className="col-span-10">
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
           <h3 className="text-xl font-bold mb-6">Add New Entry</h3>
-          
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">Date</label>
             <input
@@ -61,8 +62,6 @@ const DiaryEntryForm = ({ onSave }) => {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
             />
           </div>
-
-
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">Text</label>
             <textarea
@@ -73,17 +72,15 @@ const DiaryEntryForm = ({ onSave }) => {
               rows="4"
             ></textarea>
           </div>
-
-
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">Photos</label>
             {formData.photos.length > 0 && (
               <Slider {...sliderSettings} className="mb-4">
-                {formData.photos.map((photo, index) => (
+                {formData.photos.map((photoUrl, index) => (
                   <div key={index} className="flex justify-center items-center">
                     <img
-                      src={URL.createObjectURL(photo)}
-                      alt={`Diary entry ${index + 1}`}
+                      src={photoUrl}
+                      alt={`Attachment ${index + 1}`}
                       className="h-48 w-auto object-cover rounded-lg shadow-md"
                     />
                   </div>
@@ -98,8 +95,6 @@ const DiaryEntryForm = ({ onSave }) => {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
             />
           </div>
-
-
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">References</label>
             <Tab.Group>

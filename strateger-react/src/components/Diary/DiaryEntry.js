@@ -30,7 +30,7 @@ const DiaryEntry = ({ entry, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+    <div className="bg-white p-4 shadow-md mb-4 border border-gray-200 p-4 rounded-lg">
       <div className="mb-2">
         <strong>Date:</strong> {new Date(entry.date).toLocaleString()}
       </div>
@@ -41,10 +41,10 @@ const DiaryEntry = ({ entry, onEdit, onDelete }) => {
         <strong>Photos:</strong>
         {entry.photos && entry.photos.length > 0 ? (
           <div className="flex flex-wrap">
-            {entry.photos.map((photo, index) => (
+            {entry.photos.map((photoUrl, index) => (
               <img
                 key={index}
-                src={URL.createObjectURL(photo)}
+                src={photoUrl}
                 alt={`Attachment ${index + 1}`}
                 className="h-24 w-24 object-cover m-1"
               />
