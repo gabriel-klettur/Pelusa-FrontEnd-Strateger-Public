@@ -11,6 +11,7 @@ import {
   selectTradingViewChartInterval
 } from '../../slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
+import { selectSelectedAlarms } from '../../slices/alarmSlice'; // Importar las alarmas seleccionadas
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const dispatch = useDispatch();
@@ -19,10 +20,12 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const chartStartDate = useSelector(selectTradingViewChartStartDate);
   const chartEndDate = useSelector(selectTradingViewChartEndDate);
   const chartInterval = useSelector(selectTradingViewChartInterval);
+  const selectedAlarms = useSelector(selectSelectedAlarms); // Obtener las alarmas seleccionadas
 
   const chartContainerRef = useRef();
   const chartRef = useRef();
   const candlestickSeriesRef = useRef();
+  const alarmMarkersRef = useRef([]);
   const [interval, setInterval] = useState(initialTemporalidad);
   const [startDate, setStartDate] = useState(new Date(initialStartDate));
   const [endDate, setEndDate] = useState(new Date(initialEndDate));
@@ -90,6 +93,23 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       candlestickSeriesRef.current.setData(sortedData);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (chartRef.current && selectedAlarms.length > 0) {
+      alarmMarkersRef.current = selectedAlarms.map(alarm => ({
+        time: Math.floor(new Date(alarm.Time_Alert).getTime() / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
+        position: 'aboveBar',
+        color: alarm.Entry_Price_Alert ? 'blue' : 'red',
+        shape: 'arrowDown',
+        text: alarm.Entry_Price_Alert ? 'Entry' : 'Exit'
+      }));
+
+      // Ordenar los marcadores por el campo 'time'
+      const sortedMarkers = alarmMarkersRef.current.sort((a, b) => a.time - b.time);
+
+      candlestickSeriesRef.current.setMarkers(sortedMarkers);
+    }
+  }, [selectedAlarms]);
 
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);

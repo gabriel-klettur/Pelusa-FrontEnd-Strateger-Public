@@ -45,6 +45,10 @@ const alarmSlice = createSlice({
   },
 });
 
+// Path: strateger-react/src/slices/alarmSlice.js
+
 export const { setPage, setSelectedAlarms } = alarmSlice.actions; 
+export const selectSelectedAlarms = state => state.alarms.selectedAlarms; // Exportar el selector
 
 export default alarmSlice.reducer;
+
