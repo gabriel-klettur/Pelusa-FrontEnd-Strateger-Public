@@ -1,19 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 import Slider from "react-slick";
 
-const DiaryEntryForm = ({ onSave }) => {
-  const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato ISO y cortar a "YYYY-MM-DDTHH:MM"
-  
-  const initialState = {
-    id: '',
-    date: currentDate,
-    text: '',
-    photos: [],
-    references: [],
-  };
+const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato ISO y cortar a "YYYY-MM-DDTHH:MM"
 
+const initialState = {
+  id: '',
+  date: currentDate,
+  text: '',
+  photos: [],
+  references: [],
+};
+
+const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [formData, setFormData] = useState(initialState);
   const fileInputRef = useRef(null);
 
@@ -21,6 +21,14 @@ const DiaryEntryForm = ({ onSave }) => {
   const alarms = useSelector((state) => state.alarms.alarms);
   const strategies = useSelector((state) => state.strategies.items);
   const diaryEntries = useSelector((state) => state.diary.entries);
+
+  useEffect(() => {
+    if (entry) {
+      setFormData(entry);
+    } else {
+      setFormData(initialState);
+    }
+  }, [entry]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +44,6 @@ const DiaryEntryForm = ({ onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.id) {
-      formData.id = Date.now();
-    }
     onSave(formData);
     setFormData(initialState);
     fileInputRef.current.value = null; // Reset the file input
@@ -47,6 +52,9 @@ const DiaryEntryForm = ({ onSave }) => {
   const handleClear = () => {
     setFormData(initialState);
     fileInputRef.current.value = null; // Reset the file input
+    if (onCancelEdit) {
+      onCancelEdit();
+    }
   };
 
   const sliderSettings = {
@@ -60,7 +68,9 @@ const DiaryEntryForm = ({ onSave }) => {
   return (    
     <div className="col-span-10">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
-        <h3 className="text-xl font-bold mb-6">Add New Entry</h3>
+        <h3 className="text-xl font-bold mb-6">
+          {entry ? 'Editing Entry' : 'Add New Entry'}
+        </h3>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Date</label>
           <input
@@ -221,9 +231,11 @@ const DiaryEntryForm = ({ onSave }) => {
         <div className="flex space-x-4">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+            className={`font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 ${
+              entry ? 'bg-orange-500 hover:bg-orange-700 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
+            }`}
           >
-            Save Entry
+            {entry ? 'Modify Entry' : 'Save Entry'}
           </button>
           <button
             type="button"
