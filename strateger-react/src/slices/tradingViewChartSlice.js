@@ -1,4 +1,4 @@
-// Path: strateger-react/src/slices/chartSlice.js
+// Path: strateger-react/src/slices/tradingViewChartSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const adjustDates = (interval, startDate, endDate) => {
   switch (interval) {
     case '1':
       interval = '1m';
-      // fall through
+    // fall through
     case '1m':
     case '5m':
     case '15m':
@@ -47,8 +47,8 @@ const adjustDates = (interval, startDate, endDate) => {
   return { interval, expandedStartDate, expandedEndDate };
 };
 
-export const fetchChartData = createAsyncThunk(
-  'chart/fetchChartData',
+export const fetchTradingViewChartData = createAsyncThunk(
+  'tradingViewChart/fetchTradingViewChartData',
   async ({ interval, startDate, endDate }, { rejectWithValue }) => {
     try {
       const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(interval, startDate, endDate);
@@ -78,7 +78,6 @@ export const fetchChartData = createAsyncThunk(
           parseFloat(item.close)
         ]).filter(item => !isNaN(item[0]));
 
-        // Ordenar los datos por la primera columna (el tiempo)
         formattedData.sort((a, b) => a[0] - b[0]);
 
         return formattedData;
@@ -91,8 +90,8 @@ export const fetchChartData = createAsyncThunk(
   }
 );
 
-const chartSlice = createSlice({
-  name: 'chart',
+const tradingViewChartSlice = createSlice({
+  name: 'tradingViewChart',
   initialState: {
     data: [],
     loading: false,
@@ -102,7 +101,7 @@ const chartSlice = createSlice({
     interval: '1d'
   },
   reducers: {
-    setChartParameters(state, action) {
+    setTradingViewChartParameters(state, action) {
       state.startDate = action.payload.startDate;
       state.endDate = action.payload.endDate;
       state.interval = action.payload.interval;
@@ -110,28 +109,27 @@ const chartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChartData.pending, (state) => {
+      .addCase(fetchTradingViewChartData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchChartData.fulfilled, (state, action) => {
+      .addCase(fetchTradingViewChartData.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loading = false;
       })
-      .addCase(fetchChartData.rejected, (state, action) => {
+      .addCase(fetchTradingViewChartData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   }
 });
 
-export const { setChartParameters } = chartSlice.actions;
+export const { setTradingViewChartParameters } = tradingViewChartSlice.actions;
+export const selectTradingViewChartData = state => state.tradingViewChart.data;
+export const selectTradingViewChartLoading = state => state.tradingViewChart.loading;
+export const selectTradingViewChartError = state => state.tradingViewChart.error;
+export const selectTradingViewChartStartDate = state => state.tradingViewChart.startDate;
+export const selectTradingViewChartEndDate = state => state.tradingViewChart.endDate;
+export const selectTradingViewChartInterval = state => state.tradingViewChart.interval;
 
-// Selectors
-export const selectChartData = (state) => state.chart.data;
-export const selectChartLoading = (state) => state.chart.loading;
-export const selectChartError = (state) => state.chart.error;
-export const selectChartStartDate = (state) => state.chart.startDate;
-export const selectChartEndDate = (state) => state.chart.endDate;
-
-export default chartSlice.reducer;
+export default tradingViewChartSlice.reducer;

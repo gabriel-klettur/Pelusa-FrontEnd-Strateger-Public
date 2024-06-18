@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
 import OrderList from './components/OrderList';
 import CandleStickChart from './components/CandleChart/CandleChart';
+import LightweightChart from './components/TradingViewChart/LightweightChart';
 import StrategyList from './components/Strategy/StrategyList';
 import Diary from './components/Diary/Diary'; 
 import Account from './components/Account/Account';
@@ -23,6 +24,7 @@ const App = () => {
 
   const [startDateState, setStartDateState] = useState(formattedStartDate);
   const [endDate, setEndDate] = useState(formattedCurrentDate);
+  const [showLightweightChart, setShowLightweightChart] = useState(false);
   const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
 
   return (
@@ -30,14 +32,28 @@ const App = () => {
       <div className="grid grid-cols-1 gap-10">
         <div className="border-4 border-blue-500">
           <div>
-            <CandleStickChart 
-              initialTemporalidad={initialTemporalidad}
-              initialStartDate={startDateState}
-              initialEndDate={endDate}
-              setStartDate={setStartDateState}
-              setEndDate={setEndDate}
-              selectedAlarms={selectedAlarms}
-            />
+            <button
+              className="py-2 px-4 bg-green-500 text-white rounded-lg mb-4"
+              onClick={() => setShowLightweightChart(!showLightweightChart)}
+            >
+              {showLightweightChart ? 'Switch to CandleStick Chart' : 'Switch to Lightweight Chart'}
+            </button>
+            {showLightweightChart ? (
+              <LightweightChart 
+                initialTemporalidad={initialTemporalidad}
+                initialStartDate={startDateState}
+                initialEndDate={endDate}
+              />
+            ) : (
+              <CandleStickChart 
+                initialTemporalidad={initialTemporalidad}
+                initialStartDate={startDateState}
+                initialEndDate={endDate}
+                setStartDate={setStartDateState}
+                setEndDate={setEndDate}
+                selectedAlarms={selectedAlarms}
+              />
+            )}
           </div>
         </div>
       </div>
