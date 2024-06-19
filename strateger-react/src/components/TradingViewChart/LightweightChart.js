@@ -25,6 +25,9 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const chartContainerRef = useRef();
   const chartRef = useRef();
   const candlestickSeriesRef = useRef();
+  const ema10SeriesRef = useRef();
+  const ema55SeriesRef = useRef();
+  const ema200SeriesRef = useRef();
   const alarmMarkersRef = useRef([]);
   const [interval, setInterval] = useState(initialTemporalidad);
   const [startDate, setStartDate] = useState(new Date(initialStartDate));
@@ -69,6 +72,27 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     });
 
     candlestickSeriesRef.current = chartRef.current.addCandlestickSeries();
+    ema10SeriesRef.current = chartRef.current.addLineSeries({
+      color: 'blue',      
+      lineWidth: 2,
+      lastValueVisible: false,
+      crossHairMarkerVisible: false,
+      priceLineVisible: false
+    });
+    ema55SeriesRef.current = chartRef.current.addLineSeries({
+      color: 'orange',
+      lineWidth: 2,
+      lastValueVisible: false,
+      crossHairMarkerVisible: false,
+      priceLineVisible: false
+    });
+    ema200SeriesRef.current = chartRef.current.addLineSeries({
+      color: 'red',
+      lineWidth: 2,
+      lastValueVisible: false,
+      crossHairMarkerVisible: false,
+      priceLineVisible: false
+    });
 
     return () => chartRef.current.remove();
   }, []);
@@ -81,7 +105,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         high: item[2],
         low: item[3],
         close: item[4]
-      }));
+      })).filter(item => item.close !== undefined); // Filtrar datos faltantes
 
       // Ordenar los datos por el campo 'time' y eliminar duplicados
       const sortedData = formattedData
@@ -90,6 +114,15 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       
       console.log("Formatted data for chart:", sortedData);
       candlestickSeriesRef.current.setData(sortedData);
+
+      // Calcular y establecer datos para las EMAs
+      const ema10Data = calculateEMA(sortedData, 10);
+      const ema55Data = calculateEMA(sortedData, 55);
+      const ema200Data = calculateEMA(sortedData, 200);
+
+      ema10SeriesRef.current.setData(ema10Data);
+      ema55SeriesRef.current.setData(ema55Data);
+      ema200SeriesRef.current.setData(ema200Data);
     }
   }, [data]);
 
@@ -186,6 +219,24 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       {loading && <p>Loading...</p>}
     </div>
   );
+};
+
+const calculateEMA = (data, period) => {
+  const k = 2 / (period + 1);
+  let emaArray = [];
+  if (data.length > 0) {
+    let ema = data[0].close; // Use the first data point as the initial EMA value
+
+    data.forEach((item, index) => {
+      if (index === 0) {
+        emaArray.push({ time: item.time, value: ema });
+      } else {
+        ema = item.close * k + ema * (1 - k);
+        emaArray.push({ time: item.time, value: ema });
+      }
+    });
+  }
+  return emaArray;
 };
 
 export default LightweightChart;
