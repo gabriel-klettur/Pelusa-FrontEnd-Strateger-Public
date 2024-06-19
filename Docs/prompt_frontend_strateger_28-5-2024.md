@@ -1,5 +1,5 @@
 # Actúa como un experto en React.
-Actúa como un experto en la librería Highcharts.
+Actúa como un experto en la librería lightweight charts de TradingView.
 Actúa como un experto en el desarrollo de aplicaciones de Trading e Inversiones.
 
 ## Descripción del Proyecto: Strateger FrontEnd
@@ -38,7 +38,7 @@ El "Strateger FrontEnd" es una aplicación React diseñada para gestionar y visu
 - https://headlessui.com/ para componentes UI tailwind
 - Redux para manejo de estados globales
 - Axios para realizar peticiones HTTP
-- Highcharts para la implementación gráfica de activos
+- lightweight para la implementación gráfica de activos
 
 
 Mi estructura de directorios actual es:
