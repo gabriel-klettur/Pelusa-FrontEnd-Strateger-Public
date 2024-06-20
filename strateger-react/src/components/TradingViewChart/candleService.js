@@ -4,86 +4,58 @@ import axios from 'axios';
 import config from '../../config';
 import store from '../../store';
 import { updateLastCandleSuccess, updateLastCandleError } from '../../slices/tradingViewChartSlice';
-import { addMinutes, subMinutes, addHours, subHours } from 'date-fns';
 
-const adjustDates = (interval, startDate, endDate) => {
-  let expandedStartDate = new Date(startDate);
-  let expandedEndDate = new Date(endDate);
+// Función para convertir timestamps a formato de cadena
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = (`0${date.getMonth() + 1}`).slice(-2);
+  const day = (`0${date.getDate()}`).slice(-2);
+  const hours = (`0${date.getHours()}`).slice(-2);
+  const minutes = (`0${date.getMinutes()}`).slice(-2);
+  const seconds = (`0${date.getSeconds()}`).slice(-2);
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
 
-  switch (interval) {
-    case '1':
-      interval = '1m';
-    // fall through
-    case '1m':
-    case '5m':
-    case '15m':
-    case '30m':
-      expandedStartDate = subMinutes(expandedStartDate, 5);
-      expandedEndDate = addMinutes(expandedEndDate, 5);
-      break;
-    case '1h':
-      expandedStartDate = subHours(expandedStartDate, 5);
-      expandedEndDate = addHours(expandedEndDate, 5);
-      break;
-    case '4h':
-      expandedStartDate = subHours(expandedStartDate, 20);
-      expandedEndDate = addHours(expandedEndDate, 20);
-      break;
-    case '1d':
-      expandedStartDate = subHours(expandedStartDate, 120);
-      expandedEndDate = addHours(expandedEndDate, 120);
-      break;
-    case '1w':
-      expandedStartDate = subHours(expandedStartDate, 840);
-      expandedEndDate = addHours(expandedEndDate, 840);
-      break;
-    case '1M':
-      expandedStartDate = subHours(expandedStartDate, 3600);
-      expandedEndDate = addHours(expandedEndDate, 3600);
-      break;
-    default:
-      throw new Error('Invalid interval');
+export const fetchLastCandle = async () => {
+  try {
+    const state = store.getState();
+    const { startDate, endDate } = state.tradingViewChart;
+
+    // Convertir las fechas a formato de cadena
+    const startString = formatDate(startDate);
+    const endString = formatDate(endDate);
+
+    const response = await axios.get(`${config.apiURL}/bingx/get-k-line-data`, {
+      params: {
+        symbol: "BTC-USDT",
+        interval: '1m',
+        limit: "1",
+        start_date: startString,
+        end_date: endString
+      }
+    });
+
+    const resultData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
+
+    if (resultData.code === 0) {
+      const lastCandle = resultData.data.map(item => [
+        new Date(item.time).getTime(),
+        parseFloat(item.open),
+        parseFloat(item.high),
+        parseFloat(item.low),
+        parseFloat(item.close)
+      ]).filter(item => !isNaN(item[0]))[0];
+
+      store.dispatch(updateLastCandleSuccess(lastCandle));
+    } else {
+      store.dispatch(updateLastCandleError(resultData.msg || 'Unknown error from API'));
+    }
+  } catch (err) {
+    store.dispatch(updateLastCandleError(err.message));
   }
-
-  return { interval, expandedStartDate, expandedEndDate };
 };
 
 export const startCandleUpdateService = () => {
-  setInterval(async () => {
-    try {
-      const state = store.getState();
-      const interval = '1m';
-      const { expandedStartDate, expandedEndDate } = adjustDates(interval, state.tradingViewChart.startDate, state.tradingViewChart.endDate);
-
-      const response = await axios.get(`${config.apiURL}/bingx/get-k-line-data`, {
-        params: {
-          symbol: "BTC-USDT",
-          interval: '1m',
-          limit: "1",
-          start_date: expandedStartDate.toISOString().slice(0, 19).replace('T', ' '),
-          end_date: expandedEndDate.toISOString().slice(0, 19).replace('T', ' ')
-        }
-      });
-
-      const resultData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-
-      if (resultData.code === 0) {
-        const formattedData = resultData.data.map(item => [
-          new Date(item.time).getTime(),
-          parseFloat(item.open),
-          parseFloat(item.high),
-          parseFloat(item.low),
-          parseFloat(item.close)
-        ]).filter(item => !isNaN(item[0]));
-
-        formattedData.sort((a, b) => a[0] - b[0]);
-
-        store.dispatch(updateLastCandleSuccess(formattedData[0]));
-      } else {
-        store.dispatch(updateLastCandleError(resultData.msg || 'Unknown error from API'));
-      }
-    } catch (err) {
-      store.dispatch(updateLastCandleError(err.message));
-    }
-  }, 5000);
+  setInterval(fetchLastCandle, 5000);
 };

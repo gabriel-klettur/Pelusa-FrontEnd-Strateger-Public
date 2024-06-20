@@ -14,6 +14,7 @@ import {
 } from '../../slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
 import { selectSelectedAlarms } from '../../slices/alarmSlice';
+import { startCandleUpdateService } from './candleService';
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const dispatch = useDispatch();
@@ -32,18 +33,18 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const ema200SeriesRef = useRef();
   const alarmMarkersRef = useRef([]);
   const [interval, setInterval] = useState(initialTemporalidad);
-  const [startDate, setStartDate] = useState(new Date(initialStartDate));
-  const [endDate, setEndDate] = useState(new Date(initialEndDate));
+  const [startDate, setStartDate] = useState(new Date(initialStartDate).getTime());
+  const [endDate, setEndDate] = useState(new Date(initialEndDate).getTime());
 
   useEffect(() => {
     if (!chartStartDate || !chartEndDate) {
       dispatch(setTradingViewChartParameters({
         interval: initialTemporalidad,
-        startDate: initialStartDate,
-        endDate: initialEndDate,
+        startDate: startDate,
+        endDate: endDate,
       }));
     }
-  }, [dispatch, initialTemporalidad, initialStartDate, initialEndDate, chartStartDate, chartEndDate]);
+  }, [dispatch, initialTemporalidad, startDate, endDate, chartStartDate, chartEndDate]);
 
   useEffect(() => {
     if (chartStartDate && chartEndDate) {
@@ -188,22 +189,26 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
     }
   }, [selectedAlarms]);
 
+  useEffect(() => {
+    startCandleUpdateService();
+  }, []);
+
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);
     dispatch(setTradingViewChartParameters({
       interval: newInterval,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
+      startDate: new Date(startDate).toISOString(),
+      endDate: new Date(endDate).toISOString(),
     }));
   };
 
   const handleDateChange = (newStartDate, newEndDate) => {
-    setStartDate(newStartDate);
-    setEndDate(newEndDate);
+    setStartDate(newStartDate.getTime());
+    setEndDate(newEndDate.getTime());
     dispatch(setTradingViewChartParameters({
       interval: interval,
-      startDate: newStartDate.toISOString(),
-      endDate: newEndDate.toISOString(),
+      startDate: new Date(newStartDate).toISOString(),
+      endDate: new Date(newEndDate).toISOString(),
     }));
   };
 
