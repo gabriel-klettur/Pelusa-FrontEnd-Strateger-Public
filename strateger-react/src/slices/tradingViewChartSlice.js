@@ -4,7 +4,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
 import { addMinutes, addHours, subMinutes, subHours } from 'date-fns';
-import calculateHigherIntervalCandles from '../components/TradingViewChart/calculateHigherIntervalCandles'; // Importar la función
 
 const adjustDates = (interval, startDate, endDate) => {
   let expandedStartDate = new Date(startDate);
@@ -55,7 +54,7 @@ export const fetchTradingViewChartData = createAsyncThunk(
       const state = getState();
       const existingData = state.tradingViewChart.data[interval];
 
-      if (existingData && existingData.length > 1) {
+      if (existingData) {
         return existingData;
       }
 
@@ -110,46 +109,28 @@ const tradingViewChartSlice = createSlice({
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
-      state.startDate = new Date(action.payload.startDate).getTime();
-      state.endDate = new Date(action.payload.endDate).getTime();
+      state.startDate = action.payload.startDate;
+      state.endDate = action.payload.endDate;
       state.interval = action.payload.interval;
     },
     updateLastCandleSuccess(state, action) {
-      const lastCandle = action.payload;
       const interval = '1m';
+      const lastCandle = action.payload;
 
       if (state.data[interval]) {
         const data = [...state.data[interval]];
         const lastIndex = data.length - 1;
 
-        if (data[lastIndex] && data[lastIndex][0] === lastCandle[0]) {
+        if (data[lastIndex][0] === lastCandle[0]) {
+          // Actualizar la última vela existente
           data[lastIndex] = lastCandle;
         } else {
+          // Agregar una nueva vela
           data.push(lastCandle);
         }
 
         state.data[interval] = data;
-      } else {
-        state.data[interval] = [lastCandle];
       }
-
-      // Actualizar la última vela de otras temporalidades basadas en la vela de 1m
-      const newData = calculateHigherIntervalCandles(state.data['1m']);
-      Object.keys(newData).forEach(interval => {
-        if (state.data[interval] && state.data[interval].length > 0) {
-          const higherIntervalData = [...state.data[interval]];
-          const lastHigherCandle = higherIntervalData[higherIntervalData.length - 1];
-          const newHigherCandle = newData[interval][newData[interval].length - 1];
-
-          if (lastHigherCandle[0] === newHigherCandle[0]) {
-            higherIntervalData[higherIntervalData.length - 1] = newHigherCandle;
-          } else {
-            higherIntervalData.push(newHigherCandle);
-          }
-
-          state.data[interval] = higherIntervalData;
-        }
-      });
     },
     updateLastCandleError(state, action) {
       state.error = action.payload;
