@@ -215,7 +215,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         endDate={endDate}
         onDateChange={handleDateChange}
       />
-      <div ref={chartContainerRef} className="w-full h-96"></div>
+      <div ref={chartContainerRef} className="w-full h-96 border-4 border-black mt-1"></div>
       {loading && <p>Loading...</p>}
     </div>
   );
