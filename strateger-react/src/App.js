@@ -1,8 +1,10 @@
+// Path: strateger-react/src/App.js
+
 import React, { useState } from 'react';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
-import OrderList from './components/OrderList';
+import Orders from './components/Orders/Orders'; // Importa el nuevo componente Orders
 import CandleStickChart from './components/CandleChart/CandleChart';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
 import StrategyList from './components/Strategy/StrategyList';
@@ -108,7 +110,7 @@ const App = () => {
               <AlarmList />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              <OrderList />
+              <Orders /> {/* Usa el nuevo componente Orders */}
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <StrategyList />
@@ -123,7 +125,7 @@ const App = () => {
               <Backtesting />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              <Backtesting />
+              Configuracion
             </TabPanel>
           </TabPanels>
         </TabGroup>

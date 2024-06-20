@@ -1,8 +1,8 @@
-// Path: strateger-react/src/components/OrderList.js
+// Path: strateger-react/src/components/Orders/OrderList.js
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId, setPage } from '../slices/orderSlice';
+import { fetchOrders, setSelectedOrderId, setPage } from '../../slices/orderSlice';
 
 const OrderList = () => {
   const dispatch = useDispatch();
