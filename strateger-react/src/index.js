@@ -2,19 +2,19 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 import { Provider } from 'react-redux';
 import store from './store';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import { startCandleUpdateService } from './components/TradingViewChart/candleService';
 
-const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);
+startCandleUpdateService();
+
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
     <App />
   </Provider>
 );
-
-reportWebVitals();

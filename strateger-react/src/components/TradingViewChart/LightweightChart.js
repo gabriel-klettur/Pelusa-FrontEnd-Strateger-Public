@@ -1,3 +1,5 @@
+// Path: strateger-react/src/components/TradingViewChart/LightweightChart.js
+
 import React, { useEffect, useRef, useState } from 'react';
 import { createChart } from 'lightweight-charts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +10,10 @@ import {
   selectTradingViewChartLoading,
   selectTradingViewChartStartDate,
   selectTradingViewChartEndDate,
-  selectTradingViewChartInterval
+  selectTradingViewChartInterval,
 } from '../../slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
-import { selectSelectedAlarms } from '../../slices/alarmSlice'; // Importar las alarmas seleccionadas
+import { selectSelectedAlarms } from '../../slices/alarmSlice';
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const chartStartDate = useSelector(selectTradingViewChartStartDate);
   const chartEndDate = useSelector(selectTradingViewChartEndDate);
   const chartInterval = useSelector(selectTradingViewChartInterval);
-  const selectedAlarms = useSelector(selectSelectedAlarms); // Obtener las alarmas seleccionadas
+  const selectedAlarms = useSelector(selectSelectedAlarms);
 
   const chartContainerRef = useRef();
   const chartRef = useRef();
@@ -45,13 +47,15 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   useEffect(() => {
     if (chartStartDate && chartEndDate) {
-      dispatch(fetchTradingViewChartData({
-        interval: chartInterval,
-        startDate: chartStartDate,
-        endDate: chartEndDate
-      }));
+      if (!data[chartInterval]) {
+        dispatch(fetchTradingViewChartData({
+          interval: chartInterval,
+          startDate: chartStartDate,
+          endDate: chartEndDate
+        }));
+      }
     }
-  }, [chartStartDate, chartEndDate, chartInterval, dispatch]);
+  }, [chartStartDate, chartEndDate, chartInterval, dispatch, data]);
 
   useEffect(() => {
     chartRef.current = createChart(chartContainerRef.current, {
@@ -98,24 +102,22 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, []);
 
   useEffect(() => {
-    if (data && candlestickSeriesRef.current) {
-      const formattedData = data.map(item => ({
-        time: Math.floor(item[0] / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
+    if (data[chartInterval] && candlestickSeriesRef.current) {
+      const formattedData = data[chartInterval].map(item => ({
+        time: Math.floor(item[0] / 1000),
         open: item[1],
         high: item[2],
         low: item[3],
         close: item[4]
-      })).filter(item => item.close !== undefined); // Filtrar datos faltantes
+      })).filter(item => item.close !== undefined);
 
-      // Ordenar los datos por el campo 'time' y eliminar duplicados
       const sortedData = formattedData
         .sort((a, b) => a.time - b.time)
         .filter((item, index, array) => index === 0 || item.time !== array[index - 1].time);
-      
+
       console.log("Formatted data for chart:", sortedData);
       candlestickSeriesRef.current.setData(sortedData);
 
-      // Calcular y establecer datos para las EMAs
       const ema10Data = calculateEMA(sortedData, 10);
       const ema55Data = calculateEMA(sortedData, 55);
       const ema200Data = calculateEMA(sortedData, 200);
@@ -124,7 +126,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
       ema55SeriesRef.current.setData(ema55Data);
       ema200SeriesRef.current.setData(ema200Data);
     }
-  }, [data]);
+  }, [data, chartInterval]);
 
   useEffect(() => {
     if (chartRef.current && selectedAlarms.length > 0) {
@@ -162,7 +164,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         }
 
         return {
-          time: Math.floor(new Date(alarm.Time_Alert).getTime() / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
+          time: Math.floor(new Date(alarm.Time_Alert).getTime() / 1000),
           position: 'aboveBar',
           color: color,
           shape: 'arrowDown',
@@ -170,7 +172,6 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         };
       });
 
-      // Ordenar los marcadores por el campo 'time'
       const sortedMarkers = alarmMarkersRef.current
         .sort((a, b) => a.time - b.time)
         .filter((item, index, array) => {
@@ -225,7 +226,7 @@ const calculateEMA = (data, period) => {
   const k = 2 / (period + 1);
   let emaArray = [];
   if (data.length > 0) {
-    let ema = data[0].close; // Use the first data point as the initial EMA value
+    let ema = data[0].close;
 
     data.forEach((item, index) => {
       if (index === 0) {
