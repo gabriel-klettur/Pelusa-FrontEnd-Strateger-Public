@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { useSelector } from 'react-redux';
 import AlarmList from './components/AlarmList';
-import Orders from './components/Orders/Orders'; // Importa el nuevo componente Orders
-import CandleStickChart from './components/CandleChart/CandleChart';
+import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
 import StrategyList from './components/Strategy/StrategyList';
-import Diary from './components/Diary/Diary'; 
+import Diary from './components/Diary/Diary';
 import Account from './components/Account/Account';
 import Backtesting from './components/Backtesting/Backtesting';
 
@@ -24,41 +22,19 @@ const App = () => {
   startDate.setDate(currentDate.getDate() - 1000);
   const formattedStartDate = startDate.toISOString().slice(0, 19).replace('T', ' ');
 
-  const [startDateState, setStartDateState] = useState(formattedStartDate);
-  const [endDate, setEndDate] = useState(formattedCurrentDate);
-  const [showLightweightChart, setShowLightweightChart] = useState(false);
-  const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
+  const [startDateState] = useState(formattedStartDate);
+  const [endDate] = useState(formattedCurrentDate);
 
   return (
     <div>
       <div className="grid grid-cols-1 gap-10">
         <div className="border-4 border-blue-500">
-          <div>
-            <button
-              className="py-2 px-4 bg-green-500 text-white rounded-lg mb-4"
-              onClick={() => setShowLightweightChart(!showLightweightChart)}
-            >
-              {showLightweightChart ? 'Switch to CandleStick Chart' : 'Switch to Lightweight Chart'}
-            </button>
-            {showLightweightChart ? (
-
-              <div className="border-4 border-green-500">
-                <LightweightChart 
-                  initialTemporalidad={initialTemporalidad}
-                  initialStartDate={startDateState}
-                  initialEndDate={endDate}
-                />
-              </div>
-            ) : (
-              <CandleStickChart 
-                initialTemporalidad={initialTemporalidad}
-                initialStartDate={startDateState}
-                initialEndDate={endDate}
-                setStartDate={setStartDateState}
-                setEndDate={setEndDate}
-                selectedAlarms={selectedAlarms}
-              />
-            )}
+          <div className="border-4 border-green-500">
+            <LightweightChart 
+              initialTemporalidad={initialTemporalidad}
+              initialStartDate={startDateState}
+              initialEndDate={endDate}
+            />
           </div>
         </div>
       </div>
@@ -113,7 +89,7 @@ const App = () => {
               <AlarmList />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              <Orders /> {/* Usa el nuevo componente Orders */}
+              <Orders />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <StrategyList />
