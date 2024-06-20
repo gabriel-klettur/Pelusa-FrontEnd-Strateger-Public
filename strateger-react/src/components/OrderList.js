@@ -1,20 +1,36 @@
+// Path: strateger-react/src/components/OrderList.js
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId } from '../slices/orderSlice';
+import { fetchOrders, setSelectedOrderId, setPage } from '../slices/orderSlice';
 
 const OrderList = () => {
   const dispatch = useDispatch();
-  const { orders, loading, error, selectedOrderId } = useSelector((state) => state.orders);
+  const { orders, loading, error, selectedOrderId, page, hasMore, offset } = useSelector((state) => state.orders);
 
   useEffect(() => {
-    dispatch(fetchOrders());
-  }, [dispatch]);
+    if (orders.length === 0) {
+      dispatch(fetchOrders({ limit: 500, offset: 0 }));
+    }
+  }, [dispatch, orders.length]);
+
+  const handlePreviousPage = () => {
+    dispatch(setPage(Math.max(page - 1, 0)));
+  };
+
+  const handleNextPage = () => {
+    const nextPage = page + 1;
+    if (nextPage * 20 >= orders.length && hasMore) {
+      dispatch(fetchOrders({ limit: 500, offset }));
+    }
+    dispatch(setPage(nextPage));
+  };
 
   const handleSelectOrder = (orderId) => {
     dispatch(setSelectedOrderId(orderId));
   };
 
-  if (loading) {
+  if (loading && orders.length === 0) {
     return <div className="text-center py-4">Cargando órdenes...</div>;
   }
 
@@ -25,6 +41,10 @@ const OrderList = () => {
   if (!orders || orders.length === 0) {
     return <div className="text-center py-4">No hay órdenes disponibles.</div>;
   }
+
+  const startIndex = page * 20;
+  const endIndex = startIndex + 20;
+  const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
   return (
     <div className="container mx-auto px-4 py-8 text-sm">
@@ -50,7 +70,7 @@ const OrderList = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {currentOrders.map((order) => (
             <tr
               key={order.orderId}
               className={`border-b hover:bg-gray-50 cursor-pointer ${selectedOrderId === order.orderId ? 'bg-gray-200' : ''}`}
@@ -76,6 +96,23 @@ const OrderList = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex justify-between mt-4">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          onClick={handlePreviousPage}
+          disabled={page === 0}
+        >
+          Anterior
+        </button>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={handleNextPage}
+          disabled={!hasMore && endIndex >= orders.length}
+        >
+          Siguiente
+        </button>
+      </div>
+      {loading && <div className="text-center py-4">Cargando más órdenes...</div>}
     </div>
   );
 };

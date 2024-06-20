@@ -6,8 +6,8 @@ import config from '../config';
 
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
-  async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders`);
+  async ({ limit, offset }) => {
+    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders?limit=${limit}&offset=${offset}`);
     const data = JSON.parse(response.data);  // Parsea la cadena JSON
     if (data && data.data && data.data.orders) {
       return data.data.orders;
@@ -24,10 +24,16 @@ const orderSlice = createSlice({
     loading: false,
     error: null,
     selectedOrderId: null,
+    offset: 0, // Nueva propiedad para manejar el desplazamiento
+    hasMore: true, // Nueva propiedad para saber si hay más órdenes que cargar
+    page: 0, // Nueva propiedad para manejar la paginación local
   },
   reducers: {
     setSelectedOrderId(state, action) {
       state.selectedOrderId = action.payload;
+    },
+    setPage(state, action) {
+      state.page = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -37,8 +43,12 @@ const orderSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
-        state.orders = action.payload;
+        if (action.payload.length < 500) {
+          state.hasMore = false; // Si se cargaron menos de 500 órdenes, no hay más para cargar
+        }
+        state.orders = [...state.orders, ...action.payload];
         state.loading = false;
+        state.offset += 500; // Incrementar el desplazamiento
       })
       .addCase(fetchOrders.rejected, (state, action) => {
         state.loading = false;
@@ -47,5 +57,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrderId } = orderSlice.actions;
+export const { setSelectedOrderId, setPage } = orderSlice.actions;
 export default orderSlice.reducer;
