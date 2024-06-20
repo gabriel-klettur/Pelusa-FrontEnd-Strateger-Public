@@ -30,7 +30,7 @@ const App = () => {
   const selectedAlarms = useSelector((state) => state.alarms.selectedAlarms);
 
   return (
-    <div className="container mx-auto p-4">
+    <div>
       <div className="grid grid-cols-1 gap-10">
         <div className="border-4 border-blue-500">
           <div>
@@ -41,11 +41,14 @@ const App = () => {
               {showLightweightChart ? 'Switch to CandleStick Chart' : 'Switch to Lightweight Chart'}
             </button>
             {showLightweightChart ? (
-              <LightweightChart 
-                initialTemporalidad={initialTemporalidad}
-                initialStartDate={startDateState}
-                initialEndDate={endDate}
-              />
+
+              <div className="border-4 border-green-500">
+                <LightweightChart 
+                  initialTemporalidad={initialTemporalidad}
+                  initialStartDate={startDateState}
+                  initialEndDate={endDate}
+                />
+              </div>
             ) : (
               <CandleStickChart 
                 initialTemporalidad={initialTemporalidad}
