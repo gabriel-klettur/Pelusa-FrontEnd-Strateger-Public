@@ -49,15 +49,8 @@ const adjustDates = (interval, startDate, endDate) => {
 
 export const fetchTradingViewChartData = createAsyncThunk(
   'tradingViewChart/fetchTradingViewChartData',
-  async ({ interval, startDate, endDate }, { getState, rejectWithValue }) => {
+  async ({ interval, startDate, endDate }, { rejectWithValue }) => {
     try {
-      const state = getState();
-      const existingData = state.tradingViewChart.data[interval];
-
-      if (existingData) {
-        return existingData;
-      }
-
       const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(interval, startDate, endDate);
 
       if (!expandedStartDate || !expandedEndDate || expandedStartDate >= expandedEndDate) {
@@ -87,7 +80,7 @@ export const fetchTradingViewChartData = createAsyncThunk(
 
         formattedData.sort((a, b) => a[0] - b[0]);
 
-        return { interval, data: formattedData };
+        return formattedData;
       } else {
         return rejectWithValue(resultData.msg || 'Unknown error from API');
       }
@@ -100,40 +93,18 @@ export const fetchTradingViewChartData = createAsyncThunk(
 const tradingViewChartSlice = createSlice({
   name: 'tradingViewChart',
   initialState: {
-    data: {},
+    data: [],
     loading: false,
     error: null,
     startDate: null,
     endDate: null,
-    interval: '1d',
+    interval: '1d'
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
       state.startDate = action.payload.startDate;
       state.endDate = action.payload.endDate;
       state.interval = action.payload.interval;
-    },
-    updateLastCandleSuccess(state, action) {
-      const interval = '1m';
-      const lastCandle = action.payload;
-
-      if (state.data[interval]) {
-        const data = [...state.data[interval]];
-        const lastIndex = data.length - 1;
-
-        if (data[lastIndex][0] === lastCandle[0]) {
-          // Actualizar la última vela existente
-          data[lastIndex] = lastCandle;
-        } else {
-          // Agregar una nueva vela
-          data.push(lastCandle);
-        }
-
-        state.data[interval] = data;
-      }
-    },
-    updateLastCandleError(state, action) {
-      state.error = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -143,7 +114,7 @@ const tradingViewChartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchTradingViewChartData.fulfilled, (state, action) => {
-        state.data[action.payload.interval] = action.payload.data;
+        state.data = action.payload;
         state.loading = false;
       })
       .addCase(fetchTradingViewChartData.rejected, (state, action) => {
@@ -153,7 +124,7 @@ const tradingViewChartSlice = createSlice({
   }
 });
 
-export const { setTradingViewChartParameters, updateLastCandleSuccess, updateLastCandleError } = tradingViewChartSlice.actions;
+export const { setTradingViewChartParameters } = tradingViewChartSlice.actions;
 export const selectTradingViewChartData = state => state.tradingViewChart.data;
 export const selectTradingViewChartLoading = state => state.tradingViewChart.loading;
 export const selectTradingViewChartError = state => state.tradingViewChart.error;
