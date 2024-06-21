@@ -78,12 +78,15 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   }, [data]);
 
   useEffect(() => {
-    if (chartRef.current && selectedAlarms.length > 0) {
-      alarmMarkersRef.current = mapAlarmsToMarkers(selectedAlarms);
-      const sortedMarkers = sortAndFilterMarkers(alarmMarkersRef.current);
-
-      console.log("Sorted markers for chart:", sortedMarkers);
-      candlestickSeriesRef.current.setMarkers(sortedMarkers);
+    if (chartRef.current) {
+      if (selectedAlarms.length > 0) {
+        alarmMarkersRef.current = mapAlarmsToMarkers(selectedAlarms);
+        const sortedMarkers = sortAndFilterMarkers(alarmMarkersRef.current);
+        candlestickSeriesRef.current.setMarkers(sortedMarkers);
+      } else {
+        // Clear markers if no alarms are selected
+        candlestickSeriesRef.current.setMarkers([]);
+      }
     }
   }, [selectedAlarms]);
 
