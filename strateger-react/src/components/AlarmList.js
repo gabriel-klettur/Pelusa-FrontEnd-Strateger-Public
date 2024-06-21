@@ -1,7 +1,9 @@
+// Path: strateger-react/src/components/AlarmList.js
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../slices/alarmSlice';
-import { setChartParameters } from '../slices/chartSlice';
+
 
 const AlarmList = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ const AlarmList = () => {
       dispatch(fetchAlarms({ limit: 500, offset }));
     }
     dispatch(setPage(nextPage));
-  };
+  };  
 
   const handleSelectAlarm = (alarm) => {
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
@@ -33,50 +35,10 @@ const AlarmList = () => {
       newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
     } else {
       newSelectedAlarms = [...selectedAlarms, alarm];
-
-      if (alarm.Entry_Price_Alert) {
-        let nextExitAlarm = null;
-        const alarmIndex = alarms.findIndex((a) => a.id === alarm.id);
-
-        for (let i = alarmIndex; i >= 0; i--) {
-          if (alarms[i].Exit_Price_Alert) {
-            nextExitAlarm = alarms[i];
-            break;
-          }
-        }
-
-        if (nextExitAlarm) {
-          newSelectedAlarms = [...newSelectedAlarms, nextExitAlarm];
-        }
-      }
-
-      if (alarm.Exit_Price_Alert) {
-        let previousEntryAlarm = null;
-        const alarmIndex = alarms.findIndex((a) => a.id === alarm.id);
-
-        for (let i = alarmIndex; i < alarms.length; i++) {
-          if (alarms[i].Entry_Price_Alert) {
-            previousEntryAlarm = alarms[i];
-            break;
-          }
-        }
-
-        if (previousEntryAlarm) {
-          newSelectedAlarms = [previousEntryAlarm, ...newSelectedAlarms];
-        }
-      }
     }
 
     dispatch(setSelectedAlarms(newSelectedAlarms));
-
-    if (newSelectedAlarms.length > 1) {
-      const sortedAlarms = [...newSelectedAlarms].sort((a, b) => new Date(a.Time_Alert) - new Date(b.Time_Alert));
-      const startDate = sortedAlarms[0].Time_Alert;
-      const endDate = sortedAlarms[sortedAlarms.length - 1].Time_Alert;
-      const temporalidad = alarm.Temporalidad;
-
-      dispatch(setChartParameters({ startDate, endDate, temporalidad }));
-    }
+    
   };
 
   if (loading && alarms.length === 0) {
