@@ -10,9 +10,11 @@ import diaryReducer from './slices/diarySlice';
 import accountReducer from './slices/accountSlice';
 import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
+import timeReducer from './slices/timeSlice';
 
 const store = configureStore({
   reducer: {
+    time: timeReducer,
     alarms: alarmReducer,
     orders: orderReducer,
     chart: chartReducer,
