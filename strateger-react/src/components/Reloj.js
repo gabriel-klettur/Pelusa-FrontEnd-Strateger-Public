@@ -19,6 +19,25 @@ const Reloj = () => {
 
   const formatTime = (time) => format(new Date(time), 'HH:mm:ss');
 
+  const tradingHours = {
+    China: { open: '09:30', close: '15:00' },
+    US: { open: '09:30', close: '16:00' },
+    Germany: { open: '09:00', close: '17:30' }
+  };
+
+  const isMarketOpen = (currentTime, market) => {
+    const [currentHour, currentMinute] = format(new Date(currentTime), 'HH:mm').split(':');
+    const currentTotalMinutes = parseInt(currentHour) * 60 + parseInt(currentMinute);
+    
+    const [openHour, openMinute] = tradingHours[market].open.split(':');
+    const openTotalMinutes = parseInt(openHour) * 60 + parseInt(openMinute);
+    
+    const [closeHour, closeMinute] = tradingHours[market].close.split(':');
+    const closeTotalMinutes = parseInt(closeHour) * 60 + parseInt(closeMinute);
+
+    return currentTotalMinutes >= openTotalMinutes && currentTotalMinutes <= closeTotalMinutes;
+  };
+
   return (
     <div className="bg-gray-100 rounded-lg p-2">
       <Popover className="relative">
@@ -26,15 +45,15 @@ const Reloj = () => {
           {formatTime(localTime)}
         </Popover.Button>
         <Popover.Panel className="absolute z-10 p-4 bg-white border rounded-lg shadow-lg bottom-full mb-2">
-          <div className="mb-2">
+          <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? 'green' : 'red' }}>
             <strong>China: </strong>
             {formatTime(chinaTime)}
           </div>
-          <div className="mb-2">
+          <div className="mb-2" style={{ color: isMarketOpen(usTime, 'US') ? 'green' : 'red' }}>
             <strong>Estados Unidos: </strong>
             {formatTime(usTime)}
           </div>
-          <div className="mb-2">
+          <div className="mb-2" style={{ color: isMarketOpen(germanyTime, 'Germany') ? 'green' : 'red' }}>
             <strong>Alemania: </strong>
             {formatTime(germanyTime)}
           </div>
