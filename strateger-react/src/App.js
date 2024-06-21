@@ -107,7 +107,7 @@ const App = () => {
           </TabPanels>
         </TabGroup>
       </div>
-      <div className="fixed bottom-4 right-10">
+      <div className="fixed bottom-4 right-20">
         <Reloj />
       </div>
     </div>

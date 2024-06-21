@@ -17,27 +17,29 @@ const Reloj = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  const formatTime = (time) => format(new Date(time), 'HH:mm:ss');
+
   return (
     <div className="bg-gray-100 rounded-lg p-2">
-        <Popover className="relative">
+      <Popover className="relative">
         <Popover.Button className="text-lg font-bold">
-            {format(localTime, 'HH:mm:ss')}
+          {formatTime(localTime)}
         </Popover.Button>
         <Popover.Panel className="absolute z-10 p-4 bg-white border rounded-lg shadow-lg bottom-full mb-2">
-            <div className="mb-2">
+          <div className="mb-2">
             <strong>China: </strong>
-            {chinaTime}
-            </div>
-            <div className="mb-2">
+            {formatTime(chinaTime)}
+          </div>
+          <div className="mb-2">
             <strong>Estados Unidos: </strong>
-            {usTime}
-            </div>
-            <div className="mb-2">
-            <strong>Alemania: </strong> {germanyTime}
-            
-            </div>
+            {formatTime(usTime)}
+          </div>
+          <div className="mb-2">
+            <strong>Alemania: </strong>
+            {formatTime(germanyTime)}
+          </div>
         </Popover.Panel>
-        </Popover>
+      </Popover>
     </div>
   );
 };
