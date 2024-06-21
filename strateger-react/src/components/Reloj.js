@@ -6,7 +6,7 @@ import { Popover } from '@headlessui/react';
 import { updateTime } from '../slices/timeSlice';
 import { format } from 'date-fns';
 
-const Reloj = () => {
+const Reloj = ({ direction = 'up' }) => {
   const dispatch = useDispatch();
   const { localTime, chinaTime, usTime, germanyTime } = useSelector((state) => state.time);
 
@@ -38,13 +38,15 @@ const Reloj = () => {
     return currentTotalMinutes >= openTotalMinutes && currentTotalMinutes <= closeTotalMinutes;
   };
 
+  const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
+
   return (
     <div className="bg-gray-100 rounded-lg p-2">
       <Popover className="relative">
         <Popover.Button className="text-lg font-bold">
           {formatTime(localTime)}
         </Popover.Button>
-        <Popover.Panel className="absolute z-10 p-4 bg-white border rounded-lg shadow-lg bottom-full mb-2">
+        <Popover.Panel className={`absolute z-10 p-4 bg-white border rounded-lg shadow-lg ${popoverPosition}`}>
           <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? 'green' : 'red' }}>
             <strong>China: </strong>
             {formatTime(chinaTime)}

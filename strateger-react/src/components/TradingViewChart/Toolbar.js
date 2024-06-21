@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Reloj from '../Reloj';
 
 const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateChange }) => {
   const [localDate, setLocalDate] = useState(startDate);
@@ -81,7 +82,8 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
       </div>
 
       <div className="grid grid-cols-3">
-        <div className="col-span-1 border-4 border-blue-400">
+        <div className="col-span-1 border-4 border-blue-400 flex justify-center items-center">
+          <Reloj direction="down" /> {/* Cambia a "down" si quieres que el Popover se despliegue hacia abajo */}
         </div>
         <div className="col-span-1 border-4 border-blue-400">
         </div>

@@ -108,7 +108,7 @@ const App = () => {
         </TabGroup>
       </div>
       <div className="fixed bottom-4 right-20">
-        <Reloj />
+        <Reloj direction="up" /> {/* Cambia a "down" si quieres que el Popover se despliegue hacia abajo */}
       </div>
     </div>
   );
