@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import Alarm from './components/Alarms/Alarm';
+import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
 import StrategyList from './components/Strategy/StrategyList';
@@ -84,7 +84,7 @@ const App = () => {
           </TabList>
           <TabPanels className="mt-2">
             <TabPanel className="bg-white rounded-xl p-3">
-              <Alarm />
+              <Alarms />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <Orders />
