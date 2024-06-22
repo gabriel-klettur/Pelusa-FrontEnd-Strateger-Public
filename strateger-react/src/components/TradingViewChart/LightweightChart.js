@@ -15,7 +15,7 @@ import { selectSelectedAlarms } from '../../slices/alarmSlice';         // Impor
 import Toolbar from './Toolbar';                                        // Importar la barra de herramientas            
 import { initializeChart } from './chartConfig';                        // Importar la función de inicialización del gráfico
 import { initializeSeries, setSeriesData } from './seriesConfig';       // Importar la configuración de series
-import { mapAlarmsToMarkers, sortAndFilterMarkers } from './Alarms';    // Importar las funciones de alarmas
+import { mapAlarmsToMarkers, sortAndFilterMarkers } from './Alarms';    // Importar la función actualizada de alarmas
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const dispatch = useDispatch();   
@@ -80,7 +80,8 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   useEffect(() => {
     if (chartRef.current) {
       if (selectedAlarms.length > 0) {
-        alarmMarkersRef.current = mapAlarmsToMarkers(selectedAlarms);
+        console.log("Current Chart Interval:", chartInterval);
+        alarmMarkersRef.current = mapAlarmsToMarkers(selectedAlarms, chartInterval); // Pasar el intervalo actual del gráfico
         const sortedMarkers = sortAndFilterMarkers(alarmMarkersRef.current);
         candlestickSeriesRef.current.setMarkers(sortedMarkers);
       } else {
@@ -88,7 +89,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         candlestickSeriesRef.current.setMarkers([]);
       }
     }
-  }, [selectedAlarms]);
+  }, [selectedAlarms, chartInterval]);
 
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);
