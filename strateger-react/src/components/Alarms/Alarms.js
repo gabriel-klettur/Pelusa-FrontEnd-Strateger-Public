@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Alarms/Alarms.js
-
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../../slices/alarmSlice';
@@ -18,6 +16,18 @@ const Alarms = () => {
       dispatch(fetchAlarms({ limit: 500, offset: 0 }));
     }
   }, [dispatch, alarms.length]);
+
+  useEffect(() => {
+    if (selectedTemporalidad || selectedTypes.length > 0) {
+      const filteredAlarms = alarms.filter(alarm => 
+        (selectedTemporalidad === '' || alarm.Temporalidad === selectedTemporalidad) &&
+        (selectedTypes.length === 0 || selectedTypes.includes(alarm.Order))
+      );
+      dispatch(setSelectedAlarms(filteredAlarms));
+    } else {
+      dispatch(setSelectedAlarms([]));
+    }
+  }, [selectedTemporalidad, selectedTypes, alarms, dispatch]);
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));
