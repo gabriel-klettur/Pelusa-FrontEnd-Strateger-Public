@@ -22,7 +22,7 @@ const AlarmList = ({ alarms, loading, error, page, selectedAlarms, hasMore, offs
   const currentAlarms = alarms.slice(startIndex, endIndex);
 
   return (
-    <div className="container mx-auto px-4 py-8 text-sm">
+    <div className="px-4 py-8 text-sm border-4 border-red-500">
       <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleSelectAlarm} />
       <Pagination 
         page={page} 
