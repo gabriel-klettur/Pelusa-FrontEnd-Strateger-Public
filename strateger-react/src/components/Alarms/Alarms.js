@@ -1,13 +1,17 @@
-// Path: strateger-react/src/components/Alarms/Alarm.js
+// Path: strateger-react/src/components/Alarms/Alarms.js
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../../slices/alarmSlice';
 import AlarmList from './AlarmList';
+import ToolAlarmBar from './ToolAlarmBar';
 
-const Alarm = () => {
+const Alarms = () => {
   const dispatch = useDispatch();
   const { alarms, loading, error, page, selectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
+
+  const [selectedTemporalidad, setSelectedTemporalidad] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
   useEffect(() => {
     if (alarms.length === 0) {
@@ -40,20 +44,33 @@ const Alarm = () => {
     dispatch(setSelectedAlarms(newSelectedAlarms));
   };
 
+  const filteredAlarms = alarms.filter(alarm => 
+    (selectedTemporalidad === '' || alarm.Temporalidad === selectedTemporalidad) &&
+    (selectedTypes.length === 0 || selectedTypes.includes(alarm.Order))
+  );
+
   return (
-    <AlarmList 
-      alarms={alarms} 
-      loading={loading} 
-      error={error} 
-      page={page} 
-      selectedAlarms={selectedAlarms} 
-      hasMore={hasMore} 
-      offset={offset} 
-      handlePreviousPage={handlePreviousPage} 
-      handleNextPage={handleNextPage} 
-      handleSelectAlarm={handleSelectAlarm} 
-    />
+    <>
+      <ToolAlarmBar 
+        selectedTemporalidad={selectedTemporalidad}
+        setSelectedTemporalidad={setSelectedTemporalidad}
+        selectedTypes={selectedTypes}
+        setSelectedTypes={setSelectedTypes}
+      />
+      <AlarmList 
+        alarms={filteredAlarms} 
+        loading={loading} 
+        error={error} 
+        page={page} 
+        selectedAlarms={selectedAlarms} 
+        hasMore={hasMore} 
+        offset={offset} 
+        handlePreviousPage={handlePreviousPage} 
+        handleNextPage={handleNextPage} 
+        handleSelectAlarm={handleSelectAlarm} 
+      />
+    </>
   );
 };
 
-export default Alarm;
+export default Alarms;
