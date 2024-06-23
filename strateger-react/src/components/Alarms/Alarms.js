@@ -1,3 +1,5 @@
+// Path: strateger-react/src/components/Alarms/Alarms.js
+
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms } from '../../slices/alarmSlice';
@@ -6,7 +8,7 @@ import ToolAlarmBar from './ToolAlarmBar';
 
 const Alarms = () => {
   const dispatch = useDispatch();
-  const { alarms, loading, error, page, selectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
+  const { alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
 
   const [selectedTemporalidad, setSelectedTemporalidad] = useState('');
   const [selectedTypes, setSelectedTypes] = useState({});
@@ -81,11 +83,12 @@ const Alarms = () => {
         setSelectedTypes={handleTypeChange}
       />
       <AlarmList 
-        alarms={selectedAlarms} 
+        alarms={alarms} 
         loading={loading} 
         error={error} 
         page={page} 
         selectedAlarms={selectedAlarms} 
+        allSelectedAlarms={allSelectedAlarms} 
         hasMore={hasMore} 
         offset={offset} 
         handlePreviousPage={handlePreviousPage} 
