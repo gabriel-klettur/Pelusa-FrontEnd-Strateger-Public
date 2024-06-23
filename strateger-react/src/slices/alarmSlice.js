@@ -11,6 +11,10 @@ export const fetchAlarms = createAsyncThunk(
   }
 );
 
+const initialFilteredTemporalidades = {
+  '1m': 0, '5m': 0, '15m': 0, '30m': 0, '1h': 0, '4h': 0, 'D': 0, 'W': 0, 'M': 0
+};
+
 const alarmSlice = createSlice({
   name: 'alarms',
   initialState: {
@@ -19,9 +23,10 @@ const alarmSlice = createSlice({
     error: null,
     page: 0,
     selectedAlarms: [],
-    allSelectedAlarms: [],  // Añadido
+    allSelectedAlarms: [],
     offset: 0,
     hasMore: true,
+    filteredTemporalidades: initialFilteredTemporalidades, // Añadido
   },
   reducers: {
     setPage(state, action) {
@@ -30,8 +35,16 @@ const alarmSlice = createSlice({
     setSelectedAlarms(state, action) {
       state.selectedAlarms = action.payload;
     },
-    setAllSelectedAlarms(state, action) {  // Añadido
+    setAllSelectedAlarms(state, action) {
       state.allSelectedAlarms = action.payload;
+    },
+    incrementTemporalidad(state, action) { // Añadido
+      state.filteredTemporalidades[action.payload]++;
+    },
+    decrementTemporalidad(state, action) { // Añadido
+      if (state.filteredTemporalidades[action.payload] > 0) {
+        state.filteredTemporalidades[action.payload]--;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -55,7 +68,8 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedAlarms, setAllSelectedAlarms } = alarmSlice.actions;
+export const { setPage, setSelectedAlarms, setAllSelectedAlarms, incrementTemporalidad, decrementTemporalidad } = alarmSlice.actions;
 export const selectSelectedAlarms = (state) => state.alarms.selectedAlarms;
+export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 
 export default alarmSlice.reducer;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { incrementTemporalidad, decrementTemporalidad, selectFilteredTemporalidades } from '../../slices/alarmSlice';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
 const types = [
@@ -14,11 +16,19 @@ const shortOrders = types.filter(type => type.includes('short') && type.includes
 const shortIndicators = types.filter(type => type.includes('short') && type.includes('indicator'));
 
 const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedTypes, setSelectedTypes }) => {
+  const dispatch = useDispatch();
+  const filteredTemporalidades = useSelector(selectFilteredTemporalidades);
+
   const toggleType = (type) => {
+    let updatedTypes;
     if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter(t => t !== type));
+      updatedTypes = selectedTypes.filter(t => t !== type);
+      setSelectedTypes(updatedTypes);
+      dispatch(decrementTemporalidad(selectedTemporalidad));
     } else {
-      setSelectedTypes([...selectedTypes, type]);
+      updatedTypes = [...selectedTypes, type];
+      setSelectedTypes(updatedTypes);
+      dispatch(incrementTemporalidad(selectedTemporalidad));
     }
   };
 
@@ -28,18 +38,18 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
 
   return (
     <div className="grid grid-cols-10 gap-4">
-      <div className="col-span-3 border-2 border-blue-500 flex flex-wrap justify-center items-center">
+      <div className="col-span-4 border-2 border-blue-500 flex flex-wrap justify-center items-center">
         {temporalidades.map(temp => (
           <button 
             key={temp} 
-            className={`px-4 py-2 rounded m-1 ${selectedTemporalidad === temp ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+            className={`px-4 py-2 rounded m-1 ${selectedTemporalidad === temp ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} ${filteredTemporalidades[temp] > 0 ? 'border-4 border-orange-300' : ''}`}
             onClick={() => toggleTemporalidad(temp)}
           >
             {temp}
           </button>
         ))}
       </div>
-      <div className="col-span-7 border-2 border-green-500 flex flex-wrap justify-center items-center">
+      <div className="col-span-6 border-2 border-green-500 flex flex-wrap justify-center items-center">
         <div className="w-full md:w-1/2 border-r-2 border-gray-300 flex flex-wrap justify-center items-center">
           <div className="w-full text-center mb-2 font-bold">Long - Orders</div>
           {longOrders.map(type => (
