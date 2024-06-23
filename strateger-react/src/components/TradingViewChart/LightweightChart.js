@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';               // Importar las funciones de dispatch y selectores
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchTradingViewChartData,
   setTradingViewChartParameters,
@@ -8,35 +8,32 @@ import {
   selectTradingViewChartStartDate,
   selectTradingViewChartEndDate,
   selectTradingViewChartInterval
-} from '../../slices/tradingViewChartSlice';                            // Importar las funciones y selectores del gráfico
-
-import { selectSelectedAlarms } from '../../slices/alarmSlice';         // Importar las alarmas seleccionadas
-
-import Toolbar from './Toolbar';                                        // Importar la barra de herramientas            
-import { initializeChart } from './chartConfig';                        // Importar la función de inicialización del gráfico
-import { initializeSeries, setSeriesData } from './seriesConfig';       // Importar la configuración de series
-import { mapAlarmsToMarkers, sortAndFilterMarkers } from './Alarms';    // Importar la función actualizada de alarmas
+} from '../../slices/tradingViewChartSlice';
+import Toolbar from './Toolbar';
+import { initializeChart } from './chartConfig';
+import { initializeSeries, setSeriesData } from './seriesConfig';
+import { mapAlarmsToMarkers, sortAndFilterMarkers } from './Alarms';
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
-  const dispatch = useDispatch();   
-  const data = useSelector(selectTradingViewChartData);                 // Obtener los datos del gráfico
-  const loading = useSelector(selectTradingViewChartLoading);           // Obtener el estado de carga
-  const chartStartDate = useSelector(selectTradingViewChartStartDate);  // Obtener la fecha de inicio del gráfico
-  const chartEndDate = useSelector(selectTradingViewChartEndDate);      // Obtener la fecha de fin del gráfico
-  const chartInterval = useSelector(selectTradingViewChartInterval);    // Obtener la temporalidad del gráfico
-  const selectedAlarms = useSelector(selectSelectedAlarms);             // Obtener las alarmas seleccionadas
+  const dispatch = useDispatch();
+  const data = useSelector(selectTradingViewChartData);
+  const loading = useSelector(selectTradingViewChartLoading);
+  const chartStartDate = useSelector(selectTradingViewChartStartDate);
+  const chartEndDate = useSelector(selectTradingViewChartEndDate);
+  const chartInterval = useSelector(selectTradingViewChartInterval);
+  const allSelectedAlarms = useSelector(state => state.alarms.allSelectedAlarms || []);  // Asegurar que esté definido
 
-  const chartContainerRef = useRef();                             // Crear una referencia al contenedor del gráfico
-  const chartRef = useRef();                                      // Crear una referencia al gráfico   
-  const candlestickSeriesRef = useRef();                          // Crear una referencia a la serie de velas
-  const ema10SeriesRef = useRef();                                // Crear una referencia a la serie EMA10            
-  const ema55SeriesRef = useRef();                                // Crear una referencia a la serie EMA55          
-  const ema200SeriesRef = useRef();                               // Crear una referencia a la serie EMA200
-  const alarmMarkersRef = useRef([]);                             // Crear una referencia a los marcadores de alarmas                    
+  const chartContainerRef = useRef();
+  const chartRef = useRef();
+  const candlestickSeriesRef = useRef();
+  const ema10SeriesRef = useRef();
+  const ema55SeriesRef = useRef();
+  const ema200SeriesRef = useRef();
+  const alarmMarkersRef = useRef([]);
   
-  const [interval, setInterval] = useState(initialTemporalidad);          // Crear un estado para la temporalidad
-  const [startDate, setStartDate] = useState(new Date(initialStartDate)); // Crear un estado para la fecha de inicio
-  const [endDate, setEndDate] = useState(new Date(initialEndDate));       // Crear un estado para la fecha de fin
+  const [interval, setInterval] = useState(initialTemporalidad);
+  const [startDate, setStartDate] = useState(new Date(initialStartDate));
+  const [endDate, setEndDate] = useState(new Date(initialEndDate));
 
   useEffect(() => {
     if (!chartStartDate || !chartEndDate) {
@@ -79,17 +76,15 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   useEffect(() => {
     if (chartRef.current) {
-      if (selectedAlarms.length > 0) {
-        console.log("Current Chart Interval:", chartInterval);
-        alarmMarkersRef.current = mapAlarmsToMarkers(selectedAlarms, chartInterval); // Pasar el intervalo actual del gráfico
+      if (allSelectedAlarms.length > 0) {  // Utiliza todas las alarmas seleccionadas
+        alarmMarkersRef.current = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
         const sortedMarkers = sortAndFilterMarkers(alarmMarkersRef.current);
         candlestickSeriesRef.current.setMarkers(sortedMarkers);
       } else {
-        // Clear markers if no alarms are selected
         candlestickSeriesRef.current.setMarkers([]);
       }
     }
-  }, [selectedAlarms, chartInterval]);
+  }, [allSelectedAlarms, chartInterval]);
 
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);

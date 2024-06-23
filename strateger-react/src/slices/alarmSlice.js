@@ -1,4 +1,4 @@
-//Path: strateger-react/src/slices/alarmSlice.js
+// Path: strateger-react/src/slices/alarmSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
@@ -19,8 +19,9 @@ const alarmSlice = createSlice({
     error: null,
     page: 0,
     selectedAlarms: [],
-    offset: 0, // Nueva propiedad para manejar el desplazamiento
-    hasMore: true, // Nueva propiedad para saber si hay más alarmas que cargar
+    allSelectedAlarms: [],  // Añadido
+    offset: 0,
+    hasMore: true,
   },
   reducers: {
     setPage(state, action) {
@@ -28,6 +29,9 @@ const alarmSlice = createSlice({
     },
     setSelectedAlarms(state, action) {
       state.selectedAlarms = action.payload;
+    },
+    setAllSelectedAlarms(state, action) {  // Añadido
+      state.allSelectedAlarms = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,11 +42,11 @@ const alarmSlice = createSlice({
       })
       .addCase(fetchAlarms.fulfilled, (state, action) => {
         if (action.payload.length < 500) {
-          state.hasMore = false; // Si se cargaron menos de 500 alarmas, no hay más para cargar
+          state.hasMore = false;
         }
         state.alarms = [...state.alarms, ...action.payload];
         state.loading = false;
-        state.offset += 500; // Incrementar el desplazamiento
+        state.offset += 500;
       })
       .addCase(fetchAlarms.rejected, (state, action) => {
         state.loading = false;
@@ -51,7 +55,7 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedAlarms } = alarmSlice.actions;
+export const { setPage, setSelectedAlarms, setAllSelectedAlarms } = alarmSlice.actions;
 export const selectSelectedAlarms = (state) => state.alarms.selectedAlarms;
 
 export default alarmSlice.reducer;

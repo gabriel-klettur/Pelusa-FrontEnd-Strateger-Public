@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Alarms/ToolAlarmBar.js
-
 import React from 'react';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
@@ -25,11 +23,7 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
   };
 
   const toggleTemporalidad = (temp) => {
-    if (selectedTemporalidad === temp) {
-      setSelectedTemporalidad('');  // Deseleccionar si ya está seleccionado
-    } else {
-      setSelectedTemporalidad(temp);
-    }
+    setSelectedTemporalidad(temp);
   };
 
   return (
@@ -47,8 +41,6 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
       </div>
       <div className="col-span-7 border-2 border-green-500 flex flex-wrap justify-center items-center">
         <div className="w-full md:w-1/2 border-r-2 border-gray-300 flex flex-wrap justify-center items-center">
-
-
           <div className="w-full text-center mb-2 font-bold">Long - Orders</div>
           {longOrders.map(type => (
             <button 
@@ -59,7 +51,6 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
               {type}
             </button>
           ))}
-          
           <div className="w-full text-center mb-2 font-bold">Long - Indicators</div>
           {longIndicators.map(type => (
             <button 
@@ -72,8 +63,6 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
           ))}
         </div>
         <div className="w-full md:w-1/2 flex flex-wrap justify-center items-center">
-
-
           <div className="w-full text-center mb-2 font-bold">Short - Orders</div>
           {shortOrders.map(type => (
             <button 
@@ -84,8 +73,6 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
               {type}
             </button>
           ))}
-
-
           <div className="w-full text-center mb-2 font-bold">Short - Indicators</div>
           {shortIndicators.map(type => (
             <button 
@@ -96,8 +83,6 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
               {type}
             </button>
           ))}
-
-
         </div>
       </div>
     </div>

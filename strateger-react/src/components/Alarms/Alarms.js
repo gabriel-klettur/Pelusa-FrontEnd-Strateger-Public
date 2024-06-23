@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage, setSelectedAlarms } from '../../slices/alarmSlice';
+import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms } from '../../slices/alarmSlice';
 import AlarmList from './AlarmList';
 import ToolAlarmBar from './ToolAlarmBar';
 
@@ -9,7 +9,7 @@ const Alarms = () => {
   const { alarms, loading, error, page, selectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
 
   const [selectedTemporalidad, setSelectedTemporalidad] = useState('');
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState({});
 
   useEffect(() => {
     if (alarms.length === 0) {
@@ -18,10 +18,24 @@ const Alarms = () => {
   }, [dispatch, alarms.length]);
 
   useEffect(() => {
-    if (selectedTemporalidad || selectedTypes.length > 0) {
+    const allAlarms = [];
+    Object.keys(selectedTypes).forEach(temporalidad => {
+      const types = selectedTypes[temporalidad] || [];
+      const filteredAlarms = alarms.filter(alarm => 
+        (temporalidad === '' || alarm.Temporalidad === temporalidad) &&
+        (types.length === 0 || types.includes(alarm.Order))
+      );
+      allAlarms.push(...filteredAlarms);
+    });
+    dispatch(setAllSelectedAlarms(allAlarms));
+  }, [selectedTypes, alarms, dispatch]);
+
+  useEffect(() => {
+    if (selectedTemporalidad) {
+      const types = selectedTypes[selectedTemporalidad] || [];
       const filteredAlarms = alarms.filter(alarm => 
         (selectedTemporalidad === '' || alarm.Temporalidad === selectedTemporalidad) &&
-        (selectedTypes.length === 0 || selectedTypes.includes(alarm.Order))
+        (types.length === 0 || types.includes(alarm.Order))
       );
       dispatch(setSelectedAlarms(filteredAlarms));
     } else {
@@ -39,7 +53,7 @@ const Alarms = () => {
       dispatch(fetchAlarms({ limit: 500, offset }));
     }
     dispatch(setPage(nextPage));
-  };  
+  };
 
   const handleSelectAlarm = (alarm) => {
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
@@ -54,21 +68,20 @@ const Alarms = () => {
     dispatch(setSelectedAlarms(newSelectedAlarms));
   };
 
-  const filteredAlarms = alarms.filter(alarm => 
-    (selectedTemporalidad === '' || alarm.Temporalidad === selectedTemporalidad) &&
-    (selectedTypes.length === 0 || selectedTypes.includes(alarm.Order))
-  );
+  const handleTypeChange = (types) => {
+    setSelectedTypes({ ...selectedTypes, [selectedTemporalidad]: types });
+  };
 
   return (
     <>
       <ToolAlarmBar 
         selectedTemporalidad={selectedTemporalidad}
         setSelectedTemporalidad={setSelectedTemporalidad}
-        selectedTypes={selectedTypes}
-        setSelectedTypes={setSelectedTypes}
+        selectedTypes={selectedTypes[selectedTemporalidad] || []}
+        setSelectedTypes={handleTypeChange}
       />
       <AlarmList 
-        alarms={filteredAlarms} 
+        alarms={selectedAlarms} 
         loading={loading} 
         error={error} 
         page={page} 
