@@ -29,13 +29,6 @@ const getCandleTime = (time, interval) => {
   }
 };
 
-const formatDate = (timestamp) => {
-  const date = new Date(timestamp * 1000);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}:${month}:${year}`;
-};
 
 export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
   const groupedAlarms = {};
@@ -43,9 +36,7 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
   selectedAlarms.forEach(alarm => {
     const alarmTime = Math.floor(new Date(alarm.Time_Alert).getTime() / 1000);
     const candleTime = getCandleTime(alarmTime, interval);
-
-    console.log(`Alarm Time: ${formatDate(alarmTime)}, Candle Time: ${formatDate(candleTime)}`);
-
+    
     const key = `${candleTime}_${alarm.Order}_${alarm.Temporalidad}`;
 
     if (!groupedAlarms[key]) {
@@ -54,7 +45,7 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
     groupedAlarms[key].push(alarm);
   });
 
-  console.log("Grouped Alarms:", groupedAlarms);
+  
 
   const markers = [];
 
@@ -139,8 +130,7 @@ export const sortAndFilterMarkers = (markers) => {
     .filter((item, index, array) => {
       if (index === 0 || item.time !== array[index - 1].time || item.text !== array[index - 1].text) {
         return true;
-      } else {
-        console.warn("Duplicate time found and removed:", item);
+      } else {        
         return false;
       }
     });
