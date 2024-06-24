@@ -4,7 +4,7 @@ import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-const dropdownOptions = ['Option 1', 'Option 2', 'Option 3']; // Example options
+const dropdownOptions = ['1m', '5m', '15m', '30m', '1h', '4h','D', 'W', 'M']; // Example options
 
 const renderDropdownMenu = (label, name, value, handleChange) => (
   <div className="mb-1 grid grid-cols-4 gap-4">
