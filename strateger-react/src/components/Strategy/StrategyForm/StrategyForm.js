@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import DirectionTabOptions from './DirectionTabOptions';
 import TPSLOptions from './TPSLOptions';
 
-const tickers = ['BTC-USD', 'ETH-USD'];
+const tickers = ['BTCUSDT.PS', 'ETH-USD'];
 
 const StrategyForm = ({ strategy, onSave, onCancel }) => {
   const [formState, setFormState] = useState({
