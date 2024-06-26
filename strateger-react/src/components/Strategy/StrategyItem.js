@@ -1,7 +1,5 @@
-// Path: strateger-react/src/components/Strategy/StrategyItem.js
-
 import React from 'react';
-import './StrategyItem.css'; // Asegúrate de crear y enlazar este archivo CSS
+import './StrategyItem.css';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const onOffClass = strategy.isOn ? 'bg-green-500 text-white blink-background' : 'bg-gray-500 text-white';
@@ -18,6 +16,8 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
           <p><strong>Ticker:</strong> {strategy.ticker}</p>
           <p><strong>Resultado Acc:</strong> {strategy.resultadoAcc}</p>
           <p><strong>Descripción:</strong> {strategy.description}</p>
+          <p><strong>On Start Date:</strong> {strategy.onStartDate}</p>
+          <p><strong>Off End Date:</strong> {strategy.offEndDate}</p>
         </div>
 
         <div className="col-span-4 grid grid-cols-4 gap-4 border border-gray-300 p-4 bg-green-100">

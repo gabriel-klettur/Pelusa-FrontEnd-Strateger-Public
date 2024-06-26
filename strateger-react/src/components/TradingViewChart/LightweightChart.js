@@ -106,7 +106,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   };
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <Toolbar
         activeInterval={interval}
         onIntervalChange={handleIntervalChange}
@@ -114,7 +114,22 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
         endDate={endDate}
         onDateChange={handleDateChange}
       />
-      <div ref={chartContainerRef} className="w-full h-96 border-4 border-black mt-1"></div>
+      <div className="grid grid-cols-10 gap-2">
+        <div className="col-span-6 p-1">          
+          <div ref={chartContainerRef} className="w-full h-96 border-4 border-black mt-1"></div>
+        </div>
+        <div className="col-span-4 mt-2">
+          <div className="flex flex-col border-4 border-black p-2">
+            RESUME ALL with Tabs:<br></br>
+            - Estrategias Activas <br></br>
+            - Situacion de cuenta <br></br>
+            - Ultimas operaciones <br></br>
+            - Ultimas entradas de Diario <br></br>
+            - Noticias
+          </div>
+        </div>
+      </div>
+      
       {loading && <p>Loading...</p>}
     </div>
   );

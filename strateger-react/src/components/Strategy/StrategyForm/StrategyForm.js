@@ -9,12 +9,14 @@ const tickers = ['BTCUSDT.PS', 'ETH-USD'];
 const StrategyForm = ({ strategy, onSave, onCancel }) => {
   const [formState, setFormState] = useState({
     name: '',
-    isOn: false, // Cambiamos a false inicialmente
+    isOn: false,
     apiKey: '',
     secretKey: '',
     ticker: tickers[0],
     resultadoAcc: '',
     description: '',
+    onStartDate: '',
+    offEndDate: '',
     longEntryOrder: '',
     longCloseOrder: '',
     longEntryIndicator: '',
@@ -60,10 +62,20 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
     });
   };
 
+  const formatDateString = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const formattedDate = date.toISOString().split('T')[0];
+    const formattedTime = date.toTimeString().split(' ')[0];
+    return `${formattedDate} ${formattedTime}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const adjustedFormState = {
       ...formState,
+      onStartDate: formatDateString(formState.onStartDate),
+      offEndDate: formatDateString(formState.offEndDate),
       longPyramiding: formState.longPyramiding === '' ? 0 : parseInt(formState.longPyramiding, 10),
       longLeverage: formState.longLeverage === '' ? 0 : parseFloat(formState.longLeverage),
       longQuantity: formState.longQuantity === '' ? 0 : parseFloat(formState.longQuantity),
@@ -264,6 +276,27 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
                 </Popover>
               </div>
             </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2">On Start Date</label>
+            <input
+              type="datetime-local"
+              name="onStartDate"
+              value={formState.onStartDate}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2">Off End Date</label>
+            <input
+              type="datetime-local"
+              name="offEndDate"
+              value={formState.offEndDate}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
