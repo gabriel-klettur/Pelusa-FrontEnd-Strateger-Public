@@ -13,32 +13,57 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const borderColorClass = strategy.isOn ? 'border-green-500 blink-border' : 'border-gray-300';  
 
   const handleViewInChart = () => {
-    const filteredAlarms = allAlarms.filter((alarm) => {
-      const alarmTime = new Date(alarm.Time_Alert).getTime();
-      const startTime = new Date(strategy.onStartDate).getTime();
-      const endTime = strategy.offEndDate ? new Date(strategy.offEndDate).getTime() : Date.now();
+    // Obtener las alarmas de 'indicator open long' y 'indicator close long'
+    const openLongAlarms = allAlarms.filter(alarm => 
+      alarm.Temporalidad === strategy.longEntryIndicator && alarm.Order === 'indicator open long'
+    );
+    const closeLongAlarms = allAlarms.filter(alarm => 
+      alarm.Temporalidad === strategy.longCloseIndicator && alarm.Order === 'indicator close long'
+    );
 
-      const matchesStrategyName = alarm.Strategy === strategy.name;
-      const isInTimeRange = alarmTime >= startTime && alarmTime <= endTime;
+    const startTime = new Date(strategy.onStartDate).getTime();
+    const endTime = strategy.offEndDate ? new Date(strategy.offEndDate).getTime() : Date.now();
 
-      const matchesLongEntryOrder = alarm.Temporalidad === strategy.longEntryOrder && 
-        (alarm.Order === 'order open long' || alarm.Order === 'indicator open long');
+    const filteredAlarms = [];
 
-      const matchesLongCloseOrder = alarm.Temporalidad === strategy.longCloseOrder && 
-        (alarm.Order === 'order close long' || alarm.Order === 'indicator close long');
-
-      const matchesLongEntryIndicator = alarm.Temporalidad === strategy.longEntryIndicator && 
-        alarm.Order === 'indicator open long';
-
-      const matchesLongCloseIndicator = alarm.Temporalidad === strategy.longCloseIndicator && 
-        alarm.Order === 'indicator close long';
-
-      return matchesStrategyName && isInTimeRange && (
-        matchesLongEntryOrder ||
-        matchesLongCloseOrder ||
-        matchesLongEntryIndicator ||
-        matchesLongCloseIndicator
+    // Iterar sobre las alarmas de 'indicator open long' y 'indicator close long'
+    openLongAlarms.forEach(openLongAlarm => {
+      const openLongTime = new Date(openLongAlarm.Time_Alert).getTime();
+      const closeLongAlarm = closeLongAlarms.find(alarm => 
+        new Date(alarm.Time_Alert).getTime() > openLongTime
       );
+      const closeLongTime = closeLongAlarm ? new Date(closeLongAlarm.Time_Alert).getTime() : Date.now();
+
+      // Ajustar el rango de tiempo con 'strategy.onStartDate' y 'strategy.offEndDate'
+      const effectiveStartTime = Math.max(openLongTime, startTime);
+      const effectiveEndTime = Math.min(closeLongTime, endTime);
+
+      // Filtrar alarmas en el rango de tiempo entre 'indicator open long' y 'indicator close long'
+      const alarmsInRange = allAlarms.filter(alarm => {
+        const alarmTime = new Date(alarm.Time_Alert).getTime();
+        return alarmTime >= effectiveStartTime && alarmTime <= effectiveEndTime;
+      });
+
+      const relevantAlarms = alarmsInRange.filter(alarm => {
+        const matchesStrategyName = alarm.Strategy === strategy.name;
+        const matchesLongEntryOrder = alarm.Temporalidad === strategy.longEntryOrder && 
+          (alarm.Order === 'order open long' || alarm.Order === 'indicator open long');
+        const matchesLongCloseOrder = alarm.Temporalidad === strategy.longCloseOrder && 
+          (alarm.Order === 'order close long' || alarm.Order === 'indicator close long');
+        const matchesLongEntryIndicator = alarm.Temporalidad === strategy.longEntryIndicator && 
+          alarm.Order === 'indicator open long';
+        const matchesLongCloseIndicator = alarm.Temporalidad === strategy.longCloseIndicator && 
+          alarm.Order === 'indicator close long';
+
+        return matchesStrategyName && (
+          matchesLongEntryOrder ||
+          matchesLongCloseOrder ||
+          matchesLongEntryIndicator ||
+          matchesLongCloseIndicator
+        );
+      });
+
+      filteredAlarms.push(...relevantAlarms);
     });
 
     dispatch(setStrategyFilteredAlarms(filteredAlarms));
@@ -146,4 +171,3 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 };
 
 export default StrategyItem;
-
