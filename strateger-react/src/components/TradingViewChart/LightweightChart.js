@@ -1,3 +1,5 @@
+// Path: strateger-react/src/components/TradingViewChart/LightweightChart.js
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,6 +15,7 @@ import Toolbar from './Toolbar';
 import { initializeChart } from './chartConfig';
 import { initializeSeries, setSeriesData } from './seriesConfig';
 import { mapAlarmsToMarkers, sortAndFilterMarkers } from './Alarms';
+import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../slices/alarmSlice';
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const dispatch = useDispatch();
@@ -21,7 +24,8 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const chartStartDate = useSelector(selectTradingViewChartStartDate);
   const chartEndDate = useSelector(selectTradingViewChartEndDate);
   const chartInterval = useSelector(selectTradingViewChartInterval);
-  const allSelectedAlarms = useSelector(state => state.alarms.allSelectedAlarms || []);  // Asegurar que esté definido
+  const strategyFilteredAlarms = useSelector(selectStrategyFilteredAlarms);  // Usa el nuevo estado
+  const allSelectedAlarms = useSelector(selectAllSelectedAlarms); // Mantenemos el uso de allSelectedAlarms
 
   const chartContainerRef = useRef();
   const chartRef = useRef();
@@ -29,7 +33,6 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const ema10SeriesRef = useRef();
   const ema55SeriesRef = useRef();
   const ema200SeriesRef = useRef();
-  const alarmMarkersRef = useRef([]);
   
   const [interval, setInterval] = useState(initialTemporalidad);
   const [startDate, setStartDate] = useState(new Date(initialStartDate));
@@ -76,15 +79,16 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 
   useEffect(() => {
     if (chartRef.current) {
-      if (allSelectedAlarms.length > 0) {  // Utiliza todas las alarmas seleccionadas
-        alarmMarkersRef.current = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
-        const sortedMarkers = sortAndFilterMarkers(alarmMarkersRef.current);
-        candlestickSeriesRef.current.setMarkers(sortedMarkers);
-      } else {
-        candlestickSeriesRef.current.setMarkers([]);
+      let markers = [];
+      if (strategyFilteredAlarms.length > 0) {
+        markers = mapAlarmsToMarkers(strategyFilteredAlarms, chartInterval);
+      } else if (allSelectedAlarms.length > 0) {
+        markers = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
       }
+      const sortedMarkers = sortAndFilterMarkers(markers);
+      candlestickSeriesRef.current.setMarkers(sortedMarkers);
     }
-  }, [allSelectedAlarms, chartInterval]);
+  }, [strategyFilteredAlarms, allSelectedAlarms, chartInterval]);
 
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);
@@ -136,3 +140,4 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
 };
 
 export default LightweightChart;
+

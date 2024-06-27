@@ -1,4 +1,5 @@
 // Path: strateger-react/src/slices/alarmSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
@@ -24,6 +25,7 @@ const alarmSlice = createSlice({
     page: 0,
     selectedAlarms: [],
     allSelectedAlarms: [],
+    strategyFilteredAlarms: [],  // Añadido
     offset: 0,
     hasMore: true,
     filteredTemporalidades: initialFilteredTemporalidades, // Añadido
@@ -37,6 +39,9 @@ const alarmSlice = createSlice({
     },
     setAllSelectedAlarms(state, action) {
       state.allSelectedAlarms = action.payload;
+    },
+    setStrategyFilteredAlarms(state, action) { // Añadido
+      state.strategyFilteredAlarms = action.payload;
     },
     incrementTemporalidad(state, action) { // Añadido
       state.filteredTemporalidades[action.payload]++;
@@ -68,8 +73,11 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedAlarms, setAllSelectedAlarms, incrementTemporalidad, decrementTemporalidad } = alarmSlice.actions;
+export const { setPage, setSelectedAlarms, setAllSelectedAlarms, setStrategyFilteredAlarms, incrementTemporalidad, decrementTemporalidad } = alarmSlice.actions;
 export const selectSelectedAlarms = (state) => state.alarms.selectedAlarms;
+export const selectAllSelectedAlarms = (state) => state.alarms.allSelectedAlarms; // Añadido para seleccionar allSelectedAlarms
+export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms; // Añadido para seleccionar strategyFilteredAlarms
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 
 export default alarmSlice.reducer;
+

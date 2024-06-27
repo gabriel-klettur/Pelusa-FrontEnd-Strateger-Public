@@ -1,9 +1,48 @@
+// Path: strateger-react/src/components/Strategy/StrategyItem.js
+
 import React from 'react';
 import './StrategyItem.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
+  const dispatch = useDispatch();
+  const allAlarms = useSelector((state) => state.alarms.alarms);
+
   const onOffClass = strategy.isOn ? 'bg-green-500 text-white blink-background' : 'bg-gray-500 text-white';
   const borderColorClass = strategy.isOn ? 'border-green-500 blink-border' : 'border-gray-300';  
+
+  const handleViewInChart = () => {
+    const filteredAlarms = allAlarms.filter((alarm) => {
+      const alarmTime = new Date(alarm.Time_Alert).getTime();
+      const startTime = new Date(strategy.onStartDate).getTime();
+      const endTime = strategy.offEndDate ? new Date(strategy.offEndDate).getTime() : Date.now();
+
+      const matchesStrategyName = alarm.Strategy === strategy.name;
+      const isInTimeRange = alarmTime >= startTime && alarmTime <= endTime;
+
+      const matchesLongEntryOrder = alarm.Temporalidad === strategy.longEntryOrder && 
+        (alarm.Order === 'order open long' || alarm.Order === 'indicator open long');
+
+      const matchesLongCloseOrder = alarm.Temporalidad === strategy.longCloseOrder && 
+        (alarm.Order === 'order close long' || alarm.Order === 'indicator close long');
+
+      const matchesLongEntryIndicator = alarm.Temporalidad === strategy.longEntryIndicator && 
+        alarm.Order === 'indicator open long';
+
+      const matchesLongCloseIndicator = alarm.Temporalidad === strategy.longCloseIndicator && 
+        alarm.Order === 'indicator close long';
+
+      return matchesStrategyName && isInTimeRange && (
+        matchesLongEntryOrder ||
+        matchesLongCloseOrder ||
+        matchesLongEntryIndicator ||
+        matchesLongCloseIndicator
+      );
+    });
+
+    dispatch(setStrategyFilteredAlarms(filteredAlarms));
+  };
 
   return (
     <div className={`bg-white shadow rounded-lg p-4 mb-4 border-2 ${borderColorClass}`}>
@@ -88,7 +127,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
         <button 
           className="bg-pink-500 text-white px-4 py-2 rounded col-span-2"
-          onClick={() => onDelete(strategy.id)}
+          onClick={handleViewInChart}
         >
           VER EN GRAFICO
         </button>
@@ -107,3 +146,4 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 };
 
 export default StrategyItem;
+
