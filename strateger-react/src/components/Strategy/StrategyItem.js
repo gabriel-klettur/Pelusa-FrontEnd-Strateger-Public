@@ -1,6 +1,6 @@
 // Path: strateger-react/src/components/Strategy/StrategyItem.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import './StrategyItem.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
@@ -8,12 +8,64 @@ import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();
   const allAlarms = useSelector((state) => state.alarms.alarms);
+  const [isShowingAlarms, setIsShowingAlarms] = useState(false);
 
   const onOffClass = strategy.isOn ? 'bg-green-500 text-white blink-background' : 'bg-gray-500 text-white';
   const borderColorClass = strategy.isOn ? 'border-green-500 blink-border' : 'border-gray-300';  
 
   const handleViewInChart = () => {
-    // Obtener las alarmas de 'indicator open long' y 'indicator close long'
+    if (isShowingAlarms) {
+      dispatch(setStrategyFilteredAlarms([]));
+      setIsShowingAlarms(false);
+      return;
+    }
+
+    const startTime = new Date(strategy.onStartDate).getTime();
+    const endTime = strategy.offEndDate ? new Date(strategy.offEndDate).getTime() : Date.now();
+
+    const filteredAlarms = [];
+
+    // Función para filtrar alarmas por indicador y órdenes
+    const filterAlarmsByIndicatorsAndOrders = (openAlarms, closeAlarms, entryOrder, closeOrder, entryIndicator, closeIndicator, orderType) => {
+      openAlarms.forEach(openAlarm => {
+        const openTime = new Date(openAlarm.Time_Alert).getTime();
+        const closeAlarm = closeAlarms.find(alarm => 
+          new Date(alarm.Time_Alert).getTime() > openTime
+        );
+        const closeTime = closeAlarm ? new Date(closeAlarm.Time_Alert).getTime() : Date.now();
+
+        const effectiveStartTime = Math.max(openTime, startTime);
+        const effectiveEndTime = Math.min(closeTime, endTime);
+
+        const alarmsInRange = allAlarms.filter(alarm => {
+          const alarmTime = new Date(alarm.Time_Alert).getTime();
+          return alarmTime >= effectiveStartTime && alarmTime <= effectiveEndTime;
+        });
+
+        const relevantAlarms = alarmsInRange.filter(alarm => {
+          const matchesStrategyName = alarm.Strategy === strategy.name;
+          const matchesEntryOrder = alarm.Temporalidad === entryOrder && 
+            (alarm.Order === `order open ${orderType}` || alarm.Order === `indicator open ${orderType}`);
+          const matchesCloseOrder = alarm.Temporalidad === closeOrder && 
+            (alarm.Order === `order close ${orderType}` || alarm.Order === `indicator close ${orderType}`);
+          const matchesEntryIndicator = alarm.Temporalidad === entryIndicator && 
+            alarm.Order === `indicator open ${orderType}`;
+          const matchesCloseIndicator = alarm.Temporalidad === closeIndicator && 
+            alarm.Order === `indicator close ${orderType}`;
+
+          return matchesStrategyName && (
+            matchesEntryOrder ||
+            matchesCloseOrder ||
+            matchesEntryIndicator ||
+            matchesCloseIndicator
+          );
+        });
+
+        filteredAlarms.push(...relevantAlarms);
+      });
+    };
+
+    // Filtrar long alarms
     const openLongAlarms = allAlarms.filter(alarm => 
       alarm.Temporalidad === strategy.longEntryIndicator && alarm.Order === 'indicator open long'
     );
@@ -21,52 +73,20 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
       alarm.Temporalidad === strategy.longCloseIndicator && alarm.Order === 'indicator close long'
     );
 
-    const startTime = new Date(strategy.onStartDate).getTime();
-    const endTime = strategy.offEndDate ? new Date(strategy.offEndDate).getTime() : Date.now();
+    filterAlarmsByIndicatorsAndOrders(openLongAlarms, closeLongAlarms, strategy.longEntryOrder, strategy.longCloseOrder, strategy.longEntryIndicator, strategy.longCloseIndicator, 'long');
 
-    const filteredAlarms = [];
+    // Filtrar short alarms
+    const openShortAlarms = allAlarms.filter(alarm => 
+      alarm.Temporalidad === strategy.shortEntryIndicator && alarm.Order === 'indicator open short'
+    );
+    const closeShortAlarms = allAlarms.filter(alarm => 
+      alarm.Temporalidad === strategy.shortCloseIndicator && alarm.Order === 'indicator close short'
+    );
 
-    // Iterar sobre las alarmas de 'indicator open long' y 'indicator close long'
-    openLongAlarms.forEach(openLongAlarm => {
-      const openLongTime = new Date(openLongAlarm.Time_Alert).getTime();
-      const closeLongAlarm = closeLongAlarms.find(alarm => 
-        new Date(alarm.Time_Alert).getTime() > openLongTime
-      );
-      const closeLongTime = closeLongAlarm ? new Date(closeLongAlarm.Time_Alert).getTime() : Date.now();
-
-      // Ajustar el rango de tiempo con 'strategy.onStartDate' y 'strategy.offEndDate'
-      const effectiveStartTime = Math.max(openLongTime, startTime);
-      const effectiveEndTime = Math.min(closeLongTime, endTime);
-
-      // Filtrar alarmas en el rango de tiempo entre 'indicator open long' y 'indicator close long'
-      const alarmsInRange = allAlarms.filter(alarm => {
-        const alarmTime = new Date(alarm.Time_Alert).getTime();
-        return alarmTime >= effectiveStartTime && alarmTime <= effectiveEndTime;
-      });
-
-      const relevantAlarms = alarmsInRange.filter(alarm => {
-        const matchesStrategyName = alarm.Strategy === strategy.name;
-        const matchesLongEntryOrder = alarm.Temporalidad === strategy.longEntryOrder && 
-          (alarm.Order === 'order open long' || alarm.Order === 'indicator open long');
-        const matchesLongCloseOrder = alarm.Temporalidad === strategy.longCloseOrder && 
-          (alarm.Order === 'order close long' || alarm.Order === 'indicator close long');
-        const matchesLongEntryIndicator = alarm.Temporalidad === strategy.longEntryIndicator && 
-          alarm.Order === 'indicator open long';
-        const matchesLongCloseIndicator = alarm.Temporalidad === strategy.longCloseIndicator && 
-          alarm.Order === 'indicator close long';
-
-        return matchesStrategyName && (
-          matchesLongEntryOrder ||
-          matchesLongCloseOrder ||
-          matchesLongEntryIndicator ||
-          matchesLongCloseIndicator
-        );
-      });
-
-      filteredAlarms.push(...relevantAlarms);
-    });
+    filterAlarmsByIndicatorsAndOrders(openShortAlarms, closeShortAlarms, strategy.shortEntryOrder, strategy.shortCloseOrder, strategy.shortEntryIndicator, strategy.shortCloseIndicator, 'short');
 
     dispatch(setStrategyFilteredAlarms(filteredAlarms));
+    setIsShowingAlarms(true);
   };
 
   return (
@@ -151,10 +171,10 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
         </button>
 
         <button 
-          className="bg-pink-500 text-white px-4 py-2 rounded col-span-2"
+          className={`bg-pink-500 text-white px-4 py-2 rounded col-span-2 ${isShowingAlarms ? 'bg-red-500' : 'bg-pink-500'}`}
           onClick={handleViewInChart}
         >
-          VER EN GRAFICO
+          {isShowingAlarms ? 'LIMPIAR GRAFICO' : 'VER EN GRAFICO'}
         </button>
 
         <div className="col-span-4"></div>
