@@ -71,9 +71,9 @@ const OrderList = () => {
           </tr>
         </thead>
         <tbody>
-          {currentOrders.map((order) => (
+          {currentOrders.map((order, index) => (
             <tr
-              key={order.orderId}
+              key={`${order.orderId}-${index}`}
               className={`border-b hover:bg-gray-50 cursor-pointer ${selectedOrderId === order.orderId ? 'bg-gray-200' : ''}`}
               onClick={() => handleSelectOrder(order.orderId)}
             >
