@@ -1,6 +1,7 @@
 // Path: strateger-react/src/slices/orderSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 import axios from 'axios';
 import config from '../config';
 
@@ -17,6 +18,13 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
+const initialFilteredOrders = {
+  Side: [],
+  Symbol: '',
+  PositionSide: '',
+  Type: ''
+};
+
 const orderSlice = createSlice({
   name: 'orders',
   initialState: {
@@ -24,9 +32,10 @@ const orderSlice = createSlice({
     loading: false,
     error: null,
     selectedOrderId: null,
-    offset: 0, // Nueva propiedad para manejar el desplazamiento
-    hasMore: true, // Nueva propiedad para saber si hay más órdenes que cargar
-    page: 0, // Nueva propiedad para manejar la paginación local
+    offset: 0,
+    hasMore: true,
+    page: 0,
+    filteredOrders: initialFilteredOrders,
   },
   reducers: {
     setSelectedOrderId(state, action) {
@@ -35,6 +44,9 @@ const orderSlice = createSlice({
     setPage(state, action) {
       state.page = action.payload;
     },
+    setFilteredOrders(state, action) {
+      state.filteredOrders = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -44,11 +56,11 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
         if (action.payload.length < 500) {
-          state.hasMore = false; // Si se cargaron menos de 500 órdenes, no hay más para cargar
+          state.hasMore = false;
         }
         state.orders = [...state.orders, ...action.payload];
         state.loading = false;
-        state.offset += 500; // Incrementar el desplazamiento
+        state.offset += 500;
       })
       .addCase(fetchOrders.rejected, (state, action) => {
         state.loading = false;
@@ -57,5 +69,22 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrderId, setPage } = orderSlice.actions;
+export const { setSelectedOrderId, setPage, setFilteredOrders } = orderSlice.actions;
+
+// Memoizar el selector selectFilteredOrders
+const selectOrders = (state) => state.orders.orders;
+const selectOrderFilters = (state) => state.orders.filteredOrders;
+
+export const selectFilteredOrders = createSelector(
+  [selectOrders, selectOrderFilters],
+  (orders, filteredOrders) => {
+    return orders.filter(order => 
+      (filteredOrders.Side.length === 0 || filteredOrders.Side.includes(order.Side)) &&
+      (filteredOrders.Symbol === '' || order.Symbol === filteredOrders.Symbol) &&
+      (filteredOrders.PositionSide === '' || order.PositionSide === filteredOrders.PositionSide) &&
+      (filteredOrders.Type === '' || order.Type === filteredOrders.Type)
+    );
+  }
+);
+
 export default orderSlice.reducer;

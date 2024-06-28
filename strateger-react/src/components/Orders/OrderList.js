@@ -2,11 +2,12 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId, setPage } from '../../slices/orderSlice';
+import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../slices/orderSlice';
 
 const OrderList = () => {
   const dispatch = useDispatch();
-  const { orders, loading, error, selectedOrderId, page, hasMore, offset } = useSelector((state) => state.orders);
+  const orders = useSelector(selectFilteredOrders);
+  const { loading, error, selectedOrderId, page, hasMore, offset } = useSelector((state) => state.orders);
 
   useEffect(() => {
     if (orders.length === 0) {
