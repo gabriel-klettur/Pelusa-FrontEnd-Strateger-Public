@@ -28,7 +28,7 @@ export const mapOrdersToMarkers = (orders, interval) => {
       position: position,
       color: color,
       shape: shape,
-      text: `${text} (${order.symbol})`
+      text: `${text} (${order.symbol}) [${order.executedQty}]`
     };
   });
 };

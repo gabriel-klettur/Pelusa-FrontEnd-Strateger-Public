@@ -1,7 +1,6 @@
 // Path: strateger-react/src/slices/orderSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
 import axios from 'axios';
 import config from '../config';
 
@@ -18,7 +17,7 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
-const initialFilteredOrders = {
+const initialFilters = {
   Side: [],
   Symbol: '',
   PositionSide: '',
@@ -35,7 +34,8 @@ const orderSlice = createSlice({
     offset: 0,
     hasMore: true,
     page: 0,
-    filteredOrders: initialFilteredOrders,
+    filters: initialFilters, // Cambiamos filteredOrders a filters
+    filteredOrders: [] // Añadimos filteredOrders para almacenar las órdenes filtradas
   },
   reducers: {
     setSelectedOrderId(state, action) {
@@ -44,8 +44,14 @@ const orderSlice = createSlice({
     setPage(state, action) {
       state.page = action.payload;
     },
-    setFilteredOrders(state, action) {
-      state.filteredOrders = action.payload;
+    setFilters(state, action) {
+      state.filters = action.payload;
+      state.filteredOrders = state.orders.filter(order => 
+        (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
+        (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
+        (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
+        (state.filters.Type === '' || order.type === state.filters.Type)
+      );
     }
   },
   extraReducers: (builder) => {
@@ -59,6 +65,12 @@ const orderSlice = createSlice({
           state.hasMore = false;
         }
         state.orders = [...state.orders, ...action.payload];
+        state.filteredOrders = state.orders.filter(order => 
+          (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
+          (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
+          (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
+          (state.filters.Type === '' || order.type === state.filters.Type)
+        );
         state.loading = false;
         state.offset += 500;
       })
@@ -69,22 +81,10 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrderId, setPage, setFilteredOrders } = orderSlice.actions;
+export const { setSelectedOrderId, setPage, setFilters } = orderSlice.actions;
 
-// Memoizar el selector selectFilteredOrders
-const selectOrders = (state) => state.orders.orders;
-const selectOrderFilters = (state) => state.orders.filteredOrders;
-
-export const selectFilteredOrders = createSelector(
-  [selectOrders, selectOrderFilters],
-  (orders, filteredOrders) => {
-    return orders.filter(order => 
-      (filteredOrders.Side.length === 0 || filteredOrders.Side.includes(order.Side)) &&
-      (filteredOrders.Symbol === '' || order.Symbol === filteredOrders.Symbol) &&
-      (filteredOrders.PositionSide === '' || order.PositionSide === filteredOrders.PositionSide) &&
-      (filteredOrders.Type === '' || order.Type === filteredOrders.Type)
-    );
-  }
-);
+export const selectOrders = (state) => state.orders.orders;
+export const selectFilters = (state) => state.orders.filters; // Añadimos un selector para los filtros
+export const selectFilteredOrders = (state) => state.orders.filteredOrders; // Seleccionamos las órdenes filtradas
 
 export default orderSlice.reducer;
