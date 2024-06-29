@@ -59,6 +59,19 @@ const orderSlice = createSlice({
     },
     setFilteredOrders(state, action) {
       state.filteredOrders = action.payload;
+    },
+    appendOrders(state, action) {
+      const newOrders = action.payload;
+      const allOrders = [...state.orders, ...newOrders];
+      const uniqueOrders = Array.from(new Set(allOrders.map(order => order.orderId)))
+                                .map(id => allOrders.find(order => order.orderId === id));
+      state.orders = uniqueOrders;
+      state.filteredOrders = uniqueOrders.filter(order => 
+        (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
+        (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
+        (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
+        (state.filters.Type === '' || order.type === state.filters.Type)
+      );
     }
   },
   extraReducers: (builder) => {
@@ -88,7 +101,7 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders } = orderSlice.actions;
+export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders, appendOrders } = orderSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
 export const selectFilters = (state) => state.orders.filters; 

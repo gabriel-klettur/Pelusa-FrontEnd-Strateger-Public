@@ -14,11 +14,9 @@ const FilteredOrderList = ({ strategy }) => {
     const startDate = new Date(strategy.onStartDate).toISOString();
     const endDate = new Date().toISOString();
     
-    dispatch(fetchOrders({ limit: 500, offset: 0, startDate, endDate }));
-  }, [dispatch, strategy.onStartDate]);
-
-  useEffect(() => {
-    if (orders.length > 0) {
+    if (orders.length === 0) {
+      dispatch(fetchOrders({ limit: 500, offset: 0, startDate, endDate }));
+    } else {
       const newFilteredOrders = orders.filter(order => {
         const orderTime = new Date(order.time).getTime();
         const start = new Date(strategy.onStartDate).getTime();
@@ -33,12 +31,9 @@ const FilteredOrderList = ({ strategy }) => {
         return orderTime >= start && orderTime <= end;
       });
 
-      // Only dispatch if the filtered orders have actually changed to avoid unnecessary renders
-      if (JSON.stringify(newFilteredOrders) !== JSON.stringify(filteredOrders)) {
-        dispatch(setFilteredOrders(newFilteredOrders));
-      }
+      dispatch(setFilteredOrders(newFilteredOrders));
     }
-  }, [orders, strategy.onStartDate, filteredOrders, dispatch]);
+  }, [dispatch, strategy.onStartDate, orders]);
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));
