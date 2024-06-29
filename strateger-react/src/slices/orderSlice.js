@@ -56,6 +56,9 @@ const orderSlice = createSlice({
         (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
         (state.filters.Type === '' || order.type === state.filters.Type)
       );
+    },
+    setFilteredOrders(state, action) {
+      state.filteredOrders = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -85,7 +88,7 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedOrderId, setPage, setFilters } = orderSlice.actions;
+export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders } = orderSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
 export const selectFilters = (state) => state.orders.filters; 

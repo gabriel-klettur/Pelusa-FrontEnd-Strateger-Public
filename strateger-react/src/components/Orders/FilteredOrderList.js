@@ -2,11 +2,12 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../slices/orderSlice';
+import { fetchOrders, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../slices/orderSlice';
 
 const FilteredOrderList = ({ strategy }) => {
   const dispatch = useDispatch();
-  const orders = useSelector(selectFilteredOrders);
+  const orders = useSelector(selectOrders);
+  const filteredOrders = useSelector(selectFilteredOrders);
   const { loading, error, selectedOrderId, page, hasMore, offset } = useSelector((state) => state.orders);
 
   useEffect(() => {
@@ -15,6 +16,29 @@ const FilteredOrderList = ({ strategy }) => {
     
     dispatch(fetchOrders({ limit: 500, offset: 0, startDate, endDate }));
   }, [dispatch, strategy.onStartDate]);
+
+  useEffect(() => {
+    if (orders.length > 0) {
+      const newFilteredOrders = orders.filter(order => {
+        const orderTime = new Date(order.time).getTime();
+        const start = new Date(strategy.onStartDate).getTime();
+        const end = Date.now();
+        
+        console.log('Comparing dates:', {
+          orderTime: new Date(order.time).toLocaleString(),
+          start: new Date(start).toLocaleString(),
+          end: new Date(end).toLocaleString(),
+        });
+
+        return orderTime >= start && orderTime <= end;
+      });
+
+      // Only dispatch if the filtered orders have actually changed to avoid unnecessary renders
+      if (JSON.stringify(newFilteredOrders) !== JSON.stringify(filteredOrders)) {
+        dispatch(setFilteredOrders(newFilteredOrders));
+      }
+    }
+  }, [orders, strategy.onStartDate, filteredOrders, dispatch]);
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));
@@ -46,14 +70,7 @@ const FilteredOrderList = ({ strategy }) => {
 
   const startIndex = page * 20;
   const endIndex = startIndex + 20;
-  const currentOrders = [...orders]
-    .filter(order => {
-      const orderTime = new Date(order.time).getTime();
-      const start = new Date(strategy.onStartDate).getTime();
-      const end = Date.now();
-
-      return orderTime >= start && orderTime <= end;
-    })
+  const currentOrders = [...filteredOrders] // Create a copy to avoid mutating state directly
     .sort((a, b) => b.orderId - a.orderId)
     .slice(startIndex, endIndex);
 
@@ -118,7 +135,7 @@ const FilteredOrderList = ({ strategy }) => {
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded"
           onClick={handleNextPage}
-          disabled={!hasMore && endIndex >= orders.length}
+          disabled={!hasMore && endIndex >= filteredOrders.length}
         >
           Siguiente
         </button>
