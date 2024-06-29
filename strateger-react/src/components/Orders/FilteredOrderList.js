@@ -20,13 +20,7 @@ const FilteredOrderList = ({ strategy }) => {
       const newFilteredOrders = orders.filter(order => {
         const orderTime = new Date(order.time).getTime();
         const start = new Date(strategy.onStartDate).getTime();
-        const end = Date.now();
-        
-        console.log('Comparing dates:', {
-          orderTime: new Date(order.time).toLocaleString(),
-          start: new Date(start).toLocaleString(),
-          end: new Date(end).toLocaleString(),
-        });
+        const end = Date.now();        
 
         return orderTime >= start && orderTime <= end;
       });
