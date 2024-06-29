@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import './StrategyItem.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
+import FilteredOrderList from '../Orders/FilteredOrderList';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();
   const allAlarms = useSelector((state) => state.alarms.alarms);
   const [isShowingAlarms, setIsShowingAlarms] = useState(false);
+  const [isShowingOrders, setIsShowingOrders] = useState(false);
 
   const onOffClass = strategy.isOn ? 'bg-green-500 text-white blink-background' : 'bg-gray-500 text-white';
   const borderColorClass = strategy.isOn ? 'border-green-500 blink-border' : 'border-gray-300';  
@@ -25,7 +27,6 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
     const filteredAlarms = [];
 
-    // Función para filtrar alarmas por indicador y órdenes
     const filterAlarmsByIndicatorsAndOrders = (openAlarms, closeAlarms, entryOrder, closeOrder, entryIndicator, closeIndicator, orderType) => {
       openAlarms.forEach(openAlarm => {
         const openTime = new Date(openAlarm.Time_Alert).getTime();
@@ -65,7 +66,6 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
       });
     };
 
-    // Filtrar long alarms
     const openLongAlarms = allAlarms.filter(alarm => 
       alarm.Temporalidad === strategy.longEntryIndicator && alarm.Order === 'indicator open long'
     );
@@ -75,7 +75,6 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
     filterAlarmsByIndicatorsAndOrders(openLongAlarms, closeLongAlarms, strategy.longEntryOrder, strategy.longCloseOrder, strategy.longEntryIndicator, strategy.longCloseIndicator, 'long');
 
-    // Filtrar short alarms
     const openShortAlarms = allAlarms.filter(alarm => 
       alarm.Temporalidad === strategy.shortEntryIndicator && alarm.Order === 'indicator open short'
     );
@@ -87,6 +86,10 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
     dispatch(setStrategyFilteredAlarms(filteredAlarms));
     setIsShowingAlarms(true);
+  };
+
+  const handleViewOrders = () => {
+    setIsShowingOrders(!isShowingOrders);
   };
 
   return (
@@ -165,9 +168,9 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
         
         <button 
           className="bg-orange-500 text-white px-4 py-2 rounded col-span-2"
-          onClick={() => onDelete(strategy.id)}
+          onClick={handleViewOrders}
         >
-          VER ORDENES
+          {isShowingOrders ? 'OCULTAR ORDENES' : 'VER ORDENES'}
         </button>
 
         <button 
@@ -186,6 +189,12 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
           Eliminar
         </button>
       </div>
+
+      {isShowingOrders && (
+        <div className="mt-4">
+          <FilteredOrderList strategy={strategy} />
+        </div>
+      )}
     </div>
   );
 };

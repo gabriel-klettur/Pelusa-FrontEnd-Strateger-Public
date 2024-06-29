@@ -6,8 +6,12 @@ import config from '../config';
 
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
-  async ({ limit, offset }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders?limit=${limit}&offset=${offset}`);
+  async ({ limit, offset, startDate, endDate }) => {
+    const params = { limit, offset };
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
+
+    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders`, { params });
     const data = JSON.parse(response.data);  // Parsea la cadena JSON
     if (data && data.data && data.data.orders) {
       return data.data.orders;
@@ -34,8 +38,8 @@ const orderSlice = createSlice({
     offset: 0,
     hasMore: true,
     page: 0,
-    filters: initialFilters, // Cambiamos filteredOrders a filters
-    filteredOrders: [] // Añadimos filteredOrders para almacenar las órdenes filtradas
+    filters: initialFilters, 
+    filteredOrders: [] 
   },
   reducers: {
     setSelectedOrderId(state, action) {
@@ -84,7 +88,7 @@ const orderSlice = createSlice({
 export const { setSelectedOrderId, setPage, setFilters } = orderSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
-export const selectFilters = (state) => state.orders.filters; // Añadimos un selector para los filtros
-export const selectFilteredOrders = (state) => state.orders.filteredOrders; // Seleccionamos las órdenes filtradas
+export const selectFilters = (state) => state.orders.filters; 
+export const selectFilteredOrders = (state) => state.orders.filteredOrders; 
 
 export default orderSlice.reducer;
