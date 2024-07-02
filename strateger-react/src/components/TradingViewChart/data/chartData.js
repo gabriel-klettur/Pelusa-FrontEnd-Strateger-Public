@@ -1,5 +1,4 @@
-// src/components/TradingViewChart/chartData.js
-
+// src/components/TradingViewChart/data/chartData.js
 export const formatChartData = (data) => {
     return data.map(item => ({
       time: Math.floor(item[0] / 1000), // Convertir el tiempo al formato Unix timestamp en segundos

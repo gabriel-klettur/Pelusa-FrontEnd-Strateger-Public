@@ -1,5 +1,4 @@
-// src/components/TradingViewChart/chartConfig.js
-
+// src/components/TradingViewChart/config/chartConfig.js
 import { createChart } from 'lightweight-charts';
 
 export const initializeChart = (container) => {

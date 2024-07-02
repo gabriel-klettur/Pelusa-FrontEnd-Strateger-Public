@@ -1,5 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/LightweightChart.js
-
+// src/components/TradingViewChart/LightweightChart.js
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,13 +8,13 @@ import {
   selectTradingViewChartLoading,
   selectTradingViewChartStartDate,
   selectTradingViewChartEndDate,
-  selectTradingViewChartInterval
+  selectTradingViewChartInterval,
 } from '../../slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
-import { initializeChart } from './chartConfig';
-import { initializeSeries, setSeriesData } from './seriesConfig';
-import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from './Alarms';
-import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from './OrdersChart';
+import { initializeChart } from './config/chartConfig';
+import { initializeSeries, setSeriesData } from './series/seriesConfig';
+import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from './markers/Alarms';
+import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from './markers/OrdersChart';
 import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../slices/alarmSlice';
 import { selectFilteredOrders } from '../../slices/orderSlice';
 
@@ -36,7 +35,7 @@ const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDat
   const ema10SeriesRef = useRef();
   const ema55SeriesRef = useRef();
   const ema200SeriesRef = useRef();
-  
+
   const [interval, setInterval] = useState(initialTemporalidad);
   const [startDate, setStartDate] = useState(new Date(initialStartDate));
   const [endDate, setEndDate] = useState(new Date(initialEndDate));

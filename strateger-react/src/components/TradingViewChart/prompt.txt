@@ -1,0 +1,5 @@
+Como podria organizar como un profesional el componente TradingViewChart? 
+Deberia tener un archivo index.js?
+Que archivos deberian ser nombrados? 
+Deberia organizarlo mucho mejor en carpetas? 
+Puedes revisar el codigo y decirme como modularizar y reestructurar el componente como un profesional?

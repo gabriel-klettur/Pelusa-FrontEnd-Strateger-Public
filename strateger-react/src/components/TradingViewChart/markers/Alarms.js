@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/alarms.js
+// src/components/TradingViewChart/markers/Alarms.js
 
 const getCandleTime = (time, interval) => {
   const date = new Date(time * 1000);
@@ -29,7 +29,6 @@ const getCandleTime = (time, interval) => {
   }
 };
 
-
 export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
   const groupedAlarms = {};
 
@@ -44,8 +43,6 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
     }
     groupedAlarms[key].push(alarm);
   });
-
-  
 
   const markers = [];
 
