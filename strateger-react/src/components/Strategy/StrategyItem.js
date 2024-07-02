@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './StrategyItem.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
-import FilteredOrderList from '../Orders/FilteredOrderList';
+import { FilteredOrderList } from '../Orders';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();
@@ -50,9 +50,9 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
           const matchesCloseOrder = alarm.Temporalidad === closeOrder && 
             (alarm.Order === `order close ${orderType}` || alarm.Order === `indicator close ${orderType}`);
           const matchesEntryIndicator = alarm.Temporalidad === entryIndicator && 
-            alarm.Order === `indicator open ${orderType}`;
+            (alarm.Order === `indicator open ${orderType}`);
           const matchesCloseIndicator = alarm.Temporalidad === closeIndicator && 
-            alarm.Order === `indicator close ${orderType}`;
+            (alarm.Order === `indicator close ${orderType}`);
 
           return matchesStrategyName && (
             matchesEntryOrder ||

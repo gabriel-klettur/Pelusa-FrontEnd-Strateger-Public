@@ -1,9 +1,7 @@
-// Path: strateger-react/src/components/Orders/Orders.js
-
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import OrderList from './OrderList';
-import ToolOrderBar from './ToolOrderBar';
+import OrderList from './OrderList/OrderList';
+import ToolOrderBar from './ToolOrderBar/ToolOrderBar';
 
 const Orders = () => {
   return (

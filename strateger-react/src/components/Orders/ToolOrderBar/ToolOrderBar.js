@@ -1,8 +1,7 @@
-// Path: strateger-react/src/components/Orders/ToolOrderBar.js
-
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilters, selectFilters } from '../../slices/orderSlice';
+import { setFilters, selectFilters } from '../../../slices/orderSlice';
+import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];
 const symbols = ['BTC-USDT', 'ETH-USDT']; // Añadir todos los símbolos que necesites
@@ -32,46 +31,42 @@ const ToolOrderBar = () => {
     <div className="grid grid-cols-10 gap-4">
       <div className="col-span-2 border-2 border-blue-500 flex flex-wrap justify-center items-center">
         {sides.map(side => (
-          <button 
+          <FilterButton 
             key={side} 
-            className={`px-4 py-2 rounded m-1 ${filters.Side.includes(side) ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
-            onClick={() => toggleFilter('Side', side)}
-          >
-            {side}
-          </button>
+            label={side} 
+            isActive={filters.Side.includes(side)} 
+            onClick={() => toggleFilter('Side', side)} 
+          />
         ))}
       </div>
       <div className="col-span-2 border-2 border-green-500 flex flex-wrap justify-center items-center">
         {symbols.map(symbol => (
-          <button 
+          <FilterButton 
             key={symbol} 
-            className={`px-4 py-2 rounded m-1 ${filters.Symbol === symbol ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
-            onClick={() => toggleFilter('Symbol', symbol)}
-          >
-            {symbol}
-          </button>
+            label={symbol} 
+            isActive={filters.Symbol === symbol} 
+            onClick={() => toggleFilter('Symbol', symbol)} 
+          />
         ))}
       </div>
       <div className="col-span-3 border-2 border-red-500 flex flex-wrap justify-center items-center">
         {positionSides.map(positionSide => (
-          <button 
+          <FilterButton 
             key={positionSide} 
-            className={`px-4 py-2 rounded m-1 ${filters.PositionSide === positionSide ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
-            onClick={() => toggleFilter('PositionSide', positionSide)}
-          >
-            {positionSide}
-          </button>
+            label={positionSide} 
+            isActive={filters.PositionSide === positionSide} 
+            onClick={() => toggleFilter('PositionSide', positionSide)} 
+          />
         ))}
       </div>
       <div className="col-span-3 border-2 border-orange-500 flex flex-wrap justify-center items-center">
         {types.map(type => (
-          <button 
+          <FilterButton 
             key={type} 
-            className={`px-4 py-2 rounded m-1 ${filters.Type === type ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
-            onClick={() => toggleFilter('Type', type)}
-          >
-            {type}
-          </button>
+            label={type} 
+            isActive={filters.Type === type} 
+            onClick={() => toggleFilter('Type', type)} 
+          />
         ))}
       </div>
     </div>
