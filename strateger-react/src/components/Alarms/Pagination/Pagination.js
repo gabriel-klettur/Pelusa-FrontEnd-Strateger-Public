@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Alarms/Pagination.js
-
 import React from 'react';
 
 const Pagination = ({ page, hasMore, endIndex, alarmsLength, handlePreviousPage, handleNextPage }) => {

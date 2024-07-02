@@ -1,5 +1,3 @@
-// Path: strateger-react/src/slices/alarmSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
@@ -80,4 +78,3 @@ export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilt
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 
 export default alarmSlice.reducer;
-

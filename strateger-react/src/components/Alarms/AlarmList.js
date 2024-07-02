@@ -1,8 +1,6 @@
-// Path: strateger-react/src/components/Alarms/AlarmList.js
-
 import React, { useState, useEffect } from 'react';
-import AlarmTable from './AlarmTable';
-import Pagination from './Pagination';
+import AlarmTable from './AlarmTable/AlarmTable';
+import Pagination from './Pagination/Pagination';
 
 const AlarmList = ({ alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset, handlePreviousPage, handleNextPage, handleSelectAlarm }) => {
   const [viewType, setViewType] = useState('alarms');

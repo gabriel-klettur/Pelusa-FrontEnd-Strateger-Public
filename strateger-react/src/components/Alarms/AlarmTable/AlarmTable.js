@@ -1,6 +1,5 @@
-// Path: strateger-react/src/components/Alarms/AlarmTable.js
-
 import React from 'react';
+import AlarmRow from './AlarmRow';
 
 const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
   return (
@@ -19,20 +18,12 @@ const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
       </thead>
       <tbody>
         {alarms.map((alarm) => (
-          <tr
+          <AlarmRow
             key={alarm.id}
-            className={`border-b hover:bg-gray-50 cursor-pointer ${selectedAlarms.some((a) => a.id === alarm.id) ? 'bg-gray-200' : ''}`}
-            onClick={() => handleSelectAlarm(alarm)}
-          >
-            <td className="py-2 px-4 border-r">{alarm.id}</td>
-            <td className="py-2 px-4 border-r">{alarm.Ticker}</td>
-            <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>
-            <td className="py-2 px-4 border-r">{alarm.Entry_Price_Alert}</td>
-            <td className="py-2 px-4 border-r">{alarm.Exit_Price_Alert}</td>
-            <td className="py-2 px-4 border-r">{alarm.Time_Alert}</td>
-            <td className="py-2 px-4 border-r">{alarm.Order}</td>
-            <td className="py-2 px-4">{alarm.Strategy}</td>
-          </tr>
+            alarm={alarm}
+            isSelected={selectedAlarms.some((a) => a.id === alarm.id)}
+            handleSelectAlarm={handleSelectAlarm}
+          />
         ))}
       </tbody>
     </table>

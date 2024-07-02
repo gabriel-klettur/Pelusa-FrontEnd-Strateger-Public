@@ -1,10 +1,8 @@
-// Path: strateger-react/src/components/Alarms/Alarms.js
-
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms } from '../../slices/alarmSlice';
+import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms } from '../../slices/alarmSlice'; // Actualiza la ruta aquí
 import AlarmList from './AlarmList';
-import ToolAlarmBar from './ToolAlarmBar';
+import ToolAlarmBar from './ToolAlarmBar/ToolAlarmBar';
 
 const Alarms = () => {
   const dispatch = useDispatch();
