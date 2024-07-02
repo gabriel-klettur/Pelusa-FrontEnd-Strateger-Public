@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Strategy/DirectionTabOptions.js
-
 import React from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

@@ -5,7 +5,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
-import StrategyList from './components/Strategy/StrategyList';
+import { StrategyList } from './components/Strategy';
 import Diary from './components/Diary/Diary';
 import Account from './components/Account/Account';
 import Backtesting from './components/Backtesting/Backtesting';

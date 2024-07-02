@@ -1,10 +1,8 @@
-// Path: strateger-react/src/components/Strategy/StrategyItem.js
-
 import React, { useState } from 'react';
 import './StrategyItem.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStrategyFilteredAlarms } from '../../slices/alarmSlice';
-import { FilteredOrderList } from '../Orders';
+import { setStrategyFilteredAlarms } from '../../../slices/alarmSlice';
+import { FilteredOrderList } from '../../Orders';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();

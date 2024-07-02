@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Strategy/TPSLOptions.js
-
 import React from 'react';
 
 const renderInputField = (label, name, value, handleChange) => (
