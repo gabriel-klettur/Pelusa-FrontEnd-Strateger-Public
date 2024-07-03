@@ -10,6 +10,7 @@ import accountReducer from './slices/accountSlice';
 import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
 import timeReducer from './slices/timeSlice';
+import spotReducer from './slices/spotSlice';
 
 const store = configureStore({
   reducer: {
@@ -18,9 +19,10 @@ const store = configureStore({
     orders: orderReducer,    
     strategies: strategyReducer,
     diary: diaryReducer,
-    account: accountReducer,  // Asegúrate de incluir esto
+    account: accountReducer,  
+    spot: spotReducer,
     backtesting: backtestingReducer,
-    tradingViewChart: tradingViewChartReducer,
+    tradingViewChart: tradingViewChartReducer,    
   },
   devTools: composeWithDevTools(),
 });
