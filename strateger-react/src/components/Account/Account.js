@@ -3,9 +3,9 @@
 import React from 'react';
 import DailyResults from './DailyResults';
 import StrategyResults from './StrategyResults';
-import PerpUSDTMSummary from './PerpUSDTMSummary';
-import SpotSummary from './SpotSummary';
-import PerpCOINMSummary from './PerpCOINMSummary';
+import PerpUSDTMSummary from './AccountSummary/PerpUSDTMSummary';
+import SpotSummary from './AccountSummary/SpotSummary';
+import PerpCOINMSummary from './AccountSummary/PerpCOINMSummary';
 import simulatedData from './simulatedData';
 
 const Account = () => {

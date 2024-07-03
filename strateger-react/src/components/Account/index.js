@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Account/index.js
 
 import Account from './Account';
-import PerpUSDTMSummary from './PerpUSDTMSummary';
+import PerpUSDTMSummary from './AccountSummary/PerpUSDTMSummary';
 import DailyResults from './DailyResults';
 import StrategyResults from './StrategyResults';
 
