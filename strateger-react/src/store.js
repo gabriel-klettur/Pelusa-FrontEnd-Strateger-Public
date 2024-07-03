@@ -18,7 +18,7 @@ const store = configureStore({
     orders: orderReducer,    
     strategies: strategyReducer,
     diary: diaryReducer,
-    account: accountReducer,
+    account: accountReducer,  // Asegúrate de incluir esto
     backtesting: backtestingReducer,
     tradingViewChart: tradingViewChartReducer,
   },
