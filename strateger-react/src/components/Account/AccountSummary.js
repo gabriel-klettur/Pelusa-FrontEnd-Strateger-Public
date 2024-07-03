@@ -5,7 +5,7 @@ import React from 'react';
 const AccountSummary = ({ pnl, successRate }) => {
   return (
     <div className="mb-4">
-      <h3 className="text-xl font-bold mb-2">Account Summary</h3>
+      <h3 className="text-xl font-bold mb-2">Vision Global</h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">PNL</h4>

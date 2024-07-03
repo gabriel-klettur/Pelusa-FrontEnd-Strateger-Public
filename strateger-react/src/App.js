@@ -7,7 +7,7 @@ import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
 import { StrategyList } from './components/Strategy';
 import Diary from './components/Diary/Diary';
-import Account from './components/Account/Account';
+import { Account } from './components/Account';
 import Backtesting from './components/Backtesting/Backtesting';
 import Reloj from './components/Reloj';
 
