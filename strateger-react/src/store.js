@@ -11,6 +11,8 @@ import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
 import timeReducer from './slices/timeSlice';
 import spotReducer from './slices/spotSlice';
+import perpCOINMReducer from './slices/perpCOINMSlice'; // Nuevo import
+
 
 const store = configureStore({
   reducer: {
@@ -21,6 +23,7 @@ const store = configureStore({
     diary: diaryReducer,
     account: accountReducer,  
     spot: spotReducer,
+    perpCOINM: perpCOINMReducer, 
     backtesting: backtestingReducer,
     tradingViewChart: tradingViewChartReducer,    
   },
