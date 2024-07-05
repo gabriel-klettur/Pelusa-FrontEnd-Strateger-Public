@@ -11,21 +11,22 @@ import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
 import timeReducer from './slices/timeSlice';
 import spotReducer from './slices/spotSlice';
-import perpCOINMReducer from './slices/perpCOINMSlice'; // Nuevo import
-
+import perpCOINMReducer from './slices/perpCOINMSlice';
+import tickerReducer from './slices/tickerSlice'; // Importar tickerSlice
 
 const store = configureStore({
   reducer: {
     time: timeReducer,
     alarms: alarmReducer,
-    orders: orderReducer,    
+    orders: orderReducer,
     strategies: strategyReducer,
     diary: diaryReducer,
     account: accountReducer,  
     spot: spotReducer,
-    perpCOINM: perpCOINMReducer, 
+    perpCOINM: perpCOINMReducer,
     backtesting: backtestingReducer,
-    tradingViewChart: tradingViewChartReducer,    
+    tradingViewChart: tradingViewChartReducer,
+    ticker: tickerReducer, // Agregar tickerReducer
   },
   devTools: composeWithDevTools(),
 });

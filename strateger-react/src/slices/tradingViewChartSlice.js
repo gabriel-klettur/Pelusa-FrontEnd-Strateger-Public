@@ -80,7 +80,9 @@ export const fetchTradingViewChartData = createAsyncThunk(
 
         formattedData.sort((a, b) => a[0] - b[0]);
 
-        return formattedData;
+        const lastPrice = formattedData[formattedData.length - 1]?.[4] || null; // Obtener el último precio de cierre
+
+        return { formattedData, lastPrice };
       } else {
         return rejectWithValue(resultData.msg || 'Unknown error from API');
       }
@@ -98,7 +100,8 @@ const tradingViewChartSlice = createSlice({
     error: null,
     startDate: null,
     endDate: null,
-    interval: '1d'
+    interval: '1d',
+    lastPrice: null
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
@@ -114,7 +117,8 @@ const tradingViewChartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchTradingViewChartData.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = action.payload.formattedData;
+        state.lastPrice = action.payload.lastPrice;
         state.loading = false;
       })
       .addCase(fetchTradingViewChartData.rejected, (state, action) => {
@@ -131,5 +135,7 @@ export const selectTradingViewChartError = state => state.tradingViewChart.error
 export const selectTradingViewChartStartDate = state => state.tradingViewChart.startDate;
 export const selectTradingViewChartEndDate = state => state.tradingViewChart.endDate;
 export const selectTradingViewChartInterval = state => state.tradingViewChart.interval;
+export const selectLastPrice = state => state.tradingViewChart.lastPrice;
 
 export default tradingViewChartSlice.reducer;
+
