@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotBalance, selectBalances, selectLoading, selectError } from '../../../slices/spotSlice';
+import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
+import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 
 const SpotSummary = () => {
@@ -10,17 +12,34 @@ const SpotSummary = () => {
   const balances = useSelector(selectBalances);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-  const [hideZeroFree, setHideZeroFree] = useState(true);
+  const lastPrice = useSelector(selectLastPrice);
+  const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {}); // Asegurarse de que tickerPrices está definido
+  const [showInUSD, setShowInUSD] = useState(true); // Estado para controlar el switch
 
   useEffect(() => {
     dispatch(fetchSpotBalance());
   }, [dispatch]);
 
-  const filteredBalances = hideZeroFree ? balances.filter(balance => parseFloat(balance.free) > 0) : balances;
+  useEffect(() => {
+    balances.forEach(balance => {
+      if (balance.asset !== 'USDT' && balance.asset !== 'BTC' && !tickerPrices[`${balance.asset}-USDT`]) {
+        dispatch(fetchTicker(`${balance.asset}-USDT`));
+      }
+    });
+  }, [balances, tickerPrices, dispatch]);
 
-  console.log('Loading:', loading);
-  console.log('Error:', error);
-  console.log('Balances:', balances);
+  const getPriceInUSD = (asset, amount) => {
+    if (asset === 'USDT') return parseFloat(amount);
+    if (asset === 'BTC') return parseFloat(amount) * (lastPrice || 0);
+    const tickerPrice = tickerPrices[`${asset}-USDT`];
+    return tickerPrice ? parseFloat(amount) * tickerPrice : 0;
+  };
+
+  const totalBalanceInUSD = balances.reduce((acc, balance) => acc + getPriceInUSD(balance.asset, balance.free), 0);
+  const totalBalanceInBTC = totalBalanceInUSD / (lastPrice || 1);
+
+  const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
+  const currencyLabel = showInUSD ? 'USD' : 'BTC';
 
   if (loading) {
     return <div>Loading...</div>;
@@ -30,18 +49,31 @@ const SpotSummary = () => {
     return <div>Error: {error}</div>;
   }
 
+  // Filtrar balances con Free > 0
+  const filteredBalances = balances.filter(balance => parseFloat(balance.free) > 0);
+
   return (
     <div className="mb-4">
       <h3 className="text-xl font-bold mb-2">Spot Summary</h3>
       <div className="flex items-center mb-4">
-        <span className="mr-2">Hide assets with Free = 0</span>
+        <span className="mr-2">Show values in {currencyLabel}</span>
         <Switch
-          checked={hideZeroFree}
-          onChange={setHideZeroFree}
-          className={`${hideZeroFree ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
+          checked={showInUSD}
+          onChange={setShowInUSD}
+          className={`${showInUSD ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
         >
-          <span className={`${hideZeroFree ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`} />
+          <span className={`${showInUSD ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`} />
         </Switch>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h4 className="text-lg font-bold">Asset</h4>
+          <p className="text-2xl">{currencyLabel}</p>
+        </div>
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h4 className="text-lg font-bold">Balance</h4>
+          <p className="text-2xl">{displayValue}</p>
+        </div>
       </div>
       {filteredBalances.length === 0 ? (
         <div>No balances available</div>
