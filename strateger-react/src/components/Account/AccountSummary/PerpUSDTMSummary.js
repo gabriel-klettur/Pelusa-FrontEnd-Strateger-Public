@@ -2,20 +2,18 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBalance } from '../../../slices/accountSlice';
+import { fetchPerpUSDTMBalance, selectPerpUSDTM } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { Switch } from '@headlessui/react';
 
 const PerpUSDTMSummary = () => {
   const dispatch = useDispatch();
-  const balance = useSelector((state) => state.account.balance);
-  const loading = useSelector((state) => state.account.loading);
-  const error = useSelector((state) => state.account.error);
+  const { balance, loading, error } = useSelector(selectPerpUSDTM);
   const lastPrice = useSelector(selectLastPrice);
-  const [showInUSD, setShowInUSD] = useState(true); // Estado para controlar el switch
+  const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchBalance());
+    dispatch(fetchPerpUSDTMBalance());
   }, [dispatch]);
 
   if (loading) {
@@ -25,7 +23,11 @@ const PerpUSDTMSummary = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  
+
+  if (!balance) {
+    return <div>No balance available</div>;
+  }
+
   const displayValue = (value) => showInUSD ? parseFloat(value).toFixed(2) : (lastPrice ? (parseFloat(value) / lastPrice).toFixed(6) : 'N/A');
   const currencyLabel = showInUSD ? 'USD' : 'BTC';
 
