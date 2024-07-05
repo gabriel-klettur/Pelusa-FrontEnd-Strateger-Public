@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotBalance, selectBalances, selectLoading, selectError } from '../../../slices/spotSlice';
+import { fetchSpotBalance, selectBalances, selectLoading, selectError } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
@@ -13,8 +13,8 @@ const SpotSummary = () => {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const lastPrice = useSelector(selectLastPrice);
-  const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {}); // Asegurarse de que tickerPrices está definido
-  const [showInUSD, setShowInUSD] = useState(true); // Estado para controlar el switch
+  const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {});
+  const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
     dispatch(fetchSpotBalance());
@@ -49,7 +49,6 @@ const SpotSummary = () => {
     return <div>Error: {error}</div>;
   }
 
-  // Filtrar balances con Free > 0
   const filteredBalances = balances.filter(balance => parseFloat(balance.free) > 0);
 
   return (
@@ -83,14 +82,14 @@ const SpotSummary = () => {
             <thead>
               <tr className="w-full bg-gray-100">
                 <th className="py-2 px-4 border-b text-left">Asset</th>
-                <th className="py-2 px-4 border-b text-right">Amount</th>                
+                <th className="py-2 px-4 border-b text-right">Amount</th>
               </tr>
             </thead>
             <tbody>
               {filteredBalances.map((balance) => (
                 <tr key={balance.asset} className="hover:bg-gray-50">
                   <td className="py-2 px-4 border-b text-left">{balance.asset}</td>
-                  <td className="py-2 px-4 border-b text-right">{balance.free}</td>                  
+                  <td className="py-2 px-4 border-b text-right">{balance.free}</td>
                 </tr>
               ))}
             </tbody>
