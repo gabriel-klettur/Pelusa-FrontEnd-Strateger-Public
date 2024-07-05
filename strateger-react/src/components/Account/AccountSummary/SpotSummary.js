@@ -82,17 +82,15 @@ const SpotSummary = () => {
           <table className="min-w-full bg-white">
             <thead>
               <tr className="w-full bg-gray-100">
-                <th className="py-2 px-4 border-b">Asset</th>
-                <th className="py-2 px-4 border-b">Free</th>
-                <th className="py-2 px-4 border-b">Locked</th>
+                <th className="py-2 px-4 border-b text-left">Asset</th>
+                <th className="py-2 px-4 border-b text-right">Amount</th>                
               </tr>
             </thead>
             <tbody>
               {filteredBalances.map((balance) => (
                 <tr key={balance.asset} className="hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b">{balance.asset}</td>
-                  <td className="py-2 px-4 border-b">{balance.free}</td>
-                  <td className="py-2 px-4 border-b">{balance.locked}</td>
+                  <td className="py-2 px-4 border-b text-left">{balance.asset}</td>
+                  <td className="py-2 px-4 border-b text-right">{balance.free}</td>                  
                 </tr>
               ))}
             </tbody>
