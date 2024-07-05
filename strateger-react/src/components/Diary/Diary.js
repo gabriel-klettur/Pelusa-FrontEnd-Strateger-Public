@@ -1,10 +1,10 @@
 // Path: strateger-react/src/components/Diary/Diary.js
 
 import React, { useState } from 'react';
-import DiaryList from './DiaryList';
-import DiaryEntryForm from './DiaryEntryForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEntry, updateEntry, deleteEntry } from '../../slices/diarySlice';
+import DiaryList from './DiaryList';
+import DiaryEntryForm from './DiaryEntryForm';
 
 const Diary = () => {
   const entries = useSelector((state) => state.diary.entries);
@@ -13,12 +13,12 @@ const Diary = () => {
 
   const handleAddEntry = (entry) => {
     dispatch(addEntry(entry));
-    setEditingEntry(null); // Reset editing state after adding
+    setEditingEntry(null);
   };
 
   const handleUpdateEntry = (entry) => {
     dispatch(updateEntry(entry));
-    setEditingEntry(null); // Reset editing state after updating
+    setEditingEntry(null);
   };
 
   const handleDeleteEntry = (id) => {
@@ -37,15 +37,15 @@ const Diary = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Trading Diary</h2>
-      <div className='grid grid-cols-10 gap-4 border border-gray-200 p-4 rounded-lg'>
-        <div className='col-span-4 border border-gray-200 p-4 rounded-lg'>
+      <div className="grid grid-cols-10 gap-4 border border-gray-200 p-4 rounded-lg">
+        <div className="col-span-4 border border-gray-200 p-4 rounded-lg">
           <DiaryEntryForm
             onSave={editingEntry ? handleUpdateEntry : handleAddEntry}
             entry={editingEntry}
             onCancelEdit={handleCancelEdit}
           />
         </div>
-        <div className='col-span-6 border border-gray-200 p-4 rounded-lg'>
+        <div className="col-span-6 border border-gray-200 p-4 rounded-lg">
           <DiaryList 
             entries={entries} 
             onEdit={handleEditEntry} 

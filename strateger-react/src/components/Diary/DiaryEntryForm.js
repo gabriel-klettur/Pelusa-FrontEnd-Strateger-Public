@@ -1,9 +1,11 @@
+// Path: strateger-react/src/components/Diary/DiaryEntryForm.js
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 import Slider from "react-slick";
 
-const currentDate = new Date().toISOString().slice(0, 16); // Obtener la fecha y hora actual en formato ISO y cortar a "YYYY-MM-DDTHH:MM"
+const currentDate = new Date().toISOString().slice(0, 16);
 
 const initialState = {
   id: '',
@@ -39,19 +41,18 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     const files = Array.from(e.target.files);
     const fileUrls = files.map((file) => URL.createObjectURL(file));
     setFormData({ ...formData, photos: fileUrls });
-    // Store the actual files separately if needed for form submission
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
     setFormData(initialState);
-    fileInputRef.current.value = null; // Reset the file input
+    fileInputRef.current.value = null;
   };
 
   const handleClear = () => {
     setFormData(initialState);
-    fileInputRef.current.value = null; // Reset the file input
+    fileInputRef.current.value = null;
     if (onCancelEdit) {
       onCancelEdit();
     }
@@ -119,112 +120,39 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           <label className="block text-gray-700 font-semibold mb-2">References</label>
           <Tab.Group>
             <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
-              <Tab
-                className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                    selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                  }`
-                }
-              >
-                Orders
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                    selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                  }`
-                }
-              >
-                Alarms
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                    selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                  }`
-                }
-              >
-                Strategies
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                    selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                  }`
-                }
-              >
-                Diary
-              </Tab>
+              {['Orders', 'Alarms', 'Strategies', 'Diary'].map((tab) => (
+                <Tab
+                  key={tab}
+                  className={({ selected }) =>
+                    `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
+                      selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                    }`
+                  }
+                >
+                  {tab}
+                </Tab>
+              ))}
             </Tab.List>
             <Tab.Panels className="mt-2">
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                <select
-                  name="references"
-                  multiple
-                  value={formData.references}
-                  onChange={(e) =>
-                    setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
-                  }
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                >
-                  {orders.map((order) => (
-                    <option key={order.orderId} value={`order-${order.orderId}`}>
-                      {order.id} - {order.symbol} - {order.side}
-                    </option>
-                  ))}
-                </select>
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                <select
-                  name="references"
-                  multiple
-                  value={formData.references}
-                  onChange={(e) =>
-                    setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
-                  }
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                >
-                  {alarms.map((alarm) => (
-                    <option key={alarm.id} value={`alarm-${alarm.id}`}>
-                      {alarm.id} - {alarm.Ticker} - {alarm.Order}
-                    </option>
-                  ))}
-                </select>
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                <select
-                  name="references"
-                  multiple
-                  value={formData.references}
-                  onChange={(e) =>
-                    setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
-                  }
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                >
-                  {strategies.map((strategy) => (
-                    <option key={strategy.id} value={`strategy-${strategy.id}`}>
-                      {strategy.name}
-                    </option>
-                  ))}
-                </select>
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                <select
-                  name="references"
-                  multiple
-                  value={formData.references}
-                  onChange={(e) =>
-                    setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
-                  }
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                >
-                  {diaryEntries.map((entry) => (
-                    <option key={entry.id} value={`diary-${entry.id}`}>
-                      {new Date(entry.date).toLocaleString()} - {entry.text.substring(0, 20)}
-                    </option>
-                  ))}
-                </select>
-              </Tab.Panel>
+              {[orders, alarms, strategies, diaryEntries].map((items, idx) => (
+                <Tab.Panel key={idx} className="bg-white rounded-xl p-3">
+                  <select
+                    name="references"
+                    multiple
+                    value={formData.references}
+                    onChange={(e) =>
+                      setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+                  >
+                    {items.map((item) => (
+                      <option key={item.id} value={`${item.type || 'diary'}-${item.id}`}>
+                        {item.name || `${new Date(item.date).toLocaleString()} - ${item.text?.substring(0, 20)}`}
+                      </option>
+                    ))}
+                  </select>
+                </Tab.Panel>
+              ))}
             </Tab.Panels>
           </Tab.Group>
         </div>
