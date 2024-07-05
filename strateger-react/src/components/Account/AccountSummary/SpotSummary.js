@@ -21,11 +21,13 @@ const SpotSummary = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    balances.forEach(balance => {
-      if (balance.asset !== 'USDT' && balance.asset !== 'BTC' && !tickerPrices[`${balance.asset}-USDT`]) {
-        dispatch(fetchTicker(`${balance.asset}-USDT`));
-      }
-    });
+    const tickersToFetch = balances
+      .filter(balance => balance.asset !== 'USDT' && balance.asset !== 'BTC' && parseFloat(balance.free) > 0 && !tickerPrices[`${balance.asset}-USDT`])
+      .map(balance => `${balance.asset}-USDT`);
+
+    if (tickersToFetch.length > 0) {
+      tickersToFetch.forEach(ticker => dispatch(fetchTicker(ticker)));
+    }
   }, [balances, tickerPrices, dispatch]);
 
   const getPriceInUSD = (asset, amount) => {
