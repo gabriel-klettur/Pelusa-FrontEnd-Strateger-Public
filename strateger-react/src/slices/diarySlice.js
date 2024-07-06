@@ -1,6 +1,5 @@
-// slices/diarySlice.js
-
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid'; // Importamos uuid para generar IDs únicos
 
 const initialState = {
   entries: [], // Lista de entradas del diario
@@ -11,7 +10,8 @@ const diarySlice = createSlice({
   initialState,
   reducers: {
     addEntry: (state, action) => {
-      state.entries.push(action.payload);
+      const newEntry = { ...action.payload, id: uuidv4() }; // Asignar un ID único
+      state.entries.push(newEntry);
     },
     updateEntry: (state, action) => {
       const index = state.entries.findIndex(entry => entry.id === action.payload.id);

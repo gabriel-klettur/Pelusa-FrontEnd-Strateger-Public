@@ -6,11 +6,12 @@ import AlarmItem from './AlarmItem';
 import OrderItem from './OrderItem';
 import StrategyItem from './StrategyItem';
 import DiaryItem from './DiaryItem';
+import { v4 as uuidv4 } from 'uuid'; // Importamos uuid para generar IDs únicos
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
 const initialState = {
-  id: '',
+  id: '', // No asignar ID aquí, se hará al guardar
   date: currentDate,
   text: '',
   photos: [],
@@ -19,12 +20,16 @@ const initialState = {
 
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [formData, setFormData] = useState(initialState);
+  const [currentPage, setCurrentPage] = useState(1); // Estado para manejar la página actual
+  const [activeTab, setActiveTab] = useState(0); // Estado para manejar la pestaña activa
   const fileInputRef = useRef(null);
 
   const orders = useSelector((state) => state.orders.orders);
   const alarms = useSelector((state) => state.alarms.alarms);
   const strategies = useSelector((state) => state.strategies.items);
   const diaryEntries = useSelector((state) => state.diary.entries);
+
+  const itemsPerPage = 10; // Número de elementos por página
 
   useEffect(() => {
     if (entry) {
@@ -33,6 +38,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
       setFormData(initialState);
     }
   }, [entry]);
+
+  useEffect(() => {
+    setCurrentPage(1); // Resetear la página actual al cambiar de pestaña
+  }, [activeTab]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +56,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    onSave({ ...formData, id: formData.id || uuidv4() }); // Asignar un ID único si no tiene uno
     setFormData(initialState);
     fileInputRef.current.value = null;
   };
@@ -78,6 +87,37 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
+  };
+
+  const getCurrentItems = (items) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return items.slice(startIndex, startIndex + itemsPerPage);
+  };
+
+  const renderPagination = (items) => {
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    return (
+      <div className="flex justify-center space-x-2 mt-4">
+        <button
+          type="button"
+          className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span className="px-4 py-2">{currentPage} / {totalPages}</span>
+        <button
+          type="button"
+          className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -132,9 +172,9 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">References</label>
-          <Tab.Group>
+          <Tab.Group onChange={(index) => setActiveTab(index)}>
             <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
-              {['Orders', 'Alarms', 'Strategies', 'Diary'].map((tab) => (
+              {['Orders', 'Alarms', 'Strategies', 'Diary'].map((tab, index) => (
                 <Tab
                   key={tab}
                   className={({ selected }) =>
@@ -149,44 +189,48 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             </Tab.List>
             <Tab.Panels className="mt-2">
               <Tab.Panel className="bg-white rounded-xl p-3">
-                {alarms.map(alarm => (
+                {getCurrentItems(alarms).map(alarm => (
                   <AlarmItem
-                    key={alarm.id}
+                    key={`alarm-${alarm.id}`}
                     alarm={alarm}
                     onSelect={() => handleSelectReference('alarm', alarm.id)}
                     isSelected={isSelected('alarm', alarm.id)}
                   />
                 ))}
+                {renderPagination(alarms)}
               </Tab.Panel>
               <Tab.Panel className="bg-white rounded-xl p-3">
-                {orders.map(order => (
+                {getCurrentItems(orders).map(order => (
                   <OrderItem
-                    key={order.orderId}
+                    key={`order-${order.orderId}`}
                     order={order}
                     onSelect={() => handleSelectReference('order', order.orderId)}
                     isSelected={isSelected('order', order.orderId)}
                   />
                 ))}
+                {renderPagination(orders)}
               </Tab.Panel>
               <Tab.Panel className="bg-white rounded-xl p-3">
-                {strategies.map(strategy => (
+                {getCurrentItems(strategies).map(strategy => (
                   <StrategyItem
-                    key={strategy.id}
+                    key={`strategy-${strategy.id}`}
                     strategy={strategy}
                     onSelect={() => handleSelectReference('strategy', strategy.id)}
                     isSelected={isSelected('strategy', strategy.id)}
                   />
                 ))}
+                {renderPagination(strategies)}
               </Tab.Panel>
               <Tab.Panel className="bg-white rounded-xl p-3">
-                {diaryEntries.map(diary => (
+                {getCurrentItems(diaryEntries).map(diary => (
                   <DiaryItem
-                    key={diary.id}
+                    key={`diary-${diary.id}`}
                     diary={diary}
                     onSelect={() => handleSelectReference('diary', diary.id)}
                     isSelected={isSelected('diary', diary.id)}
                   />
                 ))}
+                {renderPagination(diaryEntries)}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
@@ -208,7 +252,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             Clear Entry
           </button>
         </div>
-      </form>
+      </form>      
     </div>
   );
 };

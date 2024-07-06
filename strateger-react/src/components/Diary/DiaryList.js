@@ -9,7 +9,7 @@ const DiaryList = ({ entries, onEdit, onDelete }) => {
       ) : (
         entries.map((entry) => (
           <DiaryEntry
-            key={entry.id}
+            key={`diary-entry-${entry.id}`}
             entry={entry}
             onEdit={onEdit}
             onDelete={onDelete}
