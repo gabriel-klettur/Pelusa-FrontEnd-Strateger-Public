@@ -1,12 +1,10 @@
-// Path: strateger-react/src/App.js
-
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
 import { StrategyList } from './components/Strategy';
-import Diary from './components/Diary/Diary';
+import { Diary } from './components/Diary'; // Asegúrate de que esté importado correctamente
 import { Account } from './components/Account';
 import Backtesting from './components/Backtesting/Backtesting';
 import Reloj from './components/Reloj';
@@ -18,7 +16,7 @@ const App = () => {
   const currentDate = new Date();
   const formattedCurrentDate = currentDate.toISOString().slice(0, 19).replace('T', ' ');
 
-  // Calcular la fecha de inicio (1440 días antes de la fecha actual)
+  // Calcular la fecha de inicio (1000 días antes de la fecha actual)
   const startDate = new Date();
   startDate.setDate(currentDate.getDate() - 1000);
   const formattedStartDate = startDate.toISOString().slice(0, 19).replace('T', ' ');

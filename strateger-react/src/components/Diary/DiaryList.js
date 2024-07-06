@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Diary/DiaryList.js
-
 import React from 'react';
 import DiaryEntry from './DiaryEntry';
 

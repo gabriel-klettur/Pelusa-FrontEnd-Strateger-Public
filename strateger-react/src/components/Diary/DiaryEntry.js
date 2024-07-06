@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Diary/DiaryEntry.js
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import getReferenceDescription from './utils/getReferenceDescription';

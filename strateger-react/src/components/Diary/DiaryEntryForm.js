@@ -1,9 +1,11 @@
-// Path: strateger-react/src/components/Diary/DiaryEntryForm.js
-
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 import Slider from "react-slick";
+import AlarmItem from './AlarmItem';
+import OrderItem from './OrderItem';
+import StrategyItem from './StrategyItem';
+import DiaryItem from './DiaryItem';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -58,6 +60,18 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     }
   };
 
+  const handleSelectReference = (type, id) => {
+    const reference = `${type}-${id}`;
+    const references = formData.references.includes(reference)
+      ? formData.references.filter(ref => ref !== reference)
+      : [...formData.references, reference];
+    setFormData({ ...formData, references });
+  };
+
+  const isSelected = (type, id) => {
+    return formData.references.includes(`${type}-${id}`);
+  };
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -66,7 +80,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     slidesToScroll: 1
   };
 
-  return (    
+  return (
     <div className="col-span-10">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
         <h3 className="text-xl font-bold mb-6">
@@ -134,25 +148,46 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
               ))}
             </Tab.List>
             <Tab.Panels className="mt-2">
-              {[orders, alarms, strategies, diaryEntries].map((items, idx) => (
-                <Tab.Panel key={idx} className="bg-white rounded-xl p-3">
-                  <select
-                    name="references"
-                    multiple
-                    value={formData.references}
-                    onChange={(e) =>
-                      setFormData({ ...formData, references: [...e.target.selectedOptions].map((o) => o.value) })
-                    }
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                  >
-                    {items.map((item) => (
-                      <option key={item.id} value={`${item.type || 'diary'}-${item.id}`}>
-                        {item.name || `${new Date(item.date).toLocaleString()} - ${item.text?.substring(0, 20)}`}
-                      </option>
-                    ))}
-                  </select>
-                </Tab.Panel>
-              ))}
+              <Tab.Panel className="bg-white rounded-xl p-3">
+                {alarms.map(alarm => (
+                  <AlarmItem
+                    key={alarm.id}
+                    alarm={alarm}
+                    onSelect={() => handleSelectReference('alarm', alarm.id)}
+                    isSelected={isSelected('alarm', alarm.id)}
+                  />
+                ))}
+              </Tab.Panel>
+              <Tab.Panel className="bg-white rounded-xl p-3">
+                {orders.map(order => (
+                  <OrderItem
+                    key={order.orderId}
+                    order={order}
+                    onSelect={() => handleSelectReference('order', order.orderId)}
+                    isSelected={isSelected('order', order.orderId)}
+                  />
+                ))}
+              </Tab.Panel>
+              <Tab.Panel className="bg-white rounded-xl p-3">
+                {strategies.map(strategy => (
+                  <StrategyItem
+                    key={strategy.id}
+                    strategy={strategy}
+                    onSelect={() => handleSelectReference('strategy', strategy.id)}
+                    isSelected={isSelected('strategy', strategy.id)}
+                  />
+                ))}
+              </Tab.Panel>
+              <Tab.Panel className="bg-white rounded-xl p-3">
+                {diaryEntries.map(diary => (
+                  <DiaryItem
+                    key={diary.id}
+                    diary={diary}
+                    onSelect={() => handleSelectReference('diary', diary.id)}
+                    isSelected={isSelected('diary', diary.id)}
+                  />
+                ))}
+              </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>
@@ -174,7 +209,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           </button>
         </div>
       </form>
-    </div>    
+    </div>
   );
 };
 

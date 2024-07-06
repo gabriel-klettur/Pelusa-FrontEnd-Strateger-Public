@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Diary/Diary.js
-
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEntry, updateEntry, deleteEntry } from '../../slices/diarySlice';
