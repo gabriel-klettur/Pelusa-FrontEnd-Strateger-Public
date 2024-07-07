@@ -22,6 +22,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [formData, setFormData] = useState(initialState);
   const [currentPage, setCurrentPage] = useState(1); // Estado para manejar la página actual
   const [activeTab, setActiveTab] = useState(0); // Estado para manejar la pestaña activa
+  const [selectedIds, setSelectedIds] = useState([]); // Estado para manejar los IDs seleccionados
   const fileInputRef = useRef(null);
 
   const orders = useSelector((state) => state.orders.orders);
@@ -75,6 +76,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
       ? formData.references.filter(ref => ref !== reference)
       : [...formData.references, reference];
     setFormData({ ...formData, references });
+  };
+
+  const handleAddId = (id) => {
+    setSelectedIds((prev) => [...prev, id]);
   };
 
   const isSelected = (type, id) => {
@@ -195,6 +200,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
                     alarm={alarm}
                     onSelect={() => handleSelectReference('alarm', alarm.id)}
                     isSelected={isSelected('alarm', alarm.id)}
+                    onAdd={handleAddId}
                   />
                 ))}
                 {renderPagination(alarms)}
@@ -206,6 +212,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
                     order={order}
                     onSelect={() => handleSelectReference('order', order.orderId)}
                     isSelected={isSelected('order', order.orderId)}
+                    onAdd={handleAddId}
                   />
                 ))}
                 {renderPagination(orders)}
@@ -217,6 +224,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
                     strategy={strategy}
                     onSelect={() => handleSelectReference('strategy', strategy.id)}
                     isSelected={isSelected('strategy', strategy.id)}
+                    onAdd={handleAddId}
                   />
                 ))}
                 {renderPagination(strategies)}
@@ -228,6 +236,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
                     diary={diary}
                     onSelect={() => handleSelectReference('diary', diary.id)}
                     isSelected={isSelected('diary', diary.id)}
+                    onAdd={handleAddId}
                   />
                 ))}
                 {renderPagination(diaryEntries)}
@@ -252,7 +261,17 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             Clear Entry
           </button>
         </div>
-      </form>      
+      </form>
+      <div className="mt-4">
+        <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
+        <input
+          type="text"
+          value={selectedIds.join(';')}
+          readOnly
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+        />
+      </div>
+      {renderPagination(activeTab === 1 ? alarms : activeTab === 0 ? orders : activeTab === 2 ? strategies : diaryEntries)}
     </div>
   );
 };
