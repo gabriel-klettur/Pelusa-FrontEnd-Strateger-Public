@@ -57,9 +57,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ ...formData, id: formData.id || uuidv4() }); // Asignar un ID único si no tiene uno
+    onSave({  ...formData, references: selectedIds, id: formData.id || uuidv4() }); // Asignar un ID único si no tiene uno
     setFormData(initialState);
     fileInputRef.current.value = null;
+    //setSelectedIds([]); // Limpiar selectedIds después de guardar
   };
 
   const handleClear = () => {

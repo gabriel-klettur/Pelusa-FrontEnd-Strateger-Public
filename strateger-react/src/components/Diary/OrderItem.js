@@ -14,6 +14,7 @@ const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {
           <span className={isSelected ? 'font-bold' : ''}>[{order.symbol}]-[{new Date(order.time).toLocaleString()}]-[{order.avgPrice}]</span>
         </div>
         <button
+          type="button" // Asegúrate de que el tipo sea "button"
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
           onClick={() => onAdd("Order:"+order.orderId)}
         >

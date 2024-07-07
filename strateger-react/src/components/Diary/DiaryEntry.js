@@ -1,13 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import getReferenceDescription from './utils/getReferenceDescription';
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {
-  const orders = useSelector((state) => state.orders.orders);
-  const alarms = useSelector((state) => state.alarms.alarms);
-  const strategies = useSelector((state) => state.strategies.items);
-  const diaryEntries = useSelector((state) => state.diary.entries);
-
   return (
     <div className="bg-white p-4 shadow-md mb-4 border border-gray-200 p-4 rounded-lg">
       <div className="mb-2">
@@ -37,7 +30,7 @@ const DiaryEntry = ({ entry, onEdit, onDelete }) => {
         <strong>References:</strong>
         <ul>
           {entry.references.map((ref, index) => (
-            <li key={index}>{getReferenceDescription(ref, orders, alarms, strategies, diaryEntries)}</li>
+            <li key={index}>{ref}</li>
           ))}
         </ul>
       </div>

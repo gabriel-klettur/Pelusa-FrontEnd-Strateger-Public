@@ -14,6 +14,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
           <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Ticker}]-[{alarm.Time_Alert}] </span>
         </div>
         <button
+          type="button" // Asegúrate de que el tipo sea "button"
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
           onClick={() => onAdd("Alarm:"+alarm.id)}
         >
