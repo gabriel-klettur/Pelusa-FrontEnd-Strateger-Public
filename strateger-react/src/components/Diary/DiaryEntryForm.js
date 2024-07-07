@@ -244,6 +244,17 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             </Tab.Panels>
           </Tab.Group>
         </div>
+        
+        <div className="mt-4 mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
+          <input
+            type="text"
+            value={selectedIds.join(';')}
+            readOnly
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+          />
+        </div>    
+
         <div className="flex space-x-4">
           <button
             type="submit"
@@ -261,17 +272,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             Clear Entry
           </button>
         </div>
-      </form>
-      <div className="mt-4">
-        <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
-        <input
-          type="text"
-          value={selectedIds.join(';')}
-          readOnly
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-        />
-      </div>
-      {renderPagination(activeTab === 1 ? alarms : activeTab === 0 ? orders : activeTab === 2 ? strategies : diaryEntries)}
+      </form>        
     </div>
   );
 };
