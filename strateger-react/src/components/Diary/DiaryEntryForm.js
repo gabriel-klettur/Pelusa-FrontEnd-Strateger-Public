@@ -179,7 +179,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           <label className="block text-gray-700 font-semibold mb-2">References</label>
           <Tab.Group onChange={(index) => setActiveTab(index)}>
             <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
-              {['Orders', 'Alarms', 'Strategies', 'Diary'].map((tab, index) => (
+              {['Alarms', 'Orders', 'Strategies', 'Diary'].map((tab, index) => (
                 <Tab
                   key={tab}
                   className={({ selected }) =>

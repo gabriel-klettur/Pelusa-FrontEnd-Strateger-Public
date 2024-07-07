@@ -15,7 +15,7 @@ const DiaryItem = ({ diary, onSelect, isSelected, onAdd }) => {
         </div>
         <button
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-          onClick={() => onAdd(diary.id)}
+          onClick={() => onAdd("Diary:"+diary.id)}
         >
           Agregar
         </button>

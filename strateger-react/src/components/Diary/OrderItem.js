@@ -11,11 +11,11 @@ const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {
     <div className="border-b border-gray-200 py-2">
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
-          <span className={isSelected ? 'font-bold' : ''}>{order.symbol}</span>
+          <span className={isSelected ? 'font-bold' : ''}>[{order.symbol}]-[{new Date(order.time).toLocaleString()}]-[{order.avgPrice}]</span>
         </div>
         <button
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-          onClick={() => onAdd(order.orderId)}
+          onClick={() => onAdd("Order:"+order.orderId)}
         >
           Agregar
         </button>

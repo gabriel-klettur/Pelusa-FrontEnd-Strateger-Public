@@ -11,17 +11,18 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
     <div className="border-b border-gray-200 py-2">
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
-          <span className={isSelected ? 'font-bold' : ''}>{alarm.Ticker}</span>
+          <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Ticker}]-[{alarm.Time_Alert}] </span>
         </div>
         <button
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-          onClick={() => onAdd(alarm.id)}
+          onClick={() => onAdd("Alarm:"+alarm.id)}
         >
           Agregar
         </button>
       </div>
       {expanded && (
         <div className="mt-2">
+          <div><strong>Id:</strong> {alarm.id}</div>
           <div><strong>Temporalidad:</strong> {alarm.Temporalidad}</div>
           <div><strong>Quantity:</strong> {alarm.Quantity}</div>
           <div><strong>Entry Price Alert:</strong> {alarm.Entry_Price_Alert}</div>

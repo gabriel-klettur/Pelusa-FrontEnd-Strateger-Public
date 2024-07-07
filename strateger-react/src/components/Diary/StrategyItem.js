@@ -15,7 +15,7 @@ const StrategyItem = ({ strategy, onSelect, isSelected, onAdd }) => {
         </div>
         <button
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-          onClick={() => onAdd(strategy.id)}
+          onClick={() => onAdd("Strategy:"+strategy.id)}
         >
           Agregar
         </button>
