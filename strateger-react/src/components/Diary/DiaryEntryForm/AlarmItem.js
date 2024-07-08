@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/AlarmItem.js
+
 import React, { useState } from 'react';
 
 const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
@@ -15,7 +17,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
         </div>
         <button
           type="button" // Asegúrate de que el tipo sea "button"
-          className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
+          className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"   
           onClick={() => onAdd("Alarm:"+alarm.id)}
         >
           Agregar

@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/DiaryEntry.js
+
 import React from 'react';
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {

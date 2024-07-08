@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/OrderItem.js
+
 import React, { useState } from 'react';
 
 const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {

@@ -1,8 +1,10 @@
+//Path: strateger-react/src/components/Diary/Diary.js
+
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEntry, updateEntry, deleteEntry } from '../../slices/diarySlice';
-import DiaryList from './DiaryList';
-import DiaryEntryForm from './DiaryEntryForm';
+import DiaryList from './DiaryList/DiaryList';
+import DiaryEntryForm from './DiaryEntryForm/DiaryEntryForm';
 
 const Diary = () => {
   const entries = useSelector((state) => state.diary.entries);

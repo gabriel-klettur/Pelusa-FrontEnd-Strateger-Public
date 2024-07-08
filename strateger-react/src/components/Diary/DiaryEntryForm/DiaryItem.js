@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/DiaryItem.js
+
 import React, { useState } from 'react';
 
 const DiaryItem = ({ diary, onSelect, isSelected, onAdd }) => {

@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/DiaryEntryForm.js
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
