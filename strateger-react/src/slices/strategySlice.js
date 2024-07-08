@@ -1,3 +1,5 @@
+//Path: strateger-react/src/slices/strategySlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';

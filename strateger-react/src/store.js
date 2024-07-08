@@ -10,7 +10,7 @@ import accountReducer from './slices/accountSlice';
 import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
 import timeReducer from './slices/timeSlice';
-import tickerReducer from './slices/tickerSlice'; // Importar tickerSlice
+import tickerReducer from './slices/tickerSlice';
 
 const store = configureStore({
   reducer: {

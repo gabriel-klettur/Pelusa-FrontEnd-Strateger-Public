@@ -1,28 +1,30 @@
-//Path: strateger-react/src/components/Diary/Diary.js
-
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addEntry, updateEntry, deleteEntry } from '../../slices/diarySlice';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import DiaryList from './DiaryList/DiaryList';
 import DiaryEntryForm from './DiaryEntryForm/DiaryEntryForm';
+import { fetchDiaryEntries, saveDiaryEntry, removeDiaryEntry } from '../../slices/diarySlice';
 
 const Diary = () => {
-  const entries = useSelector((state) => state.diary.entries);
+  const entries = useSelector((state) => state.diary.items);
   const dispatch = useDispatch();
   const [editingEntry, setEditingEntry] = useState(null);
 
+  useEffect(() => {
+    dispatch(fetchDiaryEntries({ skip: 0, limit: 10 }));
+  }, [dispatch]);
+
   const handleAddEntry = (entry) => {
-    dispatch(addEntry(entry));
-    setEditingEntry(null);
+    dispatch(saveDiaryEntry(entry))
+      .then(() => setEditingEntry(null));
   };
 
   const handleUpdateEntry = (entry) => {
-    dispatch(updateEntry(entry));
-    setEditingEntry(null);
+    dispatch(saveDiaryEntry(entry))
+      .then(() => setEditingEntry(null));
   };
 
   const handleDeleteEntry = (id) => {
-    dispatch(deleteEntry(id));
+    dispatch(removeDiaryEntry(id));
   };
 
   const handleEditEntry = (id) => {

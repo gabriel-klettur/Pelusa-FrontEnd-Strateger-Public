@@ -1,5 +1,3 @@
-//Path: strateger-react/src/components/Diary/DiaryEntryForm.js
-
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
@@ -27,10 +25,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [selectedIds, setSelectedIds] = useState([]); // Estado para manejar los IDs seleccionados
   const fileInputRef = useRef(null);
 
-  const orders = useSelector((state) => state.orders.orders);
-  const alarms = useSelector((state) => state.alarms.alarms);
-  const strategies = useSelector((state) => state.strategies.items);
-  const diaryEntries = useSelector((state) => state.diary.entries);
+  const orders = useSelector((state) => state.orders.orders) || []; // Asegúrate de que sea un array
+  const alarms = useSelector((state) => state.alarms.alarms) || []; // Asegúrate de que sea un array
+  const strategies = useSelector((state) => state.strategies.items) || []; // Asegúrate de que sea un array
+  const diaryEntries = useSelector((state) => state.diary.items) || []; // Asegúrate de que sea un array
 
   const itemsPerPage = 10; // Número de elementos por página
 
@@ -62,7 +60,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     onSave({  ...formData, references: selectedIds, id: formData.id || uuidv4() }); // Asignar un ID único si no tiene uno
     setFormData(initialState);
     fileInputRef.current.value = null;
-    //setSelectedIds([]); // Limpiar selectedIds después de guardar
+    setSelectedIds([]); // Limpiar selectedIds después de guardar
   };
 
   const handleClear = () => {
