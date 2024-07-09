@@ -13,18 +13,31 @@ const Diary = () => {
     dispatch(fetchDiaryEntries({ skip: 0, limit: 10 }));
   }, [dispatch]);
 
-  const handleAddEntry = (entry) => {
-    dispatch(saveDiaryEntry(entry))
-      .then(() => setEditingEntry(null));
-  };
+  const handleAddOrUpdateEntry = (entry) => {
+    console.log('handleAddOrUpdateEntry called with:', entry);
 
-  const handleUpdateEntry = (entry) => {
-    dispatch(saveDiaryEntry(entry))
-      .then(() => setEditingEntry(null));
+    if (!entry.id) {
+      // Para creación, asegurar que no haya id
+      dispatch(saveDiaryEntry({ ...entry, id: null }))
+        .then(() => {
+          console.log('Entry created successfully:', entry);
+          setEditingEntry(null);
+        })
+        .catch((error) => console.error('Error creating the diary entry:', error));
+    } else {
+      dispatch(saveDiaryEntry(entry))
+        .then(() => {
+          console.log('Entry updated successfully:', entry);
+          setEditingEntry(null);
+        })
+        .catch((error) => console.error('Error updating the diary entry:', error));
+    }
   };
 
   const handleDeleteEntry = (id) => {
-    dispatch(removeDiaryEntry(id));
+    console.log('handleDeleteEntry called with id:', id);
+    dispatch(removeDiaryEntry(id))
+      .catch((error) => console.error('Error deleting the diary entry:', error));
   };
 
   const handleEditEntry = (id) => {
@@ -42,7 +55,7 @@ const Diary = () => {
       <div className="grid grid-cols-10 gap-4 border border-gray-200 p-4 rounded-lg">
         <div className="col-span-4 border border-gray-200 p-4 rounded-lg">
           <DiaryEntryForm
-            onSave={editingEntry ? handleUpdateEntry : handleAddEntry}
+            onSave={handleAddOrUpdateEntry}
             entry={editingEntry}
             onCancelEdit={handleCancelEdit}
           />

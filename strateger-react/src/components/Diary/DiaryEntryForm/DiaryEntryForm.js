@@ -6,7 +6,7 @@ import AlarmItem from './AlarmItem';
 import OrderItem from './OrderItem';
 import StrategyItem from './StrategyItem';
 import DiaryItem from './DiaryItem';
-import { v4 as uuidv4 } from 'uuid'; // Importamos uuid para generar IDs únicos
+//import { v4 as uuidv4 } from 'uuid'; // Importamos uuid para generar IDs únicos
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -57,11 +57,21 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({  ...formData, references: selectedIds, id: formData.id || uuidv4() }); // Asignar un ID único si no tiene uno
+    const isUpdate = !!formData.id;
+    console.log('Submitting form:', formData);
+    console.log('Is update:', isUpdate);
+  
+    if (!isUpdate) {
+      onSave({ ...formData, id: null });
+    } else {
+      onSave(formData);
+    }
+  
     setFormData(initialState);
     fileInputRef.current.value = null;
     setSelectedIds([]); // Limpiar selectedIds después de guardar
   };
+  
 
   const handleClear = () => {
     setFormData(initialState);
