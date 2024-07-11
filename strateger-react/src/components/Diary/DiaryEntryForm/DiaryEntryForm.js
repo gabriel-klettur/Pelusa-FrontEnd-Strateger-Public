@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 import Slider from "react-slick";
 import AlarmItem from './AlarmItem';
 import OrderItem from './OrderItem';
 import StrategyItem from './StrategyItem';
 import DiaryItem from './DiaryItem';
-//import { v4 as uuidv4 } from 'uuid'; // Importamos uuid para generar IDs únicos
+
+import { uploadImages } from '../../../slices/diarySlice';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
 const initialState = {
-  id: '', // No asignar ID aquí, se hará al guardar
+  id: '', 
   date: currentDate,
   text: '',
   photos: [],
@@ -20,17 +21,20 @@ const initialState = {
 
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [formData, setFormData] = useState(initialState);
-  const [currentPage, setCurrentPage] = useState(1); // Estado para manejar la página actual
-  const [activeTab, setActiveTab] = useState(0); // Estado para manejar la pestaña activa
-  const [selectedIds, setSelectedIds] = useState([]); // Estado para manejar los IDs seleccionados
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [activeTab, setActiveTab] = useState(0); 
+  const [selectedIds, setSelectedIds] = useState([]); 
+  const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
 
-  const orders = useSelector((state) => state.orders.orders) || []; // Asegúrate de que sea un array
-  const alarms = useSelector((state) => state.alarms.alarms) || []; // Asegúrate de que sea un array
-  const strategies = useSelector((state) => state.strategies.items) || []; // Asegúrate de que sea un array
-  const diaryEntries = useSelector((state) => state.diary.items) || []; // Asegúrate de que sea un array
+  const dispatch = useDispatch();
 
-  const itemsPerPage = 10; // Número de elementos por página
+  const orders = useSelector((state) => state.orders.orders) || []; 
+  const alarms = useSelector((state) => state.alarms.alarms) || []; 
+  const strategies = useSelector((state) => state.strategies.items) || []; 
+  const diaryEntries = useSelector((state) => state.diary.items) || []; 
+
+  const itemsPerPage = 10; 
 
   useEffect(() => {
     if (entry) {
@@ -41,7 +45,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   }, [entry]);
 
   useEffect(() => {
-    setCurrentPage(1); // Resetear la página actual al cambiar de pestaña
+    setCurrentPage(1); 
   }, [activeTab]);
 
   const handleChange = (e) => {
@@ -55,23 +59,35 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     setFormData({ ...formData, photos: fileUrls });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const isUpdate = !!formData.id;
-    console.log('Submitting form:', formData);
-    console.log('Is update:', isUpdate);
-  
-    if (!isUpdate) {
-      onSave({ ...formData, id: null });
-    } else {
-      onSave(formData);
+
+    if (!formData.text.trim()) {
+      setErrors({ text: 'El texto no puede estar vacío.' });
+      return;
     }
-  
-    setFormData(initialState);
-    fileInputRef.current.value = null;
-    setSelectedIds([]); // Limpiar selectedIds después de guardar
+
+    try {
+      const photoUrls = await dispatch(uploadImages(formData.photos)).unwrap();
+      const formDataToSubmit = {
+        ...formData,
+        photos: photoUrls,
+      };
+      const isUpdate = !!formData.id;
+      if (!isUpdate) {
+        onSave({ ...formDataToSubmit, id: null });
+      } else {
+        onSave(formDataToSubmit);
+      }
+      setFormData(initialState);
+      fileInputRef.current.value = null;
+      setSelectedIds([]);
+      setErrors({}); 
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      setErrors({ global: 'Failed to upload images. Please try again.' });
+    }
   };
-  
 
   const handleClear = () => {
     setFormData(initialState);
@@ -142,6 +158,13 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
         <h3 className="text-xl font-bold mb-6">
           {entry ? 'Editing Entry' : 'Add New Entry'}
         </h3>
+        
+        {errors.global && (
+          <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
+            {errors.global}
+          </div>
+        )}
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Date</label>
           <input
@@ -152,16 +175,21 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
           />
         </div>
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Text</label>
           <textarea
             name="text"
             value={formData.text}
             onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+            className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500 ${errors.text ? 'border-red-500' : ''}`}
             rows="4"
           ></textarea>
+          {errors.text && (
+            <p className="text-red-500 text-sm mt-1">{errors.text}</p>
+          )}
         </div>
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Photos</label>
           {formData.photos.length > 0 && (
@@ -186,6 +214,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
           />
         </div>
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">References</label>
           <Tab.Group onChange={(index) => setActiveTab(index)}>

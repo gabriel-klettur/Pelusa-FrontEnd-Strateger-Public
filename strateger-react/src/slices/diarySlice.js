@@ -4,6 +4,24 @@ import config from '../config';
 
 const BASE_URL = `${config.apiURL}/strateger/diary`;
 
+// Función para subir archivos
+const uploadFile = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await axios.post(`${BASE_URL}/upload_image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data.file_url;
+  } catch (error) {
+    console.error("Error uploading file:", error.response || error.message);
+    throw error;
+  }
+};
+
 const createDiaryEntry = async (entry) => {
   console.log('Creating new diary entry:', entry);
   const response = await axios.post(`${BASE_URL}/insert`, entry);    
@@ -16,7 +34,13 @@ const updateDiaryEntry = async (entryId, entry) => {
   return response.data;
 };
 
-// Thunks for async actions
+// Thunk para subir imágenes
+export const uploadImages = createAsyncThunk('diary/uploadImages', async (files) => {
+  const uploadPromises = files.map(uploadFile);
+  return await Promise.all(uploadPromises);
+});
+
+// Thunks para acciones asincrónicas existentes
 export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', async ({ skip, limit }) => {
   const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
   return response.data;
@@ -96,6 +120,16 @@ const diarySlice = createSlice({
       .addCase(removeDiaryEntry.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(uploadImages.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(uploadImages.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(uploadImages.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
