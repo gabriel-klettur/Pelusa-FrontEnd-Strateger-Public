@@ -1,13 +1,12 @@
+// Path: strateger-react/src/components/Diary/DiaryEntryForm/DiaryEntryForm.js
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tab } from '@headlessui/react';
-import Slider from "react-slick";
-import AlarmItem from './AlarmItem';
-import OrderItem from './OrderItem';
-import StrategyItem from './StrategyItem';
-import DiaryItem from './DiaryItem';
-
 import { uploadImages } from '../../../slices/diarySlice';
+import DateForm from './DateForm';
+import TextForm from './TextForm';
+import PhotosForm from './PhotosForm';
+import ReferencesForm from './ReferencesForm/ReferencesForm';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -22,7 +21,6 @@ const initialState = {
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   const [formData, setFormData] = useState(initialState);
   const [currentPage, setCurrentPage] = useState(1); 
-  const [activeTab, setActiveTab] = useState(0); 
   const [selectedIds, setSelectedIds] = useState([]); 
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
@@ -46,7 +44,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   useEffect(() => {
     setCurrentPage(1); 
-  }, [activeTab]);
+  }, [setCurrentPage]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,45 +111,6 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     return formData.references.includes(`${type}-${id}`);
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
-
-  const getCurrentItems = (items) => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return items.slice(startIndex, startIndex + itemsPerPage);
-  };
-
-  const renderPagination = (items) => {
-    const totalPages = Math.ceil(items.length / itemsPerPage);
-
-    return (
-      <div className="flex justify-center space-x-2 mt-4">
-        <button
-          type="button"
-          className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-        <span className="px-4 py-2">{currentPage} / {totalPages}</span>
-        <button
-          type="button"
-          className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div className="col-span-10">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
@@ -165,125 +124,24 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           </div>
         )}
         
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Date</label>
-          <input
-            type="datetime-local"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
+        <DateForm date={formData.date} handleChange={handleChange} />
         
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Text</label>
-          <textarea
-            name="text"
-            value={formData.text}
-            onChange={handleChange}
-            className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500 ${errors.text ? 'border-red-500' : ''}`}
-            rows="4"
-          ></textarea>
-          {errors.text && (
-            <p className="text-red-500 text-sm mt-1">{errors.text}</p>
-          )}
-        </div>
+        <TextForm text={formData.text} handleChange={handleChange} error={errors.text} />
         
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Photos</label>
-          {formData.photos.length > 0 && (
-            <Slider {...sliderSettings} className="mb-4">
-              {formData.photos.map((photoUrl, index) => (
-                <div key={index} className="flex justify-center items-center">
-                  <img
-                    src={photoUrl}
-                    alt={`Attachment ${index + 1}`}
-                    className="h-48 w-auto object-cover rounded-lg shadow-md"
-                  />
-                </div>
-              ))}
-            </Slider>
-          )}
-          <input
-            type="file"
-            name="photos"
-            multiple
-            onChange={handlePhotoChange}
-            ref={fileInputRef}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>
+        <PhotosForm photos={formData.photos} handlePhotoChange={handlePhotoChange} fileInputRef={fileInputRef} />
         
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">References</label>
-          <Tab.Group onChange={(index) => setActiveTab(index)}>
-            <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
-              {['Alarms', 'Orders', 'Strategies', 'Diary'].map((tab, index) => (
-                <Tab
-                  key={tab}
-                  className={({ selected }) =>
-                    `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                      selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                    }`
-                  }
-                >
-                  {tab}
-                </Tab>
-              ))}
-            </Tab.List>
-            <Tab.Panels className="mt-2">
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                {getCurrentItems(alarms).map(alarm => (
-                  <AlarmItem
-                    key={`alarm-${alarm.id}`}
-                    alarm={alarm}
-                    onSelect={() => handleSelectReference('alarm', alarm.id)}
-                    isSelected={isSelected('alarm', alarm.id)}
-                    onAdd={handleAddId}
-                  />
-                ))}
-                {renderPagination(alarms)}
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                {getCurrentItems(orders).map(order => (
-                  <OrderItem
-                    key={`order-${order.orderId}`}
-                    order={order}
-                    onSelect={() => handleSelectReference('order', order.orderId)}
-                    isSelected={isSelected('order', order.orderId)}
-                    onAdd={handleAddId}
-                  />
-                ))}
-                {renderPagination(orders)}
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                {getCurrentItems(strategies).map(strategy => (
-                  <StrategyItem
-                    key={`strategy-${strategy.id}`}
-                    strategy={strategy}
-                    onSelect={() => handleSelectReference('strategy', strategy.id)}
-                    isSelected={isSelected('strategy', strategy.id)}
-                    onAdd={handleAddId}
-                  />
-                ))}
-                {renderPagination(strategies)}
-              </Tab.Panel>
-              <Tab.Panel className="bg-white rounded-xl p-3">
-                {getCurrentItems(diaryEntries).map(diary => (
-                  <DiaryItem
-                    key={`diary-${diary.id}`}
-                    diary={diary}
-                    onSelect={() => handleSelectReference('diary', diary.id)}
-                    isSelected={isSelected('diary', diary.id)}
-                    onAdd={handleAddId}
-                  />
-                ))}
-                {renderPagination(diaryEntries)}
-              </Tab.Panel>
-            </Tab.Panels>
-          </Tab.Group>
-        </div>
+        <ReferencesForm
+          alarms={alarms}
+          orders={orders}
+          strategies={strategies}
+          diaryEntries={diaryEntries}
+          handleSelectReference={handleSelectReference}
+          handleAddId={handleAddId}
+          isSelected={isSelected}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          setCurrentPage={setCurrentPage}
+        />
         
         <div className="mt-4 mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
