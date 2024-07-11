@@ -6,7 +6,7 @@ import Slider from "react-slick";
 const PhotosForm = ({ photos, handlePhotoChange, fileInputRef }) => {
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false, // Cambiar a false para evitar duplicación infinita
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -17,10 +17,10 @@ const PhotosForm = ({ photos, handlePhotoChange, fileInputRef }) => {
       <label className="block text-gray-700 font-semibold mb-2">Photos</label>
       {photos.length > 0 && (
         <Slider {...sliderSettings} className="mb-4">
-          {photos.map((photoUrl, index) => (
+          {photos.map((photo, index) => (
             <div key={index} className="flex justify-center items-center">
               <img
-                src={photoUrl}
+                src={URL.createObjectURL(photo)} // Utilizar URL.createObjectURL para fotos locales
                 alt={`Attachment ${index + 1}`}
                 className="h-48 w-auto object-cover rounded-lg shadow-md"
               />
