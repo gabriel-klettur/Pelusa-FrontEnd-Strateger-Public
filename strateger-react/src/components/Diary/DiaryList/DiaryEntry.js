@@ -18,7 +18,7 @@ const DiaryEntry = ({ entry, onEdit, onDelete }) => {
             {entry.photos.map((photoUrl, index) => (
               <img
                 key={index}
-                src={photoUrl}
+                src={`http://localhost${photoUrl}`}
                 alt={`Attachment ${index + 1}`}
                 className="h-24 w-24 object-cover m-1"
               />

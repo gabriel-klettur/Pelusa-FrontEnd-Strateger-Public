@@ -55,8 +55,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
-    const fileUrls = files.map((file) => URL.createObjectURL(file));
-    setFormData({ ...formData, photos: fileUrls });
+    setFormData({ ...formData, photos: files });
   };
 
   const handleSubmit = async (e) => {

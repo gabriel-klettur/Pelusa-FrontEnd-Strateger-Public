@@ -1,10 +1,11 @@
+// Path: strateger-react/src/slices/diarySlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
 
 const BASE_URL = `${config.apiURL}/strateger/diary`;
 
-// Función para subir archivos
 const uploadFile = async (file) => {
   const formData = new FormData();
   formData.append('file', file);
@@ -22,25 +23,11 @@ const uploadFile = async (file) => {
   }
 };
 
-const createDiaryEntry = async (entry) => {
-  console.log('Creating new diary entry:', entry);
-  const response = await axios.post(`${BASE_URL}/insert`, entry);    
-  return response.data;
-};
-
-const updateDiaryEntry = async (entryId, entry) => {
-  console.log('Updating diary entry:', entryId, entry);
-  const response = await axios.put(`${BASE_URL}/update/${entryId}`, entry);
-  return response.data;
-};
-
-// Thunk para subir imágenes
 export const uploadImages = createAsyncThunk('diary/uploadImages', async (files) => {
-  const uploadPromises = files.map(uploadFile);
+  const uploadPromises = files.map(file => uploadFile(file));
   return await Promise.all(uploadPromises);
 });
 
-// Thunks para acciones asincrónicas existentes
 export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', async ({ skip, limit }) => {
   const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
   return response.data;
@@ -49,9 +36,11 @@ export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', asy
 export const saveDiaryEntry = createAsyncThunk('diary/saveDiaryEntry', async (entry) => {
   console.log('saveDiaryEntry called with:', entry);
   if (entry.id && entry.id !== '') {
-    return await updateDiaryEntry(entry.id, entry);
+    const response = await axios.put(`${BASE_URL}/update/${entry.id}`, entry);
+    return response.data;
   } else {
-    return await createDiaryEntry(entry);
+    const response = await axios.post(`${BASE_URL}/insert`, entry);
+    return response.data;
   }
 });
 
@@ -120,16 +109,6 @@ const diarySlice = createSlice({
       .addCase(removeDiaryEntry.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-      .addCase(uploadImages.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(uploadImages.fulfilled, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(uploadImages.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
       });
   },
 });
