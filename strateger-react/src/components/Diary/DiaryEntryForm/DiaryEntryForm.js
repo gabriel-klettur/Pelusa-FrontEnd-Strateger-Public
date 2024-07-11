@@ -141,17 +141,8 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           setCurrentPage={setCurrentPage}
+          selectedIds={selectedIds}
         />
-        
-        <div className="mt-4 mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
-          <input
-            type="text"
-            value={selectedIds.join(';')}
-            readOnly
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-          />
-        </div>    
 
         <div className="flex space-x-4">
           <button

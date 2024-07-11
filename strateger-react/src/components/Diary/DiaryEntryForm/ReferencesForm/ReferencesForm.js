@@ -7,10 +7,11 @@ import OrderItem from './OrderItem';
 import StrategyItem from './StrategyItem';
 import DiaryItem from './DiaryItem';
 import PaginationReferencesForm from './PaginationReferencesForm';
+import SelectedIds from './SelectedIds';
 
 const ReferencesForm = ({
   alarms, orders, strategies, diaryEntries, handleSelectReference,
-  handleAddId, isSelected, currentPage, itemsPerPage, setCurrentPage
+  handleAddId, isSelected, currentPage, itemsPerPage, setCurrentPage, selectedIds
 }) => {
   const getCurrentItems = (items) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -104,6 +105,7 @@ const ReferencesForm = ({
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
+      <SelectedIds selectedIds={selectedIds} />
     </div>
   );
 };
