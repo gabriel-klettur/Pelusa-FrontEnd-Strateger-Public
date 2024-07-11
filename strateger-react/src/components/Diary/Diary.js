@@ -1,3 +1,5 @@
+// Path: strateger-react/src/components/Diary/Diary.js
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DiaryList from './DiaryList/DiaryList';
@@ -17,7 +19,6 @@ const Diary = () => {
     console.log('handleAddOrUpdateEntry called with:', entry);
 
     if (!entry.id) {
-      // Para creación, asegurar que no haya id
       dispatch(saveDiaryEntry({ ...entry, id: null }))
         .then(() => {
           console.log('Entry created successfully:', entry);

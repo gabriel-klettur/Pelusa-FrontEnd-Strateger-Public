@@ -37,8 +37,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   useEffect(() => {
     if (entry) {
       setFormData(entry);
+      setSelectedIds(entry.references);
     } else {
       setFormData(initialState);
+      setSelectedIds([]);
     }
   }, [entry]);
 
@@ -70,6 +72,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
       const formDataToSubmit = {
         ...formData,
         photos: photoUrls,
+        references: selectedIds
       };
       const isUpdate = !!formData.id;
       if (!isUpdate) {
@@ -97,10 +100,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const handleSelectReference = (type, id) => {
     const reference = `${type}-${id}`;
-    const references = formData.references.includes(reference)
-      ? formData.references.filter(ref => ref !== reference)
-      : [...formData.references, reference];
-    setFormData({ ...formData, references });
+    const references = selectedIds.includes(reference)
+      ? selectedIds.filter(ref => ref !== reference)
+      : [...selectedIds, reference];
+    setSelectedIds(references);
   };
 
   const handleAddId = (id) => {
@@ -108,7 +111,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   };
 
   const isSelected = (type, id) => {
-    return formData.references.includes(`${type}-${id}`);
+    return selectedIds.includes(`${type}-${id}`);
   };
 
   return (
