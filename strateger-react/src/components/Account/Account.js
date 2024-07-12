@@ -4,6 +4,7 @@ import React from 'react';
 import DailyResults from './DailyResults';
 import StrategyResults from './StrategyResults';
 import AccountSummary from './AccountSummary/AccountSummary';
+import PositionSummary from './PositionSummary/PositionSummary';
 import simulatedData from './simulatedData';
 
 const Account = () => {
@@ -14,6 +15,8 @@ const Account = () => {
       <div className="border-4 border-green-500">
         <h2 className="text-2xl font-bold mb-4">Account Overview</h2>
       </div>
+
+      <PositionSummary />
 
       <AccountSummary />
 
