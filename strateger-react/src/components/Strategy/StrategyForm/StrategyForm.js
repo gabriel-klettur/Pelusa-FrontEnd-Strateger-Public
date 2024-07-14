@@ -10,8 +10,8 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
   const [formState, setFormState] = useState({
     name: '',
     isOn: false,
-    apiKey: '',
-    secretKey: '',
+    account_name: '',
+    account_type: '',
     ticker: tickers[0],
     resultadoAcc: '',
     description: '',
@@ -196,7 +196,7 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
                   {({ open }) => (
                     <>
                       <Popover.Button className={`mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2 text-left ${open ? '' : 'bg-white'}`}>
-                        Configurar API Account
+                        Asociar Account
                       </Popover.Button>
                       <Transition
                         as={Fragment}
@@ -209,21 +209,21 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
                       >
                         <Popover.Panel className="absolute z-10 mt-2 w-full bg-white shadow-lg rounded-md p-4">
                           <div className="mb-2">
-                            <label className="block text-gray-700">API-KEY</label>
+                            <label className="block text-gray-700">NAME ACCOUNT</label>
                             <input
                               type="text"
-                              name="apiKey"
-                              value={formState.apiKey}
+                              name="account_name"
+                              value={formState.account_name}
                               onChange={handleChange}
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             />
                           </div>
                           <div className="mb-2">
-                            <label className="block text-gray-700">SECRET-KEY</label>
+                            <label className="block text-gray-700">TYPE ACCOUNT:</label>
                             <input
                               type="text"
-                              name="secretKey"
-                              value={formState.secretKey}
+                              name="account_type"
+                              value={formState.account_type}
                               onChange={handleChange}
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             />

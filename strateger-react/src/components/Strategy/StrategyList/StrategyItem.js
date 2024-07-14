@@ -96,8 +96,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
         <div className="col-span-2 border border-gray-300 p-4">
           <h2 className="text-lg font-bold">{strategy.name}</h2>
           <p className={`${onOffClass} p-2 rounded`}><strong>ON/OFF: </strong> {strategy.isOn ? 'ON' : 'OFF'}</p>
-          <p><strong>API KEY:</strong> {strategy.apiKey}</p>
-          <p><strong>SECRET KEY:</strong> {strategy.secretKey}</p>
+          <p><strong>WORKING IN ACCOUNT:</strong> {strategy.account_name}, {strategy.account_type}</p>
           <p><strong>Ticker:</strong> {strategy.ticker}</p>
           <p><strong>Resultado Acc:</strong> {strategy.resultadoAcc}</p>
           <p><strong>Descripción:</strong> {strategy.description}</p>
