@@ -6,6 +6,7 @@ import LightweightChart from './components/TradingViewChart/LightweightChart';
 import { StrategyList } from './components/Strategy';
 import { Diary } from './components/Diary'; // Asegúrate de que esté importado correctamente
 import { Account } from './components/Account';
+import { Position } from './components/Positions';
 import Backtesting from './components/Backtesting/Backtesting';
 import Reloj from './components/Reloj';
 
@@ -71,6 +72,12 @@ const App = () => {
               `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
               ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
             }>
+              Positions
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
               Backtesting
             </Tab>
             <Tab className={({ selected }) =>
@@ -95,6 +102,9 @@ const App = () => {
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <Account />
+            </TabPanel>
+            <TabPanel className="bg-white rounded-xl p-3">
+              <Position />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               <Backtesting />
