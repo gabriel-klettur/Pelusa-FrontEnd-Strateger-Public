@@ -24,17 +24,6 @@ const App = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-10">
-        <div className="border-4 border-blue-500">
-          <div className="border-4 border-green-500">
-            <LightweightChart
-              initialTemporalidad={initialTemporalidad}
-              initialStartDate={formattedStartDate}
-              initialEndDate={formattedCurrentDate}
-            />
-          </div>
-        </div>
-      </div>
       <div className="border-4 border-orange-500">
         <TabGroup>
           <TabList className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
@@ -87,7 +76,16 @@ const App = () => {
               Configuracion
             </Tab>
           </TabList>
-          <TabPanels className="mt-2">
+          <TabPanels className="mt-2">          
+            <div className="border-4 border-blue-500">
+              <div className="border-4 border-green-500">
+                <LightweightChart
+                  initialTemporalidad={initialTemporalidad}
+                  initialStartDate={formattedStartDate}
+                  initialEndDate={formattedCurrentDate}
+                />
+              </div>
+            </div>
             <TabPanel className="bg-white rounded-xl p-3">
               <Alarms />
             </TabPanel>
