@@ -14,8 +14,7 @@ export const initializeSeries = (chart) => {
 export const setSeriesData = (candlestickSeries, ema10Series, ema55Series, ema200Series, data) => {
   const formattedData = formatChartData(data);
   const sortedData = sortAndRemoveDuplicates(formattedData);
-
-  console.log("Formatted data for chart:", sortedData);
+  
   candlestickSeries.setData(sortedData);
 
   // Calcular y establecer datos para las EMAs
