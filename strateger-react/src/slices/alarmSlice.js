@@ -1,3 +1,4 @@
+// alarmSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../config';
@@ -23,10 +24,12 @@ const alarmSlice = createSlice({
     page: 0,
     selectedAlarms: [],
     allSelectedAlarms: [],
-    strategyFilteredAlarms: [],  // Añadido
+    strategyFilteredAlarms: [],
     offset: 0,
     hasMore: true,
-    filteredTemporalidades: initialFilteredTemporalidades, // Añadido
+    filteredTemporalidades: initialFilteredTemporalidades,
+    selectedTemporalidad: '',
+    selectedTypes: {},
   },
   reducers: {
     setPage(state, action) {
@@ -38,16 +41,25 @@ const alarmSlice = createSlice({
     setAllSelectedAlarms(state, action) {
       state.allSelectedAlarms = action.payload;
     },
-    setStrategyFilteredAlarms(state, action) { // Añadido
+    setStrategyFilteredAlarms(state, action) {
       state.strategyFilteredAlarms = action.payload;
     },
-    incrementTemporalidad(state, action) { // Añadido
+    incrementTemporalidad(state, action) {
       state.filteredTemporalidades[action.payload]++;
     },
-    decrementTemporalidad(state, action) { // Añadido
+    decrementTemporalidad(state, action) {
       if (state.filteredTemporalidades[action.payload] > 0) {
         state.filteredTemporalidades[action.payload]--;
       }
+    },
+    setSelectedTemporalidad(state, action) {
+      state.selectedTemporalidad = action.payload;
+    },
+    setSelectedTypes(state, action) {
+      state.selectedTypes = {
+        ...state.selectedTypes,
+        [state.selectedTemporalidad]: action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -71,10 +83,21 @@ const alarmSlice = createSlice({
   },
 });
 
-export const { setPage, setSelectedAlarms, setAllSelectedAlarms, setStrategyFilteredAlarms, incrementTemporalidad, decrementTemporalidad } = alarmSlice.actions;
-export const selectSelectedAlarms = (state) => state.alarms.selectedAlarms;
-export const selectAllSelectedAlarms = (state) => state.alarms.allSelectedAlarms; // Añadido para seleccionar allSelectedAlarms
-export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms; // Añadido para seleccionar strategyFilteredAlarms
+export const {
+  setPage,
+  setSelectedAlarms,
+  setAllSelectedAlarms,
+  setStrategyFilteredAlarms,
+  incrementTemporalidad,
+  decrementTemporalidad,
+  setSelectedTemporalidad,
+  setSelectedTypes
+} = alarmSlice.actions;
+
+export const selectSelectedTemporalidad = (state) => state.alarms.selectedTemporalidad;
+export const selectSelectedTypes = (state) => state.alarms.selectedTypes;
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
+export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
+export const selectAllSelectedAlarms = (state) => state.alarms.allSelectedAlarms;
 
 export default alarmSlice.reducer;

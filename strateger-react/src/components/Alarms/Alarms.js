@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+// Alarms.js
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms } from '../../slices/alarmSlice'; // Actualiza la ruta aquí
+import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms, selectSelectedTemporalidad, selectSelectedTypes } from '../../slices/alarmSlice';
 import AlarmList from './AlarmList';
-import ToolAlarmBar from './ToolAlarmBar/ToolAlarmBar';
+
 
 const Alarms = () => {
   const dispatch = useDispatch();
   const { alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
-
-  const [selectedTemporalidad, setSelectedTemporalidad] = useState('');
-  const [selectedTypes, setSelectedTypes] = useState({});
+  const selectedTemporalidad = useSelector(selectSelectedTemporalidad);
+  const selectedTypes = useSelector(selectSelectedTypes);
 
   useEffect(() => {
     if (alarms.length === 0) {
@@ -68,18 +68,8 @@ const Alarms = () => {
     dispatch(setSelectedAlarms(newSelectedAlarms));
   };
 
-  const handleTypeChange = (types) => {
-    setSelectedTypes({ ...selectedTypes, [selectedTemporalidad]: types });
-  };
-
   return (
-    <>
-      <ToolAlarmBar 
-        selectedTemporalidad={selectedTemporalidad}
-        setSelectedTemporalidad={setSelectedTemporalidad}
-        selectedTypes={selectedTypes[selectedTemporalidad] || []}
-        setSelectedTypes={handleTypeChange}
-      />
+    <>      
       <AlarmList 
         alarms={alarms} 
         loading={loading} 

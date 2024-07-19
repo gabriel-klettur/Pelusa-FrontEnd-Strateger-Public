@@ -7,6 +7,7 @@ import useMarkers from './hooks/useMarkers';
 import { setTradingViewChartParameters } from '../../slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
 import { selectSelectedTab } from '../../slices/tabSlice';
+import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
@@ -38,7 +39,9 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const renderTabContent = () => {
     switch (selectedTab) {
       case 0:
-        return 'Estrategias Activas';
+        return (
+          <ToolAlarmBar />
+        );
       case 1:
         return 'Situacion de cuenta';
       case 2:

@@ -1,8 +1,9 @@
+// ToolAlarmBar.js
 import React from 'react';
 import TemporalidadButton from './TemporalidadButton';
 import TypeButton from './TypeButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementTemporalidad, decrementTemporalidad, selectFilteredTemporalidades } from '../../../slices/alarmSlice'; // Actualiza la ruta aquí
+import { incrementTemporalidad, decrementTemporalidad, selectFilteredTemporalidades, setSelectedTemporalidad, setSelectedTypes, selectSelectedTemporalidad, selectSelectedTypes } from '../../../slices/alarmSlice';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
 const types = [
@@ -12,25 +13,27 @@ const types = [
   'indicator open short', 'indicator close short'
 ];
 
-const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedTypes, setSelectedTypes }) => {
+const ToolAlarmBar = () => {
   const dispatch = useDispatch();
+  const selectedTemporalidad = useSelector(selectSelectedTemporalidad);
+  const selectedTypes = useSelector(selectSelectedTypes);
   const filteredTemporalidades = useSelector(selectFilteredTemporalidades);
 
   const toggleType = (type) => {
+    const types = selectedTypes[selectedTemporalidad] || [];
     let updatedTypes;
-    if (selectedTypes.includes(type)) {
-      updatedTypes = selectedTypes.filter(t => t !== type);
-      setSelectedTypes(updatedTypes);
+    if (types.includes(type)) {
+      updatedTypes = types.filter(t => t !== type);
       dispatch(decrementTemporalidad(selectedTemporalidad));
     } else {
-      updatedTypes = [...selectedTypes, type];
-      setSelectedTypes(updatedTypes);
+      updatedTypes = [...types, type];
       dispatch(incrementTemporalidad(selectedTemporalidad));
     }
+    dispatch(setSelectedTypes(updatedTypes));
   };
 
   const toggleTemporalidad = (temp) => {
-    setSelectedTemporalidad(temp);
+    dispatch(setSelectedTemporalidad(temp));
   };
 
   return (
@@ -53,7 +56,7 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
             <TypeButton
               key={type}
               type={type}
-              selectedTypes={selectedTypes}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
               toggleType={toggleType}
             />
           ))}
@@ -62,7 +65,7 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
             <TypeButton
               key={type}
               type={type}
-              selectedTypes={selectedTypes}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
               toggleType={toggleType}
             />
           ))}
@@ -73,7 +76,7 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
             <TypeButton
               key={type}
               type={type}
-              selectedTypes={selectedTypes}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
               toggleType={toggleType}
             />
           ))}
@@ -82,7 +85,7 @@ const ToolAlarmBar = ({ selectedTemporalidad, setSelectedTemporalidad, selectedT
             <TypeButton
               key={type}
               type={type}
-              selectedTypes={selectedTypes}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
               toggleType={toggleType}
             />
           ))}
