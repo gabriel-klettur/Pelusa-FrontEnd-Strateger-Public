@@ -1,4 +1,5 @@
 // src/components/TradingViewChart/hooks/useChartData.js
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
@@ -23,8 +24,8 @@ const useChartData = (initialTemporalidad, initialStartDate, initialEndDate) => 
     if (!chartStartDate || !chartEndDate) {
       dispatch(setTradingViewChartParameters({
         interval: initialTemporalidad,
-        startDate: initialStartDate,
-        endDate: initialEndDate,
+        startDate: new Date(initialStartDate).toISOString(),
+        endDate: new Date(initialEndDate).toISOString(),
       }));
     }
   }, [dispatch, initialTemporalidad, initialStartDate, initialEndDate, chartStartDate, chartEndDate]);
@@ -33,8 +34,8 @@ const useChartData = (initialTemporalidad, initialStartDate, initialEndDate) => 
     if (chartStartDate && chartEndDate) {
       dispatch(fetchTradingViewChartData({
         interval: chartInterval,
-        startDate: chartStartDate,
-        endDate: chartEndDate
+        startDate: new Date(chartStartDate).toISOString(),
+        endDate: new Date(chartEndDate).toISOString()
       }));
     }
   }, [chartStartDate, chartEndDate, chartInterval, dispatch]);

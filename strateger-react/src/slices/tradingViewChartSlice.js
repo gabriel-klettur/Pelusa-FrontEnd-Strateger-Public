@@ -1,4 +1,4 @@
-// Path: strateger-react/src/slices/tradingViewChartSlice.js
+// src/slices/tradingViewChartSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const adjustDates = (interval, startDate, endDate) => {
   switch (interval) {
     case '1':
       interval = '1m';
-    // fall through
+      break;
     case '1m':
     case '5m':
     case '15m':
@@ -80,7 +80,7 @@ export const fetchTradingViewChartData = createAsyncThunk(
 
         formattedData.sort((a, b) => a[0] - b[0]);
 
-        const lastPrice = formattedData[formattedData.length - 1]?.[4] || null; // Obtener el último precio de cierre
+        const lastPrice = formattedData[formattedData.length - 1]?.[4] || null;
 
         return { formattedData, lastPrice };
       } else {
@@ -105,8 +105,8 @@ const tradingViewChartSlice = createSlice({
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
-      state.startDate = action.payload.startDate;
-      state.endDate = action.payload.endDate;
+      state.startDate = new Date(action.payload.startDate).toISOString();
+      state.endDate = new Date(action.payload.endDate).toISOString();
       state.interval = action.payload.interval;
     }
   },
@@ -138,4 +138,3 @@ export const selectTradingViewChartInterval = state => state.tradingViewChart.in
 export const selectLastPrice = state => state.tradingViewChart.lastPrice;
 
 export default tradingViewChartSlice.reducer;
-

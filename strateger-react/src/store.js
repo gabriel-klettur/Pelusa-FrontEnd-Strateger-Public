@@ -11,7 +11,8 @@ import backtestingReducer from './slices/backtestingSlice';
 import tradingViewChartReducer from './slices/tradingViewChartSlice';
 import timeReducer from './slices/timeSlice';
 import tickerReducer from './slices/tickerSlice';
-import positionReducer from './slices/positionSlice'; // Asegúrate de importar positionReducer
+import positionReducer from './slices/positionSlice';
+import tabReducer from './slices/tabSlice'; 
 
 const store = configureStore({
   reducer: {
@@ -24,7 +25,8 @@ const store = configureStore({
     backtesting: backtestingReducer,
     tradingViewChart: tradingViewChartReducer,
     ticker: tickerReducer, 
-    positions: positionReducer, // Asegúrate de incluir positionReducer
+    positions: positionReducer,
+    tab: tabReducer, 
   },
   devTools: composeWithDevTools(),
 });

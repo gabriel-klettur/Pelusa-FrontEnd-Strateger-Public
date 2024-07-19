@@ -65,7 +65,7 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
         break;
     }
 
-    onDateChange(newStartDate, newEndDate);
+    onDateChange(newStartDate.toISOString(), newEndDate.toISOString());
   };
 
   return (
