@@ -4,7 +4,7 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const DailyResults = ({ results }) => {
+const DiaryCalendar = ({ results }) => {
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const result = results.find((r) => new Date(r.date).toDateString() === date.toDateString());
@@ -20,11 +20,10 @@ const DailyResults = ({ results }) => {
   };
 
   return (
-    <div className="mb-4">
-      <h3 className="text-xl font-bold mb-2">Daily Results</h3>
+    <div>      
       <Calendar tileContent={tileContent} />
     </div>
   );
 };
 
-export default DailyResults;
+export default DiaryCalendar;

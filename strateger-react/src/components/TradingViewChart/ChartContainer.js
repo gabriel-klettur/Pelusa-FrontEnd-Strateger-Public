@@ -8,7 +8,8 @@ import { setTradingViewChartParameters } from '../../slices/tradingViewChartSlic
 import Toolbar from './Toolbar';
 import { selectSelectedTab } from '../../slices/tabSlice';
 import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
-
+import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
+import DiaryCalendar from '../Diary/DiaryCalendar';
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
@@ -36,6 +37,15 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     }));
   };
 
+  const simulatedResults = [
+    { date: '2024-07-01', pnl: 100 },
+    { date: '2024-07-02', pnl: -50 },
+    { date: '2024-07-03', pnl: 200 },
+    { date: '2024-07-04', pnl: -30 },
+    { date: '2024-07-05', pnl: 150 },
+    // Añade más datos según sea necesario
+  ];  
+
   const renderTabContent = () => {
     switch (selectedTab) {
       case 0:
@@ -43,11 +53,17 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           <ToolAlarmBar />
         );
       case 1:
-        return 'Situacion de cuenta';
+        return (
+          <ToolOrderBar />
+        );
       case 2:
-        return 'Ultimas operaciones';
+        return (
+          'ESTRATEGY'
+        );
       case 3:
-        return 'Ultimas entradas de Diario';
+        return (
+          <DiaryCalendar results={simulatedResults} />
+        );
       case 4:
         return 'Noticias';
       default:

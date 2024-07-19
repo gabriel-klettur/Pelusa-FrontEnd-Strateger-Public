@@ -1,13 +1,11 @@
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import OrderList from './OrderList/OrderList';
-import ToolOrderBar from './ToolOrderBar/ToolOrderBar';
 
 const Orders = () => {
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">Order Management</h1>
-      <ToolOrderBar />
+      <h1 className="text-xl font-bold mb-4">Order Management</h1>      
       <TabGroup>
         <TabList className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
           <Tab className={({ selected }) =>
