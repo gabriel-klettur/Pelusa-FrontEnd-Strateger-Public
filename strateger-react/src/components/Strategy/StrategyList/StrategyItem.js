@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Strategy/StrategyList/StrategyItem.js
+
 import React, { useState } from 'react';
 import './StrategyItem.css';
 import { useDispatch, useSelector } from 'react-redux';
