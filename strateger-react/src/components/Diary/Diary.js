@@ -51,7 +51,7 @@ const Diary = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 border-4 border-green-400">
       <h2 className="text-2xl font-bold mb-4">Trading Diary</h2>
       <div className="grid grid-cols-10 gap-4 border border-gray-200 p-4 rounded-lg">
         <div className="col-span-4 border border-gray-200 p-4 rounded-lg">

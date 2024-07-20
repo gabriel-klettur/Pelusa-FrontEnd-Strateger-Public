@@ -47,7 +47,7 @@ const StrategyList = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 border border-gray-300 rounded">
+    <div className=" p-4 border-4 border-blue-400">
       {isEditing ? (
         <StrategyForm 
           strategy={currentStrategy}

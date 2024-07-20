@@ -87,11 +87,11 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         onDateChange={handleDateChange}
       />
       <div className="grid grid-cols-10 gap-2">
-        <div className="col-span-6 p-1">          
-          <div ref={chartContainerRef} className="w-full h-96 border-4 border-black mt-1"></div>
+        <div className="col-span-6 p-1 border-4 border-black">          
+          <div ref={chartContainerRef} className="w-full h-96 mt-1"></div>
         </div>
-        <div className="col-span-4 mt-2">
-          <div id="box-cambiadora" className="flex flex-col border-4 border-black p-2">
+        <div className="col-span-4 border-4 border-black">
+          <div id="box-cambiadora" className="flex flex-col p-2">
             {renderTabContent()}
           </div>
         </div>
