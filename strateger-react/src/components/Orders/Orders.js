@@ -4,7 +4,7 @@ import OrderList from './OrderList/OrderList';
 
 const Orders = () => {
   return (
-    <div className="container mx-auto">      
+    <div className="border-4 border-red-500">      
       <TabGroup>
         <TabList className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
           <Tab className={({ selected }) =>
@@ -21,10 +21,10 @@ const Orders = () => {
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel className="bg-white rounded-xl p-3">
+          <TabPanel className="bg-white rounded-xl pt-3">
             <OrderList />
           </TabPanel>
-          <TabPanel className="bg-white rounded-xl p-3">            
+          <TabPanel className="bg-white rounded-xl pt-3">            
             <div>
               Waiting for BINGXAPI endpoint implementation
             </div>

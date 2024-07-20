@@ -47,7 +47,7 @@ const OrderList = () => {
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
   return (
-    <div className="container mx-auto px-4 py-8 text-sm">
+    <div className="pl-4 text-sm">
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="w-full bg-gray-100 border-b">
