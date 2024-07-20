@@ -42,7 +42,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
         });
 
         const relevantAlarms = alarmsInRange.filter(alarm => {
-          const matchesStrategyName = alarm.Strategy === strategy.name;
+          const matchesStrategyName = alarm.Strategy === strategy.alarmName;
           const matchesEntryOrder = alarm.Temporalidad === entryOrder && 
             (alarm.Order === `order open ${orderType}` || alarm.Order === `indicator open ${orderType}`);
           const matchesCloseOrder = alarm.Temporalidad === closeOrder && 
@@ -94,7 +94,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
     <div className={`bg-white shadow rounded-lg p-4 mb-4 border-2 ${borderColorClass}`}>
       <div className="grid grid-cols-10 gap-4">
         <div className="col-span-2 border border-gray-300 p-4">
-          <h2 className="text-lg font-bold">{strategy.name}</h2>
+          <h2 className="text-lg font-bold">{strategy.alarmName}</h2>
           <p className={`${onOffClass} p-2 rounded`}><strong>ON/OFF: </strong> {strategy.isOn ? 'ON' : 'OFF'}</p>
           <p><strong>WORKING IN ACCOUNT:</strong> {strategy.account_name}, {strategy.account_type}</p>
           <p><strong>Ticker:</strong> {strategy.ticker}</p>

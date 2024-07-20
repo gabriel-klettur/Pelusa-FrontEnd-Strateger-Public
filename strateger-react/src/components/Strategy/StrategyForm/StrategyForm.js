@@ -8,7 +8,7 @@ const tickers = ['BTCUSDT.PS', 'ETH-USD'];
 
 const StrategyForm = ({ strategy, onSave, onCancel }) => {
   const [formState, setFormState] = useState({
-    name: '',
+    alarmName: '',
     isOn: false,
     account_name: '',
     account_type: '',
@@ -131,8 +131,8 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
               <div className="mb-4">
                 <input
                   type="text"
-                  name="name"
-                  value={formState.name}
+                  name="alarmName"
+                  value={formState.alarmName}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                 />
@@ -166,7 +166,7 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
                     enterFrom="transform opacity-0 scale-95"
                     enterTo="opacity-100 scale-100"
                     leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
+                    leaveFrom="opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <MenuItems className="absolute z-10 mt-2 w-full bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none">
