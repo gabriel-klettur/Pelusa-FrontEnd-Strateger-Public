@@ -58,14 +58,20 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         );
       case 2:
         return (
-          'ESTRATEGY'
+          'Lista de estrategias activas + Lista de estrategias No activas'
         );
       case 3:
         return (
           <DiaryCalendar results={simulatedResults} />
         );
       case 4:
-        return 'Noticias';
+        return 'GRAFICO CON X = dateTime por hora y Y seleccionable por el usuario, Y puede ser balance, equity, unrealizedProfit, realizedProfit, availableMargin, usedMargin y drawdown. Filtrado por si es cuenta Spot, Perp COIN-M o Perp USDT-M';
+      case 5:
+        return 'GRAFICO';
+      case 6:
+        return 'BACKTESTING';
+      case 7:
+        return '';      
       default:
         return 'Estrategias Activas';
     }
