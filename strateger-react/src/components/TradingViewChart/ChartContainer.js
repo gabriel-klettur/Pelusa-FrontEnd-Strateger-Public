@@ -1,4 +1,5 @@
-// ChartContainer.js
+// src/components/TradingViewChart/ChartContainer.js
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useChartData from './hooks/useChartData';
@@ -10,6 +11,7 @@ import { selectSelectedTab } from '../../slices/tabSlice';
 import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
 import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
 import DiaryCalendar from '../Diary/DiaryCalendar';
+
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
@@ -102,3 +104,4 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 };
 
 export default ChartContainer;
+

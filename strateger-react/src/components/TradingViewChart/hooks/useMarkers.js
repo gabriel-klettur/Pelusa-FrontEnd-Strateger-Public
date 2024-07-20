@@ -1,35 +1,47 @@
 // src/components/TradingViewChart/hooks/useMarkers.js
+
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from '../markers/Alarms';
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
 import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../../slices/alarmSlice';
 import { selectFilteredOrders } from '../../../slices/orderSlice';
+import { setAlarmMarkers, setOrderMarkers, selectAlarmMarkers, selectOrderMarkers } from '../../../slices/tradingViewChartSlice';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
+  const dispatch = useDispatch();
   const strategyFilteredAlarms = useSelector(selectStrategyFilteredAlarms);
   const allSelectedAlarms = useSelector(selectAllSelectedAlarms);
   const filteredOrders = useSelector(selectFilteredOrders);
+  const alarmMarkers = useSelector(selectAlarmMarkers);
+  const orderMarkers = useSelector(selectOrderMarkers);
+
+  useEffect(() => {
+    let newAlarmMarkers = [];
+    if (strategyFilteredAlarms.length > 0) {
+      newAlarmMarkers = mapAlarmsToMarkers(strategyFilteredAlarms, chartInterval);
+    } else if (allSelectedAlarms.length > 0) {
+      newAlarmMarkers = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
+    }
+    const sortedAlarmMarkers = sortAndFilterAlarmMarkers(newAlarmMarkers);
+    dispatch(setAlarmMarkers(sortedAlarmMarkers));
+  }, [strategyFilteredAlarms, allSelectedAlarms, chartInterval, dispatch]);
+
+  useEffect(() => {
+    let newOrderMarkers = [];
+    if (filteredOrders.length > 0) {
+      newOrderMarkers = mapOrdersToMarkers(filteredOrders, chartInterval);
+    }
+    const sortedOrderMarkers = sortAndFilterOrderMarkers(newOrderMarkers);
+    dispatch(setOrderMarkers(sortedOrderMarkers));
+  }, [filteredOrders, chartInterval, dispatch]);
 
   useEffect(() => {
     if (candlestickSeriesRef.current) {
-      let alarmMarkers = [];
-      if (strategyFilteredAlarms.length > 0) {
-        alarmMarkers = mapAlarmsToMarkers(strategyFilteredAlarms, chartInterval);
-      } else if (allSelectedAlarms.length > 0) {
-        alarmMarkers = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
-      }
-      const sortedAlarmMarkers = sortAndFilterAlarmMarkers(alarmMarkers);
-
-      let orderMarkers = [];
-      if (filteredOrders.length > 0) {
-        orderMarkers = mapOrdersToMarkers(filteredOrders, chartInterval);
-      }
-      const sortedOrderMarkers = sortAndFilterOrderMarkers(orderMarkers);
-
-      candlestickSeriesRef.current.setMarkers([...sortedAlarmMarkers, ...sortedOrderMarkers]);
+      candlestickSeriesRef.current.setMarkers([...alarmMarkers, ...orderMarkers]);
     }
-  }, [strategyFilteredAlarms, allSelectedAlarms, filteredOrders, chartInterval, candlestickSeriesRef]);
+  }, [alarmMarkers, orderMarkers, candlestickSeriesRef]);
 };
 
 export default useMarkers;
+

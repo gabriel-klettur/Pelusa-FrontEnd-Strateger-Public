@@ -101,14 +101,22 @@ const tradingViewChartSlice = createSlice({
     startDate: null,
     endDate: null,
     interval: '1d',
-    lastPrice: null
+    lastPrice: null,
+    alarmMarkers: [], // nuevo estado para los marcadores de alarmas
+    orderMarkers: [], // nuevo estado para los marcadores de órdenes
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
       state.startDate = new Date(action.payload.startDate).toISOString();
       state.endDate = new Date(action.payload.endDate).toISOString();
       state.interval = action.payload.interval;
-    }
+    },
+    setAlarmMarkers(state, action) {
+      state.alarmMarkers = action.payload;
+    },
+    setOrderMarkers(state, action) {
+      state.orderMarkers = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -128,7 +136,7 @@ const tradingViewChartSlice = createSlice({
   }
 });
 
-export const { setTradingViewChartParameters } = tradingViewChartSlice.actions;
+export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers } = tradingViewChartSlice.actions;
 export const selectTradingViewChartData = state => state.tradingViewChart.data;
 export const selectTradingViewChartLoading = state => state.tradingViewChart.loading;
 export const selectTradingViewChartError = state => state.tradingViewChart.error;
@@ -136,5 +144,8 @@ export const selectTradingViewChartStartDate = state => state.tradingViewChart.s
 export const selectTradingViewChartEndDate = state => state.tradingViewChart.endDate;
 export const selectTradingViewChartInterval = state => state.tradingViewChart.interval;
 export const selectLastPrice = state => state.tradingViewChart.lastPrice;
+export const selectAlarmMarkers = state => state.tradingViewChart.alarmMarkers; // selector para los marcadores de alarmas
+export const selectOrderMarkers = state => state.tradingViewChart.orderMarkers; // selector para los marcadores de órdenes
 
 export default tradingViewChartSlice.reducer;
+
