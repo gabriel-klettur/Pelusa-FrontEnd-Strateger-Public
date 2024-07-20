@@ -23,7 +23,7 @@ const useMarkers = (candlestickSeriesRef, chartInterval) => {
     } else if (allSelectedAlarms.length > 0) {
       newAlarmMarkers = mapAlarmsToMarkers(allSelectedAlarms, chartInterval);
     }
-    const sortedAlarmMarkers = sortAndFilterAlarmMarkers(newAlarmMarkers);
+    const sortedAlarmMarkers = sortAndFilterAlarmMarkers(newAlarmMarkers).sort((a, b) => a.time - b.time);
     dispatch(setAlarmMarkers(sortedAlarmMarkers));
   }, [strategyFilteredAlarms, allSelectedAlarms, chartInterval, dispatch]);
 
@@ -32,13 +32,14 @@ const useMarkers = (candlestickSeriesRef, chartInterval) => {
     if (filteredOrders.length > 0) {
       newOrderMarkers = mapOrdersToMarkers(filteredOrders, chartInterval);
     }
-    const sortedOrderMarkers = sortAndFilterOrderMarkers(newOrderMarkers);
+    const sortedOrderMarkers = sortAndFilterOrderMarkers(newOrderMarkers).sort((a, b) => a.time - b.time);
     dispatch(setOrderMarkers(sortedOrderMarkers));
   }, [filteredOrders, chartInterval, dispatch]);
 
   useEffect(() => {
     if (candlestickSeriesRef.current) {
-      candlestickSeriesRef.current.setMarkers([...alarmMarkers, ...orderMarkers]);
+      const combinedMarkers = [...alarmMarkers, ...orderMarkers].sort((a, b) => a.time - b.time);
+      candlestickSeriesRef.current.setMarkers(combinedMarkers);
     }
   }, [alarmMarkers, orderMarkers, candlestickSeriesRef]);
 };
