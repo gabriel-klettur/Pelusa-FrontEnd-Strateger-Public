@@ -10,7 +10,7 @@ const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
   const { balances, loading, error, loaded } = useSelector(selectPerpCOINM);
   const lastPrice = useSelector(selectLastPrice);
-  const [showInBTC, setShowInBTC] = useState(true);
+  const [showInBTC, setShowInBTC] = useState(true); // Cambiar el estado inicial a false para mostrar USD
 
   useEffect(() => {
     if (!loaded) {
@@ -31,9 +31,9 @@ const PerpCOINMSummary = () => {
   }
 
   const balance = balances[0];
-  
-  const displayValue = (value) => showInBTC ? parseFloat(value).toFixed(6) : (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A');
-  const currencyLabel = showInBTC ? 'BTC' : 'USD';
+
+  const displayValue = (value) => showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
+  const currencyLabel = showInBTC ? 'USD' : 'BTC'; // Cambiar el texto del label para reflejar el estado invertido
 
   return (
     <div className="mb-4">
@@ -51,7 +51,7 @@ const PerpCOINMSummary = () => {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{showInBTC ? 'BTC' : 'USD'}</p>
+          <p className="text-2xl">{showInBTC ? 'USD' : 'BTC'}</p> {/* Cambiar el texto del asset para reflejar el estado invertido */}
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Balance</h4>

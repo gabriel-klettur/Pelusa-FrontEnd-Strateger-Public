@@ -59,7 +59,7 @@ const SpotSummary = () => {
     <div className="mb-4">
       <h3 className="text-xl font-bold mb-2">Spot Summary</h3>
       <div className="flex items-center mb-4">
-        <span className="mr-2">Show values in {currencyLabel}</span>
+        <span className="mr-2">{currencyLabel}</span>
         <Switch
           checked={showInUSD}
           onChange={setShowInUSD}
