@@ -49,17 +49,20 @@ const initialState = {
   perpUSDTM: {
     balance: null,
     loading: false,
-    error: null
+    error: null,
+    loaded: false
   },
   perpCOINM: {
     balances: [],
     loading: false,
-    error: null
+    error: null,
+    loaded: false
   },
   spot: {
     balances: [],
     loading: false,
-    error: null
+    error: null,
+    loaded: false
   }
 };
 
@@ -78,6 +81,7 @@ const accountSlice = createSlice({
       .addCase(fetchPerpUSDTMBalance.fulfilled, (state, action) => {
         state.perpUSDTM.balance = action.payload;
         state.perpUSDTM.loading = false;
+        state.perpUSDTM.loaded = true;
       })
       .addCase(fetchPerpUSDTMBalance.rejected, (state, action) => {
         state.perpUSDTM.loading = false;
@@ -91,6 +95,7 @@ const accountSlice = createSlice({
       .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {
         state.perpCOINM.balances = action.payload;
         state.perpCOINM.loading = false;
+        state.perpCOINM.loaded = true;
       })
       .addCase(fetchPerpCOINMBalance.rejected, (state, action) => {
         state.perpCOINM.loading = false;
@@ -104,6 +109,7 @@ const accountSlice = createSlice({
       .addCase(fetchSpotBalance.fulfilled, (state, action) => {
         state.spot.balances = action.payload;
         state.spot.loading = false;
+        state.spot.loaded = true;
       })
       .addCase(fetchSpotBalance.rejected, (state, action) => {
         state.spot.loading = false;
@@ -132,4 +138,10 @@ export const selectError = createSelector(
   (spot) => spot?.error
 );
 
+export const selectLoaded = createSelector(
+  [selectSpot],
+  (spot) => spot?.loaded
+);
+
 export default accountSlice.reducer;
+

@@ -8,13 +8,15 @@ import { Switch } from '@headlessui/react';
 
 const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
-  const { balances, loading, error } = useSelector(selectPerpCOINM);
+  const { balances, loading, error, loaded } = useSelector(selectPerpCOINM);
   const lastPrice = useSelector(selectLastPrice);
   const [showInBTC, setShowInBTC] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchPerpCOINMBalance());
-  }, [dispatch]);
+    if (!loaded) {
+      dispatch(fetchPerpCOINMBalance());
+    }
+  }, [dispatch, loaded]);
 
   if (loading) {
     return <div>Loading...</div>;

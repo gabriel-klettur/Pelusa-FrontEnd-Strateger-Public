@@ -6,11 +6,12 @@ import { fetchPositionsCoinM } from '../../../slices/positionSlice';
 
 const PerpCOINMposSummary = () => {
   const dispatch = useDispatch();
-  const { positions = [], loading, error } = useSelector((state) => state.positions.coinM) || {};
+  const { positions = [], loading, error, loaded } = useSelector((state) => state.positions.coinM) || {};
 
   useEffect(() => {
-    dispatch(fetchPositionsCoinM());
-  }, [dispatch]);
+    if (!loaded)
+      dispatch(fetchPositionsCoinM());
+  }, [dispatch, loaded]);
 
   if (loading) {
     return <div>Loading...</div>;

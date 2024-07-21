@@ -6,11 +6,12 @@ import { fetchPositionsUSDTM } from '../../../slices/positionSlice';
 
 const PerpUSDTposSummary = () => {
   const dispatch = useDispatch();
-  const { positions = [], loading, error } = useSelector((state) => state.positions.usdtM) || {};
+  const { positions = [], loading, error, loaded } = useSelector((state) => state.positions.usdtM) || {};
 
   useEffect(() => {
-    dispatch(fetchPositionsUSDTM());
-  }, [dispatch]);
+    if (!loaded)
+      dispatch(fetchPositionsUSDTM());
+  }, [dispatch, loaded]);
 
   if (loading) {
     return <div>Loading...</div>;

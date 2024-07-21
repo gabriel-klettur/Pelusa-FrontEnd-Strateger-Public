@@ -8,13 +8,15 @@ import { Switch } from '@headlessui/react';
 
 const PerpUSDTMSummary = () => {
   const dispatch = useDispatch();
-  const { balance, loading, error } = useSelector(selectPerpUSDTM);
+  const { balance, loading, error, loaded } = useSelector(selectPerpUSDTM);
   const lastPrice = useSelector(selectLastPrice);
   const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchPerpUSDTMBalance());
-  }, [dispatch]);
+    if (!loaded) {
+      dispatch(fetchPerpUSDTMBalance());
+    }    
+  }, [dispatch, loaded]);
 
   if (loading) {
     return <div>Loading...</div>;

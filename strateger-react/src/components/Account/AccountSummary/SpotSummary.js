@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotBalance, selectBalances, selectLoading, selectError } from '../../../slices/accountSlice';
+import { fetchSpotBalance, selectBalances, selectLoading, selectError, selectLoaded } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
@@ -12,13 +12,15 @@ const SpotSummary = () => {
   const balances = useSelector(selectBalances);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
+  const loaded = useSelector(selectLoaded);
   const lastPrice = useSelector(selectLastPrice);
   const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {});
   const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchSpotBalance());
-  }, [dispatch]);
+    if (!loaded)
+      dispatch(fetchSpotBalance());
+  }, [dispatch, loaded]);
 
   useEffect(() => {
     const tickersToFetch = balances

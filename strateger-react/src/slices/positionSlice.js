@@ -78,6 +78,7 @@ const positionSlice = createSlice({
       .addCase(fetchPositionsCoinM.fulfilled, (state, action) => {
         state.coinM.positions = action.payload;
         state.coinM.loading = false;
+        state.coinM.loaded = true;
       })
       .addCase(fetchPositionsCoinM.rejected, (state, action) => {
         state.coinM.loading = false;
@@ -91,6 +92,7 @@ const positionSlice = createSlice({
       .addCase(fetchPositionsUSDTM.fulfilled, (state, action) => {
         state.usdtM.positions = action.payload;
         state.usdtM.loading = false;
+        state.usdtM.loaded = true;
       })
       .addCase(fetchPositionsUSDTM.rejected, (state, action) => {
         state.usdtM.loading = false;
