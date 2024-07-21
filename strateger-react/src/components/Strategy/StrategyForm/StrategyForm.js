@@ -126,7 +126,18 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
     <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-4 mb-4">
       <div className="grid grid-cols-10 gap-4 border border-gray-300 p-4 rounded-lg shadow-md">
         <div className="col-span-4 border border-gray-300 p-4 rounded-lg shadow-md">
-          <div className='grid grid-cols-6 gap-4'>
+          <div className='grid grid-cols-6 gap-4'>            
+
+            <div className="col-span-2">
+              <button
+                type="button"
+                className={`mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2 text-center ${formState.isOn ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
+                onClick={toggleButton}
+              >
+                {formState.isOn ? 'ON' : 'OFF'}
+              </button>
+            </div>
+
             <div className="col-span-4">
               <div className="mb-4">
                 <input
@@ -139,15 +150,6 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
               </div>
             </div>
 
-            <div className="col-span-2">
-              <button
-                type="button"
-                className={`mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2 text-center ${formState.isOn ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}
-                onClick={toggleButton}
-              >
-                {formState.isOn ? 'ON' : 'OFF'}
-              </button>
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -238,22 +240,12 @@ const StrategyForm = ({ strategy, onSave, onCancel }) => {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-1 gap-4">
-              <div className="mb-4">
-                <button
-                  type="button"
-                  className="mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2 text-left"
-                >
-                  Resultado Acc
-                </button>
-              </div>
-            </div>
-            <div className="col-span-1 gap-4">
+            <div className="col-span-2 gap-4">
               <div className="mb-4">
                 <Popover className="relative">
                   {({ open }) => (
                     <>
-                      <Popover.Button className="mt-1 w-full border border-gray-300 rounded-md shadow-sm p-2 text-left">
+                      <Popover.Button className="mt-1 w-full h-20 border border-gray-300 rounded-md shadow-sm p-2 text-left">
                         Descripción
                       </Popover.Button>
                       <Transition

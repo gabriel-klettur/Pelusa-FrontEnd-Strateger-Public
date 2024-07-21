@@ -96,14 +96,13 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
     <div className={`bg-white shadow rounded-lg p-4 mb-4 border-2 ${borderColorClass}`}>
       <div className="grid grid-cols-10 gap-4">
         <div className="col-span-2 border border-gray-300 p-4">
-          <h2 className="text-lg font-bold">{strategy.alarmName}</h2>
           <p className={`${onOffClass} p-2 rounded`}><strong>ON/OFF: </strong> {strategy.isOn ? 'ON' : 'OFF'}</p>
-          <p><strong>WORKING IN ACCOUNT:</strong> {strategy.account_name}, {strategy.account_type}</p>
-          <p><strong>Ticker:</strong> {strategy.ticker}</p>
-          <p><strong>Resultado Acc:</strong> {strategy.resultadoAcc}</p>
+          <p><strong>Alert Name:</strong> {strategy.alarmName}</p>
+          <p><strong>Account:</strong> {strategy.account_name}, {strategy.account_type}</p>
+          <p><strong>Ticker:</strong> {strategy.ticker}</p>          
           <p><strong>Descripción:</strong> {strategy.description}</p>
-          <p><strong>On Start Date:</strong> {strategy.onStartDate}</p>
-          <p><strong>Off End Date:</strong> {strategy.offEndDate}</p>
+          <p><strong>Start:</strong> {strategy.onStartDate}</p>
+          <p><strong>End:</strong> {strategy.offEndDate}</p>
         </div>
 
         <div className="col-span-4 grid grid-cols-4 gap-4 border border-gray-300 p-4 bg-green-100">
