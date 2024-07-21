@@ -1,8 +1,9 @@
 // App.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTab, selectSelectedTab } from './slices/tabSlice';
+import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
@@ -25,6 +26,10 @@ const App = () => {
   const startDate = new Date();
   startDate.setDate(currentDate.getDate() - 1000);
   const formattedStartDate = startDate.toISOString();
+
+  useEffect(() => {
+    dispatch(loadSlicesInOrder());
+  }, [dispatch])
 
   const handleTabChange = (index) => {
     dispatch(setSelectedTab(index));
