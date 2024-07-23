@@ -2,25 +2,22 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotBalance, selectBalances, selectLoading, selectError, selectLoaded } from '../../../slices/accountSlice';
+import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 
 const SpotSummary = () => {
   const dispatch = useDispatch();
-  const balances = useSelector(selectBalances);
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-  const loaded = useSelector(selectLoaded);
+  const {balances, loading, error, loaded } = useSelector(selectSpot);
   const lastPrice = useSelector(selectLastPrice);
   const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {});
   const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
-    if (!loaded)
-      dispatch(fetchSpotBalance());
-  }, [dispatch, loaded]);
+    if (!loaded && lastPrice)
+      dispatch(fetchSpotBalance(lastPrice));
+  }, [dispatch, loaded, lastPrice]);
 
   useEffect(() => {
     const tickersToFetch = balances
@@ -41,6 +38,10 @@ const SpotSummary = () => {
 
   const totalBalanceInUSD = balances.reduce((acc, balance) => acc + getPriceInUSD(balance.asset, balance.free), 0);
   const totalBalanceInBTC = totalBalanceInUSD / (lastPrice || 1);
+
+  useEffect(() => {
+    dispatch(updateSpotBalanceUSDAction(totalBalanceInUSD));
+  }, [totalBalanceInUSD, dispatch]);
 
   const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
   const currencyLabel = showInUSD ? 'USD' : 'BTC';

@@ -8,15 +8,15 @@ import { Switch } from '@headlessui/react';
 
 const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
-  const { balances, loading, error, loaded } = useSelector(selectPerpCOINM);
+  const { dataBTC, loading, error, loaded } = useSelector(selectPerpCOINM);
   const lastPrice = useSelector(selectLastPrice);
   const [showInBTC, setShowInBTC] = useState(true); // Cambiar el estado inicial a false para mostrar USD
 
   useEffect(() => {
-    if (!loaded) {
-      dispatch(fetchPerpCOINMBalance());
+    if (!loaded && lastPrice) {
+      dispatch(fetchPerpCOINMBalance({lastPrice}));
     }
-  }, [dispatch, loaded]);
+  }, [dispatch, loaded, lastPrice]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,11 +26,11 @@ const PerpCOINMSummary = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (balances.length === 0) {
+  if (dataBTC.length === 0) {
     return <div>No balances available</div>;
   }
 
-  const balance = balances[0];
+  const balance = dataBTC[0];
 
   const displayValue = (value) => showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
   const currencyLabel = showInBTC ? 'USD' : 'BTC'; // Cambiar el texto del label para reflejar el estado invertido

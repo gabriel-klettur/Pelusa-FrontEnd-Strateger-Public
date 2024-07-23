@@ -8,15 +8,15 @@ import { Switch } from '@headlessui/react';
 
 const PerpUSDTMSummary = () => {
   const dispatch = useDispatch();
-  const { balance, loading, error, loaded } = useSelector(selectPerpUSDTM);
+  const { dataUSD, loading, error, loaded } = useSelector(selectPerpUSDTM);
   const lastPrice = useSelector(selectLastPrice);
   const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {
-    if (!loaded) {
-      dispatch(fetchPerpUSDTMBalance());
+    if (!loaded && lastPrice) {
+      dispatch(fetchPerpUSDTMBalance({ lastPrice }));
     }    
-  }, [dispatch, loaded]);
+  }, [dispatch, loaded, lastPrice, loading]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,7 +26,7 @@ const PerpUSDTMSummary = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!balance) {
+  if (!dataUSD) {
     return <div>No balance available</div>;
   }
 
@@ -53,27 +53,27 @@ const PerpUSDTMSummary = () => {
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Balance</h4>
-          <p className="text-2xl">{displayValue(balance.balance)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.balance)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Equity</h4>
-          <p className="text-2xl">{displayValue(balance.equity)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.equity)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Unrealized Profit</h4>
-          <p className="text-2xl">{displayValue(balance.unrealizedProfit)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.unrealizedProfit)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Realised Profit</h4>
-          <p className="text-2xl">{displayValue(balance.realisedProfit)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.realisedProfit)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Available Margin</h4>
-          <p className="text-2xl">{displayValue(balance.availableMargin)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.availableMargin)}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Used Margin</h4>
-          <p className="text-2xl">{displayValue(balance.usedMargin)}</p>
+          <p className="text-2xl">{displayValue(dataUSD.usedMargin)}</p>
         </div>
       </div>
     </div>
