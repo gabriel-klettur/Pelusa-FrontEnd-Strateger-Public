@@ -1,22 +1,26 @@
-// Path: strateger-react/src/components/Account/AccountSummary/PerpCOINMSummary.js
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPerpCOINMBalance, selectPerpCOINM } from '../../../slices/accountSlice';
+import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { Switch } from '@headlessui/react';
 
 const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
-  const { dataBTC, loading, error, loaded } = useSelector(selectPerpCOINM);
+  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
   const lastPrice = useSelector(selectLastPrice);
-  const [showInBTC, setShowInBTC] = useState(true); // Cambiar el estado inicial a false para mostrar USD
+  const [showInBTC, setShowInBTC] = useState(true);
 
   useEffect(() => {
     if (!loaded && lastPrice) {
-      dispatch(fetchPerpCOINMBalance({lastPrice}));
+      dispatch(fetchPerpCOINMBalance({ lastPrice }));
     }
   }, [dispatch, loaded, lastPrice]);
+
+  useEffect(() => {
+    if (loaded) {
+      dispatch(updateTotalBalanceInUSD());
+    }
+  }, [loaded, dataUSD, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -33,7 +37,7 @@ const PerpCOINMSummary = () => {
   const balance = dataBTC[0];
 
   const displayValue = (value) => showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
-  const currencyLabel = showInBTC ? 'USD' : 'BTC'; // Cambiar el texto del label para reflejar el estado invertido
+  const currencyLabel = showInBTC ? 'USD' : 'BTC';
 
   return (
     <div className="mb-4">
@@ -51,7 +55,7 @@ const PerpCOINMSummary = () => {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{showInBTC ? 'USD' : 'BTC'}</p> {/* Cambiar el texto del asset para reflejar el estado invertido */}
+          <p className="text-2xl">{currencyLabel}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Balance</h4>

@@ -1,15 +1,13 @@
-// Path: strateger-react/src/components/Account/AccountSummary/SpotSummary.js
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction } from '../../../slices/accountSlice';
+import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 
 const SpotSummary = () => {
   const dispatch = useDispatch();
-  const {balances, loading, error, loaded } = useSelector(selectSpot);
+  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
   const lastPrice = useSelector(selectLastPrice);
   const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {});
   const [showInUSD, setShowInUSD] = useState(true);
@@ -42,6 +40,12 @@ const SpotSummary = () => {
   useEffect(() => {
     dispatch(updateSpotBalanceUSDAction(totalBalanceInUSD));
   }, [totalBalanceInUSD, dispatch]);
+
+  useEffect(() => {
+    if (loaded) {
+      dispatch(updateTotalBalanceInUSD());
+    }
+  }, [loaded, balanceUSD, dispatch]);
 
   const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
   const currencyLabel = showInUSD ? 'USD' : 'BTC';

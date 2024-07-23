@@ -74,7 +74,7 @@ const initialState = {
     error: null,
     loaded: false
   },
-  TotalBalanceInUSD: null
+  totalBalanceInUSD: null
 };
 
 const convertUSDTMDataToBTC = (data, lastPrice) => {
@@ -106,11 +106,23 @@ const convertCOINMDataToUSD = (data, lastPrice) => {
   });
 }
 
+const calculateTotalBalanceInUSD = (state) => {
+  const perpUSDTMUSD = state.perpUSDTM.dataUSD ? parseFloat(state.perpUSDTM.dataUSD.balance) : 0;
+  const perpCOINMUSD = state.perpCOINM.dataUSD ? state.perpCOINM.dataUSD.reduce((acc, balance) => acc + parseFloat(balance.balance), 0) : 0;
+  const spotUSD = state.spot.balanceUSD ? parseFloat(state.spot.balanceUSD) : 0;
+
+  state.totalBalanceInUSD = perpUSDTMUSD + perpCOINMUSD + spotUSD;
+};
+
 // Account slice
 const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {},
+  reducers: {
+    updateTotalBalanceInUSD: (state) => {
+      calculateTotalBalanceInUSD(state);
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Perp USDT-M balance
@@ -124,6 +136,7 @@ const accountSlice = createSlice({
         state.perpUSDTM.dataBTC = convertUSDTMDataToBTC(action.payload.balance, lastPrice);
         state.perpUSDTM.loading = false;
         state.perpUSDTM.loaded = true;
+        calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchPerpUSDTMBalance.rejected, (state, action) => {
         state.perpUSDTM.loading = false;
@@ -141,6 +154,7 @@ const accountSlice = createSlice({
         state.perpCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, lastPrice);
         state.perpCOINM.loading = false;
         state.perpCOINM.loaded = true;
+        calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchPerpCOINMBalance.rejected, (state, action) => {
         state.perpCOINM.loading = false;
@@ -156,6 +170,7 @@ const accountSlice = createSlice({
         state.spot.balances = action.payload.balances;
         state.spot.loading = false;
         state.spot.loaded = true;
+        calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchSpotBalance.rejected, (state, action) => {
         state.spot.loading = false;
@@ -163,19 +178,19 @@ const accountSlice = createSlice({
       })
       .addCase(updateSpotBalanceUSD.fulfilled, (state, action) => {
         state.spot.balanceUSD = action.payload;
+        calculateTotalBalanceInUSD(state);
       });
-      
   }
 });
 
-// Actions
-export const { actions } = accountSlice;
+// Export the updateTotalBalanceInUSD action
+export const { updateTotalBalanceInUSD } = accountSlice.actions;
 export const updateSpotBalanceUSDAction = updateSpotBalanceUSD;
 
 // Selectors
 export const selectPerpUSDTM = (state) => state.account.perpUSDTM;
 export const selectPerpCOINM = (state) => state.account.perpCOINM;
 export const selectSpot = (state) => state.account.spot;
+export const selectTotalBalanceInUSD = (state) => state.account.totalBalanceInUSD;
 
 export default accountSlice.reducer;
-

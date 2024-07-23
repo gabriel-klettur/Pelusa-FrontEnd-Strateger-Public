@@ -1,8 +1,6 @@
-// Path: strateger-react/src/components/Account/AccountSummary/PerpUSDTMSummary.js
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPerpUSDTMBalance, selectPerpUSDTM } from '../../../slices/accountSlice';
+import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { Switch } from '@headlessui/react';
 
@@ -16,7 +14,13 @@ const PerpUSDTMSummary = () => {
     if (!loaded && lastPrice) {
       dispatch(fetchPerpUSDTMBalance({ lastPrice }));
     }    
-  }, [dispatch, loaded, lastPrice, loading]);
+  }, [dispatch, loaded, lastPrice]);
+
+  useEffect(() => {
+    if (loaded) {
+      dispatch(updateTotalBalanceInUSD());
+    }
+  }, [loaded, dataUSD, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,7 +53,7 @@ const PerpUSDTMSummary = () => {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{showInUSD ? 'USD' : 'BTC'}</p>
+          <p className="text-2xl">{currencyLabel}</p>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold">Balance</h4>
