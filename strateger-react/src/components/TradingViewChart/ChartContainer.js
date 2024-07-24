@@ -11,6 +11,7 @@ import { selectSelectedTab } from '../../slices/tabSlice';
 import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
 import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
 import DiaryCalendar from '../Diary/DiaryCalendar';
+import SummaryChart from '../Account/AccountCharts/SummaryChart';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           <DiaryCalendar results={simulatedResults} />
         );
       case 4:
-        return 'GRAFICO CON X = dateTime por hora y Y seleccionable por el usuario, Y puede ser balance, equity, unrealizedProfit, realizedProfit, availableMargin, usedMargin y drawdown. Filtrado por si es cuenta Spot, Perp COIN-M o Perp USDT-M';
+        return (
+          <SummaryChart />
+        );
       case 5:
         return 'GRAFICO';
       case 6:

@@ -1,11 +1,11 @@
-// Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMChart.js
+// Path: strateger-react/src/components/Account/AccountCharts/SummaryChart.js
 
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import { selectCoinMTimeData } from '../../../slices/accountSlice';
 
-const PerpCOINMChart = () => {
+const SummaryChart = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
 
   // Transformar y ordenar los datos para el gráfico
@@ -36,10 +36,10 @@ const PerpCOINMChart = () => {
 
   return (
     <div>
-      <h2>Perp COIN-M Chart</h2>
+      <h2>Summary</h2>
       <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
     </div>
   );
 }
 
-export default PerpCOINMChart;
+export default SummaryChart;
