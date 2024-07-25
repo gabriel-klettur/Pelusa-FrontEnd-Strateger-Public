@@ -44,4 +44,9 @@ const tickerSlice = createSlice({
   }
 });
 
+//Selectors
+export const selectTicker = (state) => state.ticker.prices;
+
 export default tickerSlice.reducer;
+
+

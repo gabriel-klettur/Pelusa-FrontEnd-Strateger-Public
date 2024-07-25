@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
-import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
+import { selectTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 
 const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
   const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
-  const lastPrice = useSelector(selectLastPrice);
+  const lastPrice = useSelector(state => selectTicker(state)['BTC-USDT']); 
   const [showInBTC, setShowInBTC] = useState(true);
 
   useEffect(() => {

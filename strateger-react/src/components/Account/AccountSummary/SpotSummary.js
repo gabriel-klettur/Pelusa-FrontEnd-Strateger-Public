@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
-import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
+import { selectTicker } from '../../../slices/tickerSlice';
 import { fetchTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 
 const SpotSummary = () => {
   const dispatch = useDispatch();
   const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
-  const lastPrice = useSelector(selectLastPrice);
+  const lastPrice = useSelector(state => selectTicker(state)['BTC-USDT']); 
   const tickerPrices = useSelector((state) => state.ticker ? state.ticker.prices : {});
   const [showInUSD, setShowInUSD] = useState(true);
 
@@ -28,8 +28,7 @@ const SpotSummary = () => {
   }, [balances, tickerPrices, dispatch]);
 
   const getPriceInUSD = (asset, amount) => {
-    if (asset === 'USDT') return parseFloat(amount);
-    if (asset === 'BTC') return parseFloat(amount) * (lastPrice || 0);
+    if (asset === 'USDT') return parseFloat(amount);    
     const tickerPrice = tickerPrices[`${asset}-USDT`];
     return tickerPrice ? parseFloat(amount) * tickerPrice : 0;
   };
@@ -98,7 +97,12 @@ const SpotSummary = () => {
               {filteredBalances.map((balance) => (
                 <tr key={balance.asset} className="hover:bg-gray-50">
                   <td className="py-2 px-4 border-b text-left">{balance.asset}</td>
-                  <td className="py-2 px-4 border-b text-right">{balance.free}</td>
+                  <td className="py-2 px-4 border-b text-right">
+                    {showInUSD 
+                      ? getPriceInUSD(balance.asset, balance.free).toFixed(2) 
+                      : parseFloat(balance.free).toFixed(6)
+                    }
+                  </td>
                 </tr>
               ))}
             </tbody>
