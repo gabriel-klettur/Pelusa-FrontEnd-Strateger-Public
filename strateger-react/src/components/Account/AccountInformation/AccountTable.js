@@ -3,10 +3,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../slices/accountSlice';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+
 
 const AccountTable = () => {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(selectAllAccountsData);
+  const {loading, error } = useSelector(selectAllAccountsData);
   const coinMTimeData = useSelector(selectCoinMTimeData);
   const usdtmTimeData = useSelector(selectUSDTMTimeData);
   const spotTimeData = useSelector(selectSpotTimeData);
@@ -24,8 +26,8 @@ const AccountTable = () => {
   }
   
   const renderTable = (accounts, title) => (
-    <div className="mt-8">
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
+    <div>
+      <h2 className="text-lg font-semibold">{title}</h2>
       <table className="table-auto w-full border">
         <thead>
           <tr>
@@ -63,10 +65,46 @@ const AccountTable = () => {
 
   return (
     <div>
-      {renderTable(data, 'All Accounts')}
-      {renderTable(usdtmTimeData, 'Perp USDT-M Accounts')}
-      {renderTable(coinMTimeData, 'Perp COIN-M Accounts')}
-      {renderTable(spotTimeData, 'Spot Accounts')}
+
+      <TabGroup>
+        <TabList className="flex p-1 space-x-1 bg-gray-200 rounded-xl">
+          <Tab
+            className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-gray-900'}`
+            }
+          >
+            Perp USDT-M Accounts
+          </Tab>
+          <Tab
+            className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-gray-900'}`
+            }
+          >
+            Perp COIN-M Accounts
+          </Tab>
+          <Tab
+            className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'hover:bg-white/[0.12] hover:text-gray-900'}`
+            }
+          >
+            Spot Accounts
+          </Tab>
+        </TabList>
+        <TabPanels className="mt-2">
+          <TabPanel className="p-4 bg-white rounded-xl shadow">
+            {renderTable(usdtmTimeData, 'Perp USDT-M Accounts')}
+          </TabPanel>
+          <TabPanel className="p-4 bg-white rounded-xl shadow">
+            {renderTable(coinMTimeData, 'Perp COIN-M Accounts')}
+          </TabPanel>
+          <TabPanel className="p-4 bg-white rounded-xl shadow">
+            {renderTable(spotTimeData, 'Spot Accounts')}
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>        
     </div>
   );
 };
