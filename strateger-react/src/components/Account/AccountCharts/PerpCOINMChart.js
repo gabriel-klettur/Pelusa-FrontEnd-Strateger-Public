@@ -4,29 +4,31 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import { selectCoinMTimeData } from '../../../slices/accountSlice';
+import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 
 const PerpCOINMChart = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
+  const lastPrice = useSelector(selectLastPrice);
 
   // Transformar y ordenar los datos para el gráfico
   const balanceData = perpCOINMAccounts
     .map(account => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
-      value: account.balance,
+      value: account.balance * lastPrice,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
   const unrealizedProfitData = perpCOINMAccounts
     .map(account => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
-      value: account.unrealizedProfit,
+      value: account.unrealizedProfit  * lastPrice,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
   const equityData = perpCOINMAccounts
     .map(account => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
-      value: account.equity,
+      value: account.equity  * lastPrice,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
