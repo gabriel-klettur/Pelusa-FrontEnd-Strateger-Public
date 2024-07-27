@@ -1,9 +1,9 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMChart.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../TradingViewLineal/Legend';  // Importar el componente de leyenda
+import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
 import { selectCoinMTimeData } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 
@@ -39,6 +39,20 @@ const PerpCOINMChart = () => {
     { name: 'Equity', data: equityData, color: '#00FF00' }
   ];
 
+  const [visibleSeries, setVisibleSeries] = useState(
+    seriesData.reduce((acc, series) => {
+      acc[series.name] = true;
+      return acc;
+    }, {})
+  );
+
+  const toggleSeriesVisibility = (name) => {
+    setVisibleSeries((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
+
   const colors = {
     backgroundColor: 'white',
     lineColor: '#2962FF',
@@ -54,8 +68,12 @@ const PerpCOINMChart = () => {
   return (
     <div>
       <h2>Perp COIN-M Chart</h2>
-      <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
-      <Legend seriesData={seriesData} /> {/* Agregar la leyenda debajo del gráfico */}
+      <ChartComponent
+        seriesData={seriesData.filter(series => visibleSeries[series.name])}
+        colors={colors}
+        priceFormat={priceFormat}
+      />
+      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
     </div>
   );
 }

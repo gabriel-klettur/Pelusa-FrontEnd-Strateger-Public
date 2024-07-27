@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../slices/accountSlice';
@@ -85,11 +85,25 @@ const SummaryChart = () => {
   const balanceDataTotalSum = mergeData(balanceDataSum, balanceDataSPOTSum);
 
   const seriesData = [
-    {name:'COINM', data: balanceDataCOINM, color: '#101942' },
-    {name:'USDTM', data: balanceDataUSDTM, color: '#80043a' },
-    {name:'SPOT', data: balanceDataSPOTSum, color: '#f60c49' },
-    {name:'TOTAL', data: balanceDataTotalSum, color: '#f09580' }, // Nueva serie con la suma total
+    { name: 'COINM', data: balanceDataCOINM, color: '#101942' },
+    { name: 'USDTM', data: balanceDataUSDTM, color: '#80043a' },
+    { name: 'SPOT', data: balanceDataSPOTSum, color: '#f60c49' },
+    { name: 'TOTAL', data: balanceDataTotalSum, color: '#f09580' }, // Nueva serie con la suma total
   ];
+
+  const [visibleSeries, setVisibleSeries] = useState(
+    seriesData.reduce((acc, series) => {
+      acc[series.name] = true;
+      return acc;
+    }, {})
+  );
+
+  const toggleSeriesVisibility = (name) => {
+    setVisibleSeries((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
 
   const colors = {
     backgroundColor: 'white',
@@ -106,8 +120,12 @@ const SummaryChart = () => {
   return (
     <div>
       <h2>Summary</h2>
-      <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
-      <Legend seriesData={seriesData} />
+      <ChartComponent
+        seriesData={seriesData.filter(series => visibleSeries[series.name])}
+        colors={colors}
+        priceFormat={priceFormat}
+      />
+      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
     </div>
   );
 };

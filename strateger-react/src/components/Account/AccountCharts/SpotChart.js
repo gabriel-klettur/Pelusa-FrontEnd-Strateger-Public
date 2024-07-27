@@ -1,6 +1,4 @@
-// Path: strateger-react/src/components/Account/AccountCharts/SpotChart.js
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
@@ -8,7 +6,7 @@ import { selectSpotTimeData } from '../../../slices/accountSlice';
 
 // Función para generar colores hexadecimales válidos
 const getRandomColor = () => {
-  let color = '#' + Math.floor(Math.random()*16777215).toString(16);
+  let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
   // Asegurar que el color tenga exactamente 7 caracteres incluyendo '#'
   while (color.length < 7) {
     color += '0';
@@ -39,6 +37,20 @@ const SpotChart = () => {
     color: getRandomColor(), // Asignar un color aleatorio a cada asset
   }));
 
+  const [visibleSeries, setVisibleSeries] = useState(
+    seriesData.reduce((acc, series) => {
+      acc[series.name] = true;
+      return acc;
+    }, {})
+  );
+
+  const toggleSeriesVisibility = (name) => {
+    setVisibleSeries((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
+
   const colors = {
     backgroundColor: 'white',
     textColor: 'black',
@@ -53,8 +65,12 @@ const SpotChart = () => {
   return (
     <div>
       <h2>Spot Chart</h2>
-      <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
-      <Legend seriesData={seriesData} /> {/* Agregar la leyenda debajo del gráfico */}
+      <ChartComponent
+        seriesData={seriesData.filter(series => visibleSeries[series.name])}
+        colors={colors}
+        priceFormat={priceFormat}
+      />
+      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
     </div>
   );
 }

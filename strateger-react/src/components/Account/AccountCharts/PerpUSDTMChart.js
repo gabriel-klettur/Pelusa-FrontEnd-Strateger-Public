@@ -1,10 +1,10 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMChart.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
+import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
 import { selectUSDTMTimeData } from '../../../slices/accountSlice';
-import Legend from '../../TradingViewLineal/Legend';
 
 const PerpUSDTMChart = () => {
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
@@ -37,17 +37,34 @@ const PerpUSDTMChart = () => {
     { name: 'Equity', data: equityData, color: '#00FF00' }
   ];
 
+  const [visibleSeries, setVisibleSeries] = useState(
+    seriesData.reduce((acc, series) => {
+      acc[series.name] = true;
+      return acc;
+    }, {})
+  );
+
+  const toggleSeriesVisibility = (name) => {
+    setVisibleSeries((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
+
   const colors = {
     backgroundColor: 'white',
     lineColor: '#2962FF',
-    textColor: 'black',      
+    textColor: 'black',
   };
 
   return (
     <div>
       <h2>Perp USDT-M Chart</h2>
-      <ChartComponent seriesData={seriesData} colors={colors} />
-      <Legend seriesData={seriesData} />
+      <ChartComponent
+        seriesData={seriesData.filter(series => visibleSeries[series.name])}
+        colors={colors}
+      />
+      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
     </div>
   );
 }
