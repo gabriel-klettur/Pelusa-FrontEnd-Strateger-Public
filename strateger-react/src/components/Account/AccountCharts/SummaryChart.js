@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../slices/accountSlice';
 import { selectTicker } from '../../../slices/tickerSlice'; // Importa selectTicker
+import Legend from '../../TradingViewLineal/Legend';
 
 const SummaryChart = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
@@ -84,10 +85,10 @@ const SummaryChart = () => {
   const balanceDataTotalSum = mergeData(balanceDataSum, balanceDataSPOTSum);
 
   const seriesData = [
-    { data: balanceDataCOINM, color: '#2962FF' },
-    { data: balanceDataUSDTM, color: '#FF0000' },
-    { data: balanceDataSPOTSum, color: '#00FF00' },
-    { data: balanceDataTotalSum, color: '#FFA500' }, // Nueva serie con la suma total
+    {name:'COINM', data: balanceDataCOINM, color: '#101942' },
+    {name:'USDTM', data: balanceDataUSDTM, color: '#80043a' },
+    {name:'SPOT', data: balanceDataSPOTSum, color: '#f60c49' },
+    {name:'TOTAL', data: balanceDataTotalSum, color: '#f09580' }, // Nueva serie con la suma total
   ];
 
   const colors = {
@@ -106,6 +107,7 @@ const SummaryChart = () => {
     <div>
       <h2>Summary</h2>
       <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
+      <Legend seriesData={seriesData} />
     </div>
   );
 };

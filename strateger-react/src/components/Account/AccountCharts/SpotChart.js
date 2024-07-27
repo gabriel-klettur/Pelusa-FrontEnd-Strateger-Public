@@ -3,6 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
+import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
 import { selectSpotTimeData } from '../../../slices/accountSlice';
 
 // Función para generar colores hexadecimales válidos
@@ -33,9 +34,9 @@ const SpotChart = () => {
 
   // Crear seriesData en el formato requerido
   const seriesData = Object.keys(seriesDataMap).map(asset => ({
+    name: asset, // Asignar el nombre del activo a la serie
     data: seriesDataMap[asset].sort((a, b) => a.time - b.time), // Ordenar por tiempo ascendente
     color: getRandomColor(), // Asignar un color aleatorio a cada asset
-    name: asset // Incluir el nombre del asset para referencia
   }));
 
   const colors = {
@@ -53,6 +54,7 @@ const SpotChart = () => {
     <div>
       <h2>Spot Chart</h2>
       <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
+      <Legend seriesData={seriesData} /> {/* Agregar la leyenda debajo del gráfico */}
     </div>
   );
 }

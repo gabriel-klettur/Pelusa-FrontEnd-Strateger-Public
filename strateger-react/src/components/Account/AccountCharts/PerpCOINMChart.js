@@ -3,6 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
+import Legend from '../../TradingViewLineal/Legend';  // Importar el componente de leyenda
 import { selectCoinMTimeData } from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 
@@ -33,9 +34,9 @@ const PerpCOINMChart = () => {
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
   const seriesData = [
-    { data: balanceData, color: '#2962FF' },
-    { data: unrealizedProfitData, color: '#FF0000' },
-    { data: equityData, color: '#00FF00' }
+    { name: 'Balance', data: balanceData, color: '#2962FF' },
+    { name: 'Unrealized Profit', data: unrealizedProfitData, color: '#FF0000' },
+    { name: 'Equity', data: equityData, color: '#00FF00' }
   ];
 
   const colors = {
@@ -54,6 +55,7 @@ const PerpCOINMChart = () => {
     <div>
       <h2>Perp COIN-M Chart</h2>
       <ChartComponent seriesData={seriesData} colors={colors} priceFormat={priceFormat} />
+      <Legend seriesData={seriesData} /> {/* Agregar la leyenda debajo del gráfico */}
     </div>
   );
 }
