@@ -1,32 +1,48 @@
-// Path: strateger-react/src/slices/backtestingSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import config from '../config';
 
-import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  tests: [
-    { id: 1, name: 'Test 1', strategy: 'Strategy A', result: 'Success', pnl: 150, date: '2024-06-01' },
-    { id: 2, name: 'Test 2', strategy: 'Strategy B', result: 'Failure', pnl: -50, date: '2024-06-02' },
-  ],
-};
-
-const backtestingSlice = createSlice({
-  name: 'backtesting',
-  initialState,
-  reducers: {
-    addTest: (state, action) => {
-      state.tests.push({ ...action.payload, id: state.tests.length + 1 });
-    },
-    updateTest: (state, action) => {
-      const index = state.tests.findIndex(test => test.id === action.payload.id);
-      if (index !== -1) {
-        state.tests[index] = action.payload;
-      }
-    },
-    deleteTest: (state, action) => {
-      state.tests = state.tests.filter(test => test.id !== action.payload.id);
-    },
-  },
+// Acción asíncrona para ejecutar el backtesting
+export const runBacktest = createAsyncThunk('backtesting/runBacktest', async (backtestData) => {
+    const response = await axios.get(`${config.apiURL}/strateger/backtesting/stochastic-ta-v1`, {
+        params: {
+            symbol: backtestData.symbol,
+            intervals: backtestData.interval,
+            start_date: backtestData.startDate,
+            end_date: backtestData.endDate,
+            initial_balance: backtestData.initialBalance,
+        },
+    });
+    return response.data;
 });
 
-export const { addTest, updateTest, deleteTest } = backtestingSlice.actions;
+const backtestingSlice = createSlice({
+    name: 'backtesting',
+    initialState: {
+        result: null,
+        status: 'idle',
+        error: null,
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(runBacktest.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(runBacktest.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.result = action.payload;
+            })
+            .addCase(runBacktest.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            });
+    },
+});
+
+// Selectores
+export const selectBacktestingResult = (state) => state.backtesting.result;
+export const selectBacktestingStatus = (state) => state.backtesting.status;
+export const selectBacktestingError = (state) => state.backtesting.error;
+
 export default backtestingSlice.reducer;

@@ -12,6 +12,7 @@ import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
 import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
 import DiaryCalendar from '../Diary/DiaryCalendar';
 import SummaryChart from '../Account/AccountCharts/SummaryChart';
+import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
@@ -74,7 +75,9 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
       case 5:
         return 'GRAFICO';
       case 6:
-        return 'BACKTESTING';
+        return (
+          <BacktestingForm />
+        );
       case 7:
         return '';      
       default:

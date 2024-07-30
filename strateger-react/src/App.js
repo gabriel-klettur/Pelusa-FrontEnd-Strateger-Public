@@ -1,4 +1,4 @@
-// App.js
+// Path: strateger-react/src/App.js
 import React, { useEffect } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { StrategyList } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
+import { Backtesting }  from './components/Backtesting';
 import Reloj from './components/Reloj';
 
 const App = () => {
@@ -118,7 +119,7 @@ const App = () => {
               <Position />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
-              Backtesting
+              <Backtesting/>
             </TabPanel>
             <TabPanel className="bg-white rounded-xl p-3">
               Configuracion

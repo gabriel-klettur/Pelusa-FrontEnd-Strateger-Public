@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImages } from '../../../slices/diarySlice';
-import DateForm from './DateForm';
+import DateForm from '../../DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/ReferencesForm';
@@ -126,7 +126,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           </div>
         )}
         
-        <DateForm date={formData.date} handleChange={handleChange} />
+        <DateForm date={formData.date} handleChange={handleChange} name="date" />
         
         <TextForm text={formData.text} handleChange={handleChange} error={errors.text} />
         
