@@ -1,8 +1,15 @@
+// Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMSummary.js
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
+import {
+  fetchPerpUSDTMBalance,
+  selectPerpUSDTM,
+  updateTotalBalanceInUSD,
+} from '../../../slices/accountSlice';
 import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
 import { Switch } from '@headlessui/react';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const PerpUSDTMSummary = () => {
   const dispatch = useDispatch();
@@ -13,7 +20,7 @@ const PerpUSDTMSummary = () => {
   useEffect(() => {
     if (!loaded && lastPrice) {
       dispatch(fetchPerpUSDTMBalance({ lastPrice }));
-    }    
+    }
   }, [dispatch, loaded, lastPrice]);
 
   useEffect(() => {
@@ -21,10 +28,6 @@ const PerpUSDTMSummary = () => {
       dispatch(updateTotalBalanceInUSD());
     }
   }, [loaded, dataUSD, dispatch]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -34,20 +37,28 @@ const PerpUSDTMSummary = () => {
     return <div>No balance available</div>;
   }
 
-  const displayValue = (value) => showInUSD ? parseFloat(value).toFixed(2) : (lastPrice ? (parseFloat(value) / lastPrice).toFixed(6) : 'N/A');
+  const displayValue = (value) =>
+    showInUSD ? parseFloat(value).toFixed(2) : lastPrice ? (parseFloat(value) / lastPrice).toFixed(6) : 'N/A';
   const currencyLabel = showInUSD ? 'USD' : 'BTC';
 
   return (
-    <div className="mb-4">
+    <div className="relative mb-4">
+      <LoadingOverlay isLoading={loading} /> {/* Mostrar overlay de carga */}
       <h3 className="text-xl font-bold mb-2">USDT-M Summary</h3>
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch
           checked={showInUSD}
           onChange={setShowInUSD}
-          className={`${showInUSD ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
+          className={`${
+            showInUSD ? 'bg-blue-600' : 'bg-gray-200'
+          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
         >
-          <span className={`${showInUSD ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`} />
+          <span
+            className={`${
+              showInUSD ? 'translate-x-6' : 'translate-x-1'
+            } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
+          />
         </Switch>
       </div>
       <div className="grid grid-cols-2 gap-4">

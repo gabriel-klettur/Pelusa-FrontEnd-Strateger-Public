@@ -1,31 +1,40 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMChart.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
 import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
 import { selectUSDTMTimeData } from '../../../slices/accountSlice';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay'; // Importa el componente de carga
 
 const PerpUSDTMChart = () => {
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
+  const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
+
+  // Manejar los datos y el estado de carga
+  useEffect(() => {
+    if (perpUSDTMAccounts.length > 0) {
+      setIsLoading(false); // Marca como cargado cuando los datos están disponibles
+    }
+  }, [perpUSDTMAccounts]);
 
   // Transformar y ordenar los datos para el gráfico
   const balanceData = perpUSDTMAccounts
-    .map(account => ({
+    .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.balance,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
   const unrealizedProfitData = perpUSDTMAccounts
-    .map(account => ({
+    .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.unrealizedProfit,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
   const equityData = perpUSDTMAccounts
-    .map(account => ({
+    .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.equity,
     }))
@@ -34,7 +43,7 @@ const PerpUSDTMChart = () => {
   const seriesData = [
     { name: 'Balance', data: balanceData, color: '#2962FF' },
     { name: 'Unrealized Profit', data: unrealizedProfitData, color: '#FF0000' },
-    { name: 'Equity', data: equityData, color: '#00FF00' }
+    { name: 'Equity', data: equityData, color: '#00FF00' },
   ];
 
   const [visibleSeries, setVisibleSeries] = useState(
@@ -58,15 +67,20 @@ const PerpUSDTMChart = () => {
   };
 
   return (
-    <div>
+    <div className="relative">
+      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}
       <h2>Perp USDT-M Chart</h2>
       <ChartComponent
-        seriesData={seriesData.filter(series => visibleSeries[series.name])}
+        seriesData={seriesData.filter((series) => visibleSeries[series.name])}
         colors={colors}
       />
-      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
+      <Legend
+        seriesData={seriesData}
+        visibleSeries={visibleSeries}
+        toggleSeriesVisibility={toggleSeriesVisibility}
+      />
     </div>
   );
-}
+};
 
 export default PerpUSDTMChart;

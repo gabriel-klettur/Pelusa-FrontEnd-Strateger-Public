@@ -1,13 +1,20 @@
+// Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMSummary.js
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from '../../../slices/accountSlice';
+import {
+  fetchPerpCOINMBalance,
+  selectPerpCOINM,
+  updateTotalBalanceInUSD,
+} from '../../../slices/accountSlice';
 import { selectTicker } from '../../../slices/tickerSlice';
 import { Switch } from '@headlessui/react';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
   const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
-  const lastPrice = useSelector(state => selectTicker(state)['BTC-USDT']); 
+  const lastPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
   const [showInBTC, setShowInBTC] = useState(true);
 
   useEffect(() => {
@@ -22,10 +29,6 @@ const PerpCOINMSummary = () => {
     }
   }, [loaded, dataUSD, dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -36,20 +39,28 @@ const PerpCOINMSummary = () => {
 
   const balance = dataBTC[0];
 
-  const displayValue = (value) => showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
+  const displayValue = (value) =>
+    showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
   const currencyLabel = showInBTC ? 'USD' : 'BTC';
 
   return (
-    <div className="mb-4">
+    <div className="relative mb-4">
+      <LoadingOverlay isLoading={loading} /> {/* Mostrar overlay de carga */}
       <h3 className="text-xl font-bold mb-2">Perp COIN-M Summary</h3>
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch
           checked={showInBTC}
           onChange={setShowInBTC}
-          className={`${showInBTC ? 'bg-blue-600' : 'bg-gray-200'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
+          className={`${
+            showInBTC ? 'bg-blue-600' : 'bg-gray-200'
+          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
         >
-          <span className={`${showInBTC ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`} />
+          <span
+            className={`${
+              showInBTC ? 'translate-x-6' : 'translate-x-1'
+            } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
+          />
         </Switch>
       </div>
       <div className="grid grid-cols-2 gap-4">

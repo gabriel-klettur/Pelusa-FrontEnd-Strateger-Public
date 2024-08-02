@@ -40,7 +40,7 @@ const OrderList = () => {
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
   return (      
-    <div className="pl-4 text-sm">      
+    <div className="relative pl-4 text-sm">      
       <LoadingOverlay isLoading={loading} />
       <table className="min-w-full bg-white border border-gray-200">        
         <thead>

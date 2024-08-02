@@ -2,13 +2,19 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../slices/accountSlice';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-
+import {
+  fetchAllAccountsData,
+  selectAllAccountsData,
+  selectCoinMTimeData,
+  selectUSDTMTimeData,
+  selectSpotTimeData,
+} from '../../../slices/accountSlice';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const AccountTable = () => {
   const dispatch = useDispatch();
-  const {loading, error } = useSelector(selectAllAccountsData);
+  const { loading, error } = useSelector(selectAllAccountsData);
   const coinMTimeData = useSelector(selectCoinMTimeData);
   const usdtmTimeData = useSelector(selectUSDTMTimeData);
   const spotTimeData = useSelector(selectSpotTimeData);
@@ -17,14 +23,10 @@ const AccountTable = () => {
     dispatch(fetchAllAccountsData());
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
-  
+
   const renderTable = (accounts, title) => (
     <div>
       <h2 className="text-lg font-semibold">{title}</h2>
@@ -64,8 +66,8 @@ const AccountTable = () => {
   );
 
   return (
-    <div>
-
+    <div className="relative">
+      <LoadingOverlay isLoading={loading} /> {/* Mostrar overlay de carga */}
       <TabGroup>
         <TabList className="flex p-1 space-x-1 bg-gray-200 rounded-xl">
           <Tab
@@ -104,7 +106,7 @@ const AccountTable = () => {
             {renderTable(spotTimeData, 'Spot Accounts')}
           </TabPanel>
         </TabPanels>
-      </TabGroup>        
+      </TabGroup>
     </div>
   );
 };

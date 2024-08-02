@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../slices/backtestingSlice';
 import CollapsibleSection from './CollapsibleSection';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const BacktestingResult = () => {
     const result = useSelector(selectBacktestingResult);
@@ -10,17 +11,13 @@ const BacktestingResult = () => {
 
     const formatPercentage = (value) => `${(value * 100).toFixed(2)}%`;
 
-    if (status === 'loading') {
-        return <p>Loading...</p>;
-    }
-
     if (status === 'failed') {
         return <p>Error: {error}</p>;
     }
 
     if (status === 'succeeded' && result) {
         return (
-            <div className="backtesting-result">
+            <div className="backtesting-result">                
                 <h2 className="text-2xl font-bold mb-6">Backtesting Result</h2>
                 <CollapsibleSection title="Summary">
                     <p>Initial Balance: {result.initial_balance}</p>
@@ -50,7 +47,11 @@ const BacktestingResult = () => {
         );
     }
 
-    return <p>No results yet</p>;
+    return( 
+        <div className="relative w-100% h-40">
+            <LoadingOverlay isLoading={status === 'loading'} />
+        </div>
+    );
 };
 
 export default BacktestingResult;

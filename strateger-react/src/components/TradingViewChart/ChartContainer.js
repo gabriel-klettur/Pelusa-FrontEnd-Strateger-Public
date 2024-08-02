@@ -87,7 +87,8 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   };
 
   return (
-    <div className="p-2">
+    <div className="relative p-2">
+      <LoadingOverlay isLoading={loading} />
       <Toolbar
         activeInterval={interval}
         onIntervalChange={handleIntervalChange}
@@ -96,7 +97,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         onDateChange={handleDateChange}
       />
       <div className="grid grid-cols-10 gap-2">
-        <div className="col-span-6 p-1 border-4 border-black">          
+        <div className="col-span-6 p-1 border-4 border-black">                    
           <div ref={chartContainerRef} className="w-full h-96 mt-1"></div>
         </div>
         <div className="col-span-4 border-4 border-black">
@@ -104,8 +105,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
             {renderTabContent()}
           </div>
         </div>
-      </div>
-      <LoadingOverlay isLoading={loading} />
+      </div>      
     </div>
   );
 };
