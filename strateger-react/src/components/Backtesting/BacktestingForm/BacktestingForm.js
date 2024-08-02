@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { runBacktest } from '../../../slices/backtestingSlice';
 import { Select } from '@headlessui/react';
 import { format } from 'date-fns';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const BacktestingForm = () => {
     const dispatch = useDispatch();
@@ -55,75 +56,76 @@ const BacktestingForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Backtesting Form</h2>
+        <div className="relative">
+            <LoadingOverlay isLoading={status === 'loading'} />
             
-            <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Symbol</label>
-                <input
-                    type="text"
-                    value={symbol}
-                    onChange={(e) => setSymbol(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                />
-            </div>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Interval</label>
-                <Select
-                    as="select"
-                    value={interval}
-                    onChange={(e) => setInterval(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                >
-                    <option value="1m">1m</option>
-                    <option value="5m">5m</option>
-                    <option value="15m">15m</option>
-                    <option value="30m">30m</option>
-                    <option value="1h">1h</option>
-                    <option value="4h">4h</option>
-                    <option value="D">D</option>
-                    <option value="W">W</option>
-                    <option value="M">M</option>
-                </Select>
-            </div>
-
-            <DateForm date={startDate} handleChange={handleDateChange} name="startDate" />
-            <DateForm date={endDate} handleChange={handleDateChange} name="endDate" />
-
-            <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Initial Balance</label>
-                <input
-                    type="text"
-                    value={initialBalance}
-                    onChange={handleInitialBalanceChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                    placeholder="0.00"
-                />
-            </div>
-
-            {status === 'loading' && (
-                <div className="mb-4 text-blue-500">
-                    Loading...
+            <form onSubmit={handleSubmit} className={`bg-white p-8 rounded-md shadow-md grid grid-cols-2 gap-2 ${status === 'loading' ? 'opacity-50' : ''}`}>                        
+                <div className="mb-4">
+                    <label className="block text-gray-700 mb-2">Symbol</label>
+                    <input
+                        type="text"
+                        value={symbol}
+                        onChange={(e) => setSymbol(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    />
                 </div>
-            )}
 
-            <div className="flex space-x-4">
-                <button
-                    type="submit"
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
-                >
-                    Run Backtest
-                </button>
-                <button
-                    type="button"
-                    onClick={handleReset}
-                    className="w-full bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition duration-300"
-                >
-                    Reset
-                </button>
-            </div>
-        </form>
+                <div className="mb-4">
+                    <label className="block text-gray-700 mb-2">Interval</label>
+                    <Select
+                        as="select"
+                        value={interval}
+                        onChange={(e) => setInterval(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    >
+                        <option value="1m">1m</option>
+                        <option value="5m">5m</option>
+                        <option value="15m">15m</option>
+                        <option value="30m">30m</option>
+                        <option value="1h">1h</option>
+                        <option value="4h">4h</option>
+                        <option value="D">D</option>
+                        <option value="W">W</option>
+                        <option value="M">M</option>
+                    </Select>
+                </div>
+
+                
+                <DateForm date={startDate} handleChange={handleDateChange} name="startDate" />
+                <DateForm date={endDate} handleChange={handleDateChange} name="endDate" />
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 mb-2">Initial Balance</label>
+                    <input
+                        type="text"
+                        value={initialBalance}
+                        onChange={handleInitialBalanceChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="0.00"
+                    />
+                </div>
+
+                <div>
+
+                </div>
+                
+                <div className="flex space-x-4">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+                    >
+                        Run Backtest
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleReset}
+                        className="w-full bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 transition duration-300"
+                    >
+                        Reset
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 

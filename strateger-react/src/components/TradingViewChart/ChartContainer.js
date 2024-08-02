@@ -13,6 +13,7 @@ import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
 import DiaryCalendar from '../Diary/DiaryCalendar';
 import SummaryChart from '../Account/AccountCharts/SummaryChart';
 import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
+import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
@@ -104,7 +105,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           </div>
         </div>
       </div>
-      {loading && <p>Loading...</p>}
+      <LoadingOverlay isLoading={loading} />
     </div>
   );
 };
