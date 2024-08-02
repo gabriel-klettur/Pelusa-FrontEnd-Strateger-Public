@@ -18,18 +18,20 @@ const useChartData = (initialTemporalidad, initialStartDate, initialEndDate) => 
   const loading = useSelector(selectTradingViewChartLoading);
   const chartStartDate = useSelector(selectTradingViewChartStartDate);
   const chartEndDate = useSelector(selectTradingViewChartEndDate);
-  const chartInterval = useSelector(selectTradingViewChartInterval);
+  const chartInterval = useSelector(selectTradingViewChartInterval);  
 
+  // Configurar los parámetros de inicio del gráfico si no están establecidos
   useEffect(() => {
     if (!chartStartDate || !chartEndDate) {
       dispatch(setTradingViewChartParameters({
         interval: initialTemporalidad,
         startDate: new Date(initialStartDate).toISOString(),
         endDate: new Date(initialEndDate).toISOString(),
-      }));
+      }));      
     }
   }, [dispatch, initialTemporalidad, initialStartDate, initialEndDate, chartStartDate, chartEndDate]);
 
+  // Fetch de los datos del gráfico cuando cambian las fechas o el intervalo
   useEffect(() => {
     if (chartStartDate && chartEndDate) {
       dispatch(fetchTradingViewChartData({

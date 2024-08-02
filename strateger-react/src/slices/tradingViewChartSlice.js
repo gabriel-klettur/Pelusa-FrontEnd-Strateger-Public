@@ -102,8 +102,8 @@ const tradingViewChartSlice = createSlice({
     endDate: null,
     interval: '1d',
     lastPrice: null,
-    alarmMarkers: [], // nuevo estado para los marcadores de alarmas
-    orderMarkers: [], // nuevo estado para los marcadores de órdenes
+    alarmMarkers: [], 
+    orderMarkers: [], 
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
@@ -116,6 +116,9 @@ const tradingViewChartSlice = createSlice({
     },
     setOrderMarkers(state, action) {
       state.orderMarkers = action.payload;
+    },
+    updateChartData(state, action) {      
+      state.data = action.payload;                    // Actualizar los datos del gráfico
     },
   },
   extraReducers: (builder) => {
@@ -136,7 +139,7 @@ const tradingViewChartSlice = createSlice({
   }
 });
 
-export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers } = tradingViewChartSlice.actions;
+export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers, updateChartData } = tradingViewChartSlice.actions;
 export const selectTradingViewChartData = state => state.tradingViewChart.data;
 export const selectTradingViewChartLoading = state => state.tradingViewChart.loading;
 export const selectTradingViewChartError = state => state.tradingViewChart.error;
