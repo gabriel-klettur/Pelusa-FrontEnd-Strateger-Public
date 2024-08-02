@@ -4,17 +4,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from '../markers/Alarms';
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
+import { mapPositionsToMarkers } from '../markers/PositionsChart'; // Asegúrate de importar correctamente
 import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../../slices/alarmSlice';
 import { selectFilteredOrders } from '../../../slices/orderSlice';
-import { setAlarmMarkers, setOrderMarkers, selectAlarmMarkers, selectOrderMarkers } from '../../../slices/tradingViewChartSlice';
+import { selectBacktestingResult } from '../../../slices/backtestingSlice';
+import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../slices/tradingViewChartSlice';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
   const dispatch = useDispatch();
   const strategyFilteredAlarms = useSelector(selectStrategyFilteredAlarms);
   const allSelectedAlarms = useSelector(selectAllSelectedAlarms);
   const filteredOrders = useSelector(selectFilteredOrders);
+  const backtestingResult = useSelector(selectBacktestingResult);
   const alarmMarkers = useSelector(selectAlarmMarkers);
   const orderMarkers = useSelector(selectOrderMarkers);
+  const positionMarkers = useSelector(selectPositionMarkers);
 
   useEffect(() => {
     let newAlarmMarkers = [];
@@ -37,12 +41,21 @@ const useMarkers = (candlestickSeriesRef, chartInterval) => {
   }, [filteredOrders, chartInterval, dispatch]);
 
   useEffect(() => {
+    if (backtestingResult && backtestingResult.positions) {
+      const newPositionMarkers = mapPositionsToMarkers(backtestingResult.positions);
+      dispatch(setPositionMarkers(newPositionMarkers));
+    }
+  }, [backtestingResult, dispatch]);
+
+  useEffect(() => {
     if (candlestickSeriesRef.current) {
-      const combinedMarkers = [...alarmMarkers, ...orderMarkers].sort((a, b) => a.time - b.time);
+      const combinedMarkers = [...alarmMarkers, ...orderMarkers, ...positionMarkers]
+        .filter(marker => !isNaN(marker.time)) // Filter out markers with invalid times
+        .sort((a, b) => a.time - b.time);
+
       candlestickSeriesRef.current.setMarkers(combinedMarkers);
     }
-  }, [alarmMarkers, orderMarkers, candlestickSeriesRef]);
+  }, [alarmMarkers, orderMarkers, positionMarkers, candlestickSeriesRef]);
 };
 
 export default useMarkers;
-

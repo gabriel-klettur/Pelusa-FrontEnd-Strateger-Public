@@ -102,8 +102,9 @@ const tradingViewChartSlice = createSlice({
     endDate: null,
     interval: '1d',
     lastPrice: null,
-    alarmMarkers: [], 
-    orderMarkers: [], 
+    alarmMarkers: [], // nuevo estado para los marcadores de alarmas
+    orderMarkers: [], // nuevo estado para los marcadores de órdenes
+    positionMarkers: [], // nuevo estado para los marcadores de posiciones
   },
   reducers: {
     setTradingViewChartParameters(state, action) {
@@ -116,6 +117,9 @@ const tradingViewChartSlice = createSlice({
     },
     setOrderMarkers(state, action) {
       state.orderMarkers = action.payload;
+    },
+    setPositionMarkers(state, action) {
+      state.positionMarkers = action.payload;
     },
     updateChartData(state, action) {      
       state.data = action.payload;                    // Actualizar los datos del gráfico
@@ -139,7 +143,8 @@ const tradingViewChartSlice = createSlice({
   }
 });
 
-export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers, updateChartData } = tradingViewChartSlice.actions;
+
+export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData } = tradingViewChartSlice.actions;
 export const selectTradingViewChartData = state => state.tradingViewChart.data;
 export const selectTradingViewChartLoading = state => state.tradingViewChart.loading;
 export const selectTradingViewChartError = state => state.tradingViewChart.error;
@@ -147,8 +152,9 @@ export const selectTradingViewChartStartDate = state => state.tradingViewChart.s
 export const selectTradingViewChartEndDate = state => state.tradingViewChart.endDate;
 export const selectTradingViewChartInterval = state => state.tradingViewChart.interval;
 export const selectLastPrice = state => state.tradingViewChart.lastPrice;
-export const selectAlarmMarkers = state => state.tradingViewChart.alarmMarkers; // selector para los marcadores de alarmas
-export const selectOrderMarkers = state => state.tradingViewChart.orderMarkers; // selector para los marcadores de órdenes
+export const selectAlarmMarkers = state => state.tradingViewChart.alarmMarkers;
+export const selectOrderMarkers = state => state.tradingViewChart.orderMarkers;
+export const selectPositionMarkers = state => state.tradingViewChart.positionMarkers;
 
 export default tradingViewChartSlice.reducer;
 

@@ -2,7 +2,8 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateChartData } from '../../../slices/tradingViewChartSlice'; 
+import { updateChartData, setPositionMarkers } from '../../../slices/tradingViewChartSlice';
+import { mapPositionsToMarkers } from '../../TradingViewChart/markers/PositionsChart';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../slices/backtestingSlice';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
@@ -17,7 +18,7 @@ const BacktestingResult = () => {
     useEffect(() => {
         if (status === 'succeeded' && result) {
             const formattedKlineData = result.kline_data.map(item => [
-                Math.floor(item.time / 1000),  // Asegúrate de convertir el tiempo a segundos si es necesario
+                item.time,  // Asegúrate de convertir el tiempo a segundos si es necesario
                 item.open,                     
                 item.high,                     
                 item.low,                      
@@ -26,6 +27,9 @@ const BacktestingResult = () => {
 
             console.log("Formatted Kline Data:", formattedKlineData);
             dispatch(updateChartData(formattedKlineData));
+
+            const positionMarkers = mapPositionsToMarkers(result.positions);
+            dispatch(setPositionMarkers(positionMarkers));
         }
     }, [status, result, dispatch]);
 
