@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../../slices/orderSlice';
 import OrderRow from './OrderRow';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -30,25 +31,18 @@ const OrderList = () => {
     dispatch(setSelectedOrderId(orderId));
   };
 
-  if (loading && orders.length === 0) {
-    return <div className="text-center py-4">Cargando órdenes...</div>;
-  }
-
   if (error) {
     return <div className="text-center py-4 text-red-600">Error al cargar órdenes: {error}</div>;
-  }
-
-  if (!orders || orders.length === 0) {
-    return <div className="text-center py-4">No hay órdenes disponibles.</div>;
   }
 
   const startIndex = page * 20;
   const endIndex = startIndex + 20;
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
-  return (
-    <div className="pl-4 text-sm">
+  return (      
+    <div className="pl-4 text-sm">      
       <table className="min-w-full bg-white border border-gray-200">
+        <LoadingOverlay isLoading={loading} />
         <thead>
           <tr className="w-full bg-gray-100 border-b">
             {/* ... column headers */}
@@ -98,7 +92,7 @@ const OrderList = () => {
         </button>
       </div>
       {loading && <div className="text-center py-4">Cargando más órdenes...</div>}
-    </div>
+    </div>    
   );
 };
 
