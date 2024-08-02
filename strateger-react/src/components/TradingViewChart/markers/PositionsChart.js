@@ -5,18 +5,30 @@ export const mapPositionsToMarkers = (positions) => {
       let color, text, positionSide, shape;
   
       switch (position.action) {
-        case 'Buy':
+        case 'Long':
           color = 'green';
-          text = `Buy: ${position.price}`;
+          text = `Entry Long: ${position.price}, Profit: ${position.profit}`;
           positionSide = 'belowBar';
           shape = 'arrowUp';
           break;
-        case 'Sell':
+        case 'Close Long':
+            color = 'purple';
+            text = `Close Long: ${position.price}, Profit: ${position.profit}`;
+            positionSide = 'aboveBar';
+            shape = 'arrowDown';
+            break;  
+        case 'Short':
           color = 'red';
-          text = `Sell: ${position.price}`;
+          text = `Entry Short: ${position.price}, Profit: ${position.profit}`;
           positionSide = 'aboveBar';
           shape = 'arrowDown';
           break;
+        case 'Close Short':
+            color = 'orange';
+            text = `Close Short: ${position.price}, Profit: ${position.profit}`;
+            positionSide = 'belowBar';
+            shape = 'arrowUp';
+            break;
         default:
           color = 'blue';
           text = `Position: ${position.price}`;
