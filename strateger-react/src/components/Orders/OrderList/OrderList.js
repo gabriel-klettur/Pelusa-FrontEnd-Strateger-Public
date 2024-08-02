@@ -41,8 +41,8 @@ const OrderList = () => {
 
   return (      
     <div className="pl-4 text-sm">      
-      <table className="min-w-full bg-white border border-gray-200">
-        <LoadingOverlay isLoading={loading} />
+      <LoadingOverlay isLoading={loading} />
+      <table className="min-w-full bg-white border border-gray-200">        
         <thead>
           <tr className="w-full bg-gray-100 border-b">
             {/* ... column headers */}
