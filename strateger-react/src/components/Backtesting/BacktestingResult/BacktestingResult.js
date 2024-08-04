@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Backtesting/BacktestingResult/BacktestingResult.js
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateChartData, setPositionMarkers } from '../../../slices/tradingViewChartSlice';
@@ -7,6 +5,7 @@ import { mapPositionsToMarkers } from '../../TradingViewChart/markers/PositionsC
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../slices/backtestingSlice';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
+import { format } from 'date-fns'; // Importamos la función de formateo
 
 const BacktestingResult = () => {
     const dispatch = useDispatch();
@@ -14,11 +13,10 @@ const BacktestingResult = () => {
     const status = useSelector(selectBacktestingStatus);
     const error = useSelector(selectBacktestingError);
 
-    // Maneja la carga de los datos de kline una vez que el estado es 'succeeded'
     useEffect(() => {
         if (status === 'succeeded' && result) {
             const formattedKlineData = result.kline_data.map(item => [
-                item.time,  // Asegúrate de convertir el tiempo a segundos si es necesario
+                item.time, 
                 item.open,                     
                 item.high,                     
                 item.low,                      
@@ -39,10 +37,69 @@ const BacktestingResult = () => {
 
     const formatPercentage = (value) => `${(value * 100).toFixed(2)}%`;
 
+    const formatTimestamp = (timestamp) => {
+        return format(new Date(timestamp), 'HH:mm:ss - dd/MM/yyyy');
+    };
+
+    const renderTable = (data, reverse = true) => {
+        if (data.length === 0) return <p>No data available</p>;
+
+        const headers = Object.keys(data[0]);
+
+        // Condicional para invertir datos
+        const displayedData = reverse ? [...data].reverse() : data;
+
+        return (
+            <table className="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th className="px-4 py-2">Índice</th>
+                        {headers.map((header) => (
+                            <th key={header} className="px-4 py-2">{header}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {displayedData.map((item, index) => (
+                        <tr key={index}>
+                            <td className="border px-4 py-2">{index + 0}</td>
+                            {headers.map((header) => (
+                                <td
+                                    key={header}
+                                    className={`border px-4 py-2 ${
+                                        item[header] === true
+                                            ? 'bg-green-500 text-white font-bold'
+                                            : ''
+                                    }`}
+                                >
+                                    {item[header] === null ? 'null' :
+                                     item[header] === true ? 'true' :
+                                     item[header] === false ? 'false' :
+                                     header === 'time' ? formatTimestamp(item[header]) : item[header]}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
+    };
+
+    const formatJsonData = (data, reverse = true) => {
+        const total = data.length;
+        const formattedData = data.map((item, index) => {
+            const formattedItem = { ...item, index: reverse ? total - index : index + 0 };
+            if (formattedItem.time) {
+                formattedItem.time = formatTimestamp(formattedItem.time);
+            }
+            return formattedItem;
+        });
+        return reverse ? formattedData.reverse() : formattedData; // Condicional para invertir el orden
+    };
+
     if (status === 'succeeded' && result) {
         return (
-            <div className="backtesting-result">
-                <h2 className="text-2xl font-bold mb-6">Backtesting Result</h2>
+            <div className="backtesting-result">                                
                 <CollapsibleSection title="Summary">
                     <p>Initial Balance: {result.initial_balance}</p>
                     <p>Final Balance: {result.final_balance}</p>
@@ -55,18 +112,42 @@ const BacktestingResult = () => {
                     <p>Win Rate: {formatPercentage(result.win_rate)}</p>
                     <p>Gain to Loss Ratio: {result.gain_to_loss_ratio.toFixed(2)}</p>
                 </CollapsibleSection>
-                <CollapsibleSection title="Balances" count={result.balances.length}>
-                    <pre>{JSON.stringify(result.balances, null, 2)}</pre>
-                </CollapsibleSection>
-                <CollapsibleSection title="Positions" count={result.positions.length}>
-                    <pre>{JSON.stringify(result.positions, null, 2)}</pre>
-                </CollapsibleSection>
-                <CollapsibleSection title="Kline Data" count={result.kline_data.length}>                    
-                    <pre>{JSON.stringify(result.kline_data, null, 2)}</pre>                    
-                </CollapsibleSection>
-                <CollapsibleSection title="Signals" count={result.signals.length}>
-                    <pre>{JSON.stringify(result.signals, null, 2)}</pre>
-                </CollapsibleSection>
+
+                <div className='grid grid-cols-2 gap-4'>
+                    <CollapsibleSection title="Balances Table" count={result.balances.length}>
+                        {renderTable(result.balances, false)}  
+                    </CollapsibleSection>
+                    <CollapsibleSection title="Balances JSON" count={result.balances.length}>
+                        <pre>{JSON.stringify(formatJsonData(result.balances, false), null, 2)}</pre>  
+                    </CollapsibleSection>
+                </div>
+
+                <div className='grid grid-cols-2 gap-4'>
+                    <CollapsibleSection title="Positions Table" count={result.positions.length}>                    
+                        {renderTable(result.positions, false)}
+                    </CollapsibleSection>
+                    <CollapsibleSection title="Positions JSON" count={result.positions.length}>
+                        <pre>{JSON.stringify(formatJsonData(result.positions, false), null, 2)}</pre>
+                    </CollapsibleSection>
+                </div>
+
+                <div className='grid grid-cols-2 gap-4'>
+                    <CollapsibleSection title="Kline Data Table" count={result.kline_data.length}>                    
+                        {renderTable(result.kline_data)}
+                    </CollapsibleSection>
+                    <CollapsibleSection title="Kline Data JSON" count={result.kline_data.length}>                    
+                        <pre>{JSON.stringify(formatJsonData(result.kline_data), null, 2)}</pre>                    
+                    </CollapsibleSection>
+                </div>
+
+                <div className='grid grid-cols-2 gap-4'>
+                    <CollapsibleSection title="Signals Table" count={result.signals.length}>                        
+                        {renderTable(result.signals)}
+                    </CollapsibleSection>
+                    <CollapsibleSection title="Signals JSON" count={result.signals.length}>
+                        <pre>{JSON.stringify(formatJsonData(result.signals), null, 2)}</pre>
+                    </CollapsibleSection>
+                </div>
             </div>
         );
     }
