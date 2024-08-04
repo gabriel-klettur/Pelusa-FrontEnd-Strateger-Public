@@ -11,6 +11,8 @@ export const runBacktest = createAsyncThunk('backtesting/runBacktest', async (ba
             start_date: backtestData.startDate,
             end_date: backtestData.endDate,
             initial_balance: backtestData.initialBalance,
+            enable_long: backtestData.enable_long,
+            enable_short: backtestData.enable_short,
         },
     });
     return response.data;

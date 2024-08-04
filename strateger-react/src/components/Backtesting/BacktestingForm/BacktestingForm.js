@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DateForm from '../../DateForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { runBacktest } from '../../../slices/backtestingSlice';
-import { Select } from '@headlessui/react';
+import { Select, Checkbox, Field, Label } from '@headlessui/react';
 import { format } from 'date-fns';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
@@ -18,6 +18,8 @@ const BacktestingForm = () => {
     const [startDate, setStartDate] = useState(initialStartDate);
     const [endDate, setEndDate] = useState(initialEndDate);
     const [initialBalance, setInitialBalance] = useState('');
+    const [longEnabled, setLongEnabled] = useState(true); // Valor por defecto True
+    const [shortEnabled, setShortEnabled] = useState(false); // Valor por defecto False
 
     const handleDateChange = (e) => {
         const { name, value } = e.target;
@@ -43,9 +45,12 @@ const BacktestingForm = () => {
             interval,
             startDate: format(new Date(startDate), 'yyyy-MM-dd HH:mm:ss'),
             endDate: format(new Date(endDate), 'yyyy-MM-dd HH:mm:ss'),
-            initialBalance: parseFloat(initialBalance) // Asegurarse de que sea un número
+            initialBalance: parseFloat(initialBalance) || 10000, // Valor por defecto si el input está vacío
+            enable_long: longEnabled,
+            enable_short: shortEnabled,
         };
         dispatch(runBacktest(backtestData));
+        console.log(backtestData);
     };
 
     const handleReset = () => {
@@ -53,6 +58,8 @@ const BacktestingForm = () => {
         setStartDate(initialStartDate);
         setEndDate(initialEndDate);
         setInitialBalance('');
+        setLongEnabled(true); // Restablecer al valor por defecto
+        setShortEnabled(false); // Restablecer al valor por defecto
     };
 
     return (
@@ -105,11 +112,34 @@ const BacktestingForm = () => {
                     />
                 </div>
 
-                <div>
-
+                <div className="grid grid-cols-2">
+                    <Field className="flex items-center gap-2 border-2 rounded-md p-2">
+                        <Checkbox
+                            checked={longEnabled}
+                            onChange={setLongEnabled}
+                            className="group block h-4 w-4 rounded border bg-white data-[checked]:bg-blue-500"
+                        >
+                            <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
+                                <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </Checkbox>
+                        <Label>Long enable</Label>
+                    </Field>
+                    <Field className="flex items-center gap-2 border-2 rounded-md p-2">
+                        <Checkbox
+                            checked={shortEnabled}
+                            onChange={setShortEnabled}
+                            className="group block h-4 w-4 rounded border bg-white data-[checked]:bg-blue-500"
+                        >
+                            <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
+                                <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </Checkbox>
+                        <Label>Short enable</Label>
+                    </Field>
                 </div>
                 
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 col-span-2">
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
