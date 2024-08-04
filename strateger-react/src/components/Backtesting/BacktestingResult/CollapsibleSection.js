@@ -8,11 +8,11 @@ const CollapsibleSection = ({ title, count, children }) => {
     };
 
     return (
-        <div className="collapsible-section mb-4">
+        <div className="collapsible-section mb-1">
             <button
                 onClick={toggleSection}
                 aria-expanded={isOpen}
-                className="bg-blue-500 text-white py-2 px-4 rounded-md w-full text-left"
+                className="bg-blue-500 text-white py-1 px-4 rounded-md w-full text-left"
             >
                 {title} {count !== undefined && `(${count})`}
             </button>
