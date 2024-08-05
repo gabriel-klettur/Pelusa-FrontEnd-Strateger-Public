@@ -1,6 +1,6 @@
 // src/components/TradingViewChart/series/seriesConfig.js
 import { formatChartData, sortAndRemoveDuplicates } from '../data/chartData'; // Importar las funciones de manejo de datos
-import { calculateEMA, createEMASeries } from '../indicators/emas';
+import { calculateEMA, createEMASeries } from '../indicators/Emas';
 
 export const initializeSeries = (chart) => {
   const candlestickSeries = chart.addCandlestickSeries();
