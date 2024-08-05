@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/ChartContainer.js
+// Path: strateger-react/src/components/TradingViewChart/ChartContainer.js
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
   const { data, loading, chartInterval } = useChartData(initialTemporalidad, new Date(startDate).toISOString(), new Date(endDate).toISOString());
-  const { chartContainerRef, candlestickSeriesRef } = useChart(data);
+  const { chartContainerRef, candlestickSeriesRef, stochasticChartContainerRef } = useChart(data); // Añadido stochasticChartContainerRef
   useMarkers(candlestickSeriesRef, chartInterval);
 
   const [interval, setInterval] = useState(initialTemporalidad);
@@ -98,7 +98,8 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
       />
       <div className="grid grid-cols-10 gap-2">
         <div className="col-span-6 p-1 border-4 border-black">                    
-          <div ref={chartContainerRef} className="w-full h-96 mt-1"></div>
+          <div ref={chartContainerRef} className="w-full h-64 mt-1"></div> {/* Ajusta la altura según sea necesario */}
+          <div ref={stochasticChartContainerRef} className="w-full h-32 mt-1"></div> {/* Nuevo contenedor para Stochastic */}
         </div>
         <div className="col-span-4 border-4 border-black">
           <div id="box-cambiadora" className="flex flex-col p-2">
@@ -111,4 +112,3 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 };
 
 export default ChartContainer;
-
