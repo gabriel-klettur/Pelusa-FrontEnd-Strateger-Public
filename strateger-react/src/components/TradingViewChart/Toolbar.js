@@ -1,4 +1,5 @@
-// src/components/TradingViewChart/Toolbar.js
+// Path: strateger-react/src/components/TradingViewChart/Toolbar.js
+
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,7 +14,9 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
 
   const buttonClasses = (interval) =>
     `py-2 px-4 rounded-lg shadow-md font-bold transition duration-300 ${
-      activeInterval === interval ? 'bg-green-500 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
+      activeInterval === interval 
+        ? 'bg-african_violet-500 text-white' 
+        : 'bg-english_violet-500 hover:bg-english_violet-700 text-white'
     }`;
 
   const intervals = ['1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w', '1M'];
@@ -69,8 +72,8 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
   };
 
   return (
-    <div className='grid grid-cols-2 gap-2 border-4 border-yellow-200'>
-      <div className="flex flex-wrap gap-2 border-4 border-red-400">
+    <div className='grid grid-cols-2 gap-2'>
+      <div className="flex flex-wrap gap-2 p-2 rounded-md">
         {intervals.map(interval => (
           <button
             key={interval}
@@ -83,19 +86,20 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
       </div>
 
       <div className="grid grid-cols-3">
-        <div className="col-span-1 border-4 border-blue-400 flex justify-center items-center">
+        <div className="col-span-1  flex justify-center items-center rounded-md">
           <Reloj direction="down" /> {/* Cambia a "down" si quieres que el Popover se despliegue hacia abajo */}
         </div>
-        <div className="col-span-1 border-4 border-blue-400">
+        <div className="col-span-1">
         </div>
-        <div className="col-span-1 border-4 border-blue-400">
-          <div className="absolute z-50 w-full">
+        <div className="col-span-1 mt-2">
+          <div className="absolute h-full z-50 w-full">
+          
             <DatePicker
               selected={localDate}
               onChange={handleDateChange}
               showTimeSelect
               dateFormat="yyyy-MM-dd HH:mm:ss"
-              className="py-2 px-4 rounded-lg shadow-md font-bold transition duration-300 bg-orange-500 hover:bg-orange-700 text-white text-center"
+              className="py-2 px-4 rounded-lg shadow-md font-bold transition duration-300 bg-night-500 hover:bg-night-700 text-white text-center"
             />
           </div>
         </div>

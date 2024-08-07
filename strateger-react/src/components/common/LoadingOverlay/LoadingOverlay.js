@@ -1,7 +1,7 @@
-// src/components/common/LoadingOverlay/LoadingOverlay.js
+// Path: strateger-react/src/components/common/LoadingOverlay/LoadingOverlay.js
 
 import React from 'react';
-import './LoadingOverlay.css'; // Importar el archivo de estilos
+import './LoadingOverlay.css'; // Puedes mantener este import si tienes otros estilos globales
 
 /**
  * Componente para mostrar una superposición de carga.
@@ -12,8 +12,8 @@ const LoadingOverlay = ({ isLoading }) => {
   if (!isLoading) return null;
 
   return (
-    <div className="loading-overlay">
-      <div className="loading-text">
+    <div className="fixed inset-0 flex items-center justify-center bg-night-500 bg-opacity-75 z-50">
+      <div className="text-african_violet-500 font-bold text-lg">
         Loading...
       </div>
     </div>
