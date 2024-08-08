@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
+
 import React from 'react';
 import AlarmRow from './AlarmRow';
 

@@ -1,9 +1,19 @@
-// ToolAlarmBar.js
+// Path: strateger-react/src/components/Alarms/ToolAlarmBar/ToolAlarmBar.js
+
 import React from 'react';
 import TemporalidadButton from './TemporalidadButton';
 import TypeButton from './TypeButton';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementTemporalidad, decrementTemporalidad, selectFilteredTemporalidades, setSelectedTemporalidad, setSelectedTypes, selectSelectedTemporalidad, selectSelectedTypes } from '../../../slices/alarmSlice';
+import { 
+  incrementTemporalidad, 
+  decrementTemporalidad, 
+  selectFilteredTemporalidades, 
+  setSelectedTemporalidad, 
+  setSelectedTypes, 
+  selectSelectedTemporalidad, 
+  selectSelectedTypes 
+} from '../../../slices/alarmSlice';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
 const types = [
@@ -37,8 +47,9 @@ const ToolAlarmBar = () => {
   };
 
   return (
-    <div className="grid grid-cols-10 gap-4">
-      <div className="col-span-4 border-2 border-blue-500 flex flex-wrap justify-center items-center">
+    <div className="space-y-4">
+      {/* Temporalidad Buttons */}
+      <div className="flex flex-wrap justify-center items-center border-2 border-african_violet-800 rounded-lg p-2">
         {temporalidades.map(temp => (
           <TemporalidadButton
             key={temp}
@@ -49,48 +60,86 @@ const ToolAlarmBar = () => {
           />
         ))}
       </div>
-      <div className="col-span-6 border-2 border-green-500 flex flex-wrap justify-center items-center">
-        <div className="w-full md:w-1/2 border-r-2 border-gray-300 flex flex-wrap justify-center items-center">
-          <div className="w-full text-center mb-2 font-bold">Long - Orders</div>
-          {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
-            <TypeButton
-              key={type}
-              type={type}
-              selectedTypes={selectedTypes[selectedTemporalidad] || []}
-              toggleType={toggleType}
-            />
-          ))}
-          <div className="w-full text-center mb-2 font-bold">Long - Indicators</div>
-          {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
-            <TypeButton
-              key={type}
-              type={type}
-              selectedTypes={selectedTypes[selectedTemporalidad] || []}
-              toggleType={toggleType}
-            />
-          ))}
-        </div>
-        <div className="w-full md:w-1/2 flex flex-wrap justify-center items-center">
-          <div className="w-full text-center mb-2 font-bold">Short - Orders</div>
-          {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
-            <TypeButton
-              key={type}
-              type={type}
-              selectedTypes={selectedTypes[selectedTemporalidad] || []}
-              toggleType={toggleType}
-            />
-          ))}
-          <div className="w-full text-center mb-2 font-bold">Short - Indicators</div>
-          {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
-            <TypeButton
-              key={type}
-              type={type}
-              selectedTypes={selectedTypes[selectedTemporalidad] || []}
-              toggleType={toggleType}
-            />
-          ))}
-        </div>
-      </div>
+
+      {/* Tabs for Long and Short Types */}
+      <TabGroup>
+        <TabList className="flex justify-center space-x-1 rounded-t-xl bg-african_violet-500 p-1">
+          
+        <Tab
+          className={({ selected }) =>
+            `w-full py-2.5 text-sm leading-5 font-medium rounded-lg transition-colors duration-200
+            ${
+              selected
+                ? 'bg-white shadow text-african_violet-300 border-4 border-african_violet-700'
+                : 'text-african_violet-300 hover:bg-african_violet-400 hover:text-african_violet-900'
+            } focus:outline-none focus:border-4 focus:border-african_violet-600`
+          }
+        >
+          Long
+        </Tab>
+
+        <Tab
+          className={({ selected }) =>
+            `w-full py-2.5 text-sm leading-5 font-medium rounded-lg transition-colors duration-200
+            ${
+              selected
+                ? 'bg-white shadow text-african_violet-300 border-4 border-african_violet-700'
+                : 'text-african_violet-300 hover:bg-african_violet-400 hover:text-african_violet-900'
+            } focus:outline-none focus:border-4 focus:border-african_violet-600`
+          }
+        >
+          Short
+        </Tab>
+
+        </TabList>
+        <TabPanels>
+          <TabPanel className="p-2 border-b-2 border-l-2 border-r-2 border-african_violet-800 rounded-b-lg">            
+            <div className="grid grid-cols-2 gap-2 my-2">
+              {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
+                <TypeButton
+                  key={type}
+                  type={type}
+                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
+                  toggleType={toggleType}
+                />
+              ))}
+            </div>            
+            <div className="grid grid-cols-2 gap-2 my-2">
+              {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
+                <TypeButton
+                  key={type}
+                  type={type}
+                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
+                  toggleType={toggleType}
+                />
+              ))}
+            </div>
+          </TabPanel>
+
+          <TabPanel className="p-2 border-b-2 border-l-2 border-r-2 border-african_violet-800 rounded-b-lg">            
+            <div className="grid grid-cols-2 gap-2 my-2">
+              {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
+                <TypeButton
+                  key={type}
+                  type={type}
+                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
+                  toggleType={toggleType}
+                />
+              ))}
+            </div>            
+            <div className="grid grid-cols-2 gap-2 my-2">
+              {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
+                <TypeButton
+                  key={type}
+                  type={type}
+                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
+                  toggleType={toggleType}
+                />
+              ))}
+            </div>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </div>
   );
 };
