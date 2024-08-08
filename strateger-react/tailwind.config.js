@@ -1,75 +1,10 @@
-// Path: strateger-react/tailwind.config.js
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        african_violet: {
-          DEFAULT: '#a393bf',
-          100: '#1f192a',
-          200: '#3f3255',
-          300: '#5e4b7f',
-          400: '#7e67a6',
-          500: '#a393bf',
-          600: '#b5a8cc',
-          700: '#c7bdd9',
-          800: '#dad3e5',
-          900: '#ece9f2',
-        },
-        african_violet_2: {
-          DEFAULT: '#9882ac',
-          100: '#1e1824',
-          200: '#3d3048',
-          300: '#5b486c',
-          400: '#796090',
-          500: '#9882ac',
-          600: '#ac9bbc',
-          700: '#c1b4cd',
-          800: '#d5cdde',
-          900: '#eae6ee',
-        },
-        pomp_and_power: {
-          DEFAULT: '#73648a',
-          100: '#17141c',
-          200: '#2e2838',
-          300: '#463c53',
-          400: '#5d516f',
-          500: '#73648a',
-          600: '#8f82a4',
-          700: '#aba1bb',
-          800: '#c7c0d2',
-          900: '#e3e0e8',
-        },
-        english_violet: {
-          DEFAULT: '#453750',
-          100: '#0e0b10',
-          200: '#1b1520',
-          300: '#29202f',
-          400: '#362b3f',
-          500: '#453750',
-          600: '#6b547c',
-          700: '#9178a3',
-          800: '#b5a5c2',
-          900: '#dad2e0',
-        },
-        night: {
-          DEFAULT: '#0c0910',
-          100: '#020203',
-          200: '#050407',
-          300: '#07060a',
-          400: '#0a070d',
-          500: '#0c0910',
-          600: '#3b2c4e',
-          700: '#6a4f8c',
-          800: '#9a83b9',
-          900: '#cdc1dc',
-        },
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
