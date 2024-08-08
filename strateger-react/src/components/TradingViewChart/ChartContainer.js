@@ -19,7 +19,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
   const { data, loading, chartInterval } = useChartData(initialTemporalidad, new Date(startDate).toISOString(), new Date(endDate).toISOString());
-  const { chartContainerRef, candlestickSeriesRef, stochasticChartContainerRef } = useChart(data); // Añadido stochasticChartContainerRef
+  const { chartContainerRef, candlestickSeriesRef, stochasticChartContainerRef } = useChart(data);
   useMarkers(candlestickSeriesRef, chartInterval);
 
   const [interval, setInterval] = useState(initialTemporalidad);
@@ -48,37 +48,24 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     { date: '2024-07-03', pnl: 200 },
     { date: '2024-07-04', pnl: -30 },
     { date: '2024-07-05', pnl: 150 },
-    // Añade más datos según sea necesario
   ];  
 
   const renderTabContent = () => {
     switch (selectedTab) {
       case 0:
-        return (
-          <ToolAlarmBar />
-        );
+        return <ToolAlarmBar />;
       case 1:
-        return (
-          <ToolOrderBar />
-        );
+        return <ToolOrderBar />;
       case 2:
-        return (
-          'Lista de estrategias activas + Lista de estrategias No activas'
-        );
+        return 'Lista de estrategias activas + Lista de estrategias No activas';
       case 3:
-        return (
-          <DiaryCalendar results={simulatedResults} />
-        );
+        return <DiaryCalendar results={simulatedResults} />;
       case 4:
-        return (
-          <SummaryChart />
-        );
+        return <SummaryChart />;
       case 5:
         return 'GRAFICO';
       case 6:
-        return (
-          <BacktestingForm />
-        );
+        return <BacktestingForm />;
       case 7:
         return '';      
       default:
@@ -87,7 +74,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   };
 
   return (
-    <div className="relative p-2">
+    <div className="relative p-4 bg-african_violet-50 border-4 border-african_violet-700 rounded-xl shadow-lg">
       <LoadingOverlay isLoading={loading} />
       <Toolbar
         activeInterval={interval}
@@ -96,13 +83,13 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         endDate={new Date(endDate)}
         onDateChange={handleDateChange}
       />
-      <div className="grid grid-cols-10 gap-2">
-        <div className="col-span-6">                    
-          <div ref={chartContainerRef} className="w-full h-64 mt-1"></div> {/* Ajusta la altura según sea necesario */}
-          <div ref={stochasticChartContainerRef} className="w-full h-32 mt-1"></div> {/* Nuevo contenedor para Stochastic */}
+      <div className="grid grid-cols-10 gap-4 mt-4">
+        <div className="grid grid-cols-1 col-span-6 bg-white p-2 rounded-lg shadow-md border-2 border-african_violet-700">
+          <div ref={chartContainerRef} className="col-span-10 h-64 rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"></div>
+          <div ref={stochasticChartContainerRef} className="col-span-10 h-32 mt-2 rounded-b-lg overflow-hidden border-t-2 border-african_violet-700"></div>
         </div>
         <div className="col-span-4">
-          <div id="box-cambiadora" className="flex flex-col p-2">
+          <div id="box-cambiadora" className="flex flex-col p-4 bg-white rounded-lg shadow-md border-2 border-african_violet-700">
             {renderTabContent()}
           </div>
         </div>
