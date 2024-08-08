@@ -1,9 +1,13 @@
+// Path: strateger-react/src/components/Alarms/AlarmTable/AlarmRow.js
+
 import React from 'react';
 
 const AlarmRow = ({ alarm, isSelected, handleSelectAlarm }) => {
   return (
     <tr
-      className={`border-b hover:bg-gray-50 cursor-pointer ${isSelected ? 'bg-gray-200' : ''}`}
+      className={`border-b transition-colors duration-200 hover:bg-african_violet-700 cursor-pointer ${
+        isSelected ? 'bg-african_violet-400 text-white' : 'bg-white text-african_violet-400'
+      }`}
       onClick={() => handleSelectAlarm(alarm)}
     >
       <td className="py-2 px-4 border-r">{alarm.id}</td>

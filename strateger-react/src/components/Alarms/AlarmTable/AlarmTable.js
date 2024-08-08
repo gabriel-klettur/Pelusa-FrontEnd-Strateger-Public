@@ -3,9 +3,9 @@ import AlarmRow from './AlarmRow';
 
 const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
   return (
-    <table className="min-w-full bg-white border border-gray-200">
+    <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
       <thead>
-        <tr className="w-full bg-gray-100 border-b">
+        <tr className="w-full bg-african_violet-500 text-white">
           <th className="py-2 px-4 border-r">ID</th>
           <th className="py-2 px-4 border-r">Ticker</th>
           <th className="py-2 px-2 border-r">T</th>
