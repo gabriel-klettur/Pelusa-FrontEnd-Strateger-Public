@@ -87,7 +87,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   };
 
   return (
-    <div className="relative p-2">
+    <div className="relative p-2 bg-african_violet-100">
       <LoadingOverlay isLoading={loading} />
       <Toolbar
         activeInterval={interval}
@@ -97,12 +97,12 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         onDateChange={handleDateChange}
       />
       <div className="grid grid-cols-10 gap-2">
-        <div className="col-span-6 p-1 border-4 border-black">                    
-          <div ref={chartContainerRef} className="w-full h-64 mt-1"></div> {/* Ajusta la altura según sea necesario */}
-          <div ref={stochasticChartContainerRef} className="w-full h-32 mt-1"></div> {/* Nuevo contenedor para Stochastic */}
+        <div className="col-span-8 p-1">                    
+          <div ref={chartContainerRef} className="flex h-96 mt-1"></div> {/* Ajusta la altura según sea necesario */}
+          <div ref={stochasticChartContainerRef} className=" flex h-32 mt-1"></div> {/* Nuevo contenedor para Stochastic */}
         </div>
-        <div className="col-span-4 border-4 border-black">
-          <div id="box-cambiadora" className="flex flex-col p-2">
+        <div className="col-span-2">
+          <div id="box-cambiadora" className="flex flex-col text-white">
             {renderTabContent()}
           </div>
         </div>
