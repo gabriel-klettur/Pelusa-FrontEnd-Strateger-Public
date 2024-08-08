@@ -34,7 +34,7 @@ const AlarmList = ({ alarms, loading, error, page, selectedAlarms, allSelectedAl
   return (
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
-      <div className="px-4 py-8 text-sm border-4 border-african_violet-800 rounded-lg shadow-md bg-white">
+      <div className="text-sm">
         <div className="flex justify-start space-x-5 ">
           <button onClick={() => setViewType('alarms')} className={`px-4 py-2 font-semibold rounded-t-lg transition-colors duration-200 shadow-md ${viewType === 'alarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Alarms

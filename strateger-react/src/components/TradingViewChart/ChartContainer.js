@@ -74,7 +74,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   };
 
   return (
-    <div className="relative p-4 bg-african_violet-50 border-4 border-african_violet-700 rounded-xl shadow-lg">
+    <div className="relative p-2 bg-african_violet-50">
       <LoadingOverlay isLoading={loading} />
       <Toolbar
         activeInterval={interval}
@@ -88,8 +88,9 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           <div ref={chartContainerRef} className="col-span-10 h-64 rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"></div>
           <div ref={stochasticChartContainerRef} className="col-span-10 h-32 mt-2 rounded-b-lg overflow-hidden border-t-2 border-african_violet-700"></div>
         </div>
+
         <div className="col-span-4">
-          <div id="box-cambiadora" className="flex flex-col p-4 bg-white rounded-lg shadow-md border-2 border-african_violet-700">
+          <div id="box-cambiadora" className="flex flex-col p-4">
             {renderTabContent()}
           </div>
         </div>
