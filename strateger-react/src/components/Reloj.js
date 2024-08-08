@@ -38,46 +38,24 @@ const Reloj = ({ direction = 'up' }) => {
     return currentTotalMinutes >= openTotalMinutes && currentTotalMinutes <= closeTotalMinutes;
   };
 
-  const isMarketPremarketOrAfterHours = (currentTime, market) => {
-    const [currentHour, currentMinute] = format(new Date(currentTime), 'HH:mm').split(':');
-    const currentTotalMinutes = parseInt(currentHour) * 60 + parseInt(currentMinute);
-
-    const [openHour, openMinute] = tradingHours[market].open.split(':');
-    const openTotalMinutes = parseInt(openHour) * 60 + parseInt(openMinute);
-
-    const [closeHour, closeMinute] = tradingHours[market].close.split(':');
-    const closeTotalMinutes = parseInt(closeHour) * 60 + parseInt(closeMinute);
-
-    return (
-      (currentTotalMinutes >= openTotalMinutes - 60 && currentTotalMinutes < openTotalMinutes) ||
-      (currentTotalMinutes > closeTotalMinutes && currentTotalMinutes <= closeTotalMinutes + 120)
-    );
-  };
-
   const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
 
-  const getColor = (currentTime, market) => {
-    if (isMarketOpen(currentTime, market)) return 'text-green-500';
-    if (isMarketPremarketOrAfterHours(currentTime, market)) return market === 'US' ? 'text-blue-500' : 'text-yellow-500';
-    return 'text-red-500';
-  };
-
   return (
-    <div className="wrap bg-english_violet-500 rounded-lg p-2 shadow-md">
+    <div className="bg-gray-100 rounded-lg p-2">
       <Popover className="relative">
-        <Popover.Button className="text-lg font-bold text-white">
+        <Popover.Button className="text-lg font-bold">
           {formatTime(localTime)}
         </Popover.Button>
-        <Popover.Panel className={`absolute z-10 p-4 bg-english_violet-400 border border-english_violet-600 rounded-lg shadow-lg ${popoverPosition}`}>
-          <div className={`mb-2 ${getColor(chinaTime, 'China')}`}>
+        <Popover.Panel className={`absolute z-10 p-4 bg-white border rounded-lg shadow-lg ${popoverPosition}`}>
+          <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? 'green' : 'red' }}>
             <strong>China: </strong>
             {formatTime(chinaTime)}
           </div>
-          <div className={`mb-2 ${getColor(usTime, 'US')}`}>
+          <div className="mb-2" style={{ color: isMarketOpen(usTime, 'US') ? 'green' : 'red' }}>
             <strong>Estados Unidos: </strong>
             {formatTime(usTime)}
           </div>
-          <div className={`mb-2 ${getColor(germanyTime, 'Germany')}`}>
+          <div className="mb-2" style={{ color: isMarketOpen(germanyTime, 'Germany') ? 'green' : 'red' }}>
             <strong>Alemania: </strong>
             {formatTime(germanyTime)}
           </div>

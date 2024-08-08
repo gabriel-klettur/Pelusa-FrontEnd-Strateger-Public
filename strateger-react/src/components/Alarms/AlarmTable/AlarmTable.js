@@ -3,17 +3,17 @@ import AlarmRow from './AlarmRow';
 
 const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
   return (
-    <table className="min-w-full bg-african_violet-100 rounded-lg shadow-md">
+    <table className="min-w-full bg-white border border-gray-200">
       <thead>
-        <tr className="w-full bg-african_violet-300">
-          <th className="py-2 px-4 text-english_violet-900">ID</th>
-          <th className="py-2 px-4 text-english_violet-900">Ticker</th>
-          <th className="py-2 px-2 text-english_violet-900">T</th>
-          <th className="py-2 px-4 text-english_violet-900">Entry Price</th>
-          <th className="py-2 px-4 text-english_violet-900">Exit Price</th>
-          <th className="py-2 px-4 text-english_violet-900">Time</th>
-          <th className="py-2 px-4 text-english_violet-900">Type</th>
-          <th className="py-2 px-4 text-english_violet-900">Estrategia</th>
+        <tr className="w-full bg-gray-100 border-b">
+          <th className="py-2 px-4 border-r">ID</th>
+          <th className="py-2 px-4 border-r">Ticker</th>
+          <th className="py-2 px-2 border-r">T</th>
+          <th className="py-2 px-4 border-r">Entry Price</th>
+          <th className="py-2 px-4 border-r">Exit Price</th>
+          <th className="py-2 px-4 border-r">Time</th>
+          <th className="py-2 px-4 border-r">Type</th>
+          <th className="py-2 px-4">Estrategia</th>
         </tr>
       </thead>
       <tbody>

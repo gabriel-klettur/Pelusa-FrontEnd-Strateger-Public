@@ -3,19 +3,17 @@ import React from 'react';
 const AlarmRow = ({ alarm, isSelected, handleSelectAlarm }) => {
   return (
     <tr
-      className={`border-b border-b-african_violet-200 cursor-pointer transition duration-300 ${
-        isSelected ? 'bg-african_violet-200' : 'hover:bg-pomp_and_power-100'
-      }`}
+      className={`border-b hover:bg-gray-50 cursor-pointer ${isSelected ? 'bg-gray-200' : ''}`}
       onClick={() => handleSelectAlarm(alarm)}
     >
-      <td className="py-2 px-4 text-english_violet-900">{alarm.id}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Ticker}</td>
-      <td className="py-2 px-2 text-english_violet-900">{alarm.Temporalidad}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Entry_Price_Alert}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Exit_Price_Alert}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Time_Alert}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Order}</td>
-      <td className="py-2 px-4 text-english_violet-900">{alarm.Strategy}</td>
+      <td className="py-2 px-4 border-r">{alarm.id}</td>
+      <td className="py-2 px-4 border-r">{alarm.Ticker}</td>
+      <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>
+      <td className="py-2 px-4 border-r">{alarm.Entry_Price_Alert}</td>
+      <td className="py-2 px-4 border-r">{alarm.Exit_Price_Alert}</td>
+      <td className="py-2 px-4 border-r">{alarm.Time_Alert}</td>
+      <td className="py-2 px-4 border-r">{alarm.Order}</td>
+      <td className="py-2 px-4">{alarm.Strategy}</td>
     </tr>
   );
 };

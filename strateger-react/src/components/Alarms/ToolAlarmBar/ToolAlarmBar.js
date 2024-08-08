@@ -37,9 +37,8 @@ const ToolAlarmBar = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4">      
-      
-      <div className="col-span-8 border-2 border-pomp_and_power-500 flex flex-wrap justify-center items-center bg-african_violet-100 rounded-lg shadow-md p-2">
+    <div className="grid grid-cols-10 gap-4">
+      <div className="col-span-4 border-2 border-blue-500 flex flex-wrap justify-center items-center">
         {temporalidades.map(temp => (
           <TemporalidadButton
             key={temp}
@@ -50,60 +49,46 @@ const ToolAlarmBar = () => {
           />
         ))}
       </div>
-
-      <div className="col-span-8 border-2 border-pomp_and_power-500 bg-pomp_and_power-100 rounded-lg shadow-md p-2">
-        <div className="grid grid-cols-2 gap-4">
-          {/* Long Types Section */}
-          <div>
-            <div className="text-center mb-2 font-bold text-english_violet-900">Long - Orders</div>
-            <div className="grid grid-cols-1 gap-2">
-              {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-            <div className="text-center mt-4 mb-2 font-bold text-english_violet-900">Long - Indicators</div>
-            <div className="grid grid-cols-1 gap-2">
-              {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Short Types Section */}
-          <div>
-            <div className="text-center mb-2 font-bold text-english_violet-900">Short - Orders</div>
-            <div className="grid grid-cols-1 gap-2">
-              {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-            <div className="text-center mt-4 mb-2 font-bold text-english_violet-900">Short - Indicators</div>
-            <div className="grid grid-cols-1 gap-2">
-              {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-          </div>
+      <div className="col-span-6 border-2 border-green-500 flex flex-wrap justify-center items-center">
+        <div className="w-full md:w-1/2 border-r-2 border-gray-300 flex flex-wrap justify-center items-center">
+          <div className="w-full text-center mb-2 font-bold">Long - Orders</div>
+          {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
+            <TypeButton
+              key={type}
+              type={type}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
+              toggleType={toggleType}
+            />
+          ))}
+          <div className="w-full text-center mb-2 font-bold">Long - Indicators</div>
+          {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
+            <TypeButton
+              key={type}
+              type={type}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
+              toggleType={toggleType}
+            />
+          ))}
+        </div>
+        <div className="w-full md:w-1/2 flex flex-wrap justify-center items-center">
+          <div className="w-full text-center mb-2 font-bold">Short - Orders</div>
+          {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
+            <TypeButton
+              key={type}
+              type={type}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
+              toggleType={toggleType}
+            />
+          ))}
+          <div className="w-full text-center mb-2 font-bold">Short - Indicators</div>
+          {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
+            <TypeButton
+              key={type}
+              type={type}
+              selectedTypes={selectedTypes[selectedTemporalidad] || []}
+              toggleType={toggleType}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+// Path: strateger-react/src/App.js
 import React, { useEffect } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +11,7 @@ import { StrategyList } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
-import { Backtesting } from './components/Backtesting';
+import { Backtesting }  from './components/Backtesting';
 import Reloj from './components/Reloj';
 
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadSlicesInOrder());
-  }, [dispatch]);
+  }, [dispatch])
 
   const handleTabChange = (index) => {
     dispatch(setSelectedTab(index));
@@ -37,23 +38,60 @@ const App = () => {
 
   return (
     <div>
-      <div className="border-4 border-african_violet-500">
+      <div className="border-4 border-orange-500">
         <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
-          <TabList className="flex bg-english_violet-500/20">
-            {['Alarmas', 'Órdenes', 'Estrategias', 'Diario', 'Account', 'Positions', 'Backtesting', 'Configuracion'].map((tab) => (
-              <Tab
-                key={tab}
-                className={({ selected }) =>
-                  `w-full py-2.5 text-sm leading-5 font-medium
-                  ${selected ? 'bg-african_violet-500 text-white shadow' : 'text-african_violet-200 hover:bg-african_violet-400 hover:text-white'}`
-                }
-              >
-                {tab}
-              </Tab>
-            ))}
+          <TabList className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Alarmas
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Órdenes
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Estrategias
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Diario
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Account
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Positions
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Backtesting
+            </Tab>
+            <Tab className={({ selected }) =>
+              `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg
+              ${selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'}`
+            }>
+              Configuracion
+            </Tab>
           </TabList>
-          <div className="">
-            <div className="">
+          <div className="border-4 border-blue-500 mt-2">
+            <div className="border-4 border-green-500">
               <LightweightChart
                 initialTemporalidad={initialTemporalidad}
                 initialStartDate={formattedStartDate}
@@ -61,35 +99,35 @@ const App = () => {
               />
             </div>
           </div>
-          <TabPanels>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+          <TabPanels className="mt-2">
+            <TabPanel className="bg-white rounded-xl p-3">
               <Alarms />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               <Orders />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               <StrategyList />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               <Diary />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               <Account />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               <Position />
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
-              <Backtesting />
+            <TabPanel className="bg-white rounded-xl p-3">
+              <Backtesting/>
             </TabPanel>
-            <TabPanel className="bg-african_violet-100 p-3 shadow-md">
+            <TabPanel className="bg-white rounded-xl p-3">
               Configuracion
             </TabPanel>
           </TabPanels>
         </TabGroup>
       </div>
-      <div className="border-4 border-pomp_and_power-500">
+      <div className="fixed bottom-4 right-20">
         <Reloj direction="up" /> {/* Cambia a "down" si quieres que el Popover se despliegue hacia abajo */}
       </div>
     </div>
