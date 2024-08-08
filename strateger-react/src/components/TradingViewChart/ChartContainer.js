@@ -85,13 +85,15 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   return (
     <div className="relative bg-african_violet-900">
       <LoadingOverlay isLoading={loading} />
-      <Toolbar
-        activeInterval={interval}
-        onIntervalChange={handleIntervalChange}
-        startDate={new Date(startDate)}
-        endDate={new Date(endDate)}
-        onDateChange={handleDateChange}
-      />
+      <div className="bg-african_violet-600 pt-1">
+        <Toolbar
+          activeInterval={interval}
+          onIntervalChange={handleIntervalChange}
+          startDate={new Date(startDate)}
+          endDate={new Date(endDate)}
+          onDateChange={handleDateChange}
+        />
+      </div>
       <div className="grid grid-cols-10 gap-1">
         <div className="grid grid-cols-1 col-span-6 bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1">
           <div

@@ -35,14 +35,14 @@ const AlarmList = ({ alarms, loading, error, page, selectedAlarms, allSelectedAl
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
       <div className="text-sm">
-        <div className="flex justify-start space-x-5 ">
-          <button onClick={() => setViewType('alarms')} className={`px-4 py-2 font-semibold rounded-t-lg transition-colors duration-200 shadow-md ${viewType === 'alarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+        <div className="flex justify-start bg-african_violet-300">
+          <button onClick={() => setViewType('alarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'alarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Alarms
           </button>
-          <button onClick={() => setViewType('selectedAlarms')} className={`px-4 py-2 font-semibold rounded-t-lg transition-colors duration-200 shadow-md ${viewType === 'selectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+          <button onClick={() => setViewType('selectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'selectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Selected Alarms
           </button>
-          <button onClick={() => setViewType('allSelectedAlarms')} className={`px-4 py-2 font-semibold rounded-t-lg transition-colors duration-200 shadow-md ${viewType === 'allSelectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+          <button onClick={() => setViewType('allSelectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'allSelectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             All Selected Alarms
           </button>
         </div>

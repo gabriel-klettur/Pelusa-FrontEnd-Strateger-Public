@@ -76,28 +76,28 @@ const App = () => {
             </div>
           </div>
           <TabPanels className="">
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Alarms />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Orders />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <StrategyList />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Diary />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Account />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Position />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Backtesting />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl p-1 shadow-md bg-african_violet-900">
+            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               Configuración
             </TabPanel>
           </TabPanels>
