@@ -47,10 +47,10 @@ const ToolAlarmBar = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="">
       {/* Temporalidad Buttons */}
-      <div className="flex flex-wrap justify-center items-center border-2 border-african_violet-800 rounded-lg p-2">
-        {temporalidades.map(temp => (
+      <div className="flex flex-wrap justify-center items-center bg-african_violet-300 text-pomp_and_power-400">
+        {temporalidades.map((temp) => (
           <TemporalidadButton
             key={temp}
             temporalidad={temp}
@@ -63,7 +63,7 @@ const ToolAlarmBar = () => {
 
       {/* Tabs for Long and Short Types */}
       <TabGroup>
-        <TabList className="flex justify-center space-x-1 rounded-t-xl bg-african_violet-500 p-1">
+        <TabList className="flex justify-center space-x-1 bg-african_violet-500 p-1">
           
         <Tab
           className={({ selected }) =>
@@ -93,8 +93,8 @@ const ToolAlarmBar = () => {
 
         </TabList>
         <TabPanels>
-          <TabPanel className="p-2 border-b-2 border-l-2 border-r-2 border-african_violet-800 rounded-b-lg">            
-            <div className="grid grid-cols-2 gap-2 my-2">
+          <TabPanel className="border-b-2 border-l-2 border-r-2 border-african_violet-400 rounded-b-lg bg-african_violet-500">            
+            <div className="grid grid-cols-2">
               {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
                 <TypeButton
                   key={type}
@@ -104,7 +104,7 @@ const ToolAlarmBar = () => {
                 />
               ))}
             </div>            
-            <div className="grid grid-cols-2 gap-2 my-2">
+            <div className="grid grid-cols-2">
               {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
                 <TypeButton
                   key={type}
@@ -116,8 +116,8 @@ const ToolAlarmBar = () => {
             </div>
           </TabPanel>
 
-          <TabPanel className="p-2 border-b-2 border-l-2 border-r-2 border-african_violet-800 rounded-b-lg">            
-            <div className="grid grid-cols-2 gap-2 my-2">
+          <TabPanel className="border-b-2 border-l-2 border-r-2 border-african_violet-500 rounded-b-lg bg-african_violet-500">            
+            <div className="grid grid-cols-2">
               {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
                 <TypeButton
                   key={type}
@@ -127,7 +127,7 @@ const ToolAlarmBar = () => {
                 />
               ))}
             </div>            
-            <div className="grid grid-cols-2 gap-2 my-2">
+            <div className="grid grid-cols-2">
               {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
                 <TypeButton
                   key={type}

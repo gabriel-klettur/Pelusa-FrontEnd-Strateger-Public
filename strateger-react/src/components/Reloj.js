@@ -28,10 +28,10 @@ const Reloj = ({ direction = 'up' }) => {
   const isMarketOpen = (currentTime, market) => {
     const [currentHour, currentMinute] = format(new Date(currentTime), 'HH:mm').split(':');
     const currentTotalMinutes = parseInt(currentHour) * 60 + parseInt(currentMinute);
-    
+
     const [openHour, openMinute] = tradingHours[market].open.split(':');
     const openTotalMinutes = parseInt(openHour) * 60 + parseInt(openMinute);
-    
+
     const [closeHour, closeMinute] = tradingHours[market].close.split(':');
     const closeTotalMinutes = parseInt(closeHour) * 60 + parseInt(closeMinute);
 
@@ -41,9 +41,9 @@ const Reloj = ({ direction = 'up' }) => {
   const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
 
   return (
-    <div className="bg-african_violet-50 rounded-lg p-2 border-2 border-african_violet-700">
+    <div className="h-full transition-colors duration-300 w-40 bg-african_violet-200 flex justify-center items-center hover:bg-african_violet-600 " >
       <Popover className="relative">
-        <Popover.Button className="text-lg font-bold text-african_violet-400">
+        <Popover.Button className="text-lg font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
           {formatTime(localTime)}
         </Popover.Button>
         <Popover.Panel className={`absolute z-10 p-4 bg-white border border-african_violet-300 rounded-lg shadow-lg ${popoverPosition}`}>

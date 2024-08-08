@@ -13,7 +13,7 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
   }, [startDate]);
 
   const buttonClasses = (interval) =>
-    `px-6 rounded-lg shadow-md font-semibold transition-colors duration-300 ${
+    `px-6 font-semibold transition-colors duration-300 ${
       activeInterval === interval
         ? 'bg-african_violet-500 text-white'
         : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
@@ -72,9 +72,8 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
   };
 
   return (
-    <div className="grid grid-cols-2 col-span-10 gap-2 bg-african_violet-50 border-2 border-african_violet-700 rounded-lg">
-      
-      <div className="flex w-full space-x-2 py-2 pl-2">
+    <div className="grid grid-cols-2 h-16 col-span-10 gap-2 bg-african_violet-300">
+      <div className="flex w-full">
         {intervals.map((interval) => (
           <button
             key={interval}
@@ -86,17 +85,17 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
         ))}
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
-        <div className="col-span-2 flex justify-center items-center p-2">
+      <div className="grid grid-cols-4 gap-4 h-16 bg-african_violet-300">
+        <div className="col-span-2 flex justify-center items-center justify-self-end h-16">
           <Reloj direction="down" />
         </div>
-        <div className="col-span-2 flex justify-center items-center p-2">
+        <div className="col-span-2 flex justify-center items-center justify-self-end h-16">
           <DatePicker
             selected={localDate}
             onChange={handleDateChange}
             showTimeSelect
             dateFormat="yyyy-MM-dd HH:mm:ss"
-            className="py-3 px-4 rounded-lg shadow-md font-semibold transition-colors duration-300 bg-african_violet-500 hover:bg-african_violet-600 text-white text-center"
+            className="px-4 h-16 font-semibold transition-colors duration-300 bg-african_violet-200 hover:bg-african_violet-600 text-white text-center"
           />
         </div>
       </div>
