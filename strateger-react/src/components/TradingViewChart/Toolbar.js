@@ -1,4 +1,5 @@
-// src/components/TradingViewChart/Toolbar.js
+// Path: strateger-react/src/components/TradingViewChart/Toolbar.js
+
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,8 +13,10 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
   }, [startDate]);
 
   const buttonClasses = (interval) =>
-    `py-2 px-4 rounded-lg shadow-md font-bold transition duration-300 ${
-      activeInterval === interval ? 'bg-green-500 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
+    `px-6 rounded-lg shadow-md font-semibold transition-colors duration-300 ${
+      activeInterval === interval
+        ? 'bg-african_violet-500 text-white'
+        : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
     }`;
 
   const intervals = ['1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w', '1M'];
@@ -69,9 +72,10 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
   };
 
   return (
-    <div className='grid grid-cols-2 gap-2 border-4 border-yellow-200'>
-      <div className="flex flex-wrap gap-2 border-4 border-red-400">
-        {intervals.map(interval => (
+    <div className="grid grid-cols-2 col-span-10 gap-2 bg-african_violet-50 border-2 border-african_violet-700 rounded-lg">
+      
+      <div className="flex w-full space-x-2 py-2 pl-2">
+        {intervals.map((interval) => (
           <button
             key={interval}
             className={buttonClasses(interval)}
@@ -82,22 +86,18 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
         ))}
       </div>
 
-      <div className="grid grid-cols-3">
-        <div className="col-span-1 border-4 border-blue-400 flex justify-center items-center">
-          <Reloj direction="down" /> {/* Cambia a "down" si quieres que el Popover se despliegue hacia abajo */}
+      <div className="grid grid-cols-4 gap-2">
+        <div className="col-span-2 flex justify-center items-center p-2">
+          <Reloj direction="down" />
         </div>
-        <div className="col-span-1 border-4 border-blue-400">
-        </div>
-        <div className="col-span-1 border-4 border-blue-400">
-          <div className="absolute z-50 w-full">
-            <DatePicker
-              selected={localDate}
-              onChange={handleDateChange}
-              showTimeSelect
-              dateFormat="yyyy-MM-dd HH:mm:ss"
-              className="py-2 px-4 rounded-lg shadow-md font-bold transition duration-300 bg-orange-500 hover:bg-orange-700 text-white text-center"
-            />
-          </div>
+        <div className="col-span-2 flex justify-center items-center p-2">
+          <DatePicker
+            selected={localDate}
+            onChange={handleDateChange}
+            showTimeSelect
+            dateFormat="yyyy-MM-dd HH:mm:ss"
+            className="py-3 px-4 rounded-lg shadow-md font-semibold transition-colors duration-300 bg-african_violet-500 hover:bg-african_violet-600 text-white text-center"
+          />
         </div>
       </div>
     </div>

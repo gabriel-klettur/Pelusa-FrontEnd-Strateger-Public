@@ -41,21 +41,21 @@ const Reloj = ({ direction = 'up' }) => {
   const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
 
   return (
-    <div className="bg-gray-100 rounded-lg p-2">
+    <div className="bg-african_violet-50 rounded-lg p-2 border-2 border-african_violet-700">
       <Popover className="relative">
-        <Popover.Button className="text-lg font-bold">
+        <Popover.Button className="text-lg font-bold text-african_violet-400">
           {formatTime(localTime)}
         </Popover.Button>
-        <Popover.Panel className={`absolute z-10 p-4 bg-white border rounded-lg shadow-lg ${popoverPosition}`}>
-          <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? 'green' : 'red' }}>
+        <Popover.Panel className={`absolute z-10 p-4 bg-white border border-african_violet-300 rounded-lg shadow-lg ${popoverPosition}`}>
+          <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? '#16A34A' : '#DC2626' }}>
             <strong>China: </strong>
             {formatTime(chinaTime)}
           </div>
-          <div className="mb-2" style={{ color: isMarketOpen(usTime, 'US') ? 'green' : 'red' }}>
+          <div className="mb-2" style={{ color: isMarketOpen(usTime, 'US') ? '#16A34A' : '#DC2626' }}>
             <strong>Estados Unidos: </strong>
             {formatTime(usTime)}
           </div>
-          <div className="mb-2" style={{ color: isMarketOpen(germanyTime, 'Germany') ? 'green' : 'red' }}>
+          <div className="mb-2" style={{ color: isMarketOpen(germanyTime, 'Germany') ? '#16A34A' : '#DC2626' }}>
             <strong>Alemania: </strong>
             {formatTime(germanyTime)}
           </div>
