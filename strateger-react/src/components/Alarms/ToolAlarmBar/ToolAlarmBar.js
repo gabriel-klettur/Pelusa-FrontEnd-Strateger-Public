@@ -47,9 +47,9 @@ const ToolAlarmBar = () => {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col">
       {/* Temporalidad Buttons */}
-      <div className="flex flex-wrap justify-center items-center bg-african_violet-300 text-pomp_and_power-400">
+      <div className="flex flex-nowrap justify-center items-center bg-african_violet-300 text-pomp_and_power-400">
         {temporalidades.map((temp) => (
           <TemporalidadButton
             key={temp}

@@ -1,3 +1,5 @@
+// Path: strateger-react/src/components/Orders/OrderList/OrderList.js
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../../slices/orderSlice';
@@ -39,13 +41,12 @@ const OrderList = () => {
   const endIndex = startIndex + 20;
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
-  return (      
-    <div className="relative pl-4 text-sm">      
+  return (
+    <div className="relative">
       <LoadingOverlay isLoading={loading} />
-      <table className="min-w-full bg-white border border-gray-200">        
+      <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
         <thead>
-          <tr className="w-full bg-gray-100 border-b">
-            {/* ... column headers */}
+          <tr className="w-full bg-african_violet-500 text-white">
             <th className="py-2 px-4 border-r">Order ID</th>
             <th className="py-2 px-4 border-r">Symbol</th>
             <th className="py-2 px-4 border-r">Side</th>
@@ -66,25 +67,33 @@ const OrderList = () => {
         </thead>
         <tbody>
           {currentOrders.map((order, index) => (
-            <OrderRow 
-              key={`${order.orderId}-${index}`} 
-              order={order} 
-              selectedOrderId={selectedOrderId} 
-              handleSelectOrder={handleSelectOrder} 
+            <OrderRow
+              key={`${order.orderId}-${index}`}
+              order={order}
+              selectedOrderId={selectedOrderId}
+              handleSelectOrder={handleSelectOrder}
             />
           ))}
         </tbody>
       </table>
       <div className="flex justify-between mt-4">
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          className={`px-4 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
+            page === 0
+              ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+              : 'bg-african_violet-500 text-white hover:bg-african_violet-700'
+          }`}
           onClick={handlePreviousPage}
           disabled={page === 0}
         >
           Anterior
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          className={`px-4 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
+            !hasMore && endIndex >= orders.length
+              ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+              : 'bg-african_violet-500 text-white hover:bg-african_violet-700'
+          }`}
           onClick={handleNextPage}
           disabled={!hasMore && endIndex >= orders.length}
         >
@@ -92,7 +101,7 @@ const OrderList = () => {
         </button>
       </div>
       {loading && <div className="text-center py-4">Cargando más órdenes...</div>}
-    </div>    
+    </div>
   );
 };
 

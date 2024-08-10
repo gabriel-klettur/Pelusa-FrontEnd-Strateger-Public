@@ -14,7 +14,16 @@ import DiaryCalendar from '../Diary/DiaryCalendar';
 import SummaryChart from '../Account/AccountCharts/SummaryChart';
 import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
-import alarmImage from './alarma_v1.webp';
+
+// Importa las imágenes que quieres usar para cada tab
+import alarmImage from './images/alarm.webp';
+import ordersImage from './images/orders.webp';
+import strategiesImage from './images/strategies.webp';
+import diaryImage from './images/diary.webp';
+import accountImage from './images/account.webp';
+import positionsImage from './images/positions.webp';
+import backtestingImage from './images/backtesting.webp';
+import settingsImage from './images/settings.webp';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
@@ -59,28 +68,20 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     { date: '2024-07-05', pnl: 150 },
   ];
 
-  const renderTabContent = () => {
-    switch (selectedTab) {
-      case 0:
-        return <ToolAlarmBar />;
-      case 1:
-        return <ToolOrderBar />;
-      case 2:
-        return 'Lista de estrategias activas + Lista de estrategias No activas';
-      case 3:
-        return <DiaryCalendar results={simulatedResults} />;
-      case 4:
-        return <SummaryChart />;
-      case 5:
-        return 'GRAFICO';
-      case 6:
-        return <BacktestingForm />;
-      case 7:
-        return '';
-      default:
-        return 'Estrategias Activas';
-    }
+  // Mapeo de cada tab a su contenido y atributos específicos de imagen
+  const tabContentMap = {
+    0: { component: <ToolAlarmBar />, image: alarmImage, maxHeight: 'max-h-30' }, // Ajusta aquí la altura máxima
+    1: { component: <ToolOrderBar />, image: ordersImage, maxHeight: 'max-h-full' },
+    2: { component: '', image: strategiesImage, maxHeight: 'max-h-30' },
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: diaryImage, maxHeight: 'max-h-30' },
+    4: { component: <SummaryChart />, image: accountImage, maxHeight: 'max-h-30' },
+    5: { component: 'GRAFICO', image: positionsImage, maxHeight: 'max-h-30' },
+    6: { component: <BacktestingForm />, image: backtestingImage, maxHeight: 'max-h-30' },
+    7: { component: '', image: settingsImage, maxHeight: 'max-h-full' },
   };
+
+  // Extraer los valores correspondientes al tab seleccionado
+  const { component, image, maxHeight } = tabContentMap[selectedTab] || {};
 
   return (
     <div className="relative bg-african_violet-900">
@@ -94,25 +95,33 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           onDateChange={handleDateChange}
         />
       </div>
-      <div className="grid grid-cols-10 gap-1">
-        <div className="grid grid-cols-1 col-span-6 bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1">
+      <div className="grid grid-cols-10 gap-1 h-30">
+
+        <div className="col-span-7 flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30">
           <div
             ref={chartContainerRef}
-            className="col-span-10 h-64 rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
+            className="h-80 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
           ></div>
           <div
             ref={stochasticChartContainerRef}
-            className="col-span-10 h-32 mt-2 rounded-b-lg overflow-hidden border-t-2 border-african_violet-700"
+            className="h-40 flex-grow mt-2 rounded-b-lg overflow-hidden border-t-2 border-african_violet-700"
           ></div>
         </div>
-
-        <div className="col-span-4">
-          <div id="box-cambiadora" className="flex h-50 flex-col pt-1">
-            <img src={alarmImage} alt="Alarm Banner" className="w-full max-h-60 object-cover" />
-            {renderTabContent()}
+    
+        <div className="col-span-3 flex flex-col h-30 bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1">
+          <div id="box-cambiadora" className="flex pt-1 flex flex-col justify-center h-30 bg-african_violet-300">
+            <img
+              src={image}
+              alt={`Banner for tab ${selectedTab}`}
+              className={`w-full ${maxHeight} object-cover`}
+            />
+            <div className="p-3 flex-grow bg-african_violet-300 rounded-lg">
+              {component}
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 };

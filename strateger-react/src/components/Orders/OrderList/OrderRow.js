@@ -1,8 +1,12 @@
+// Path: strateger-react/src/components/Orders/OrderList/OrderRow.js
+
 import React from 'react';
 
 const OrderRow = ({ order, selectedOrderId, handleSelectOrder }) => (
   <tr
-    className={`border-b hover:bg-gray-50 cursor-pointer ${selectedOrderId === order.orderId ? 'bg-gray-200' : ''}`}
+    className={`border-b transition-colors duration-200 hover:bg-african_violet-700 cursor-pointer ${
+      selectedOrderId === order.orderId ? 'bg-african_violet-400 text-white' : 'bg-white text-african_violet-400'
+    }`}
     onClick={() => handleSelectOrder(order.orderId)}
   >
     <td className="py-2 px-4 border-r">{order.orderId}</td>
