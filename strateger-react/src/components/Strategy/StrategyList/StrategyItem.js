@@ -106,12 +106,9 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
   return (
     <div className={`bg-african_violet-200 rounded-lg p-4 border-4 ${borderColorClass}`}>
-
-    {/* Información básica de la estrategia */}
-      {/* Contenedor Princial */}
+      {/* Información básica de la estrategia */}
       <div className="grid grid-cols-10 gap-4">
-        
-        {/* Contenedor de Ventanitas 3x1*/}
+        {/* Contenedor Princial */}
         {/* Contenedor Ventanita */}
 
         {/* Información de Estrategia ------------------------------------------------------------*/}
@@ -148,37 +145,37 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
         {/* Detalles de Long Strategy ------------------------------------------------------------*/}
         <div className="col-span-3">
-        <Ventanita
-          titulo="Detalles de Long Strategy"
-          contenido={
-            <div className="grid grid-cols-2 gap-4">                            
-              <Ventanita
-                titulo="Order"
-                contenido={
-                  <div>
-                    <p>
-                      <strong>Entry Order:</strong> {strategy.longEntryOrder}
-                    </p>
-                    <p>
-                      <strong>Close Order:</strong> {strategy.longCloseOrder}
-                    </p>
-                  </div>
-                }
-              />                              
-              <Ventanita
-                    titulo="Indicator"
-                    contenido={
-                      <div>
-                        <p>
-                          <strong>Entry Indicator:</strong> {strategy.longEntryIndicator}
-                        </p>
-                        <p>
-                          <strong>Close Indicator:</strong> {strategy.longCloseIndicator}
-                        </p>
-                      </div>
-                    }
-              />
-              <Ventanita
+          <Ventanita
+            titulo="Detalles de Long Strategy"
+            contenido={
+              <div className="grid grid-cols-2 gap-4">
+                <Ventanita
+                  titulo="Order"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>Entry Order:</strong> {strategy.longEntryOrder}
+                      </p>
+                      <p>
+                        <strong>Close Order:</strong> {strategy.longCloseOrder}
+                      </p>
+                    </div>
+                  }
+                />
+                <Ventanita
+                  titulo="Indicator"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>Entry Indicator:</strong> {strategy.longEntryIndicator}
+                      </p>
+                      <p>
+                        <strong>Close Indicator:</strong> {strategy.longCloseIndicator}
+                      </p>
+                    </div>
+                  }
+                />
+                <Ventanita
                   titulo="Management"
                   contenido={
                     <div>
@@ -193,9 +190,8 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
                       </p>
                     </div>
                   }
-              />
-              
-              <Ventanita
+                />
+                <Ventanita
                   titulo="Risk Management"
                   contenido={
                     <div>
@@ -213,56 +209,79 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
                       </p>
                     </div>
                   }
-              />                           
-            </div>
-          }
-        />
+                />
+              </div>
+            }
+          />
         </div>
 
-
-        {/* Detalles de Short Strategy */}
+        {/* Detalles de Short Strategy ------------------------------------------------------------*/}
         <div className="col-span-4">
           <Ventanita
             titulo="Detalles de Short Strategy"
             contenido={
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-2 text-gray-100 rounded">
-                  <p>
-                    <strong>Short Entry Order:</strong> {strategy.shortEntryOrder}
-                  </p>
-                  <p>
-                    <strong>Short Close Order:</strong> {strategy.shortCloseOrder}
-                  </p>
-                  <p>
-                    <strong>Short Entry Indicator:</strong> {strategy.shortEntryIndicator}
-                  </p>
-                  <p>
-                    <strong>Short Close Indicator:</strong> {strategy.shortCloseIndicator}
-                  </p>
-                </div>
-                <div className="p-2 text-gray-100 rounded">
-                  <p>
-                    <strong>Short Pyramiding:</strong> {strategy.shortPyramiding}
-                  </p>
-                  <p>
-                    <strong>Short Leverage:</strong> {strategy.shortLeverage}
-                  </p>
-                  <p>
-                    <strong>Short Quantity:</strong> {strategy.shortQuantity}
-                  </p>
-                  <p>
-                    <strong>TP per Order:</strong> {strategy.shortTPPerOrder}
-                  </p>
-                  <p>
-                    <strong>TP General:</strong> {strategy.shortTPGeneral}
-                  </p>
-                  <p>
-                    <strong>SL per Order:</strong> {strategy.shortSLPerOrder}
-                  </p>
-                  <p>
-                    <strong>SL General:</strong> {strategy.shortSLGeneral}
-                  </p>
-                </div>
+                <Ventanita
+                  titulo="Order"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>Entry Order:</strong> {strategy.shortEntryOrder}
+                      </p>
+                      <p>
+                        <strong>Close Order:</strong> {strategy.shortCloseOrder}
+                      </p>
+                    </div>
+                  }
+                />
+                <Ventanita
+                  titulo="Indicator"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>Entry Indicator:</strong> {strategy.shortEntryIndicator}
+                      </p>
+                      <p>
+                        <strong>Close Indicator:</strong> {strategy.shortCloseIndicator}
+                      </p>
+                    </div>
+                  }
+                />
+                <Ventanita
+                  titulo="Management"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>Pyramiding:</strong> {strategy.shortPyramiding}
+                      </p>
+                      <p>
+                        <strong>Leverage:</strong> {strategy.shortLeverage}
+                      </p>
+                      <p>
+                        <strong>Quantity:</strong> {strategy.shortQuantity}
+                      </p>
+                    </div>
+                  }
+                />
+                <Ventanita
+                  titulo="Risk Management"
+                  contenido={
+                    <div>
+                      <p>
+                        <strong>TP per Order:</strong> {strategy.shortTPPerOrder}
+                      </p>
+                      <p>
+                        <strong>TP General:</strong> {strategy.shortTPGeneral}
+                      </p>
+                      <p>
+                        <strong>SL per Order:</strong> {strategy.shortSLPerOrder}
+                      </p>
+                      <p>
+                        <strong>SL General:</strong> {strategy.shortSLGeneral}
+                      </p>
+                    </div>
+                  }
+                />
               </div>
             }
           />
