@@ -51,17 +51,16 @@ const Diary = () => {
   };
 
   return (
-    <div className="p-4 border-4 border-green-400">
-      <h2 className="text-2xl font-bold mb-4">Trading Diary</h2>
-      <div className="grid grid-cols-10 gap-4 border border-gray-200 p-4 rounded-lg">
-        <div className="col-span-4 border border-gray-200 p-4 rounded-lg">
+    
+      <div className="grid grid-cols-10 gap-1 bg-african_violet-900">
+        <div className="col-span-4 bg-white border border-african_violet-200 p-6 rounded-lg shadow-md">
           <DiaryEntryForm
             onSave={handleAddOrUpdateEntry}
             entry={editingEntry}
             onCancelEdit={handleCancelEdit}
           />
         </div>
-        <div className="col-span-6 border border-gray-200 p-4 rounded-lg">
+        <div className="col-span-6 bg-white border border-african_violet-200 p-6 rounded-lg shadow-md">
           <DiaryList 
             entries={entries} 
             onEdit={handleEditEntry} 
@@ -69,7 +68,7 @@ const Diary = () => {
           />
         </div>
       </div>
-    </div>
+    
   );
 };
 

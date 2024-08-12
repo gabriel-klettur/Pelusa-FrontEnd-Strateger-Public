@@ -38,7 +38,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-african_violet-400 text-african_violet-100">
       <div className="w-full"> {/* Usa todo el ancho de la pantalla */}
         <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
           <TabList className="flex bg-african_violet-200">
@@ -66,38 +66,36 @@ const App = () => {
               </Tab>
             ))}
           </TabList>
-          <div className="">
-            <div className="">
+          <div className="bg-african_violet-900">
               <LightweightChart
                 initialTemporalidad={initialTemporalidad}
                 initialStartDate={formattedStartDate}
                 initialEndDate={formattedCurrentDate}
-              />
-            </div>
+              />            
           </div>
           <TabPanels className="">
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1 bg-african_violet-800">
               <Alarms />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <Orders />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <StrategyCard />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <Diary />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <Account />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <Position />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               <Backtesting />
             </TabPanel>
-            <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
+            <TabPanel className="pt-1  bg-african_violet-800">
               Configuración
             </TabPanel>
           </TabPanels>
