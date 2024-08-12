@@ -70,18 +70,18 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 
   // Mapeo de cada tab a su contenido y atributos específicos de imagen
   const tabContentMap = {
-    0: { component: <ToolAlarmBar />, image: alarmImage, maxHeight: 'max-h-30' }, // Ajusta aquí la altura máxima
-    1: { component: <ToolOrderBar />, image: ordersImage, maxHeight: 'max-h-full' },
-    2: { component: '', image: strategiesImage, maxHeight: 'max-h-30' },
-    3: { component: <DiaryCalendar results={simulatedResults} />, image: diaryImage, maxHeight: 'max-h-30' },
-    4: { component: <SummaryChart />, image: accountImage, maxHeight: 'max-h-30' },
-    5: { component: 'GRAFICO', image: positionsImage, maxHeight: 'max-h-30' },
-    6: { component: <BacktestingForm />, image: backtestingImage, maxHeight: 'max-h-30' },
-    7: { component: '', image: settingsImage, maxHeight: 'max-h-full' },
+    0: { component: <ToolAlarmBar />, image: alarmImage, maxHeight: 'max-h-30', colLeft: '7', colRight: '3' },
+    1: { component: <ToolOrderBar />, image: ordersImage, maxHeight: 'max-h-full', colLeft: '7', colRight: '3' },
+    2: { component: null, image: null, maxHeight: 'max-h-30', colLeft: '10', colRight: '0' },
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: diaryImage, maxHeight: 'max-h-30', colLeft: '7', colRight: '3' },
+    4: { component: <SummaryChart />, image: accountImage, maxHeight: 'max-h-30', colLeft: '7', colRight: '3' },
+    5: { component: 'GRAFICO', image: positionsImage, maxHeight: 'max-h-30', colLeft: '7', colRight: '3' },
+    6: { component: <BacktestingForm />, image: backtestingImage, maxHeight: 'max-h-30', colLeft: '7', colRight: '3' },
+    7: { component: null, image: settingsImage, maxHeight: 'max-h-full', colLeft: '7', colRight: '3' },
   };
 
   // Extraer los valores correspondientes al tab seleccionado
-  const { component, image, maxHeight } = tabContentMap[selectedTab] || {};
+  const { component, image, maxHeight, colLeft, colRight } = tabContentMap[selectedTab] || {};
 
   return (
     <div className="relative bg-african_violet-900">
@@ -97,7 +97,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
       </div>
       <div className="grid grid-cols-10 gap-1 h-30">
 
-        <div className="col-span-7 flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30">
+        <div className={`col-span-${colLeft} flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30`}>
           <div
             ref={chartContainerRef}
             className="h-80 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
@@ -108,13 +108,15 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           ></div>
         </div>
     
-        <div className="col-span-3 flex flex-col h-30 bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1">
-          <div id="box-cambiadora" className="flex pt-1 flex flex-col justify-center h-30 bg-african_violet-300">
-            <img
-              src={image}
-              alt={`Banner for tab ${selectedTab}`}
-              className={`w-full ${maxHeight} object-cover`}
-            />
+        <div className={`col-span-${colRight} bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1`}>
+          <div id="box-cambiadora" className="flex pt-1 flex-col justify-center h-30 bg-african_violet-300">
+            {image && (
+              <img
+                src={image}
+                alt={`Banner for tab ${selectedTab}`}
+                className={`w-full ${maxHeight} object-cover`}
+              />
+            )}
             <div className="p-3 flex-grow bg-african_violet-300 rounded-lg">
               {component}
             </div>
