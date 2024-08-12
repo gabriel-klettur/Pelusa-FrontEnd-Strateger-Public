@@ -1,4 +1,4 @@
-import React from 'react';
+//Path: strateger-react/src/components/common/Ventanita.jsx
 
 const Ventanita = ({ titulo, contenido }) => {
   return (
