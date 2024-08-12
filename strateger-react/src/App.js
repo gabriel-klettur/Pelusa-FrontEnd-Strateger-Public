@@ -8,7 +8,7 @@ import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
 import LightweightChart from './components/TradingViewChart/LightweightChart';
-import { StrategyList } from './components/Strategy';
+import { StrategyCard } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
@@ -83,7 +83,7 @@ const App = () => {
               <Orders />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
-              <StrategyList />
+              <StrategyCard />
             </TabPanel>
             <TabPanel className="bg-white rounded-xl pt-1 shadow-md bg-african_violet-900">
               <Diary />
