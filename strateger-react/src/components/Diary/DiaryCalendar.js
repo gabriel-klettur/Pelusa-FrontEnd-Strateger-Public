@@ -21,10 +21,10 @@ const DiaryCalendar = ({ results }) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="h-full w-full justify-center">
       <Calendar
         tileContent={tileContent}
-        className="react-calendar"
+        className="react-calendar h-full w-full"  // Aplica h-full para que el calendario ocupe todo el espacio
         nextLabel=">"
         prevLabel="<"
         next2Label=">>"
