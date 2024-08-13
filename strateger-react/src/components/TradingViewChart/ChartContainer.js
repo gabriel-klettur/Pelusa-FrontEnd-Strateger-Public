@@ -66,18 +66,18 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 
   // Mapeo de cada tab a su contenido y atributos específicos de imagen
   const tabContentMap = {
-    0: { component: <ToolAlarmBar />, image: alarmImage, Height: 'h-64' },
-    1: { component: <ToolOrderBar />, image: ordersImage, Height: 'h-96' },
-    2: { component: null, image: null, Height: 'h-0' }, 
-    3: { component: <DiaryCalendar results={simulatedResults} />, image: null, Height: 'h-0' },
-    4: { component: <SummaryChart />, image: null, Height: 'max-h-30' },
-    5: { component: 'GRAFICO', image: positionsImage, Height: 'max-h-30' },
-    6: { component: <BacktestingForm />, image: backtestingImage, Height: 'h-32' },
-    7: { component: null, image: null, Height: 'max-h-full' },
+    0: { component: <ToolAlarmBar />,                             image: alarmImage,        ImageHeight: 'h-64' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
+    1: { component: <ToolOrderBar />,                             image: ordersImage,       ImageHeight: 'h-96' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
+    2: { component: null,                                         image: null,              ImageHeight: 'h-0' , componentHeight: 'h-0' , leftContainerSpan: 'col-span-10' , rightContainerSpan: 'col-span-0' },
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: null,              ImageHeight: 'h-0' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
+    4: { component: <SummaryChart />,                             image: null,              ImageHeight: 'max-h-64' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
+    5: { component: 'GRAFICO',                                    image: positionsImage,    ImageHeight: 'max-h-64' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
+    6: { component: <BacktestingForm />,                          image: backtestingImage,  ImageHeight: 'h-32' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
+    7: { component: null,                                         image: null,              ImageHeight: 'max-h-full' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
   };
 
   // Extraer los valores correspondientes al tab seleccionado
-  const { component, image, Height } = tabContentMap[selectedTab] || {};
+  const { component, image, ImageHeight, componentHeight, leftContainerSpan, rightContainerSpan } = tabContentMap[selectedTab];
 
   return (
     <div className="relative bg-african_violet-900">
@@ -93,27 +93,33 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
       </div>
       <div className="grid grid-cols-10 gap-1 h-30">
 
-        <div className="col-span-7 flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30">
+        <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30 "`}>
           <div
             ref={chartContainerRef}
-            className="h-80 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
+            className="h-96 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
           ></div>
           <div
             ref={stochasticChartContainerRef}
-            className="h-40 flex-grow mt-2 rounded-b-lg overflow-hidden border-t-1 border-african_violet-700 mr-3"
+            className="h-32 flex-grow mt-2 rounded-b-lg overflow-hidden border-t-1 border-african_violet-700 mr-3"
           ></div>
         </div>
     
-        <div className="col-span-3 flex flex-col h-30 bg-african_violet-300 rounded-bl-lg mt-1">
-          <div id="box-cambiadora" className="flex flex-col justify-center h-30 bg-african_violet-300">
-            {image && ( // Verificar si hay una imagen antes de renderizar
-              <img
-                src={image}
-                alt={`Banner for tab ${selectedTab}`}
-                className={`object-cover w-full ${Height}`}
-              />
-            )}
-            <div className="flex-grow bg-african_violet-300 rounded-lg">
+        <div className={`" ${rightContainerSpan} flex flex-col bg-african_violet-300 rounded-lg mt-1 h-full "`}> 
+          <div id="box-cambiadora" className="flex flex-col justify-center flex-grow min-h-full">
+            
+            {/* Muestra la imagen correspondiente al tab seleccionado */}            
+            <div className={`" flex justify-center w-full ${ImageHeight} "`}>
+              {image && (
+                <img
+                  src={image}
+                  alt={` Banner for tab ${selectedTab} `}
+                  className="object-cover"  // Utiliza ImageHeight definido para controlar la altura
+                />
+              )}
+            </div>
+
+            {/* Muestra el contenido correspondiente al tab seleccionado */}
+            <div className={`" flex-auto ${componentHeight} bg-african_violet-300 rounded-lg "`}>
               {component}
             </div>
           </div>
