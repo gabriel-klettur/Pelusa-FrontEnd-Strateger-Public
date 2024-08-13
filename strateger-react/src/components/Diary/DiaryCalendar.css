@@ -1,0 +1,108 @@
+/* Path: strateger-react/src/components/Diary/DiaryCalendar.css */
+
+.react-calendar {
+    /*! Estilo del calendario */
+    background-color: #1f192a; /* Fondo del calendario completo */
+    width: 100%; /* Ajusta el ancho al 100% del contenedor por defecto */
+    max-width: 600px; /* Ancho máximo para evitar estiramiento excesivo */
+    height: 100%; /* Deja que la altura se ajuste automáticamente */
+    max-height: 800px; /* Altura máxima para controlar el tamaño */
+    border: #1f192a;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 0 1rem 0 rgba(0.2, 0.2, 0.2, 0.2); /* Sombra suave */    
+}
+  
+.react-calendar__tile {   /*! Estilo de las celdas del calendario */
+    color: #1f192a; /* Texto de color african_violet_800 */
+    text-align: center; /* Centrar el texto */
+    font-weight: 600;   /* Fuente en negrita */
+    padding: 0.5rem;    /* Espaciado interno */
+    cursor: pointer;
+}
+
+.tile-with-results {  /*! Estilo de las celdas con resultados */
+    background-color: #7e67a6; /* Fondo african_violet_300 */
+    color: #b4a2d4; /* Texto de color african_violet_800 */
+}
+
+.tile-without-results {   /*! Estilo de las celdas sin resultados */
+    background-color: #3f3255; /* Fondo african_violet_200 */
+    color: #1f192a; /* Texto de color african_violet_800 */
+}
+
+.react-calendar__tile--now {  /*! Estilo de la celda actual */
+    background-color: #5e4b7f; /* Fondo african_violet_400 */
+    color: #ece9f2; /* Texto blanco */
+}
+
+.react-calendar__tile--active,    /*! Estilo de las celdas activas */
+.react-calendar__tile--active:enabled:hover,  /*! Estilo de las celdas activas al pasar el mouse */
+.react-calendar__tile--active:enabled:focus { /*! Estilo de las celdas activas al hacer clic */
+    background-color: #1f192a; /* Fondo african_violet_400 */
+    color: #ece9f2; /* Texto blanco */
+}
+
+.react-calendar__tile:enabled:hover,  /*! Estilo de las celdas al pasar el mouse */
+.react-calendar__tile:enabled:focus { /*! Estilo de las celdas al hacer clic */
+    background-color: #b5a8cc; /* Hover color african_violet_600 */
+    color: #1f192a; /* Texto de color african_violet_800 */
+}
+
+.react-calendar__navigation button {  /*! Estilo de los botones de navegación */
+    color: #ece9f2; /* Texto de color african_violet_300 */
+    background-color: #1f192a; /* Fondo de color african_violet_800 */    
+    border: none; /* Sin borde */
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer; /* Cambia el cursor a mano para indicar que es interactivo */        
+}
+
+.react-calendar__navigation button:enabled:hover {  /*! Estilo de los botones de navegación al pasar el mouse */
+    background-color: #3f3255; /* Hover fondo african_violet_200 */
+    color: #b4a2d4; /* Hover texto blanco */
+}
+
+.react-calendar__navigation button:enabled:focus { /*! Estilo de los botones de navegación al hacer clic */
+    background-color: #3f3255; /* Hover fondo african_violet_200 */
+    color: #ece9f2; /* Hover texto blanco */
+}
+
+.react-calendar__navigation__label {
+    /*! Estilo de la etiqueta de navegación (Mes y Año) */
+    color: #ece9f2; /* Texto de color african_violet_300 */
+    background-color: #1f192a; /* Fondo de color african_violet_800 */    
+    padding: 0.5rem 1rem; /* Espaciado interno */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.react-calendar__navigation__label:hover {
+    /*! Estilo de la etiqueta de navegación al pasar el mouse */
+    background-color: #3f3255; /* Hover fondo african_violet_200 */
+    color: #1f192a; /* Hover texto blanco */
+}
+
+.react-calendar__century-view .react-calendar__navigation__label {
+    /*! Estilo específico para el rango de años en la vista de siglo */
+    background-color: #ffe082; /* Fondo amarillo */
+    color: #1f192a; /* Texto de color african_violet_800 */
+}
+
+.react-calendar__month-view__weekdays__weekday {  /*! Estilo de los días de la semana */
+    color: #ece9f2; /* Texto de color african_violet_300 */
+    background-color: #1f192a; /* Fondo de color african_violet_800 */
+    font-weight: bold; /* Fuente en negrita */
+}
+
+.react-calendar__year-view__months__month {  /*! Estilo de las celdas de mes */
+    color: #ece9f2; /* Texto de color african_violet_300 */
+    background-color: #3f3255; /* Fondo de color african_violet_200 */
+    font-weight: bold; /* Fuente en negrita */
+    padding: 1rem; /* Espaciado interno más grande para los meses */    
+    margin: 0.25rem; /* Espaciado entre meses */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.react-calendar__year-view__months__month:hover { /*! Estilo de las celdas de mes al pasar el mouse */
+    background-color: #5e4b7f; /* Hover fondo african_violet_400 */
+    color: #ffffff; /* Hover texto blanco */
+}

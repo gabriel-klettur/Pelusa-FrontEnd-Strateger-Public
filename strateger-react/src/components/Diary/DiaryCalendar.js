@@ -1,8 +1,9 @@
-// Path: strateger-react/src/components/Account/DailyResults.js
+// Path: strateger-react/src/components/Diary/DiaryCalendar.js
 
 import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './DiaryCalendar.css'; // Importar estilos personalizados
 
 const DiaryCalendar = ({ results }) => {
   const tileContent = ({ date, view }) => {
@@ -10,7 +11,7 @@ const DiaryCalendar = ({ results }) => {
       const result = results.find((r) => new Date(r.date).toDateString() === date.toDateString());
       if (result) {
         return (
-          <div>
+          <div className="text-xs text-center font-semibold">
             <span>{result.pnl}</span>
           </div>
         );
@@ -20,8 +21,20 @@ const DiaryCalendar = ({ results }) => {
   };
 
   return (
-    <div>      
-      <Calendar tileContent={tileContent} />
+    <div className="flex justify-center">
+      <Calendar
+        tileContent={tileContent}
+        className="react-calendar"
+        nextLabel=">"
+        prevLabel="<"
+        next2Label=">>"
+        prev2Label="<<"
+        tileClassName={({ date, view }) =>
+          view === 'month' && results.some(r => new Date(r.date).toDateString() === date.toDateString())
+            ? 'tile-with-results'
+            : 'tile-without-results'
+        }
+      />
     </div>
   );
 };
