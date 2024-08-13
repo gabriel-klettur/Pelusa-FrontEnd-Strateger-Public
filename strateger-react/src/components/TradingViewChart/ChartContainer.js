@@ -18,12 +18,10 @@ import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 // Importa las imágenes que quieres usar para cada tab
 import alarmImage from './images/alarm.webp';
 import ordersImage from './images/orders.webp';
-import strategiesImage from './images/strategies.webp';
 import diaryImage from './images/diary.webp';
 import accountImage from './images/account.webp';
 import positionsImage from './images/positions.webp';
 import backtestingImage from './images/backtesting.webp';
-import settingsImage from './images/settings.webp';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
