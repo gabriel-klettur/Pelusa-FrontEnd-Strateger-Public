@@ -18,8 +18,6 @@ import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 // Importa las imágenes que quieres usar para cada tab
 import alarmImage from './images/alarm.webp';
 import ordersImage from './images/orders.webp';
-import diaryImage from './images/diary.webp';
-import accountImage from './images/account.webp';
 import positionsImage from './images/positions.webp';
 import backtestingImage from './images/backtesting.webp';
 
@@ -70,11 +68,11 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const tabContentMap = {
     0: { component: <ToolAlarmBar />, image: alarmImage, Height: 'h-64' },
     1: { component: <ToolOrderBar />, image: ordersImage, Height: 'h-96' },
-    2: { component: null, image: null, Height: 'h-0' }, // Componente vacío y sin imagen para el tab 2
-    3: { component: <DiaryCalendar results={simulatedResults} />, image: diaryImage, Height: 'max-h-30' },
-    4: { component: <SummaryChart />, image: accountImage, Height: 'max-h-30' },
+    2: { component: null, image: null, Height: 'h-0' }, 
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: null, Height: 'h-32' },
+    4: { component: <SummaryChart />, image: null, Height: 'max-h-30' },
     5: { component: 'GRAFICO', image: positionsImage, Height: 'max-h-30' },
-    6: { component: <BacktestingForm />, image: backtestingImage, Height: 'max-h-30' },
+    6: { component: <BacktestingForm />, image: backtestingImage, Height: 'h-32' },
     7: { component: null, image: null, Height: 'max-h-full' },
   };
 
@@ -102,7 +100,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           ></div>
           <div
             ref={stochasticChartContainerRef}
-            className="h-40 flex-grow mt-2 rounded-b-lg overflow-hidden border-t-2 border-african_violet-700"
+            className="h-40 flex-grow mt-2 rounded-b-lg overflow-hidden border-t-1 border-african_violet-700 mr-3"
           ></div>
         </div>
     
