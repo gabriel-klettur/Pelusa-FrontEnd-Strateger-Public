@@ -57,11 +57,11 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   };
 
   const simulatedResults = [
-    { date: '2024-07-01', pnl: 100 },
-    { date: '2024-07-02', pnl: -50 },
-    { date: '2024-07-03', pnl: 200 },
-    { date: '2024-07-04', pnl: -30 },
-    { date: '2024-07-05', pnl: 150 },
+    { date: '2024-08-01', pnl: 100000 },
+    { date: '2024-08-02', pnl: -50 },
+    { date: '2024-08-03', pnl: 200 },
+    { date: '2024-08-04', pnl: -30 },
+    { date: '2024-08-05', pnl: 150 },
   ];
 
   // Mapeo de cada tab a su contenido y atributos específicos de imagen
@@ -69,7 +69,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     0: { component: <ToolAlarmBar />, image: alarmImage, Height: 'h-64' },
     1: { component: <ToolOrderBar />, image: ordersImage, Height: 'h-96' },
     2: { component: null, image: null, Height: 'h-0' }, 
-    3: { component: <DiaryCalendar results={simulatedResults} />, image: null, Height: 'h-32' },
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: null, Height: 'h-0' },
     4: { component: <SummaryChart />, image: null, Height: 'max-h-30' },
     5: { component: 'GRAFICO', image: positionsImage, Height: 'max-h-30' },
     6: { component: <BacktestingForm />, image: backtestingImage, Height: 'h-32' },
@@ -104,8 +104,8 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           ></div>
         </div>
     
-        <div className="col-span-3 flex flex-col h-30 bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1">
-          <div id="box-cambiadora" className="flex pt-1 flex-col justify-center h-30 bg-african_violet-300">
+        <div className="col-span-3 flex flex-col h-30 bg-african_violet-300 rounded-bl-lg mt-1">
+          <div id="box-cambiadora" className="flex flex-col justify-center h-30 bg-african_violet-300">
             {image && ( // Verificar si hay una imagen antes de renderizar
               <img
                 src={image}
@@ -113,7 +113,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
                 className={`object-cover w-full ${Height}`}
               />
             )}
-            <div className="p-3 flex-grow bg-african_violet-300 rounded-lg">
+            <div className="flex-grow bg-african_violet-300 rounded-lg">
               {component}
             </div>
           </div>
