@@ -10,6 +10,8 @@ import {
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
 
+import Tarjetitas from '../../common/Tarjetitas';
+
 const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
   const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
@@ -75,30 +77,12 @@ const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
         </Switch>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{currencyLabel}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Balance</h4>
-          <p className="text-2xl">{displayValue(balance.balance)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Equity</h4>
-          <p className="text-2xl">{displayValue(balance.equity)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Unrealized Profit</h4>
-          <p className="text-2xl">{displayValue(balance.unrealizedProfit)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Available Margin</h4>
-          <p className="text-2xl">{displayValue(balance.availableMargin)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Used Margin</h4>
-          <p className="text-2xl">{displayValue(balance.usedMargin)}</p>
-        </div>
+        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
+        <Tarjetitas descripcion="Balance" contenido={displayValue(balance.balance)} />
+        <Tarjetitas descripcion="Equity" contenido={displayValue(balance.equity)} />
+        <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(balance.unrealizedProfit)} />
+        <Tarjetitas descripcion="Available Margin" contenido={displayValue(balance.availableMargin)} />
+        <Tarjetitas descripcion="Used Margin" contenido={displayValue(balance.usedMargin)} />
       </div>
     </div>
   );

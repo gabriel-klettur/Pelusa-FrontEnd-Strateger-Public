@@ -14,6 +14,7 @@ import {
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
 import Ventanita from '../../common/Ventanita';
 import Tablita from '../../common/Tablita';
+import Tarjetitas from '../../common/Tarjetitas';
 
 const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
@@ -117,15 +118,9 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
           />
         </Switch>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{currencyLabel}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Balance</h4>
-          <p className="text-2xl">{displayValue}</p>
-        </div>
+      <div className="grid grid-cols-2 gap-4">        
+        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
+        <Tarjetitas descripcion="Balance" contenido={displayValue} />
       </div>
       {filteredBalances.length === 0 ? (
         <div>No balances available</div>

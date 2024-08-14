@@ -10,6 +10,8 @@ import {
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
 
+import Tarjetitas from '../../common/Tarjetitas';
+
 const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
   const { dataUSD, loading, error, loaded } = useSelector(selectPerpUSDTM);
@@ -71,35 +73,14 @@ const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
           />
         </Switch>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Asset</h4>
-          <p className="text-2xl">{currencyLabel}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Balance</h4>
-          <p className="text-2xl">{displayValue(dataUSD.balance)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Equity</h4>
-          <p className="text-2xl">{displayValue(dataUSD.equity)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Unrealized Profit</h4>
-          <p className="text-2xl">{displayValue(dataUSD.unrealizedProfit)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Realised Profit</h4>
-          <p className="text-2xl">{displayValue(dataUSD.realisedProfit)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Available Margin</h4>
-          <p className="text-2xl">{displayValue(dataUSD.availableMargin)}</p>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-lg font-bold">Used Margin</h4>
-          <p className="text-2xl">{displayValue(dataUSD.usedMargin)}</p>
-        </div>
+      <div className="grid grid-cols-2 gap-4">        
+        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
+        <Tarjetitas descripcion="Balance" contenido={displayValue(dataUSD.balance)} />
+        <Tarjetitas descripcion="Equity" contenido={displayValue(dataUSD.equity)} />
+        <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(dataUSD.unrealizedProfit)} />
+        <Tarjetitas descripcion="Realised Profit" contenido={displayValue(dataUSD.realisedProfit)} />
+        <Tarjetitas descripcion="Available Margin" contenido={displayValue(dataUSD.availableMargin)} />
+        <Tarjetitas descripcion="Used Margin" contenido={displayValue(dataUSD.usedMargin)} />        
       </div>
     </div>
   );
