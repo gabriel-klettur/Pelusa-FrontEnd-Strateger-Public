@@ -11,16 +11,14 @@ import {
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
 
-
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
 
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
-
-const SpotSummary = ({lastPrice}) => {
+const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
-  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);  
+  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
   const tickerPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
   const [showInUSD, setShowInUSD] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!loaded && lastPrice) {
@@ -66,6 +64,15 @@ const SpotSummary = ({lastPrice}) => {
     }
   }, [loaded, balanceUSD, dispatch]);
 
+  // Manejo del estado de carga local
+  useEffect(() => {
+    if (loading) {
+      setIsLoading(true);
+    } else if (loaded) {
+      setIsLoading(false);
+    }
+  }, [loading, loaded]);
+
   const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
   const currencyLabel = showInUSD ? 'USD' : 'BTC';
 
@@ -77,7 +84,7 @@ const SpotSummary = ({lastPrice}) => {
 
   return (
     <div className="relative mb-4">
-      <LoadingOverlay isLoading={loading} /> {/* Mostrar el overlay de carga */}
+      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar el overlay de carga */}
       <h3 className="text-xl font-bold mb-2">Spot Summary</h3>
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>

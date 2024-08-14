@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMSummary.js
+// Path: strateger-react/src/components/Account/AccountSummary/PerpCOINMSummary.js
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,34 +10,41 @@ import {
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
 
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
-
-const PerpCOINMSummary = ({
-    lastPrice
-  }) => {
-  
+const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
-  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);  
+  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
   const [showInBTC, setShowInBTC] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Efecto para cargar datos si aún no se han cargado
   useEffect(() => {
     if (!loaded && lastPrice) {
       dispatch(fetchPerpCOINMBalance({ lastPrice }));
     }
   }, [dispatch, loaded, lastPrice]);
 
+  // Efecto para actualizar el balance total en USD
   useEffect(() => {
     if (loaded) {
       dispatch(updateTotalBalanceInUSD());
     }
   }, [loaded, dataUSD, dispatch]);
 
+  // Efecto para manejar el estado de carga local
+  useEffect(() => {
+    if (loading) {
+      setIsLoading(true);
+    } else if (loaded && dataBTC.length > 0) {
+      setIsLoading(false);
+    }
+  }, [loading, loaded, dataBTC]);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (dataBTC.length === 0) {
-    return <div>No balances available</div>;
+    return <div className="relative mb-4"><LoadingOverlay isLoading={isLoading} /></div>;      
   }
 
   const balance = dataBTC[0];
@@ -48,7 +55,8 @@ const PerpCOINMSummary = ({
 
   return (
     <div className="relative mb-4">
-      <LoadingOverlay isLoading={loading} /> {/* Mostrar overlay de carga */}
+      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}
+      
       <h3 className="text-xl font-bold mb-2">Perp COIN-M Summary</h3>
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
