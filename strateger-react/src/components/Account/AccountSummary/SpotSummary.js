@@ -13,6 +13,7 @@ import {
 
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
 import Ventanita from '../../common/Ventanita';
+import Tablita from '../../common/Tablita';
 
 const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
@@ -83,6 +84,20 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
 
   const filteredBalances = balances.filter((balance) => parseFloat(balance.free) > 0);
 
+  // Definición de columnas para Tablita
+  const columns = [
+    { label: 'Asset', key: 'asset' },
+    { label: 'Amount', key: 'amount' },
+  ];
+
+  // Formateo de los datos para Tablita
+  const data = filteredBalances.map((balance) => ({
+    asset: balance.asset,
+    amount: showInUSD
+      ? getPriceInUSD(balance.asset, balance.free).toFixed(2)
+      : parseFloat(balance.free).toFixed(6),
+  }));
+
   const contenido = (
     <div>
       <LoadingOverlay isLoading={isLoading} /> {/* Mostrar el overlay de carga */}
@@ -115,28 +130,7 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
       {filteredBalances.length === 0 ? (
         <div>No balances available</div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white">
-            <thead>
-              <tr className="w-full bg-gray-100">
-                <th className="py-2 px-4 border-b text-left">Asset</th>
-                <th className="py-2 px-4 border-b text-right">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredBalances.map((balance) => (
-                <tr key={balance.asset} className="hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b text-left">{balance.asset}</td>
-                  <td className="py-2 px-4 border-b text-right">
-                    {showInUSD
-                      ? getPriceInUSD(balance.asset, balance.free).toFixed(2)
-                      : parseFloat(balance.free).toFixed(6)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <Tablita columns={columns} data={data} />
       )}
     </div>
   );

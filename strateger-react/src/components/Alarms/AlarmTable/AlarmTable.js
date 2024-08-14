@@ -1,34 +1,35 @@
-//Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
+// Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
 
 import React from 'react';
+import Tablita from '../../common/Tablita';
 import AlarmRow from './AlarmRow';
 
 const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
+
+  // Definición de columnas para Tablita (aunque no se utilizarán directamente aquí)
+  const columns = [
+    { label: 'ID', key: 'id' },
+    { label: 'Ticker', key: 'Ticker' },
+    { label: 'T', key: 'Temporalidad' },
+    { label: 'Entry Price', key: 'Entry_Price_Alert' },
+    { label: 'Exit Price', key: 'Exit_Price_Alert' },
+    { label: 'Time', key: 'Time_Alert' },
+    { label: 'Type', key: 'Order' },
+    { label: 'Estrategia', key: 'Strategy' },
+  ];
+
+  // Renderizado de la fila utilizando AlarmRow
+  const renderRow = (item, index) => (
+    <AlarmRow
+      key={index}
+      alarm={item}
+      isSelected={selectedAlarms.some((a) => a.id === item.id)}
+      handleSelectAlarm={handleSelectAlarm}
+    />
+  );
+
   return (
-    <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-      <thead>
-        <tr className="w-full bg-african_violet-500 text-white">
-          <th className="py-2 px-4 border-r">ID</th>
-          <th className="py-2 px-4 border-r">Ticker</th>
-          <th className="py-2 px-2 border-r">T</th>
-          <th className="py-2 px-4 border-r">Entry Price</th>
-          <th className="py-2 px-4 border-r">Exit Price</th>
-          <th className="py-2 px-4 border-r">Time</th>
-          <th className="py-2 px-4 border-r">Type</th>
-          <th className="py-2 px-4">Estrategia</th>
-        </tr>
-      </thead>
-      <tbody>
-        {alarms.map((alarm) => (
-          <AlarmRow
-            key={alarm.id}
-            alarm={alarm}
-            isSelected={selectedAlarms.some((a) => a.id === alarm.id)}
-            handleSelectAlarm={handleSelectAlarm}
-          />
-        ))}
-      </tbody>
-    </table>
+    <Tablita columns={columns} data={alarms} renderRow={renderRow} />
   );
 };
 
