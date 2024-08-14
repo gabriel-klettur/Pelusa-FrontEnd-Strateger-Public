@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import Tablita from '../../common/Tablita';
 
 const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeData, LoadingOverlay }) => {
 
@@ -9,43 +10,34 @@ const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeDa
     return <div>Error: {error}</div>;
   }
 
-  const renderTable = (accounts, title) => (
-    <div>
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <table className="table-auto w-full border">
-        <thead>
-          <tr>
-            <th className="border px-4 py-2">Account Name</th>
-            <th className="border px-4 py-2">Account Type</th>
-            <th className="border px-4 py-2">Asset</th>
-            <th className="border px-4 py-2">Balance</th>
-            <th className="border px-4 py-2">Equity</th>
-            <th className="border px-4 py-2">Unrealized Profit</th>
-            <th className="border px-4 py-2">Realized Profit</th>
-            <th className="border px-4 py-2">Available Margin</th>
-            <th className="border px-4 py-2">Used Margin</th>
-            <th className="border px-4 py-2">Date Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {accounts.map((account) => (
-            <tr key={account.id}>
-              <td className="border px-4 py-2">{account.accountName}</td>
-              <td className="border px-4 py-2">{account.accountType}</td>
-              <td className="border px-4 py-2">{account.asset}</td>
-              <td className="border px-4 py-2">{account.balance}</td>
-              <td className="border px-4 py-2">{account.equity}</td>
-              <td className="border px-4 py-2">{account.unrealizedProfit}</td>
-              <td className="border px-4 py-2">{account.realizedProfit}</td>
-              <td className="border px-4 py-2">{account.availableMargin}</td>
-              <td className="border px-4 py-2">{account.usedMargin}</td>
-              <td className="border px-4 py-2">{new Date(account.dateTime).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  const renderTable = (accounts, title) => {
+    // Definir las columnas para Tablita
+    const columns = [
+      { label: 'Account Name', key: 'accountName' },
+      { label: 'Account Type', key: 'accountType' },
+      { label: 'Asset', key: 'asset' },
+      { label: 'Balance', key: 'balance' },
+      { label: 'Equity', key: 'equity' },
+      { label: 'Unrealized Profit', key: 'unrealizedProfit' },
+      { label: 'Realized Profit', key: 'realizedProfit' },
+      { label: 'Available Margin', key: 'availableMargin' },
+      { label: 'Used Margin', key: 'usedMargin' },
+      { label: 'Date Time', key: 'dateTime' },
+    ];
+
+    // Formatear los datos para Tablita
+    const data = accounts.map((account) => ({
+      ...account,
+      dateTime: new Date(account.dateTime).toLocaleString(),
+    }));
+
+    return (
+      <div>
+        <h2 className="text-lg font-semibold">{title}</h2>
+        <Tablita columns={columns} data={data} />
+      </div>
+    );
+  };
 
   return (
     <div className="relative">
