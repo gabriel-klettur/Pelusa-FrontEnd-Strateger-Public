@@ -12,6 +12,7 @@ import {
 } from '../../../redux/slices/accountSlice';
 
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
+import Ventanita from '../../common/Ventanita';
 
 const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
@@ -82,10 +83,9 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
 
   const filteredBalances = balances.filter((balance) => parseFloat(balance.free) > 0);
 
-  return (
-    <div className="relative mb-4">
+  const contenido = (
+    <div>
       <LoadingOverlay isLoading={isLoading} /> {/* Mostrar el overlay de carga */}
-      <h3 className="text-xl font-bold mb-2">Spot Summary</h3>
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch
@@ -139,6 +139,10 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
         </div>
       )}
     </div>
+  );
+
+  return (
+    <Ventanita titulo="Spot Summary" contenido={contenido} />
   );
 };
 
