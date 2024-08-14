@@ -1,5 +1,12 @@
 //Path: strateger-react/src/components/common/Ventanita.jsx
 
+/**
+ * Represents a Ventanita component.
+ * @param {Object} props - The props object.
+ * @param {string} props.titulo - The title of the Ventanita.
+ * @param {string} props.contenido - The content of the Ventanita.
+ * @returns {JSX.Element} The rendered Ventanita component.
+ */
 const Ventanita = ({ titulo, contenido }) => {
   return (
     <div className="w-full mx-auto rounded-lg">
