@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from '../markers/Alarms';
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
 import { mapPositionsToMarkers } from '../markers/PositionsChart'; // Asegúrate de importar correctamente
-import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../../slices/alarmSlice';
-import { selectFilteredOrders } from '../../../slices/orderSlice';
-import { selectBacktestingResult } from '../../../slices/backtestingSlice';
-import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../slices/tradingViewChartSlice';
+import { selectStrategyFilteredAlarms, selectAllSelectedAlarms } from '../../../redux/slices/alarmSlice';
+import { selectFilteredOrders } from '../../../redux/slices/orderSlice';
+import { selectBacktestingResult } from '../../../redux/slices/backtestingSlice';
+import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../redux/slices/tradingViewChartSlice';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
   const dispatch = useDispatch();

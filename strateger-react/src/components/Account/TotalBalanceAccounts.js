@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectTotalBalanceInUSD } from '../../slices/accountSlice';
+import { selectTotalBalanceInUSD } from '../../redux/slices/accountSlice';
 
 const TotalBalanceAccounts = () => {
 

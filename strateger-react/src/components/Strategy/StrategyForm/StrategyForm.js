@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Ventanita from '../../common/Ventanita';
 import Inputsito from '../../common/Inputsito'; // Importa Inputsito
-import { saveStrategy } from '../../../slices/strategySlice';
+import { saveStrategy } from '../../../redux/slices/strategySlice';
 
 const StrategyForm = ({ strategy, onSave, onCancel }) => {
   const dispatch = useDispatch();

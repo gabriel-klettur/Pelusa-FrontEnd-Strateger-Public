@@ -1,14 +1,13 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMChart.js
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
-import { selectUSDTMTimeData } from '../../../slices/accountSlice';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay'; // Importa el componente de carga
 
-const PerpUSDTMChart = () => {
-  const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
+const PerpUSDTMChart = ({
+  perpUSDTMAccounts,    
+  ChartComponent, 
+  Legend, 
+  LoadingOverlay
+}) => {  
   const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
 
   // Manejar los datos y el estado de carga

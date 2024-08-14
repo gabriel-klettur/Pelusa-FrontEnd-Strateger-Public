@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import './StrategyItems.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStrategyFilteredAlarms } from '../../../slices/alarmSlice';
+import { setStrategyFilteredAlarms } from '../../../redux/slices/alarmSlice';
 import { FilteredOrderList } from '../../Orders';
 import Ventanita from '../../common/Ventanita'; // Asegúrate de importar Ventanita
 

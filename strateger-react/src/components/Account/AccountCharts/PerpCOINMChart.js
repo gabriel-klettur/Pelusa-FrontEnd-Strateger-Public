@@ -1,46 +1,42 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMChart.js
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../TradingViewLineal/Legend'; // Importar el componente de leyenda
-import { selectCoinMTimeData } from '../../../slices/accountSlice';
-import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
-const PerpCOINMChart = () => {
-  const perpCOINMAccounts = useSelector(selectCoinMTimeData);
-  const lastPrice = useSelector(selectLastPrice);
-  const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
+const PerpCOINMChart = ({ 
+  perpCOINMAccounts, 
+  lastPrice, 
+  ChartComponent, 
+  Legend, 
+  LoadingOverlay 
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Manejar los datos y el estado de carga
   useEffect(() => {
     if (perpCOINMAccounts.length > 0 && lastPrice) {
-      setIsLoading(false); // Marca como cargado cuando los datos están disponibles
+      setIsLoading(false);
     }
   }, [perpCOINMAccounts, lastPrice]);
 
-  // Transformar y ordenar los datos para el gráfico
   const balanceData = perpCOINMAccounts
     .map((account) => ({
-      time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
+      time: new Date(account.dateTime).getTime() / 1000,
       value: account.balance * lastPrice,
     }))
-    .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
+    .sort((a, b) => a.time - b.time);
 
   const unrealizedProfitData = perpCOINMAccounts
     .map((account) => ({
-      time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
+      time: new Date(account.dateTime).getTime() / 1000,
       value: account.unrealizedProfit * lastPrice,
     }))
-    .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
+    .sort((a, b) => a.time - b.time);
 
   const equityData = perpCOINMAccounts
     .map((account) => ({
-      time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
+      time: new Date(account.dateTime).getTime() / 1000,
       value: account.equity * lastPrice,
     }))
-    .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
+    .sort((a, b) => a.time - b.time);
 
   const seriesData = [
     { name: 'Balance', data: balanceData, color: '#2962FF' },
@@ -76,7 +72,7 @@ const PerpCOINMChart = () => {
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}
+      <LoadingOverlay isLoading={isLoading} />
       <h2>Perp COIN-M Chart</h2>
       <ChartComponent
         seriesData={seriesData.filter((series) => visibleSeries[series.name])}

@@ -1,7 +1,7 @@
 // alarmSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../config';
+import config from '../../config';
 
 export const fetchAlarms = createAsyncThunk(
   'alarms/fetchAlarms',

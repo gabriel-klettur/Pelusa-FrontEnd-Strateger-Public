@@ -1,11 +1,6 @@
 // Path: strateger-react/src/components/Account/AccountCharts/SpotChart.js
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../TradingViewLineal/Legend';
-import { selectSpotTimeData } from '../../../slices/accountSlice';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 // Función para generar colores hexadecimales válidos
 const getRandomColor = () => {
@@ -16,8 +11,13 @@ const getRandomColor = () => {
   return color;
 };
 
-const SpotChart = () => {
-  const spotAccounts = useSelector(selectSpotTimeData);
+const SpotChart = ({
+    spotAccounts,
+    ChartComponent,
+    Legend,
+    LoadingOverlay,
+  }) => {
+      
   const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
   const [visibleSeries, setVisibleSeries] = useState({});
   const [seriesData, setSeriesData] = useState([]);

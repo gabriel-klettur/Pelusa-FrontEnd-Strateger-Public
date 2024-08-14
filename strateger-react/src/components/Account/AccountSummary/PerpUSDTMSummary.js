@@ -6,8 +6,8 @@ import {
   fetchPerpUSDTMBalance,
   selectPerpUSDTM,
   updateTotalBalanceInUSD,
-} from '../../../slices/accountSlice';
-import { selectLastPrice } from '../../../slices/tradingViewChartSlice';
+} from '../../../redux/slices/accountSlice';
+import { selectLastPrice } from '../../../redux/slices/tradingViewChartSlice';
 import { Switch } from '@headlessui/react';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 

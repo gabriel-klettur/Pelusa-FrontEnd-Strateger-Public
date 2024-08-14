@@ -2,7 +2,7 @@
 
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../config';
+import config from '../../config';
 
 // Async thunks for fetching positions
 export const fetchPositionsCoinM = createAsyncThunk(

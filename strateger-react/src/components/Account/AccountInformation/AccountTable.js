@@ -8,7 +8,7 @@ import {
   selectCoinMTimeData,
   selectUSDTMTimeData,
   selectSpotTimeData,
-} from '../../../slices/accountSlice';
+} from '../../../redux/slices/accountSlice';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 

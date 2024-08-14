@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedTab, selectSelectedTab } from './slices/tabSlice';
+import { setSelectedTab, selectSelectedTab } from './redux/slices/tabSlice';
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';

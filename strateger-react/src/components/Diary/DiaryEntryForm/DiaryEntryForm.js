@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImages } from '../../../slices/diarySlice';
+import { uploadImages } from '../../../redux/slices/diarySlice';
 import DateForm from '../../DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';

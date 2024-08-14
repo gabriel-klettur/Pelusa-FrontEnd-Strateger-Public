@@ -6,8 +6,8 @@ import {
   fetchPerpCOINMBalance,
   selectPerpCOINM,
   updateTotalBalanceInUSD,
-} from '../../../slices/accountSlice';
-import { selectTicker } from '../../../slices/tickerSlice';
+} from '../../../redux/slices/accountSlice';
+import { selectTicker } from '../../../redux/slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 

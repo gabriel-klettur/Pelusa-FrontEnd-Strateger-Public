@@ -2,12 +2,12 @@
 
 //import { fetchAlarms } from '../slices/alarmSlice';
 //import { fetchOrders } from '../slices/orderSlice';
-import { fetchStrategies } from '../slices/strategySlice';
-import { fetchDiaryEntries } from '../slices/diarySlice';
+import { fetchStrategies } from '../redux/slices/strategySlice';
+import { fetchDiaryEntries } from '../redux/slices/diarySlice';
 //import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
-import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../slices/positionSlice';
-import { fetchTradingViewChartData } from '../slices/tradingViewChartSlice';
-import { fetchTicker } from '../slices/tickerSlice'; // Importa fetchTicker
+import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/slices/positionSlice';
+import { fetchTradingViewChartData } from '../redux/slices/tradingViewChartSlice';
+import { fetchTicker } from '../redux/slices/tickerSlice'; // Importa fetchTicker
 
 export const loadSlicesInOrder = () => async (dispatch) => {
   try {

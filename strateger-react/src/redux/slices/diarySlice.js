@@ -2,7 +2,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../config';
+import config from '../../config';
 
 const BASE_URL = `${config.apiURL}/strateger/diary`;
 

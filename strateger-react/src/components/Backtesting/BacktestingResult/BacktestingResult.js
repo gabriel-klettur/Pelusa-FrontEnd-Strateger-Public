@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateChartData, setPositionMarkers } from '../../../slices/tradingViewChartSlice';
+import { updateChartData, setPositionMarkers } from '../../../redux/slices/tradingViewChartSlice';
 import { mapPositionsToMarkers } from '../../TradingViewChart/markers/PositionsChart';
-import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../slices/backtestingSlice';
+import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../redux/slices/backtestingSlice';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 import { format } from 'date-fns'; // Importamos la función de formateo

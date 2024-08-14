@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DateForm from '../../DateForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { runBacktest } from '../../../slices/backtestingSlice';
+import { runBacktest } from '../../../redux/slices/backtestingSlice';
 import { Select, Checkbox, Field, Label } from '@headlessui/react';
 import { format } from 'date-fns';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';

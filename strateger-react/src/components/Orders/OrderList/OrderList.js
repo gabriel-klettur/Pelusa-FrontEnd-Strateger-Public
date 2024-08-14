@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../../slices/orderSlice';
+import { fetchOrders, setSelectedOrderId, setPage, selectFilteredOrders } from '../../../redux/slices/orderSlice';
 import OrderRow from './OrderRow';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../slices/accountSlice';
-import { selectTicker } from '../../../slices/tickerSlice'; // Importa selectTicker
+import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../redux/slices/accountSlice';
+import { selectTicker } from '../../../redux/slices/tickerSlice'; // Importa selectTicker
 import Legend from '../../TradingViewLineal/Legend';
 
 const SummaryChart = () => {

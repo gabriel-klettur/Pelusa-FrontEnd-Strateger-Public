@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../config';
+import config from '../../config';
 
 // Acción asíncrona para ejecutar el backtesting
 export const runBacktest = createAsyncThunk('backtesting/runBacktest', async (backtestData) => {

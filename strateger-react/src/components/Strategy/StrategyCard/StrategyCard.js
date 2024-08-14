@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import StrategyItem from './StrategyItems';
 import StrategyForm from '../StrategyForm/StrategyForm';
-import { fetchStrategies, saveStrategy, removeStrategy } from '../../../slices/strategySlice';
+import { fetchStrategies, saveStrategy, removeStrategy } from '../../../redux/slices/strategySlice';
 
 const StrategyCard = () => {
   const dispatch = useDispatch();

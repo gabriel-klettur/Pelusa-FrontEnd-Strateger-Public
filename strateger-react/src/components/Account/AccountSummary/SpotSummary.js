@@ -7,9 +7,9 @@ import {
   selectSpot,
   updateSpotBalanceUSDAction,
   updateTotalBalanceInUSD,
-} from '../../../slices/accountSlice';
-import { selectTicker } from '../../../slices/tickerSlice';
-import { fetchTicker } from '../../../slices/tickerSlice';
+} from '../../../redux/slices/accountSlice';
+import { selectTicker } from '../../../redux/slices/tickerSlice';
+import { fetchTicker } from '../../../redux/slices/tickerSlice';
 import { Switch } from '@headlessui/react';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
