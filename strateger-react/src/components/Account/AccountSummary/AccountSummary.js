@@ -3,13 +3,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { selectTicker } from '../../../redux/slices/tickerSlice';
+
 import PerpUSDTMSummary from './PerpUSDTMSummary';
 import SpotSummary from './SpotSummary';
 import PerpCOINMSummary from './PerpCOINMSummary';
 
-import { selectTicker } from '../../../redux/slices/tickerSlice';
 
-const AccountSummary = () => {
+
+const AccountSummary = ({LoadingOverlay}) => {
 
   const lastPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
   return (
@@ -19,16 +21,19 @@ const AccountSummary = () => {
         <div className="border-4 border-red-500">
           <PerpUSDTMSummary 
             lastPrice={lastPrice}
+            LoadingOverlay={LoadingOverlay}
           />
         </div>
         <div className="border-4 border-red-500">
           <SpotSummary 
             lastPrice={lastPrice}
+            LoadingOverlay={LoadingOverlay}
           />
         </div>
         <div className="border-4 border-red-500">
           <PerpCOINMSummary
-            lastPrice={lastPrice}
+            lastPrice={lastPrice}           
+            LoadingOverlay={LoadingOverlay}
            />
         </div>
       </div>

@@ -15,12 +15,7 @@ import { selectLastPrice } from '../../../redux/slices/tradingViewChartSlice';
 import { selectUSDTMTimeData } from '../../../redux/slices/accountSlice';
 import { selectSpotTimeData } from '../../../redux/slices/accountSlice';
 
-
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
-
-
-
-const AccountCharts = () => {
+const AccountCharts = ({LoadingOverlay}) => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
   const lastPrice = useSelector(selectLastPrice);

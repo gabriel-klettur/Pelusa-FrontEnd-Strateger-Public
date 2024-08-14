@@ -1,21 +1,13 @@
 // Path: strateger-react/src/components/Account/AccountInformation/AccountInformation.js
 
-import {
-    fetchAllAccountsData,
-    selectAllAccountsData,
-    selectCoinMTimeData,
-    selectUSDTMTimeData,
-    selectSpotTimeData,
-  } from '../../../redux/slices/accountSlice';
-
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
-
-import AccountTable from "./AccountTable";
-
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-const AccountInformation = () => {
+import {fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../redux/slices/accountSlice';
+
+import AccountTable from "./AccountTable";
+
+const AccountInformation = ({LoadingOverlay}) => {
     const dispatch = useDispatch();
     
     // Obtener datos de Redux
