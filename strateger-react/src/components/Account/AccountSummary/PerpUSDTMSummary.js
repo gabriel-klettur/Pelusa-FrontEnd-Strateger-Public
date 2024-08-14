@@ -2,19 +2,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from '@headlessui/react';
+
 import {
   fetchPerpUSDTMBalance,
   selectPerpUSDTM,
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
-import { selectLastPrice } from '../../../redux/slices/tradingViewChartSlice';
-import { Switch } from '@headlessui/react';
+
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
-const PerpUSDTMSummary = () => {
+const PerpUSDTMSummary = ({ lastPrice }) => {
   const dispatch = useDispatch();
   const { dataUSD, loading, error, loaded } = useSelector(selectPerpUSDTM);
-  const lastPrice = useSelector(selectLastPrice);
+  
   const [showInUSD, setShowInUSD] = useState(true);
 
   useEffect(() => {

@@ -2,21 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from '@headlessui/react';
+
 import {
   fetchSpotBalance,
   selectSpot,
   updateSpotBalanceUSDAction,
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
-import { selectTicker } from '../../../redux/slices/tickerSlice';
+
+
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
-import { Switch } from '@headlessui/react';
+
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
-const SpotSummary = () => {
+const SpotSummary = ({lastPrice}) => {
   const dispatch = useDispatch();
-  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
-  const lastPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
+  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);  
   const tickerPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
   const [showInUSD, setShowInUSD] = useState(true);
 

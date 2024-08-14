@@ -2,19 +2,22 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from '@headlessui/react';
+
 import {
   fetchPerpCOINMBalance,
   selectPerpCOINM,
   updateTotalBalanceInUSD,
 } from '../../../redux/slices/accountSlice';
-import { selectTicker } from '../../../redux/slices/tickerSlice';
-import { Switch } from '@headlessui/react';
+
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
-const PerpCOINMSummary = () => {
+const PerpCOINMSummary = ({
+    lastPrice
+  }) => {
+  
   const dispatch = useDispatch();
-  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
-  const lastPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
+  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);  
   const [showInBTC, setShowInBTC] = useState(true);
 
   useEffect(() => {
