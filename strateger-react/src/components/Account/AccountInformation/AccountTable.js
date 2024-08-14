@@ -1,27 +1,9 @@
 // Path: strateger-react/src/components/Account/AccountInformation/AccountTable.js
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchAllAccountsData,
-  selectAllAccountsData,
-  selectCoinMTimeData,
-  selectUSDTMTimeData,
-  selectSpotTimeData,
-} from '../../../redux/slices/accountSlice';
+import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
-const AccountTable = () => {
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector(selectAllAccountsData);
-  const coinMTimeData = useSelector(selectCoinMTimeData);
-  const usdtmTimeData = useSelector(selectUSDTMTimeData);
-  const spotTimeData = useSelector(selectSpotTimeData);
-
-  useEffect(() => {
-    dispatch(fetchAllAccountsData());
-  }, [dispatch]);
+const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeData, LoadingOverlay }) => {
 
   if (error) {
     return <div>Error: {error}</div>;
