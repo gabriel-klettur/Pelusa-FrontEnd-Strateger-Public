@@ -1,6 +1,7 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMChart.js
 
 import React, { useState, useEffect } from 'react';
+import ContenedorChartWallet from '../../common/ContenedorChartWallet';
 
 const PerpUSDTMChart = ({
   perpUSDTMAccounts,    
@@ -66,23 +67,17 @@ const PerpUSDTMChart = ({
   };
 
   return (
-    <div className="grid grid-cols-1">
-      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}      
-      
-      <div className="grid grid-cols-1 gap-4">
-        <ChartComponent
-          seriesData={seriesData.filter((series) => visibleSeries[series.name])}
-          colors={colors}
-        />
-        <div className="flex justify-center">
-          <Legend
-            seriesData={seriesData}
-            visibleSeries={visibleSeries}
-            toggleSeriesVisibility={toggleSeriesVisibility}
-          />
-        </div>
-      </div>
-    </div>
+    <ContenedorChartWallet
+      isLoading={isLoading}
+      seriesData={seriesData}
+      colors={colors}
+      priceFormat={null}
+      visibleSeries={visibleSeries}
+      toggleSeriesVisibility={toggleSeriesVisibility}
+      ChartComponent={ChartComponent}
+      Legend={Legend}
+      LoadingOverlay={LoadingOverlay}
+    /> 
   );
 };
 

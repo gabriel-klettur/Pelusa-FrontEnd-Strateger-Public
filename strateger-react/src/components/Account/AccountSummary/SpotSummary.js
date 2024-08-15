@@ -12,7 +12,6 @@ import {
 } from '../../../redux/slices/accountSlice';
 
 import { fetchTicker } from '../../../redux/slices/tickerSlice';
-import Ventanita from '../../common/Ventanita';
 import Tablita from '../../common/Tablita';
 import Tarjetitas from '../../common/Tarjetitas';
 

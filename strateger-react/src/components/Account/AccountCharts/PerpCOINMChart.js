@@ -1,6 +1,7 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMChart.js
 
 import React, { useState, useEffect } from 'react';
+import ContenedorChartWallet from '../../common/ContenedorChartWallet';
 
 const PerpCOINMChart = ({ 
   perpCOINMAccounts, 
@@ -71,24 +72,17 @@ const PerpCOINMChart = ({
   };
 
   return (
-    <div className="grid grid-cols-1">
-      <LoadingOverlay isLoading={isLoading} /> 
-
-      <div className="grid grid-cols-1 gap-4">
-        <ChartComponent
-          seriesData={seriesData.filter((series) => visibleSeries[series.name])}
-          colors={colors}
-          priceFormat={priceFormat}
-        />
-        <div className="justify-center">     
-          <Legend
-            seriesData={seriesData}
-            visibleSeries={visibleSeries}
-            toggleSeriesVisibility={toggleSeriesVisibility}
-          />
-        </div>
-      </div>
-    </div>
+    <ContenedorChartWallet
+      isLoading={isLoading}
+      seriesData={seriesData}
+      colors={colors}
+      priceFormat={priceFormat}
+      visibleSeries={visibleSeries}
+      toggleSeriesVisibility={toggleSeriesVisibility}
+      ChartComponent={ChartComponent}
+      Legend={Legend}
+      LoadingOverlay={LoadingOverlay}
+    /> 
   );
 };
 

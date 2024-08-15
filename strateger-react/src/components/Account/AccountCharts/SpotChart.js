@@ -1,15 +1,8 @@
 // Path: strateger-react/src/components/Account/AccountCharts/SpotChart.js
 
 import React, { useState, useEffect } from 'react';
-
-// Función para generar colores hexadecimales válidos
-const getRandomColor = () => {
-  let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-  while (color.length < 7) {
-    color += '0';
-  }
-  return color;
-};
+import getRandomColor from '../../common/getRandomColor';
+import ContenedorChartWallet from '../../common/ContenedorChartWallet';
 
 const SpotChart = ({
     spotAccounts,
@@ -75,25 +68,18 @@ const SpotChart = ({
     minMove: 0.00000001,
   };
 
-  return (
-    <div className="grid grid-cols-1">
-      <LoadingOverlay isLoading={isLoading} /> 
-
-      <div className="grid grid-cols-1 gap-4">
-        <ChartComponent
-          seriesData={seriesData.filter((series) => visibleSeries[series.name])}
-          colors={colors}
-          priceFormat={priceFormat}
-        />
-        <div className="flex justify-center">     
-          <Legend
-            seriesData={seriesData}
-            visibleSeries={visibleSeries}
-            toggleSeriesVisibility={toggleSeriesVisibility}
-          />
-        </div>
-      </div>
-    </div>
+  return (    
+    <ContenedorChartWallet
+      isLoading={isLoading}
+      seriesData={seriesData}
+      colors={colors}
+      priceFormat={priceFormat}
+      visibleSeries={visibleSeries}
+      toggleSeriesVisibility={toggleSeriesVisibility}
+      ChartComponent={ChartComponent}
+      Legend={Legend}
+      LoadingOverlay={LoadingOverlay}
+    />    
   );
 };
 
