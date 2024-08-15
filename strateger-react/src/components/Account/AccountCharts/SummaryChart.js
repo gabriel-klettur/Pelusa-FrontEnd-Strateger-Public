@@ -6,6 +6,8 @@ import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '..
 import { selectTicker } from '../../../redux/slices/tickerSlice'; // Importa selectTicker
 import Legend from '../../TradingViewLineal/Legend';
 
+import Ventanita from '../../common/Ventanita';
+
 const SummaryChart = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
@@ -119,15 +121,17 @@ const SummaryChart = () => {
   };
 
   return (
-    <div>
-      <h2>Summary</h2>
-      <ChartComponent
-        seriesData={seriesData.filter(series => visibleSeries[series.name])}
-        colors={colors}
-        priceFormat={priceFormat}
-      />
-      <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
-    </div>
+
+    <Ventanita titulo="Summary" contenido={
+      <>
+        <ChartComponent
+          seriesData={seriesData.filter(series => visibleSeries[series.name])}
+          colors={colors}
+          priceFormat={priceFormat}
+        />
+        <Legend seriesData={seriesData} visibleSeries={visibleSeries} toggleSeriesVisibility={toggleSeriesVisibility} />
+      </>      
+    } />    
   );
 };
 
