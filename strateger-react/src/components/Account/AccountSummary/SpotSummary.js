@@ -131,7 +131,9 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   );
 
   return (
-    <Ventanita titulo="Spot Summary" contenido={contenido} />
+    <div>
+      {contenido} 
+    </div>
   );
 };
 

@@ -66,17 +66,22 @@ const PerpUSDTMChart = ({
   };
 
   return (
-    <div className="relative">
+    <div className="grid grid-cols-1">
       <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}      
-      <ChartComponent
-        seriesData={seriesData.filter((series) => visibleSeries[series.name])}
-        colors={colors}
-      />
-      <Legend
-        seriesData={seriesData}
-        visibleSeries={visibleSeries}
-        toggleSeriesVisibility={toggleSeriesVisibility}
-      />
+      
+      <div className="grid grid-cols-1 gap-4">
+        <ChartComponent
+          seriesData={seriesData.filter((series) => visibleSeries[series.name])}
+          colors={colors}
+        />
+        <div className="flex justify-center">
+          <Legend
+            seriesData={seriesData}
+            visibleSeries={visibleSeries}
+            toggleSeriesVisibility={toggleSeriesVisibility}
+          />
+        </div>
+      </div>
     </div>
   );
 };

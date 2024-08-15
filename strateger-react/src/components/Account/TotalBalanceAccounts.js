@@ -15,9 +15,9 @@ const TotalBalanceAccounts = ({ LoadingOverlay }) => {
     }, [totalBalanceInUSD]);
 
     return (
-        <div className="relative mb-1 flex justify-center border-4 border-yellow-500">
+        <div className="relative pt-1 flex justify-center bg-african_violet-200">
             <LoadingOverlay isLoading={isLoading} />
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold text-white">
                 Total Balance in USD: {totalBalanceInUSD !== null ? totalBalanceInUSD.toFixed(2) : 'Loading...'}
             </h2>
         </div>

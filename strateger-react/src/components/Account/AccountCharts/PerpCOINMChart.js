@@ -71,19 +71,23 @@ const PerpCOINMChart = ({
   };
 
   return (
-    <div className="relative">
-      <LoadingOverlay isLoading={isLoading} />      
-      <ChartComponent
-        seriesData={seriesData.filter((series) => visibleSeries[series.name])}
-        colors={colors}
-        priceFormat={priceFormat}
-      />      
-      <Legend
-        seriesData={seriesData}
-        visibleSeries={visibleSeries}
-        toggleSeriesVisibility={toggleSeriesVisibility}
-      />
-      
+    <div className="grid grid-cols-1">
+      <LoadingOverlay isLoading={isLoading} /> 
+
+      <div className="grid grid-cols-1 gap-4">
+        <ChartComponent
+          seriesData={seriesData.filter((series) => visibleSeries[series.name])}
+          colors={colors}
+          priceFormat={priceFormat}
+        />
+        <div className="justify-center">     
+          <Legend
+            seriesData={seriesData}
+            visibleSeries={visibleSeries}
+            toggleSeriesVisibility={toggleSeriesVisibility}
+          />
+        </div>
+      </div>
     </div>
   );
 };
