@@ -16,7 +16,7 @@ const Account = () => {
       <TotalBalanceAccounts 
         LoadingOverlay={LoadingOverlay}
       />
-      <div className="p-4 border-4 border-blue-500 grid grid-cols-1 gap-2">
+      <div className="p-4 grid grid-cols-1 gap-2 bg-african_violet-200">
         <AccountCharts 
           LoadingOverlay={LoadingOverlay} // Corregir nombre
         />

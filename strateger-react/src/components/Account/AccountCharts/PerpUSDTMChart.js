@@ -67,8 +67,7 @@ const PerpUSDTMChart = ({
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}
-      <h2>Perp USDT-M Chart</h2>
+      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}      
       <ChartComponent
         seriesData={seriesData.filter((series) => visibleSeries[series.name])}
         colors={colors}

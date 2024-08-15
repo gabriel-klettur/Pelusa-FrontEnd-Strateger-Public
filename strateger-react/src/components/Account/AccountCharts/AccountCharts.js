@@ -15,6 +15,8 @@ import { selectLastPrice } from '../../../redux/slices/tradingViewChartSlice';
 import { selectUSDTMTimeData } from '../../../redux/slices/accountSlice';
 import { selectSpotTimeData } from '../../../redux/slices/accountSlice';
 
+import Ventanita from '../../common/Ventanita';
+
 const AccountCharts = ({LoadingOverlay}) => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
@@ -23,30 +25,44 @@ const AccountCharts = ({LoadingOverlay}) => {
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      <div className="border-4 border-red-500">
-        <PerpUSDTMChart
-          perpUSDTMAccounts={perpUSDTMAccounts}          
-          ChartComponent={ChartComponent}
-          Legend={Legend}
-          LoadingOverlay={LoadingOverlay}
-
+      <div className="">
+        <Ventanita 
+          titulo="Perpetual USDT-M" 
+          contenido={
+            <PerpUSDTMChart
+              perpUSDTMAccounts={perpUSDTMAccounts}
+              ChartComponent={ChartComponent}
+              Legend={Legend}
+              LoadingOverlay={LoadingOverlay}
+            />
+          } 
         />
       </div>
-      <div className="border-4 border-red-500">
-        <SpotChart 
-          spotAccounts={spotAccounts} 
-          ChartComponent={ChartComponent} 
-          Legend={Legend} 
-          LoadingOverlay={LoadingOverlay}
+      <div className="">
+        <Ventanita
+          titulo="Spot"
+          contenido={
+            <SpotChart 
+              spotAccounts={spotAccounts} 
+              ChartComponent={ChartComponent} 
+              Legend={Legend} 
+              LoadingOverlay={LoadingOverlay}
+            />
+          }
         />
       </div>
-      <div className="border-4 border-red-500">
-        <PerpCOINMChart 
-          perpCOINMAccounts={perpCOINMAccounts} 
-          lastPrice={lastPrice} 
-          ChartComponent={ChartComponent} 
-          Legend={Legend} 
-          LoadingOverlay={LoadingOverlay} 
+      <div className="">
+        <Ventanita 
+          titulo="Perpetual COIN-M"
+          contenido={
+            <PerpCOINMChart
+              perpCOINMAccounts={perpCOINMAccounts}
+              lastPrice={lastPrice}
+              ChartComponent={ChartComponent}
+              Legend={Legend}
+              LoadingOverlay={LoadingOverlay}
+            />
+          }
         />
       </div>
     </div>

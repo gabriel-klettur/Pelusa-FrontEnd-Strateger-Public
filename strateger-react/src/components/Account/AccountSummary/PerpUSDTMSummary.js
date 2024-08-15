@@ -55,8 +55,7 @@ const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
 
   return (
     <div className="relative mb-4">
-      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}
-      <h3 className="text-xl font-bold mb-2">USDT-M Summary</h3>
+      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}      
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch

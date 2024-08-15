@@ -1,12 +1,14 @@
-// Path: strateger-react/src/components/Diary/DiaryEntry.js
-
 import React from 'react';
 import TarjetitaEditDelete from '../../common/TarjetitaEditDelete';
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {
   return (
     <TarjetitaEditDelete
-      entry={entry}
+      id={entry.id}
+      date={entry.date}
+      text={entry.text}
+      photos={entry.photos}
+      references={entry.references}
       onEdit={onEdit}
       onDelete={onDelete}
     />

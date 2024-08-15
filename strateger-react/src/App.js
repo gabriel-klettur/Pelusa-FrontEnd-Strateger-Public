@@ -38,7 +38,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-african_violet-400 text-african_violet-100">
+    <div className="min-h-screen bg-african_violet-200 text-african_violet-100">
       <div className="w-full"> {/* Usa todo el ancho de la pantalla */}
         <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
           <TabList className="flex bg-african_violet-200">

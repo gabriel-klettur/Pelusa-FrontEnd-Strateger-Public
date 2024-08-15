@@ -77,19 +77,20 @@ const SpotChart = ({
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={isLoading} />
-      <h2>Spot Chart</h2>
+      <LoadingOverlay isLoading={isLoading} />      
       <ChartComponent
         seriesData={seriesData.filter((series) => visibleSeries[series.name])}
         colors={colors}
         priceFormat={priceFormat}
       />
-      <Legend
-        seriesData={seriesData}
-        visibleSeries={visibleSeries}
-        toggleSeriesVisibility={toggleSeriesVisibility}
-      />
-    </div>
+      <div className="w-4 mt-2">
+        <Legend
+          seriesData={seriesData}
+          visibleSeries={visibleSeries}
+          toggleSeriesVisibility={toggleSeriesVisibility}
+        />
+      </div>
+    </div>          
   );
 };
 

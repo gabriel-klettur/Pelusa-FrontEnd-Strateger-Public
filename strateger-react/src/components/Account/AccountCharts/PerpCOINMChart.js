@@ -72,18 +72,18 @@ const PerpCOINMChart = ({
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={isLoading} />
-      <h2>Perp COIN-M Chart</h2>
+      <LoadingOverlay isLoading={isLoading} />      
       <ChartComponent
         seriesData={seriesData.filter((series) => visibleSeries[series.name])}
         colors={colors}
         priceFormat={priceFormat}
-      />
+      />      
       <Legend
         seriesData={seriesData}
         visibleSeries={visibleSeries}
         toggleSeriesVisibility={toggleSeriesVisibility}
       />
+      
     </div>
   );
 };

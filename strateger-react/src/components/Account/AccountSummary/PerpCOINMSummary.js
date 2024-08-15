@@ -58,8 +58,7 @@ const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   return (
     <div className="relative mb-4">
       <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}
-      
-      <h3 className="text-xl font-bold mb-2">Perp COIN-M Summary</h3>
+            
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch
