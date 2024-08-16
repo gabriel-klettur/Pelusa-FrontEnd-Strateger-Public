@@ -11,12 +11,17 @@ const DateForm = ({ date, handleChange, name }) => {
         value={date}
         onChange={handleChange}
         className="
-          w-64 
-          bg-african_violet-500
+          w-full
+          p-2
+          bg-african_violet-200
+          text-african_violet-800
           transition duration-300
           text-white
+          rounded-md
+          
         "
       />
+      
     </div>
   );
 };

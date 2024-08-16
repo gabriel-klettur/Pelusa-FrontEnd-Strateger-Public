@@ -7,7 +7,7 @@ const PaginationReferencesForm = ({ currentPage, totalPages, setCurrentPage }) =
     <div className="flex justify-center space-x-2 mt-4">
       <button
         type="button"
-        className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+        className={`px-4 py-2 rounded ${currentPage === 1 ? 'bg-african_violet-300 cursor-not-allowed' : 'bg-african_violet-500 hover:bg-african_violet-700 text-white'}`}
         onClick={() => setCurrentPage(currentPage - 1)}
         disabled={currentPage === 1}
       >
@@ -16,7 +16,7 @@ const PaginationReferencesForm = ({ currentPage, totalPages, setCurrentPage }) =
       <span className="px-4 py-2">{currentPage} / {totalPages}</span>
       <button
         type="button"
-        className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'}`}
+        className={`px-4 py-2 rounded ${currentPage === totalPages ? 'bg-african_violet-300 cursor-not-allowed' : 'bg-african_violet-500 hover:bg-african_violet-700 text-white'}`}
         onClick={() => setCurrentPage(currentPage + 1)}
         disabled={currentPage === totalPages}
       >

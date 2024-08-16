@@ -4,13 +4,12 @@ import React from 'react';
 
 const SelectedIds = ({ selectedIds }) => {
   return (
-    <div className="mt-4 mb-4">
-      <label className="block text-gray-700 font-semibold mb-2">Selected IDs</label>
+    <div className="">      
       <input
         type="text"
         value={selectedIds.join(';')}
         readOnly
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+        className="p-2 w-full rounded-md text-sm text-african_violet-800 bg-african_violet-200"
       />
     </div>
   );

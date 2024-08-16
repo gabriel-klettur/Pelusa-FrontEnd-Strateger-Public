@@ -9,6 +9,8 @@ import DiaryItem from './DiaryItem';
 import PaginationReferencesForm from './PaginationReferencesForm';
 import SelectedIds from './SelectedIds';
 
+import Ventanita from '../../../common/Ventanita';
+
 const ReferencesForm = ({
   alarms, orders, strategies, diaryEntries, handleSelectReference,
   handleAddId, isSelected, currentPage, itemsPerPage, setCurrentPage, selectedIds
@@ -23,13 +25,16 @@ const ReferencesForm = ({
   return (
     <div className="mb-4">      
       <Tab.Group onChange={() => setCurrentPage(1)}>
-        <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
+        
+        {/* ----------------------------------------------------------------- Tabs ------------------------------------------------------------------*/}
+        <Tab.List className="flex bg-african_violet-300 text-blue-300">
           {['Alarms', 'Orders', 'Strategies', 'Diary'].map((tab, index) => (
             <Tab
               key={tab}
               className={({ selected }) =>
-                `w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg ${
-                  selected ? 'bg-white shadow' : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                `w-full py-2 font-medium text-african_violet-900'
+                ${
+                  selected ? 'text-african_violet-900' : 'text-african_violet-500 hover:bg-african_violet-900 hover:text-african_violet-300'
                 }`
               }
             >
@@ -37,8 +42,12 @@ const ReferencesForm = ({
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-2">
-          <Tab.Panel className="bg-white rounded-xl p-3">
+
+        {/* ----------------------------------------------------------------- Panels ------------------------------------------------------------------*/}
+        <Tab.Panels className="">
+
+          {/* ----------------------------------------------------------------- Alarms ------------------------------------------------------------------*/}
+          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
             {getCurrentItems(alarms).map(alarm => (
               <AlarmItem
                 key={`alarm-${alarm.id}`}
@@ -54,7 +63,9 @@ const ReferencesForm = ({
               setCurrentPage={setCurrentPage}
             />
           </Tab.Panel>
-          <Tab.Panel className="bg-white rounded-xl p-3">
+
+          {/* ----------------------------------------------------------------- Orders ------------------------------------------------------------------*/}
+          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
             {getCurrentItems(orders).map(order => (
               <OrderItem
                 key={`order-${order.orderId}`}
@@ -70,7 +81,9 @@ const ReferencesForm = ({
               setCurrentPage={setCurrentPage}
             />
           </Tab.Panel>
-          <Tab.Panel className="bg-white rounded-xl p-3">
+
+          {/* ----------------------------------------------------------------- Strategies ------------------------------------------------------------------*/}
+          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
             {getCurrentItems(strategies).map(strategy => (
               <StrategyItem
                 key={`strategy-${strategy.id}`}
@@ -86,7 +99,9 @@ const ReferencesForm = ({
               setCurrentPage={setCurrentPage}
             />
           </Tab.Panel>
-          <Tab.Panel className="bg-white rounded-xl p-3">
+
+          {/* ----------------------------------------------------------------- Diary ------------------------------------------------------------------*/}
+          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
             {getCurrentItems(diaryEntries).map(diary => (
               <DiaryItem
                 key={`diary-${diary.id}`}
@@ -102,9 +117,24 @@ const ReferencesForm = ({
               setCurrentPage={setCurrentPage}
             />
           </Tab.Panel>
+
+
         </Tab.Panels>
       </Tab.Group>
-      <SelectedIds selectedIds={selectedIds} />
+
+      {/* ----------------------------------------------------------------- Selected Reference ------------------------------------------------------------------*/}
+      <div className='mt-4'>
+        <Ventanita
+          titulo={
+            "Selected Reference"
+          }
+          contenido={
+            <SelectedIds selectedIds={selectedIds} />
+          }
+        />
+      </div>
+      
+
     </div>
   );
 };

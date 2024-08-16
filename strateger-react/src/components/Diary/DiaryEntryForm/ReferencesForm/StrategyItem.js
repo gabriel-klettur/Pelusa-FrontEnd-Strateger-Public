@@ -10,14 +10,14 @@ const StrategyItem = ({ strategy, onSelect, isSelected, onAdd }) => {
   };
 
   return (
-    <div className="border-b border-gray-200 py-2">
+    <div className="border-b border-african_violet-300 py-2">
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
           <span className={isSelected ? 'font-bold' : ''}>{strategy.name}</span>
         </div>
         <button
           type="button" // Asegúrate de que el tipo sea "button"
-          className="ml-4 bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
+          className="ml-4 bg-african_violet-400 hover:bg-african_violet-700 text-white px-2 py-1 rounded"   
           onClick={() => onAdd("Strategy:"+strategy.id)}
         >
           Agregar

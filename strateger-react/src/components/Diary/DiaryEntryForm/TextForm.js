@@ -13,7 +13,10 @@ const TextForm = ({ text, handleChange, error }) => {
         className={`           
           w-full  
           p-2               
-          bg-african_violet-500    
+          bg-african_violet-200    
+          rounded-md
+          text-sm
+          text-african_violet-800
           focus:ring focus:ring-blue-200 focus:border-blue-500 
           ${error ? 'border-red-500' : ''} 
         `}        

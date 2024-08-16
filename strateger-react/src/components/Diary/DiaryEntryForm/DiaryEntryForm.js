@@ -185,7 +185,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
               }
             />
             
-            <div className="flex space-x-4">
+            <div className="flex justify-between">
               <button
                 type="submit"
                 className={`font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 ${
@@ -196,12 +196,13 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
               </button>
               <button
                 type="button"
-                className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+                className="bg-african_violet-400 hover:bg-african_violet-300 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
                 onClick={handleClear}
               >
                 Clear Entry
               </button>
             </div>
+
           </form>
         } 
       />              
