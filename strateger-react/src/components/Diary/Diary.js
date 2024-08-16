@@ -5,6 +5,8 @@ import useDiary from './hooks/useDiary';
 import DiaryList from './DiaryList/DiaryList';
 import DiaryEntryForm from './DiaryEntryForm/DiaryEntryForm';
 
+import Ventanita from '../common/Ventanita';
+
 const Diary = () => {
   const {
     entries,
@@ -16,20 +18,28 @@ const Diary = () => {
   } = useDiary();
 
   return (
-    <div className="grid grid-cols-10 gap-1 bg-african_violet-900">
-      <div className="col-span-4 bg-white border border-african_violet-200 p-6 rounded-lg shadow-md">
-        <DiaryEntryForm
-          onSave={handleAddOrUpdateEntry}
-          entry={editingEntry}
-          onCancelEdit={handleCancelEdit}
-        />
-      </div>
-      <div className="col-span-6 bg-white border border-african_violet-200 p-6 rounded-lg shadow-md">
-        <DiaryList 
-          entries={entries} 
-          onEdit={handleEditEntry} 
-          onDelete={handleDeleteEntry} 
-        />
+    <div className="grid grid-cols-10 gap-1 bg-african_violet-200">
+      <div className="col-span-4">        {/* COLUMN LEFT */}
+        
+            <DiaryEntryForm
+              onSave={handleAddOrUpdateEntry}
+              entry={editingEntry}
+              onCancelEdit={handleCancelEdit}
+            />
+          
+                
+      </div>      
+      <div className="col-span-6 p-2">        {/* COLUMN RIGHT */}
+        <Ventanita
+           titulo="Diary Entries"
+           contenido={
+            <DiaryList 
+              entries={entries} 
+              onEdit={handleEditEntry} 
+              onDelete={handleDeleteEntry} 
+            />
+           }
+        />        
       </div>
     </div>
   );

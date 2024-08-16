@@ -3,6 +3,8 @@
 import React from 'react';
 import DiaryEntry from './DiaryEntry';
 
+import Ventanita from '../../common/Ventanita';
+
 const DiaryList = ({ entries, onEdit, onDelete }) => {
   return (
     <div>
@@ -10,12 +12,20 @@ const DiaryList = ({ entries, onEdit, onDelete }) => {
         <p>No entries found.</p>
       ) : (
         entries.map((entry) => (
-          <DiaryEntry
-            key={`diary-entry-${entry.id}`}
-            entry={entry}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
+          <div className='mb-4'>
+
+            <Ventanita
+              titulo={`Diary Entry ${entry.id}`}
+              contenido={
+                <DiaryEntry
+                  key={`diary-entry-${entry.id}`}
+                  entry={entry}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
+              }
+            />
+          </div>
         ))
       )}
     </div>

@@ -3,6 +3,7 @@ import TarjetitaEditDelete from '../../common/TarjetitaEditDelete';
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {
   return (
+    
     <TarjetitaEditDelete
       id={entry.id}
       date={entry.date}

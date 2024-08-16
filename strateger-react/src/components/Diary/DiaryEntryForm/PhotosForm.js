@@ -13,8 +13,7 @@ const PhotosForm = ({ photos, handlePhotoChange, fileInputRef }) => {
   };
 
   return (
-    <div className="mb-4">
-      <label className="block text-gray-700 font-semibold mb-2">Photos</label>
+    <div className="">      
       {photos.length > 0 && (
         <Slider {...sliderSettings} className="mb-4">
           {photos.map((photo, index) => (
@@ -34,7 +33,17 @@ const PhotosForm = ({ photos, handlePhotoChange, fileInputRef }) => {
         multiple
         onChange={handlePhotoChange}
         ref={fileInputRef}
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+        className="                    
+          w-full 
+          focus:ring focus:ring-blue-200 focus:border-blue-500
+          file:bg-african_violet-500          
+          file:text-white
+          file:py-2 
+          file:px-4 
+          file:rounded
+          file:border-none
+          file:cursor-pointer
+        "
       />
     </div>
   );

@@ -8,6 +8,8 @@ import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/ReferencesForm';
 
+import Ventanita from '../../common/Ventanita';
+
 const currentDate = new Date().toISOString().slice(0, 16);
 
 const initialState = {
@@ -115,55 +117,94 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   return (
     <div className="col-span-10">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
-        <h3 className="text-xl font-bold mb-6">
-          {entry ? 'Editing Entry' : 'Add New Entry'}
-        </h3>
-        
-        {errors.global && (
-          <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
-            {errors.global}
+      <Ventanita 
+        titulo={
+          <div>
+            {entry ? 'Editing Entry' : 'Add New Entry'}
           </div>
-        )}
-        
-        <DateForm date={formData.date} handleChange={handleChange} name="date" />
-        
-        <TextForm text={formData.text} handleChange={handleChange} error={errors.text} />
-        
-        <PhotosForm photos={formData.photos} handlePhotoChange={handlePhotoChange} fileInputRef={fileInputRef} />
-        
-        <ReferencesForm
-          alarms={alarms}
-          orders={orders}
-          strategies={strategies}
-          diaryEntries={diaryEntries}
-          handleSelectReference={handleSelectReference}
-          handleAddId={handleAddId}
-          isSelected={isSelected}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-          selectedIds={selectedIds}
-        />
+        }
+        contenido={
+          <form onSubmit={handleSubmit} className="">               
+            
+            {errors.global && (
+              <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
+                {errors.global}
+              </div>
+            )}
+            
+            <Ventanita 
+              titulo="Date / Time"
+              contenido={
+                <DateForm 
+                  date={formData.date} 
+                  handleChange={handleChange} 
+                  name="date"             
+                />
+              }
+            />
+            
+            <Ventanita
+              titulo="Comment"
+              contenido={
+                <TextForm
+                  text={formData.text}
+                  handleChange={handleChange}
+                  error={errors.text}
+                />
+              }
+            />            
+            
+            <Ventanita
+              titulo='Photos'
+              contenido={
+                <PhotosForm
+                  photos={formData.photos}
+                  handlePhotoChange={handlePhotoChange}
+                  fileInputRef={fileInputRef}
+                />
+              }
+            />
+            
+            <Ventanita
+              titulo="References"
 
-        <div className="flex space-x-4">
-          <button
-            type="submit"
-            className={`font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 ${
-              entry ? 'bg-orange-500 hover:bg-orange-700 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
-            }`}
-          >
-            {entry ? 'Modify Entry' : 'Save Entry'}
-          </button>
-          <button
-            type="button"
-            className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
-            onClick={handleClear}
-          >
-            Clear Entry
-          </button>
-        </div>
-      </form>        
+              contenido={
+                <ReferencesForm
+                  alarms={alarms}
+                  orders={orders}
+                  strategies={strategies}
+                  diaryEntries={diaryEntries}
+                  handleSelectReference={handleSelectReference}
+                  handleAddId={handleAddId}
+                  isSelected={isSelected}
+                  currentPage={currentPage}
+                  itemsPerPage={itemsPerPage}
+                  setCurrentPage={setCurrentPage}
+                  selectedIds={selectedIds}
+                />
+              }
+            />
+            
+            <div className="flex space-x-4">
+              <button
+                type="submit"
+                className={`font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 ${
+                  entry ? 'bg-orange-500 hover:bg-orange-700 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
+                }`}
+              >
+                {entry ? 'Modify Entry' : 'Save Entry'}
+              </button>
+              <button
+                type="button"
+                className="bg-gray-500 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+                onClick={handleClear}
+              >
+                Clear Entry
+              </button>
+            </div>
+          </form>
+        } 
+      />              
     </div>
   );
 };

@@ -21,8 +21,7 @@ const ReferencesForm = ({
   const totalPages = (items) => Math.ceil(items.length / itemsPerPage);
 
   return (
-    <div className="mb-4">
-      <label className="block text-gray-700 font-semibold mb-2">References</label>
+    <div className="mb-4">      
       <Tab.Group onChange={() => setCurrentPage(1)}>
         <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
           {['Alarms', 'Orders', 'Strategies', 'Diary'].map((tab, index) => (
