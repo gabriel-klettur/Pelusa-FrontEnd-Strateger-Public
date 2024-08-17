@@ -22,15 +22,22 @@ const ReferencesForm = ({
 
   const totalPages = (items) => Math.ceil(items.length / itemsPerPage);
 
+  const panelsMap = new Map([
+    ['Alarms', { items: alarms, component: AlarmItem, itemKey: 'alarm' }],
+    ['Orders', { items: orders, component: OrderItem, itemKey: 'order' }],
+    ['Strategies', { items: strategies, component: StrategyItem, itemKey: 'strategy' }],
+    ['Diary', { items: diaryEntries, component: DiaryItem, itemKey: 'diary' }],
+  ]);  
+
   return (
-    <div className="mb-4">      
+    <div className="mb-4">
       <Tab.Group onChange={() => setCurrentPage(1)}>
         
         {/* ----------------------------------------------------------------- Tabs ------------------------------------------------------------------*/}
         <Tab.List className="flex bg-african_violet-300 text-blue-300">
-          {['Alarms', 'Orders', 'Strategies', 'Diary'].map((tab, index) => (
+          {Array.from(panelsMap.keys()).map((label) => (
             <Tab
-              key={tab}
+              key={label}
               className={({ selected }) =>
                 `w-full py-2 font-medium text-african_violet-900'
                 ${
@@ -38,103 +45,41 @@ const ReferencesForm = ({
                 }`
               }
             >
-              {tab}
+              {label}
             </Tab>
           ))}
         </Tab.List>
 
         {/* ----------------------------------------------------------------- Panels ------------------------------------------------------------------*/}
         <Tab.Panels className="">
-
-          {/* ----------------------------------------------------------------- Alarms ------------------------------------------------------------------*/}
-          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
-            {getCurrentItems(alarms).map(alarm => (
-              <AlarmItem
-                key={`alarm-${alarm.id}`}
-                alarm={alarm}
-                onSelect={() => handleSelectReference('alarm', alarm.id)}
-                isSelected={isSelected('alarm', alarm.id)}
-                onAdd={handleAddId}
+          {Array.from(panelsMap.entries()).map(([label, { items, component: Component, itemKey }]) => (
+            <Tab.Panel key={label} className="bg-african_violet-200 pl-2 pr-2 pb-2">
+              {getCurrentItems(items).map((item) => (
+                <Component
+                  key={`${itemKey}-${item.id || item.orderId}`}
+                  {...{ [itemKey]: item }}
+                  onSelect={() => handleSelectReference(itemKey, item.id || item.orderId)}
+                  isSelected={isSelected(itemKey, item.id || item.orderId)}
+                  onAdd={handleAddId}
+                />
+              ))}
+              <PaginationReferencesForm
+                currentPage={currentPage}
+                totalPages={totalPages(items)}
+                setCurrentPage={setCurrentPage}
               />
-            ))}
-            <PaginationReferencesForm
-              currentPage={currentPage}
-              totalPages={totalPages(alarms)}
-              setCurrentPage={setCurrentPage}
-            />
-          </Tab.Panel>
-
-          {/* ----------------------------------------------------------------- Orders ------------------------------------------------------------------*/}
-          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
-            {getCurrentItems(orders).map(order => (
-              <OrderItem
-                key={`order-${order.orderId}`}
-                order={order}
-                onSelect={() => handleSelectReference('order', order.orderId)}
-                isSelected={isSelected('order', order.orderId)}
-                onAdd={handleAddId}
-              />
-            ))}
-            <PaginationReferencesForm
-              currentPage={currentPage}
-              totalPages={totalPages(orders)}
-              setCurrentPage={setCurrentPage}
-            />
-          </Tab.Panel>
-
-          {/* ----------------------------------------------------------------- Strategies ------------------------------------------------------------------*/}
-          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
-            {getCurrentItems(strategies).map(strategy => (
-              <StrategyItem
-                key={`strategy-${strategy.id}`}
-                strategy={strategy}
-                onSelect={() => handleSelectReference('strategy', strategy.id)}
-                isSelected={isSelected('strategy', strategy.id)}
-                onAdd={handleAddId}
-              />
-            ))}
-            <PaginationReferencesForm
-              currentPage={currentPage}
-              totalPages={totalPages(strategies)}
-              setCurrentPage={setCurrentPage}
-            />
-          </Tab.Panel>
-
-          {/* ----------------------------------------------------------------- Diary ------------------------------------------------------------------*/}
-          <Tab.Panel className="bg-african_violet-200 pl-2 pr-2 pb-2">
-            {getCurrentItems(diaryEntries).map(diary => (
-              <DiaryItem
-                key={`diary-${diary.id}`}
-                diary={diary}
-                onSelect={() => handleSelectReference('diary', diary.id)}
-                isSelected={isSelected('diary', diary.id)}
-                onAdd={handleAddId}
-              />
-            ))}
-            <PaginationReferencesForm
-              currentPage={currentPage}
-              totalPages={totalPages(diaryEntries)}
-              setCurrentPage={setCurrentPage}
-            />
-          </Tab.Panel>
-
-
+            </Tab.Panel>
+          ))}
         </Tab.Panels>
       </Tab.Group>
 
       {/* ----------------------------------------------------------------- Selected Reference ------------------------------------------------------------------*/}
       <div className='mt-4'>
         <Ventanita
-          titulo={
-            "Selected Reference"
-          }
-          contenido={
-            <SelectedIds selectedIds={selectedIds} />
-          }
+          titulo={"Selected Reference"}
+          contenido={<SelectedIds selectedIds={selectedIds} />}
         />
       </div>
-      
-
     </div>
   );
 };
