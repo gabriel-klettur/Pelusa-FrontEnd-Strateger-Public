@@ -14,7 +14,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
 
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
-          <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Ticker}]-[{alarm.Time_Alert}] </span>
+          <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Time_Alert}]-[{alarm.Temporalidad}]-[{alarm.Order}] </span>
         </div>
         <button
           type="button" // Asegúrate de que el tipo sea "button"

@@ -13,7 +13,7 @@ const StrategyItem = ({ strategy, onSelect, isSelected, onAdd }) => {
     <div className="border-b border-african_violet-300 py-2">
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
-          <span className={isSelected ? 'font-bold' : ''}>{strategy.name}</span>
+          <span className={isSelected ? 'font-bold' : ''}>{strategy.alarmName} - {strategy.account_type}</span>
         </div>
         <button
           type="button" // Asegúrate de que el tipo sea "button"
@@ -25,7 +25,7 @@ const StrategyItem = ({ strategy, onSelect, isSelected, onAdd }) => {
       </div>
       {expanded && (
         <div className="mt-2">
-          <div><strong>Ticker:</strong> {strategy.ticker}</div>
+          <div><strong>Id:</strong> {strategy.id}</div>
           <div><strong>On Start Date:</strong> {strategy.onStartDate}</div>
           <div><strong>Off End Date:</strong> {strategy.offEndDate}</div>
           <div><strong>Long Entry Order:</strong> {strategy.longEntryOrder}</div>
