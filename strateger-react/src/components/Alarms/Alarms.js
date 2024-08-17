@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms, selectSelectedTemporalidad, selectSelectedTypes } from '../../redux/slices/alarmSlice';
-import AlarmList from './AlarmList';
+import AlarmListContainer from './containers/AlarmListContainer';
 
 
 const Alarms = () => {
@@ -70,7 +70,7 @@ const Alarms = () => {
 
   return (
     <>      
-      <AlarmList 
+      <AlarmListContainer 
         alarms={alarms} 
         loading={loading} 
         error={error} 
