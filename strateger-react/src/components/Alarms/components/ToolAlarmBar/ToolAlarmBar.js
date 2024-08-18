@@ -13,7 +13,7 @@ import {
   setSelectedTypes, 
   selectSelectedTemporalidad, 
   selectSelectedTypes 
-} from '../../../redux/slices/alarmSlice';
+} from '../../../../redux/slices/alarmSlice';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
 const types = [

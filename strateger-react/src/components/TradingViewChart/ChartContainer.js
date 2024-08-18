@@ -8,7 +8,7 @@ import useMarkers from './hooks/useMarkers';
 import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
 import Toolbar from './Toolbar';
 import { selectSelectedTab } from '../../redux/slices/tabSlice';
-import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
+import ToolAlarmBar from '../Alarms/components/ToolAlarmBar/ToolAlarmBar';
 import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
 import DiaryCalendar from '../Diary/DiaryCalendar';
 import SummaryChart from '../Account/AccountCharts/SummaryChart';
