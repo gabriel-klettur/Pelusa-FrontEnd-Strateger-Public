@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpUSDTMChart.js
 
 import React, { useState, useEffect } from 'react';
-import ContenedorChartWallet from '../../common/ContenedorChartWallet';
+import ContenedorChartWallet from '../../../common/ContenedorChartWallet';
 
 const PerpUSDTMChart = ({
   perpUSDTMAccounts,    

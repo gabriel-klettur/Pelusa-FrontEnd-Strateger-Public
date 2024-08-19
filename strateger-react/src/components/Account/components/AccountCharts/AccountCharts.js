@@ -7,15 +7,15 @@ import PerpUSDTMChart from './PerpUSDTMChart';
 import SpotChart from './SpotChart';
 import PerpCOINMChart from './PerpCOINMChart';
 
-import { ChartComponent } from '../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../TradingViewLineal/Legend';
+import { ChartComponent } from '../../../TradingViewLineal/TradingViewLineal';
+import Legend from '../../../TradingViewLineal/Legend';
 
-import { selectCoinMTimeData } from '../../../redux/slices/accountSlice';
-import { selectLastPrice } from '../../../redux/slices/tradingViewChartSlice';
-import { selectUSDTMTimeData } from '../../../redux/slices/accountSlice';
-import { selectSpotTimeData } from '../../../redux/slices/accountSlice';
+import { selectCoinMTimeData } from '../../../../redux/slices/accountSlice';
+import { selectLastPrice } from '../../../../redux/slices/tradingViewChartSlice';
+import { selectUSDTMTimeData } from '../../../../redux/slices/accountSlice';
+import { selectSpotTimeData } from '../../../../redux/slices/accountSlice';
 
-import Ventanita from '../../common/Ventanita';
+import Ventanita from '../../../common/Ventanita';
 
 const AccountCharts = ({LoadingOverlay}) => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);

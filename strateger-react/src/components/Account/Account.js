@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-import AccountSummary from './AccountSummary/AccountSummary';
-import AccountCharts from './AccountCharts/AccountCharts'; // Corregir nombre
-import AccountInformation from './AccountInformation/AccountInformation';
-import TotalBalanceAccounts from './TotalBalanceAccounts';
+import AccountSummary from './components/AccountSummary/AccountSummary';
+import AccountCharts from './components/AccountCharts/AccountCharts'; // Corregir nombre
+import AccountInformation from './components/AccountInformation/AccountInformation';
+import TotalBalanceAccounts from './components/TotalBalanceAccounts';
 
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 

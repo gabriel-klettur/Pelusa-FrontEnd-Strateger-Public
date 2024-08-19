@@ -3,13 +3,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectTicker } from '../../../redux/slices/tickerSlice';
+import { selectTicker } from '../../../../redux/slices/tickerSlice';
 
 import PerpUSDTMSummary from './PerpUSDTMSummary';
 import SpotSummary from './SpotSummary';
 import PerpCOINMSummary from './PerpCOINMSummary';
 
-import Ventanita from '../../common/Ventanita';
+import Ventanita from '../../../common/Ventanita';
 
 const AccountSummary = ({LoadingOverlay}) => {
 

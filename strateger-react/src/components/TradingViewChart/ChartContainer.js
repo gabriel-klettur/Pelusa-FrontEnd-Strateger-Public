@@ -10,10 +10,9 @@ import useMarkers from './hooks/useMarkers';
 import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
 import { selectSelectedTab } from '../../redux/slices/tabSlice';
 
-
 import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
 import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';
-import SummaryChart from '../Account/AccountCharts/SummaryChart';
+import { SummaryChart } from '../Account';
 import { ToolAlarmBar } from '../Alarms';
 import { ToolOrderBar }  from '../Orders';
 

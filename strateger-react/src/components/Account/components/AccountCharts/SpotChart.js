@@ -1,8 +1,8 @@
 // Path: strateger-react/src/components/Account/AccountCharts/SpotChart.js
 
 import React, { useState, useEffect } from 'react';
-import getRandomColor from '../../common/getRandomColor';
-import ContenedorChartWallet from '../../common/ContenedorChartWallet';
+import getRandomColor from '../../../common/getRandomColor';
+import ContenedorChartWallet from '../../../common/ContenedorChartWallet';
 
 const SpotChart = ({
     spotAccounts,

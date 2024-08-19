@@ -8,9 +8,9 @@ import {
   fetchPerpUSDTMBalance,
   selectPerpUSDTM,
   updateTotalBalanceInUSD,
-} from '../../../redux/slices/accountSlice';
+} from '../../../../redux/slices/accountSlice';
 
-import Tarjetitas from '../../common/Tarjetitas';
+import Tarjetitas from '../../../common/Tarjetitas';
 
 const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();
