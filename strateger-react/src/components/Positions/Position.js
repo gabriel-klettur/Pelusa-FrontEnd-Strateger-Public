@@ -1,5 +1,5 @@
 import React from 'react';
-import PositionSummary from './PositionSummary/PositionSummary';
+import PositionSummary from './components/PositionSummary/PositionSummary';
 
 const Position = () => {
 
