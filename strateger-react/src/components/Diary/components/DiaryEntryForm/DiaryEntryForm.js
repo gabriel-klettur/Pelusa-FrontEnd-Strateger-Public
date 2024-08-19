@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImages } from '../../../../redux/slices/diarySlice';
-import DateForm from '../../../DateForm'
+import DateForm from '../../../common/DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/ReferencesForm';

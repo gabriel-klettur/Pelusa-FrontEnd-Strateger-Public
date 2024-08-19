@@ -13,7 +13,7 @@ import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
 import { Backtesting } from './components/Backtesting';
-import Reloj from './components/Reloj';
+import Reloj from './components/common/Reloj';
 
 const App = () => {
   const dispatch = useDispatch();
