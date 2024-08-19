@@ -2,17 +2,23 @@
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import useChartData from './hooks/useChartData';
 import useChart from './hooks/useChart';
 import useMarkers from './hooks/useMarkers';
+
 import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
-import Toolbar from './Toolbar';
 import { selectSelectedTab } from '../../redux/slices/tabSlice';
-import { ToolAlarmBar } from '../Alarms';
-import { ToolOrderBar }  from '../Orders';
+
+
+import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
 import DiaryCalendar from '../Diary/DiaryCalendar';
 import SummaryChart from '../Account/AccountCharts/SummaryChart';
-import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
+import { ToolAlarmBar } from '../Alarms';
+import { ToolOrderBar }  from '../Orders';
+
+import Toolbar from './Toolbar';
+
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
 // Importa las imágenes que quieres usar para cada tab

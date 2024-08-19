@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import OrderList from './OrderList/OrderList';
+import OrderList from './components/OrderList/OrderList';
 
 const Orders = () => {
   const [viewType, setViewType] = useState('Orders Perp USDT-M');

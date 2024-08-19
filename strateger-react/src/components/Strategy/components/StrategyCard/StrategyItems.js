@@ -3,9 +3,12 @@
 import React, { useState } from 'react';
 import './StrategyItems.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStrategyFilteredAlarms } from '../../../redux/slices/alarmSlice';
-import { FilteredOrderList } from '../../Orders';
-import Ventanita from '../../common/Ventanita'; // Asegúrate de importar Ventanita
+
+import { FilteredOrderList } from '../../../Orders';
+
+import { setStrategyFilteredAlarms } from '../../../../redux/slices/alarmSlice';
+
+import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();
