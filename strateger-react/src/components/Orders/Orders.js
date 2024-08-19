@@ -38,12 +38,16 @@ const Orders = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <OrderList />
+
+            <OrderList />       {/* This is the component that will display Perpr USDT-M Orders */}
+            
           </TabPanel>
           <TabPanel>
+
             <div>
               Waiting for BINGXAPI endpoint implementation
             </div>
+
           </TabPanel>
         </TabPanels>
       </TabGroup>
