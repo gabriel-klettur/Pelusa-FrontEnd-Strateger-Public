@@ -1,5 +1,5 @@
 import React from 'react';
-import TarjetitaEditDelete from '../../common/TarjetitaEditDelete';
+import TarjetitaEditDelete from '../../../common/TarjetitaEditDelete';
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {
   return (

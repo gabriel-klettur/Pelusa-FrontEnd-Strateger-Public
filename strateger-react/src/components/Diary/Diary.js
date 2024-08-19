@@ -2,8 +2,8 @@
 
 import React from 'react';
 import useDiary from './hooks/useDiary';
-import DiaryList from './DiaryList/DiaryList';
-import DiaryEntryForm from './DiaryEntryForm/DiaryEntryForm';
+import DiaryList from './components/DiaryList/DiaryList';
+import DiaryEntryForm from './components/DiaryEntryForm/DiaryEntryForm';
 
 import Ventanita from '../common/Ventanita';
 

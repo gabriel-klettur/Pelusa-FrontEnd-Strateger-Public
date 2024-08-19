@@ -2,13 +2,13 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImages } from '../../../redux/slices/diarySlice';
-import DateForm from '../../DateForm'
+import { uploadImages } from '../../../../redux/slices/diarySlice';
+import DateForm from '../../../DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/ReferencesForm';
 
-import Ventanita from '../../common/Ventanita';
+import Ventanita from '../../../common/Ventanita';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
