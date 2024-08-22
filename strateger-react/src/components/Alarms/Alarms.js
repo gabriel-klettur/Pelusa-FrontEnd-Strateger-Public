@@ -1,47 +1,22 @@
-// Alarms.js
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage, setSelectedAlarms, setAllSelectedAlarms, selectSelectedTemporalidad, selectSelectedTypes } from '../../redux/slices/alarmSlice';
-import AlarmListContainer from './containers/AlarmListContainer';
+// Path: strateger-react/src/components/Alarms/Alarms.js
+import React from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAlarms, setPage, setSelectedAlarms } from '../../redux/slices/alarmSlice'; // Asegúrate de importar fetchAlarms aquí
+
+import useFetchAlarms from './hooks/useFetchAlarms';
+import useSetAllSelectedAlarms from './hooks/useSetAllSelectedAlarms';
+import useSetSelectedAlarms from './hooks/useSetSelectedAlarms';
+
+import AlarmListContainer from './containers/AlarmContainer';
 
 const Alarms = () => {
   const dispatch = useDispatch();
   const { alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
-  const selectedTemporalidad = useSelector(selectSelectedTemporalidad);
-  const selectedTypes = useSelector(selectSelectedTypes);
 
-  useEffect(() => {
-    if (alarms.length === 0) {
-      dispatch(fetchAlarms({ limit: 500, offset: 0 }));
-    }
-  }, [dispatch, alarms.length]);
-
-  useEffect(() => {
-    const allAlarms = [];
-    Object.keys(selectedTypes).forEach(temporalidad => {
-      const types = selectedTypes[temporalidad] || [];
-      const filteredAlarms = alarms.filter(alarm => 
-        (temporalidad === '' || alarm.Temporalidad === temporalidad) &&
-        (types.length === 0 || types.includes(alarm.Order))
-      );
-      allAlarms.push(...filteredAlarms);
-    });
-    dispatch(setAllSelectedAlarms(allAlarms));
-  }, [selectedTypes, alarms, dispatch]);
-
-  useEffect(() => {
-    if (selectedTemporalidad) {
-      const types = selectedTypes[selectedTemporalidad] || [];
-      const filteredAlarms = alarms.filter(alarm => 
-        (selectedTemporalidad === '' || alarm.Temporalidad === selectedTemporalidad) &&
-        (types.length === 0 || types.includes(alarm.Order))
-      );
-      dispatch(setSelectedAlarms(filteredAlarms));
-    } else {
-      dispatch(setSelectedAlarms([]));
-    }
-  }, [selectedTemporalidad, selectedTypes, alarms, dispatch]);
+  useFetchAlarms();             // Cargar alarmas al montar el componente
+  useSetAllSelectedAlarms();    // Actualiuzar las alarmas seleccionadas segun los tipos seleccionados
+  useSetSelectedAlarms();       // Actualizar las alarmas según la temporalidad seleccionada
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));
@@ -50,7 +25,7 @@ const Alarms = () => {
   const handleNextPage = () => {
     const nextPage = page + 1;
     if (nextPage * 20 >= alarms.length && hasMore) {
-      dispatch(fetchAlarms({ limit: 500, offset }));
+      dispatch(fetchAlarms({ limit: 500, offset })); // Ahora fetchAlarms estará definido
     }
     dispatch(setPage(nextPage));
   };

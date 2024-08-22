@@ -1,8 +1,8 @@
 // Path: strateger-react/src/components/Alarms/AlarmList/AlarmList.js
 
 import React, { useState, useEffect } from 'react';
-import AlarmTable from '../components/AlarmTable';
-import Pagination from '../components/Pagination';
+import AlarmTable from '../components/AlarmTable/AlarmTable';
+import Pagination from '../components/AlarmTable/Pagination';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 const AlarmListContainer = ({ alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset, handlePreviousPage, handleNextPage, handleSelectAlarm }) => {

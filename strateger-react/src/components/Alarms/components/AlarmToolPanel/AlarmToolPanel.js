@@ -23,7 +23,7 @@ const types = [
   'indicator open short', 'indicator close short'
 ];
 
-const ToolAlarmBar = () => {
+const AlarmToolPanel = () => {
   const dispatch = useDispatch();
   const selectedTemporalidad = useSelector(selectSelectedTemporalidad);
   const selectedTypes = useSelector(selectSelectedTypes);
@@ -144,4 +144,4 @@ const ToolAlarmBar = () => {
   );
 };
 
-export default ToolAlarmBar;
+export default AlarmToolPanel;

@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
 
 import React from 'react';
-import Tablita from '../../common/Tablita';
+import Tablita from '../../../common/Tablita';
 import AlarmRow from './AlarmRow';
 
 const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
