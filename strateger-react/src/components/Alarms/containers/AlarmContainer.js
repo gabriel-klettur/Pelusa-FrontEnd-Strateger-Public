@@ -40,10 +40,10 @@ const AlarmListContainer = ({ alarms, loading, error, page, selectedAlarms, allS
             Alarms
           </button>
           <button onClick={() => setViewType('selectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'selectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
-            Selected Alarms
+            Filtered by Interval
           </button>
           <button onClick={() => setViewType('allSelectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'allSelectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
-            All Selected Alarms
+            Filtered by Interval and Type
           </button>
         </div>
         <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleSelectAlarm} />

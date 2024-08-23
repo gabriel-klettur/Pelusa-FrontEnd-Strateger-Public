@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAlarms, setPage, setSelectedAlarms } from '../../redux/slices/alarmSlice'; // Asegúrate de importar fetchAlarms aquí
 
 import useFetchAlarms from './hooks/useFetchAlarms';
-import useSetAllSelectedAlarms from './hooks/useSetAllSelectedAlarms';
-import useSetSelectedAlarms from './hooks/useSetSelectedAlarms';
+import useFilterAlarmsByIntervalAndType from './hooks/useFilterAlarmsByIntervalAndType';
+import useFilterAlarmsByInterval from './hooks/useFilterAlarmsByInterval';
 
 import AlarmListContainer from './containers/AlarmContainer';
 
@@ -14,9 +14,9 @@ const Alarms = () => {
   const dispatch = useDispatch();
   const { alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
 
-  useFetchAlarms();             // Cargar alarmas al montar el componente
-  useSetAllSelectedAlarms();    // Actualiuzar las alarmas seleccionadas segun los tipos seleccionados
-  useSetSelectedAlarms();       // Actualizar las alarmas según la temporalidad seleccionada
+  useFetchAlarms();             // Cargar alarmas al montar el componente  
+  useFilterAlarmsByInterval();       // Actualizar las alarmas según la temporalidad seleccionada
+  useFilterAlarmsByIntervalAndType();    // Actualiuzar las alarmas seleccionadas segun los tipos seleccionados
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));

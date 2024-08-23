@@ -54,13 +54,20 @@ const alarmSlice = createSlice({
     },
     setSelectedTemporalidad(state, action) {
       state.selectedTemporalidad = action.payload;
+    },    
+
+    removeSelectedTypes(state, action) {
+      state.selectedTypes = {
+        ...state.selectedTypes,
+        [state.selectedTemporalidad]: [],
+      };
     },
     setSelectedTypes(state, action) {
       state.selectedTypes = {
         ...state.selectedTypes,
         [state.selectedTemporalidad]: action.payload,
       };
-    },
+    },    
   },
   extraReducers: (builder) => {
     builder
@@ -91,7 +98,8 @@ export const {
   incrementTemporalidad,
   decrementTemporalidad,
   setSelectedTemporalidad,
-  setSelectedTypes
+  setSelectedTypes,
+  removeSelectedTypes
 } = alarmSlice.actions;
 
 export const selectSelectedTemporalidad = (state) => state.alarms.selectedTemporalidad;
@@ -99,5 +107,6 @@ export const selectSelectedTypes = (state) => state.alarms.selectedTypes;
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
 export const selectAllSelectedAlarms = (state) => state.alarms.allSelectedAlarms;
+
 
 export default alarmSlice.reducer;
