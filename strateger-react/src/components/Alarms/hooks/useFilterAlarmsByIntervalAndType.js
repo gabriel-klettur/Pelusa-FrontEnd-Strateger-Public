@@ -16,9 +16,7 @@ const useFilterAlarmsByIntervalAndType = () => {
         // Verificación adicional para asegurar que selectedTypes no solo tenga claves, sino que también contenga arrays con elementos
         const hasValidTypes = Object.keys(selectedTypes).some(key => selectedTypes[key].length > 0);    
         
-        if (Object.keys(selectedTypes).length === 0 || selectedTemporalidad === '' || !hasValidTypes) {                        
-
-            console.log('Object.keys(selectedTypes).length:', Object.keys(selectedTypes).length, 'selectedTemporalidad:', selectedTemporalidad, 'hasValidTypes:', hasValidTypes);
+        if (Object.keys(selectedTypes).length === 0 || selectedTemporalidad === '' || !hasValidTypes) {                                    
             
             if (Object.keys(selectedTypes).length > 0) {
                 Object.keys(selectedTypes).forEach(temporalidad => {

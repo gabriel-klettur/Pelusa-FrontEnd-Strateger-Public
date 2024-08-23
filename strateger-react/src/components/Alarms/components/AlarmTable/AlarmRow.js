@@ -3,6 +3,18 @@
 import React from 'react';
 
 const AlarmRow = ({ alarm, isSelected, handleSelectAlarm }) => {
+  
+  const alarmValues = [
+    alarm.id,
+    alarm.Ticker,
+    alarm.Temporalidad,
+    alarm.Entry_Price_Alert,
+    alarm.Exit_Price_Alert,
+    alarm.Time_Alert,
+    alarm.Order,
+    alarm.Strategy
+  ];
+
   return (
     <tr
       className={`border-b transition-colors duration-200 hover:bg-african_violet-700 cursor-pointer ${
@@ -10,14 +22,11 @@ const AlarmRow = ({ alarm, isSelected, handleSelectAlarm }) => {
       }`}
       onClick={() => handleSelectAlarm(alarm)}
     >
-      <td className="py-2 px-4 border-r">{alarm.id}</td>
-      <td className="py-2 px-4 border-r">{alarm.Ticker}</td>
-      <td className="py-2 px-2 border-r">{alarm.Temporalidad}</td>
-      <td className="py-2 px-4 border-r">{alarm.Entry_Price_Alert}</td>
-      <td className="py-2 px-4 border-r">{alarm.Exit_Price_Alert}</td>
-      <td className="py-2 px-4 border-r">{alarm.Time_Alert}</td>
-      <td className="py-2 px-4 border-r">{alarm.Order}</td>
-      <td className="py-2 px-4">{alarm.Strategy}</td>
+      {alarmValues.map((value, index) => (
+        <td key={index} className="py-2 px-4 border-r">
+          {value}
+        </td>
+      ))}
     </tr>
   );
 };
