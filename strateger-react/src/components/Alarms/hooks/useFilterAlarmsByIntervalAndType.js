@@ -11,15 +11,26 @@ const useFilterAlarmsByIntervalAndType = () => {
 
     useEffect(() => {
 
+        const allAlarms = [];
+
         // Verificación adicional para asegurar que selectedTypes no solo tenga claves, sino que también contenga arrays con elementos
         const hasValidTypes = Object.keys(selectedTypes).some(key => selectedTypes[key].length > 0);    
         
-        if (Object.keys(selectedTypes).length === 0 || selectedTemporalidad === '' || !hasValidTypes) {            
+        if (Object.keys(selectedTypes).length === 0 || selectedTemporalidad === '' || !hasValidTypes) {                        
+
+            console.log('Object.keys(selectedTypes).length:', Object.keys(selectedTypes).length, 'selectedTemporalidad:', selectedTemporalidad, 'hasValidTypes:', hasValidTypes);
+            
+            if (Object.keys(selectedTypes).length > 0) {
+                Object.keys(selectedTypes).forEach(temporalidad => {
+                    dispatch(removeSelectedTypes(temporalidad));
+                    dispatch(setAllSelectedAlarms(allAlarms));
+                });
+            }
+
             return;
         }
 
-        console.log('Filtrando por Type de alarma:', selectedTypes);
-        const allAlarms = [];
+        console.log('Filtrando por Type de alarma:', selectedTypes);        
         
         // Iterate over each temporalidad and filter alarms
         Object.keys(selectedTypes).forEach(temporalidad => {
@@ -36,7 +47,8 @@ const useFilterAlarmsByIntervalAndType = () => {
             );
             allAlarms.push(...filteredAlarms);
 
-        });
+        });        
+
         dispatch(setAllSelectedAlarms(allAlarms));
         
     }, [selectedTypes, alarms, dispatch, selectedTemporalidad]);
