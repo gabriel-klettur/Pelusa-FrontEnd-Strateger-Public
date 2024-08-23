@@ -1,7 +1,7 @@
 // useSetAllSelectedAlarms.js
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllSelectedAlarms } from '../../../redux/slices/alarmSlice';
+import { setAllSelectedAlarms, removeSelectedTypes } from '../../../redux/slices/alarmSlice';
 
 const useFilterAlarmsByIntervalAndType = () => {
     const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const useFilterAlarmsByIntervalAndType = () => {
         Object.keys(selectedTypes).forEach(temporalidad => {
 
             if (temporalidad === '' || selectedTypes[temporalidad].length === 0) {                
+                dispatch(removeSelectedTypes(temporalidad)); // Esto eliminará la clave con array vacío
                 return;
             }
 

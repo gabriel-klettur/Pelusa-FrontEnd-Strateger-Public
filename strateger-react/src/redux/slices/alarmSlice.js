@@ -57,10 +57,10 @@ const alarmSlice = createSlice({
     },    
 
     removeSelectedTypes(state, action) {
-      state.selectedTypes = {
-        ...state.selectedTypes,
-        [state.selectedTemporalidad]: [],
-      };
+      const temporalidad = action.payload;
+      if (state.selectedTypes[temporalidad].length === 0) {
+        delete state.selectedTypes[temporalidad];
+      }
     },
     setSelectedTypes(state, action) {
       state.selectedTypes = {
