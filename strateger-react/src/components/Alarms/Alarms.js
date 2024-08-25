@@ -1,62 +1,34 @@
 // Path: strateger-react/src/components/Alarms/Alarms.js
 import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms, setPage, setSelectedAlarms } from '../../redux/slices/alarmSlice'; // Asegúrate de importar fetchAlarms aquí
+import { useSelector } from 'react-redux'; //Hooks de Redux. Permite acceder al estado de Redux y despachar acciones al store de Redux.
 
-import useFetchAlarms from './hooks/useFetchAlarms';
+
+import useFetchAlarms from './hooks/useFetchAlarms';  
 import useFilterAlarmsByIntervalAndType from './hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from './hooks/useFilterAlarmsByInterval';
 
-import AlarmListContainer from './containers/AlarmContainer';
+import AlarmContainer from './containers/AlarmContainer';
 
-const Alarms = () => {
-  const dispatch = useDispatch();
-  const { alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset } = useSelector((state) => state.alarms);
+const Alarms = () => {  
+  const { alarms, page, selectedAlarms, allSelectedAlarms, 
+          hasMore, offset, loading, error } = useSelector((state) => state.alarms);  // Hook de Redux. Permite acceder al estado de Redux. 
 
-  useFetchAlarms();             // Cargar alarmas al montar el componente  
-  useFilterAlarmsByInterval();       // Actualizar las alarmas según la temporalidad seleccionada
-  useFilterAlarmsByIntervalAndType();    // Actualiuzar las alarmas seleccionadas segun los tipos seleccionados
-
-  const handlePreviousPage = () => {
-    dispatch(setPage(Math.max(page - 1, 0)));
-  };
-
-  const handleNextPage = () => {
-    const nextPage = page + 1;
-    if (nextPage * 20 >= alarms.length && hasMore) {
-      dispatch(fetchAlarms({ limit: 500, offset })); // Ahora fetchAlarms estará definido
-    }
-    dispatch(setPage(nextPage));
-  };
-
-  const handleSelectAlarm = (alarm) => {
-    const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
-
-    let newSelectedAlarms;
-    if (isSelected) {
-      newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
-    } else {
-      newSelectedAlarms = [...selectedAlarms, alarm];
-    }
-
-    dispatch(setSelectedAlarms(newSelectedAlarms));
-  };
+  useFetchAlarms();                       // Hook Personalizado. Cargar alarmas al montar el componente  
+  useFilterAlarmsByInterval();            // Hook Personalizado. Actualizar las alarmas según la temporalidad seleccionada
+  useFilterAlarmsByIntervalAndType();     // Hook Personalizado. Actualizar las alarmas seleccionadas segun los tipos seleccionados
 
   return (
     <>      
-      <AlarmListContainer 
+      <AlarmContainer 
         alarms={alarms} 
+        selectedAlarms={selectedAlarms} 
+        allSelectedAlarms={allSelectedAlarms}         
         loading={loading} 
         error={error} 
-        page={page} 
-        selectedAlarms={selectedAlarms} 
-        allSelectedAlarms={allSelectedAlarms} 
+        page={page}         
         hasMore={hasMore} 
         offset={offset} 
-        handlePreviousPage={handlePreviousPage} 
-        handleNextPage={handleNextPage} 
-        handleSelectAlarm={handleSelectAlarm} 
       />
     </>
   );
