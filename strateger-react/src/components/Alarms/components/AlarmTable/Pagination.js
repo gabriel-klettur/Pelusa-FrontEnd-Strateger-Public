@@ -1,8 +1,22 @@
-// Path: strateger-react/src/components/Alarms/Pagination/Pagination.js
-
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchAlarms, setPage } from '../../../../redux/slices/alarmSlice';
 
-const Pagination = ({ page, hasMore, endIndex, alarmsLength, handlePreviousPage, handleNextPage }) => {
+const Pagination = ({ page, hasMore, endIndex, alarmsLength, offset }) => {
+  const dispatch = useDispatch();
+
+  const handlePreviousPage = () => {
+    dispatch(setPage(Math.max(page - 1, 0)));
+  };
+
+  const handleNextPage = () => {
+    const nextPage = page + 1;
+    if (nextPage * 20 >= alarmsLength && hasMore) {
+      dispatch(fetchAlarms({ limit: 500, offset }));
+    }
+    dispatch(setPage(nextPage));
+  };
+
   return (
     <div className="flex justify-between mt-6">
       <button

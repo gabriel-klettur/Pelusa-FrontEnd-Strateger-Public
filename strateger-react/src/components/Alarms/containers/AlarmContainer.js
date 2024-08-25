@@ -1,47 +1,46 @@
 //Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AlarmTable from '../components/AlarmTable/AlarmTable';
 import Pagination from '../components/AlarmTable/Pagination';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
-import { fetchAlarms, setPage, setSelectedAlarms } from '../../../redux/slices/alarmSlice'; // Asegúrate de importar fetchAlarms aquí
 
-const AlarmContainer = ({ alarms, loading, error, page, selectedAlarms, allSelectedAlarms, hasMore, offset }) => {
-  const dispatch = useDispatch();
+import useFetchAlarms from '../hooks/useFetchAlarms';  
+import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
+import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
+
+import { setSelectedAlarms } from '../../../redux/slices/alarmSlice';
+
+const AlarmContainer = () => {
+  
+  const dispatch = useDispatch();  // Hook de Redux. Permite despachar acciones de Redux.
+  const { alarms, page, selectedAlarms, allSelectedAlarms,
+  hasMore, loading, error } = useSelector((state) => state.alarms);  // Hook de Redux. Permite acceder al estado de Redux. 
+
   const [viewType, setViewType] = useState('alarms');
   const [sortedAlarms, setSortedAlarms] = useState([]);
 
+  useFetchAlarms();                       // Hook Personalizado. Cargar alarmas al montar el componente  
+  useFilterAlarmsByInterval();            // Hook Personalizado. Actualizar las alarmas según la temporalidad seleccionada
+  useFilterAlarmsByIntervalAndType();     // Hook Personalizado. Actualizar las alarmas seleccionadas segun los tipos seleccionados
 
   //------------------------------------------------------------- Pagination Methods -------------------------------------------------------------
-  const handlePreviousPage = () => {
-    dispatch(setPage(Math.max(page - 1, 0)));
-  };
-
-  const handleNextPage = () => {
-    const nextPage = page + 1;
-    if (nextPage * 20 >= alarms.length && hasMore) {
-      dispatch(fetchAlarms({ limit: 500, offset })); // Ahora fetchAlarms estará definido
-    }
-    dispatch(setPage(nextPage));
-  };
-
+  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
+  
   const handleSelectAlarm = (alarm) => {
+    let newSelectedAlarms;    
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
-
-    let newSelectedAlarms;
     if (isSelected) {
       newSelectedAlarms = selectedAlarms.filter((a) => a.id !== alarm.id);
     } else {
       newSelectedAlarms = [...selectedAlarms, alarm];
     }
-
     dispatch(setSelectedAlarms(newSelectedAlarms));
   };
 
   //------------------------------------------------------------- Sorting Alarms -------------------------------------------------------------
-
   useEffect(() => {
     let listToSort = [];
     switch (viewType) {
@@ -62,9 +61,7 @@ const AlarmContainer = ({ alarms, loading, error, page, selectedAlarms, allSelec
   //------------------------------------------------------------- Render -------------------------------------------------------------
   if (error) {
     return <div className="text-center py-4 text-red-600">Error al cargar alarmas: {error}</div>;
-  }
-
-  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
+  }  
 
   //------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
@@ -88,8 +85,7 @@ const AlarmContainer = ({ alarms, loading, error, page, selectedAlarms, allSelec
           hasMore={hasMore} 
           endIndex={page * 20 + currentAlarms.length} 
           alarmsLength={sortedAlarms.length} 
-          handlePreviousPage={handlePreviousPage} 
-          handleNextPage={handleNextPage} 
+          
         />
       </div>
     </div>
