@@ -5,7 +5,7 @@ import React from 'react';
 const TypeButton = ({ type, selectedTypes, toggleType }) => {
   return (
     <button 
-      className={`h-16 font-semibold bg-african_violet-400 text-sm shadow-m transition-colors duration-200 ${
+      className={`font-semibold bg-african_violet-400 text-sm shadow-m transition-colors duration-200 ${
         selectedTypes.includes(type) 
           ? 'bg-african_violet-500 text-white'
           : 'bg-african_violet-300 text-african_violet-900'

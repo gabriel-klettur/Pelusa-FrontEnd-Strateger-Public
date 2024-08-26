@@ -4,8 +4,8 @@ import React from 'react';
 
 const TemporalidadButton = ({
   temporalidad,
-  selectedTemporalidad,
-  filteredTemporalidades,
+  selectedTemporalidad,  
+  selectedIntervalAndTypes,
   toggleTemporalidad,
 }) => {
   return (
@@ -15,7 +15,7 @@ const TemporalidadButton = ({
           ? 'bg-african_violet-500 text-white'
           : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
       } ${
-        filteredTemporalidades[temporalidad] > 0
+        selectedIntervalAndTypes[temporalidad]?.length > 0
           ? 'border-4 border-african_violet-500'
           : 'border border-transparent'
       }`}
