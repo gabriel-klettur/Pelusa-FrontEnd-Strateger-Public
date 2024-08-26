@@ -16,19 +16,18 @@ import { setSelectedAlarms } from '../../../redux/slices/alarmSlice';
 const AlarmContainer = () => {
   
   const dispatch = useDispatch();  // Hook de Redux. Permite despachar acciones de Redux.
-  const { alarms, page, selectedAlarms, allSelectedAlarms,
-  hasMore, loading, error } = useSelector((state) => state.alarms);  // Hook de Redux. Permite acceder al estado de Redux. 
 
-  const [viewType, setViewType] = useState('alarms');
+  // Hook de Redux. Permite acceder al estado de Redux. 
+  const { alarms, page, selectedAlarms, allSelectedAlarms, hasMore, loading, error } = useSelector((state) => state.alarms);  
+
+  const [viewType, setViewType] = useState('alarms');   // Tipo de vista de alarmas. Puede ser 'alarms', 'selectedAlarms' o 'allSelectedAlarms'
   const [sortedAlarms, setSortedAlarms] = useState([]);
 
   useFetchAlarms();                       // Hook Personalizado. Cargar alarmas al montar el componente  
   useFilterAlarmsByInterval();            // Hook Personalizado. Actualizar las alarmas según la temporalidad seleccionada
-  useFilterAlarmsByIntervalAndType();     // Hook Personalizado. Actualizar las alarmas seleccionadas segun los tipos seleccionados
+  useFilterAlarmsByIntervalAndType();     // Hook Personalizado. Actualizar las alarmas seleccionadas segun los tipos seleccionados  
 
-  //------------------------------------------------------------- Pagination Methods -------------------------------------------------------------
-  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
-  
+  //------------------------------------------------------------- Handle Select Alarm ---------------------------------------------------------
   const handleSelectAlarm = (alarm) => {
     let newSelectedAlarms;    
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);
@@ -63,19 +62,28 @@ const AlarmContainer = () => {
     return <div className="text-center py-4 text-red-600">Error al cargar alarmas: {error}</div>;
   }  
 
+  // Muestra 20 alarmas por página, seleccionando el subconjunto de alarmas a mostrar según la página actual.
+  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);  
+
   //------------------------------------------------------------- JSX -------------------------------------------------------------
   return (
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
       <div className="text-sm">
         <div className="flex justify-start bg-african_violet-300">
-          <button onClick={() => setViewType('alarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'alarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+          <button onClick={() => setViewType('alarms')} 
+            className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'alarms' ?
+              'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Alarms
           </button>
-          <button onClick={() => setViewType('selectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'selectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+          <button onClick={() => setViewType('selectedAlarms')} 
+            className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'selectedAlarms' ? 
+              'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Filtered by Interval
           </button>
-          <button onClick={() => setViewType('allSelectedAlarms')} className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'allSelectedAlarms' ? 'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
+          <button onClick={() => setViewType('allSelectedAlarms')} 
+            className={`px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${viewType === 'allSelectedAlarms' ?
+               'bg-african_violet-500 text-white' : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'}`}>
             Filtered by Interval and Type
           </button>
         </div>
@@ -84,8 +92,7 @@ const AlarmContainer = () => {
           page={page} 
           hasMore={hasMore} 
           endIndex={page * 20 + currentAlarms.length} 
-          alarmsLength={sortedAlarms.length} 
-          
+          alarmsLength={sortedAlarms.length}           
         />
       </div>
     </div>
