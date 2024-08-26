@@ -1,21 +1,31 @@
-//Path: strateger-react/src/components/Account/Account.js
+// Path: strateger-react/src/components/Account/Account.js
 
 import React from 'react';
 
-import AccountSummary from './AccountSummary/AccountSummary';
-import AccoountCharts from './AccountCharts/AccountCharts';
-import AccountInformation from './AccountInformation/AccountInformation';
-import TotalBalanceAccounts from './TotalBalanceAccounts';
+import AccountSummary from './components/AccountSummary/AccountSummary';
+import AccountCharts from './components/AccountCharts/AccountCharts'; // Corregir nombre
+import AccountInformation from './components/AccountInformation/AccountInformation';
+import TotalBalanceAccounts from './components/TotalBalanceAccounts';
+
+import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
 const Account = () => {  
 
   return (
     <div>
-      <TotalBalanceAccounts />
-      <div className="p-4 border-4 border-blue-500 grid grid-cols-1 gap-2">
-        <AccoountCharts />
-        <AccountSummary />
-        <AccountInformation />
+      <TotalBalanceAccounts 
+        LoadingOverlay={LoadingOverlay}
+      />
+      <div className="p-4 grid grid-cols-1 gap-2 bg-african_violet-200">
+        <AccountCharts 
+          LoadingOverlay={LoadingOverlay} // Corregir nombre
+        />
+        <AccountSummary 
+          LoadingOverlay={LoadingOverlay}
+        />
+        <AccountInformation 
+          LoadingOverlay={LoadingOverlay}
+        />
       </div>
     </div>
   );

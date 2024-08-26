@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",  // Emite los archivos compilados en la carpeta 'dist'
+        "allowJs": true,      // Permite la inclusión de archivos .js en la compilación
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

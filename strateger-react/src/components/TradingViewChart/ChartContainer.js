@@ -2,17 +2,22 @@
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import useChartData from './hooks/useChartData';
 import useChart from './hooks/useChart';
 import useMarkers from './hooks/useMarkers';
-import { setTradingViewChartParameters } from '../../slices/tradingViewChartSlice';
+
+import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
+import { selectSelectedTab } from '../../redux/slices/tabSlice';
+
+import BacktestingForm from '../Backtesting/components/BacktestingForm/BacktestingForm';
+import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';
+import { SummaryChart } from '../Account';
+import { ToolAlarmBar } from '../Alarms';
+import { ToolOrderBar }  from '../Orders';
+
 import Toolbar from './Toolbar';
-import { selectSelectedTab } from '../../slices/tabSlice';
-import ToolAlarmBar from '../Alarms/ToolAlarmBar/ToolAlarmBar';
-import ToolOrderBar from '../Orders/ToolOrderBar/ToolOrderBar';
-import DiaryCalendar from '../Diary/DiaryCalendar';
-import SummaryChart from '../Account/AccountCharts/SummaryChart';
-import BacktestingForm from '../Backtesting/BacktestingForm/BacktestingForm';
+
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
 // Importa las imágenes que quieres usar para cada tab
@@ -69,7 +74,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     0: { component: <ToolAlarmBar />,                             image: alarmImage,        ImageHeight: 'h-64' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
     1: { component: <ToolOrderBar />,                             image: ordersImage,       ImageHeight: 'h-96' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
     2: { component: null,                                         image: null,              ImageHeight: 'h-0' , componentHeight: 'h-0' , leftContainerSpan: 'col-span-10' , rightContainerSpan: 'col-span-0' },
-    3: { component: <DiaryCalendar results={simulatedResults} />, image: null,              ImageHeight: 'h-0' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
+    3: { component: <DiaryCalendar results={simulatedResults} />, image: null,              ImageHeight: 'h-0' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
     4: { component: <SummaryChart />,                             image: null,              ImageHeight: 'max-h-64' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
     5: { component: 'GRAFICO',                                    image: positionsImage,    ImageHeight: 'max-h-64' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
     6: { component: <BacktestingForm />,                          image: backtestingImage,  ImageHeight: 'h-32' , componentHeight: 'h-64' , leftContainerSpan: 'col-span-7' , rightContainerSpan: 'col-span-3' },
@@ -80,7 +85,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const { component, image, ImageHeight, componentHeight, leftContainerSpan, rightContainerSpan } = tabContentMap[selectedTab];
 
   return (
-    <div className="relative bg-african_violet-900">
+    <div className="relative bg-african_violet-900 border-4 border-green-700">
       <LoadingOverlay isLoading={loading} />
       <div className="bg-african_violet-600 pt-1">
         <Toolbar
@@ -91,9 +96,10 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           onDateChange={handleDateChange}
         />
       </div>
-      <div className="grid grid-cols-10 gap-1 h-30">
+      <div className="grid grid-cols-10 gap-1 ">
 
-        <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 h-30 "`}>
+        {/* LEFT - Contenedor del gráfico y el indicador estocástico*/}
+        <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg border-2 border-t border-african_violet-700 mt-1 "`}>
           <div
             ref={chartContainerRef}
             className="h-96 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
@@ -104,7 +110,8 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
           ></div>
         </div>
     
-        <div className={`" ${rightContainerSpan} flex flex-col bg-african_violet-300 rounded-lg mt-1 h-full "`}> 
+        {/* RIGHT - Contenedor del tab seleccionado */}
+        <div className={`" ${rightContainerSpan} flex flex-col bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1 "`}> 
           <div id="box-cambiadora" className="flex flex-col justify-center flex-grow min-h-full">
             
             {/* Muestra la imagen correspondiente al tab seleccionado */}            

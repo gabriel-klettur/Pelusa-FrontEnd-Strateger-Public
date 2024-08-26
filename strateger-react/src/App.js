@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedTab, selectSelectedTab } from './slices/tabSlice';
+import { setSelectedTab, selectSelectedTab } from './redux/slices/tabSlice';
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
@@ -13,7 +13,7 @@ import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
 import { Backtesting } from './components/Backtesting';
-import Reloj from './components/Reloj';
+import Reloj from './components/common/Reloj';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-african_violet-400 text-african_violet-100">
+    <div className="min-h-screen bg-african_violet-200 text-african_violet-100">
       <div className="w-full"> {/* Usa todo el ancho de la pantalla */}
         <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
           <TabList className="flex bg-african_violet-200">

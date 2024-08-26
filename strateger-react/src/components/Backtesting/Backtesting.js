@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Backtesting/Backtesting.js
 
 import React from 'react';
-import BacktestingResult from './BacktestingResult/BacktestingResult';
+import BacktestingResult from './components/BacktestingResult/BacktestingResult';
 
 const Backtesting = () => {
   
