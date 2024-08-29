@@ -3,8 +3,7 @@ import { createChart } from 'lightweight-charts';
 
 export const initializeChart = (container) => {
   const chart = createChart(container, {
-    width: container.clientWidth,
-    height: container.clientHeight,
+    autoSize: true, // Habilitar autoSize
     layout: {
       backgroundColor: '#ffffff',
       textColor: '#000',
