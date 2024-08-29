@@ -33,23 +33,12 @@ const AlarmContainer = () => {
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
       <div className="text-sm">
-      <Tab.Group onChange={(index) => 
-        {
-          if (index === 0) {
-            setViewType('alarms');
-          } else if (index === 1) {
-            setViewType('filteredByIntervalAlarms');
-          } else if (index === 2) {
-            setViewType('filteredByIntervalAlarms');
-          } else {
-            setViewType('filteredByIntervalAndTypeAlarms');
-          }
-        }}>
+        <Tab.Group>
           <Tab.List className="flex justify-start bg-african_violet-300">
-            <AlarmTab tabName="Alarms" />
-            <AlarmTab tabName="Selected Alarms" />
-            <AlarmTab tabName="Filtered by Selected Interval" />
-            <AlarmTab tabName="Filtered by Selected Interval and Type" />            
+            <AlarmTab tabName="Alarms" setViewType={() => setViewType('alarms')} />
+            <AlarmTab tabName="Selected Alarms" setViewType={() => setViewType('filteredByIntervalAlarms')} />
+            <AlarmTab tabName="Filtered by Selected Interval" setViewType={() => setViewType('filteredByIntervalAlarms')} />
+            <AlarmTab tabName="Filtered by Selected Interval and Type" setViewType={() => setViewType('filteredByIntervalAndTypeAlarms')} />            
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
