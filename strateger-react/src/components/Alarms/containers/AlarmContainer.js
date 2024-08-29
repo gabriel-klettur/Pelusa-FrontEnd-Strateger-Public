@@ -41,16 +41,16 @@ const AlarmContainer = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <AlarmTable viewType={'alarms'} />
+              <AlarmTable viewTabType={'alarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={'filteredByClickAlarms'} />
+              <AlarmTable viewTabType={'filteredByClickAlarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={'filteredByIntervalAlarms'} />
+              <AlarmTable viewTabType={'filteredByIntervalAlarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={'filteredByIntervalAndTypeAlarms'} />
+              <AlarmTable viewTabType={'filteredByIntervalAndTypeAlarms'} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>        
