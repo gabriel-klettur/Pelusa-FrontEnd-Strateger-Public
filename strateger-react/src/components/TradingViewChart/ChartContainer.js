@@ -85,7 +85,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   const { component, image, ImageHeight, componentHeight, leftContainerSpan, rightContainerSpan } = tabContentMap[selectedTab];
 
   return (
-    <div className="relative bg-african_violet-900">
+    <div className="relative bg-african_violet-600">
       <LoadingOverlay isLoading={loading} />
       <div className="bg-african_violet-600 pt-1">
         <Toolbar
@@ -99,10 +99,10 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
       <div className="grid grid-cols-10 gap-1 ">
 
         {/* LEFT - Contenedor del gráfico y el indicador estocástico*/}
-        <div className={`" ${leftContainerSpan} flex flex-col bg-black p-2 rounded-br-lg mt-1 "`}>
+        <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg mt-1 "`}>
           <div
             ref={chartContainerRef}
-            className="h-96 flex-grow rounded-t-lg overflow-hidden border-b-2 border-african_violet-700"
+            className="h-96 flex-grow rounded-t-lg overflow-hidden"
           ></div>
           <div
             ref={stochasticChartContainerRef}
@@ -111,7 +111,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
         </div>
     
         {/* RIGHT - Contenedor del tab seleccionado */}
-        <div className={`" ${rightContainerSpan} flex flex-col bg-african_violet-300 rounded-bl-lg border-2 border-t border-african_violet-700 mt-1 "`}> 
+        <div className={`" ${rightContainerSpan} flex flex-col bg-african_violet-600 rounded-bl-lg mt-1 "`}> 
           <div id="box-cambiadora" className="flex flex-col justify-center flex-grow min-h-full">
             
             {/* Muestra la imagen correspondiente al tab seleccionado */}            

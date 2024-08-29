@@ -6,16 +6,18 @@ export const initializeChart = (container) => {
     autoSize: true,
     layout: {
       background:{
-        color: '#000',
+        color: '#fff',
       },
-      textColor: '#fff',
+      textColor: '#000',
     },
     grid: {
       vertLines: {
-        color: '#252525',
+        //color: '#252525',
+        color: '#e4e4e4',
       },
       horzLines: {
-        color: '#252525',
+        //color: '#252525',
+        color: '#e4e4e4',
       },
     },
     timeScale: {
