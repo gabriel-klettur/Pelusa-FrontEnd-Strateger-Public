@@ -32,17 +32,38 @@ const AlarmContainer = () => {
 
   const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
 
+  console.log('-------------------------------------------------------------');
+  console.log('currentAlarms:', currentAlarms);
+  console.log('selectedAlarms:', selectedAlarms);
+  console.log('handleAlarmSelection:', handleAlarmSelection);
+  console.log('-------------------------------------------------------------');
+
   return (
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
       <div className="text-sm">
-        <Tab.Group onChange={(index) => setViewType(index === 0 ? 'alarms' : index === 1 ? 'selectedAlarms' : 'allSelectedAlarms')}>
+      <Tab.Group onChange={(index) => 
+        {
+          if (index === 0) {
+            setViewType('alarms');
+          } else if (index === 1) {
+            setViewType('selectedAlarms');
+          } else if (index === 2) {
+            setViewType('selectedAlarms');
+          } else {
+            setViewType('allSelectedAlarms');
+          }
+        }}>
           <Tab.List className="flex justify-start bg-african_violet-300">
             <AlarmTab tabName="Alarms" />
-            <AlarmTab tabName="Filtered by Interval" />
-            <AlarmTab tabName="Filtered by Interval and Type" />            
+            <AlarmTab tabName="Selected Alarms" />
+            <AlarmTab tabName="Filtered by Selected Interval" />
+            <AlarmTab tabName="Filtered by Selected Interval and Type" />            
           </Tab.List>
           <Tab.Panels>
+            <Tab.Panel>
+              <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
+            </Tab.Panel>
             <Tab.Panel>
               <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
             </Tab.Panel>
