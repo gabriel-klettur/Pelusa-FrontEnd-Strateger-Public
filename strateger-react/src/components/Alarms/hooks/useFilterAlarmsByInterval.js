@@ -9,9 +9,10 @@ const useFilterAlarmsByInterval = () => {
     const selectedTemporalidad = useSelector((state) => state.alarms.selectedTemporalidad);    
 
     useEffect(() => {
+        console.log('Activandose useEffect al ser modificadas las variables [selectedTemporalidad, alarms, dispatch]');
         if (selectedTemporalidad) {
-            const filteredAlarms = alarms.filter(alarm => (alarm.Temporalidad === selectedTemporalidad));
-            dispatch(setFilteredByIntervalAlarms(filteredAlarms));
+            const filteredAlarms = alarms.filter(alarm => (alarm.Temporalidad === selectedTemporalidad));            
+            dispatch(setFilteredByIntervalAlarms(filteredAlarms));     
         } else {
             dispatch(setFilteredByIntervalAlarms([]));
         }

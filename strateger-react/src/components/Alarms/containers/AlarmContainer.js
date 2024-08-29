@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 
 import AlarmTable from '../components/AlarmTable/AlarmTable';
@@ -10,20 +10,24 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 import useSortAlarmsById from '../hooks/useSortAlarmsById';
-import handleSelectAlarm from '../components/AlarmTable/handleSelectAlarm';
 import AlarmTab from '../components/AlarmTab';
 
 const AlarmContainer = () => {
-
-  const dispatch = useDispatch();  
+  
   const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore, loading, error } = useSelector((state) => state.alarms);  
-  const [viewType, setViewType] = useState('alarms');  
+  const [viewType, setViewType] = useState('alarms');
+  
 
+  //Si se modifica [dispatch, alarms.length] se vuelve a ejecutar el hook
   useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'
+
+  //Si se modifica [selectedTemporalidad, alarms, dispatch], se vuelve a ejecutar el hook
   useFilterAlarmsByInterval();              // Hook, Filter alarms by interval, save to store           'filteredByIntervalAlarms'
+
+  //Si se modifica [selectedTypes, alarms, dispatch, selectedTemporalidad], se vuelve a ejecutar el hook
   useFilterAlarmsByIntervalAndType();       // Hook, Filter alarms by interval and type, save to store  'filteredByIntervalAndTypeAlarms'
 
-  const handleAlarmSelection = (alarm) => handleSelectAlarm(alarm, filteredByIntervalAlarms, dispatch);     // Function, Handle alarm selection by clicking on row
+
   const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);  // Hook, Sort alarms by id
 
   if (error) {
@@ -56,16 +60,16 @@ const AlarmContainer = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarmsByInterval={filteredByIntervalAlarms}  />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarmsByInterval={filteredByIntervalAlarms} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarmsByInterval={filteredByIntervalAlarms}  />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarmsByInterval={filteredByIntervalAlarms}  />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

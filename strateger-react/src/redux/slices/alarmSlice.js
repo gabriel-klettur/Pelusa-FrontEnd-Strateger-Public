@@ -18,7 +18,8 @@ const initialFilteredTemporalidades = {
 const alarmSlice = createSlice({
   name: 'alarms',
   initialState: {
-    alarms: [],        
+    alarms: [],     
+    filteredByClickAlarms: [],   
     filteredByIntervalAlarms: [],
     filteredByIntervalAndTypeAlarms: [],
     strategyFilteredAlarms: [],
@@ -34,6 +35,9 @@ const alarmSlice = createSlice({
   reducers: {
     setPage(state, action) {
       state.page = action.payload;
+    },
+    setFilteredByClickAlarms(state, action) {
+      state.filteredByClickAlarms = action.payload;
     },
     setFilteredByIntervalAlarms(state, action) {
       state.filteredByIntervalAlarms = action.payload;
@@ -92,6 +96,7 @@ const alarmSlice = createSlice({
 
 export const {
   setPage,
+  setFilteredByClickAlarms,
   setFilteredByIntervalAlarms,
   setFilteredByIntervalAndTypeAlarms,  // Nuevo nombre
   setStrategyFilteredAlarms,
@@ -106,6 +111,7 @@ export const selectSelectedTemporalidad = (state) => state.alarms.selectedTempor
 export const selectSelectedTypes = (state) => state.alarms.selectedTypes;
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
+export const selectFilteredByClickAlarms = (state) => state.alarms.filteredByClickAlarms;
 export const selectFilteredByIntervalAlarms = (state) => state.alarms.filteredByIntervalAlarms;
 export const selectFilteredByIntervalAndTypeAlarms = (state) => state.alarms.filteredByIntervalAndTypeAlarms;
 
