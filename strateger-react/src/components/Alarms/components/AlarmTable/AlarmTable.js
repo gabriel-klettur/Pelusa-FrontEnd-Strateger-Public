@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import handleSelectAlarmByClick from './handleSelectAlarmByClick';  // Function, Handle alarm selection by click
 
-const AlarmTable = ({ alarms, selectedAlarmsByInterval, handleSelectAlarm }) => {
+const AlarmTable = ({ alarms, selectedAlarmsByInterval }) => {
 
   const {filteredByClickAlarms} = useSelector((state) => state.alarms);  
 
