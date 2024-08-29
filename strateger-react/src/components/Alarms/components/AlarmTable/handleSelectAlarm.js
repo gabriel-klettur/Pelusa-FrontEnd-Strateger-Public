@@ -3,6 +3,10 @@
   import { setFilteredByIntervalAlarms } from '../../../../redux/slices/alarmSlice';
 
   const handleSelectAlarm = (alarm, selectedAlarms, dispatch) => {
+    
+    console.log('selectedAlarms', selectedAlarms);
+    console.log('alarm', alarm);
+
 
     let newSelectedAlarms;    
     const isSelected = selectedAlarms.some((a) => a.id === alarm.id);

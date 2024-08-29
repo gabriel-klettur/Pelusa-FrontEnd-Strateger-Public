@@ -19,12 +19,12 @@ const AlarmContainer = () => {
   const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore, loading, error } = useSelector((state) => state.alarms);  
   const [viewType, setViewType] = useState('alarms');  
 
-  useFetchAlarms();  
-  useFilterAlarmsByInterval();            
-  useFilterAlarmsByIntervalAndType();     
+  useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'
+  useFilterAlarmsByInterval();              // Hook, Filter alarms by interval, save to store           'filteredByIntervalAlarms'
+  useFilterAlarmsByIntervalAndType();       // Hook, Filter alarms by interval and type, save to store  'filteredByIntervalAndTypeAlarms'
 
-  const handleAlarmSelection = (alarm) => handleSelectAlarm(alarm, filteredByIntervalAlarms, dispatch);
-  const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);
+  const handleAlarmSelection = (alarm) => handleSelectAlarm(alarm, filteredByIntervalAlarms, dispatch);     // Function, Handle alarm selection by clicking on row
+  const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);  // Hook, Sort alarms by id
 
   if (error) {
     return <div className="text-center py-4 text-red-600">Error al cargar alarmas: {error}</div>;
