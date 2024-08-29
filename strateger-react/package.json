@@ -14,7 +14,6 @@
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "d3-scale": "^4.0.2",
@@ -64,6 +63,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@testing-library/react": "^16.0.0",
     "jest": "^27.5.1",
     "path": "^0.12.7",
     "redux-mock-store": "^1.5.4",

@@ -1,7 +1,7 @@
 // useSetAllSelectedAlarms.js
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllSelectedAlarms, removeSelectedTypes } from '../../../redux/slices/alarmSlice';
+import { setFilteredByIntervalAndTypeAlarms, removeSelectedTypes } from '../../../redux/slices/alarmSlice';
 
 const useFilterAlarmsByIntervalAndType = () => {
     const dispatch = useDispatch();
@@ -21,14 +21,11 @@ const useFilterAlarmsByIntervalAndType = () => {
             if (Object.keys(selectedTypes).length > 0) {
                 Object.keys(selectedTypes).forEach(temporalidad => {
                     dispatch(removeSelectedTypes(temporalidad));
-                    dispatch(setAllSelectedAlarms(allAlarms));
+                    dispatch(setFilteredByIntervalAndTypeAlarms(allAlarms));
                 });
             }
-
             return;
         }
-
-        console.log('Filtrando por Type de alarma:', selectedTypes);        
         
         // Iterate over each temporalidad and filter alarms
         Object.keys(selectedTypes).forEach(temporalidad => {
@@ -47,7 +44,7 @@ const useFilterAlarmsByIntervalAndType = () => {
 
         });        
 
-        dispatch(setAllSelectedAlarms(allAlarms));
+        dispatch(setFilteredByIntervalAndTypeAlarms(allAlarms));
         
     }, [selectedTypes, alarms, dispatch, selectedTemporalidad]);
 };

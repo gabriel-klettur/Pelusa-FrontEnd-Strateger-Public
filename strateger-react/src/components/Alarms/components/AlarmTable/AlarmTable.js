@@ -3,8 +3,20 @@
 import React from 'react';
 import Tablita from '../../../common/Tablita';
 import AlarmRow from './AlarmRow';
+import { useDispatch, useSelector } from 'react-redux';
+import Pagination from '../../components/AlarmTable/Pagination';
+import useSortAlarmsById from '../../hooks/useSortAlarmsById';
 
-const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
+import handleSelectAlarmByClick from './handleSelectAlarmByClick';  // Function, Handle alarm selection by click
+
+const AlarmTable = ({ viewTabType }) => {
+
+  const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore, filteredByClickAlarms } = useSelector((state) => state.alarms);    
+
+  const dispatch = useDispatch();  
+
+  const sortedAlarms = useSortAlarmsById(viewTabType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, filteredByClickAlarms);  // Hook, Sort alarms by id
+  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
 
   // Definición de columnas para Tablita (aunque no se utilizarán directamente aquí)
   const columns = [
@@ -18,18 +30,29 @@ const AlarmTable = ({ alarms, selectedAlarms, handleSelectAlarm }) => {
     { label: 'Estrategia', key: 'Strategy' },
   ];
 
+  const handleAlarmSelectionByClick = (alarm) => handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch);     // Function, Handle alarm selection by interval
+
   // Renderizado de la fila utilizando AlarmRow
   const renderRow = (item, index) => (
     <AlarmRow
       key={index}
       alarm={item}
-      isSelected={selectedAlarms.some((a) => a.id === item.id)}
-      handleSelectAlarm={handleSelectAlarm}
+      isSelectedByInterval={filteredByIntervalAlarms.some((a) => a.id === item.id)}
+      isSelectedByClicks={filteredByClickAlarms.some((a) => a.id === item.id)}
+      handleSelectAlarm={handleAlarmSelectionByClick}
     />
-  );
+  );  
 
   return (
-    <Tablita columns={columns} data={alarms} renderRow={renderRow} />
+    <div>
+    <Tablita columns={columns} data={currentAlarms} renderRow={renderRow} />
+    <Pagination 
+          page={page} 
+          hasMore={hasMore} 
+          endIndex={page * 20 + currentAlarms.length} 
+          alarmsLength={sortedAlarms.length}           
+    />
+    </div>
   );
 };
 

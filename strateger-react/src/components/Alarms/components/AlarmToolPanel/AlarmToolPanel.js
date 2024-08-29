@@ -1,14 +1,14 @@
-// Path: strateger-react/src/components/Alarms/ToolAlarmBar/ToolAlarmBar.js
-
 import React from 'react';
-import TemporalidadButton from './TemporalidadButton';
-import TypeButton from './TypeButton';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { TabGroup, TabList, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import TemporalidadButton from './TemporalidadButton';
+import IntervalsTab from './DirectionTabs';
+import TypePanel from './TypeTabPanel';
+
 import { 
   incrementTemporalidad, 
-  decrementTemporalidad, 
-  selectFilteredTemporalidades, 
+  decrementTemporalidad,   
   setSelectedTemporalidad, 
   setSelectedTypes, 
   selectSelectedTemporalidad, 
@@ -16,18 +16,20 @@ import {
 } from '../../../../redux/slices/alarmSlice';
 
 const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
-const types = [
-  'order open long', 'order close long', 
+const Longtypes = [
+  'order open long', 'order close long',   
+  'indicator open long', 'indicator close long'
+];
+const Shorttypes = [
   'order open short', 'order close short', 
-  'indicator open long', 'indicator close long', 
   'indicator open short', 'indicator close short'
 ];
 
 const AlarmToolPanel = () => {
   const dispatch = useDispatch();
-  const selectedTemporalidad = useSelector(selectSelectedTemporalidad);
-  const selectedTypes = useSelector(selectSelectedTypes);
-  const filteredTemporalidades = useSelector(selectFilteredTemporalidades);
+
+  const selectedTemporalidad = useSelector(selectSelectedTemporalidad);       // temporalidad seleccionada en el panel
+  const selectedTypes = useSelector(selectSelectedTypes);                     // objeto que guarda la temporalidad y los tipos seleccionados en el panel  
 
   const toggleType = (type) => {
     const types = selectedTypes[selectedTemporalidad] || [];
@@ -55,89 +57,31 @@ const AlarmToolPanel = () => {
             key={temp}
             temporalidad={temp}
             selectedTemporalidad={selectedTemporalidad}
-            filteredTemporalidades={filteredTemporalidades}
+            selectedIntervalAndTypes={selectedTypes}            
             toggleTemporalidad={toggleTemporalidad}
           />
         ))}
       </div>
 
       {/* Tabs for Long and Short Types */}
-      <TabGroup>
-        <TabList className="flex justify-center space-x-1 bg-african_violet-500 p-1">
-          
-        <Tab
-          className={({ selected }) =>
-            `w-full py-2.5 text-sm leading-5 font-medium rounded-lg transition-colors duration-200
-            ${
-              selected
-                ? 'bg-white shadow text-african_violet-300 border-4 border-african_violet-700'
-                : 'text-african_violet-300 hover:bg-african_violet-400 hover:text-african_violet-900'
-            } focus:outline-none focus:border-4 focus:border-african_violet-600`
-          }
-        >
-          Long
-        </Tab>
-
-        <Tab
-          className={({ selected }) =>
-            `w-full py-2.5 text-sm leading-5 font-medium rounded-lg transition-colors duration-200
-            ${
-              selected
-                ? 'bg-white shadow text-african_violet-300 border-4 border-african_violet-700'
-                : 'text-african_violet-300 hover:bg-african_violet-400 hover:text-african_violet-900'
-            } focus:outline-none focus:border-4 focus:border-african_violet-600`
-          }
-        >
-          Short
-        </Tab>
-
+      <TabGroup className="">
+        <TabList className="flex justify-center space-x-1 bg-african_violet-500 p-1">          
+          <IntervalsTab direction="Long" />
+          <IntervalsTab direction="Short" />          
         </TabList>
-        <TabPanels>
-          <TabPanel className="border-b-2 border-l-2 border-r-2 border-african_violet-400 rounded-b-lg bg-african_violet-500">            
-            <div className="grid grid-cols-2">
-              {types.filter(type => type.includes('long') && type.includes('order')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>            
-            <div className="grid grid-cols-2">
-              {types.filter(type => type.includes('long') && type.includes('indicator')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-          </TabPanel>
-
-          <TabPanel className="border-b-2 border-l-2 border-r-2 border-african_violet-500 rounded-b-lg bg-african_violet-500">            
-            <div className="grid grid-cols-2">
-              {types.filter(type => type.includes('short') && type.includes('order')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>            
-            <div className="grid grid-cols-2">
-              {types.filter(type => type.includes('short') && type.includes('indicator')).map(type => (
-                <TypeButton
-                  key={type}
-                  type={type}
-                  selectedTypes={selectedTypes[selectedTemporalidad] || []}
-                  toggleType={toggleType}
-                />
-              ))}
-            </div>
-          </TabPanel>
+        <TabPanels className="h-44">
+          <TypePanel 
+            types={Longtypes} 
+            selectedTemporalidad={selectedTemporalidad} 
+            selectedTypes={selectedTypes} 
+            toggleType={toggleType} 
+          />
+          <TypePanel 
+            types={Shorttypes} 
+            selectedTemporalidad={selectedTemporalidad} 
+            selectedTypes={selectedTypes} 
+            toggleType={toggleType} 
+          />
         </TabPanels>
       </TabGroup>
     </div>
