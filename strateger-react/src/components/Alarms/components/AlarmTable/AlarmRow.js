@@ -8,10 +8,11 @@ import React from 'react';
  * @param {Object} props - The props for the AlarmRow component.
  * @param {Object} props.alarm - The alarm object.
  * @param {boolean} props.isSelectedByInterval - Whether the alarm is selected by interval.
+ * @param {boolean} props.isSelectedByClicks - Whether the alarm is selected by clicks.
  * @param {Function} props.handleSelectAlarm - The function to handle selecting an alarm.
  * @returns {JSX.Element} The rendered AlarmRow component.
  */
-const AlarmRow = ({ alarm, isSelectedByInterval, handleSelectAlarm }) => {
+const AlarmRow = ({ alarm, isSelectedByInterval, isSelectedByClicks, handleSelectAlarm }) => {
   
   const alarmValues = [
     alarm.id,
@@ -26,13 +27,15 @@ const AlarmRow = ({ alarm, isSelectedByInterval, handleSelectAlarm }) => {
 
   return (
     <tr
-      className=
-      {
+      className={
         `border-b transition-colors duration-200 hover:bg-african_violet-700 cursor-pointer 
         ${
-          isSelectedByInterval ? 'bg-african_violet-200 text-white' : 'bg-white text-african_violet-400'
+          isSelectedByClicks
+            ? 'bg-green-600 text-white'
+            : isSelectedByInterval
+            ? 'bg-african_violet-200 text-white'
+            : 'bg-white text-african_violet-400'
         }`
-
       }
       onClick={() => handleSelectAlarm(alarm)}
     >
