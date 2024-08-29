@@ -1,7 +1,7 @@
 // useFilterAlarmsByInterval.js
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedAlarms } from '../../../redux/slices/alarmSlice';
+import { setFilteredByIntervalAlarms } from '../../../redux/slices/alarmSlice';
 
 const useFilterAlarmsByInterval = () => {
     const dispatch = useDispatch();
@@ -13,9 +13,9 @@ const useFilterAlarmsByInterval = () => {
             console.log('Filtrando por temporalidad:', selectedTemporalidad);
             
             const filteredAlarms = alarms.filter(alarm => (alarm.Temporalidad === selectedTemporalidad));
-            dispatch(setSelectedAlarms(filteredAlarms));
+            dispatch(setFilteredByIntervalAlarms(filteredAlarms));
         } else {
-            dispatch(setSelectedAlarms([]));
+            dispatch(setFilteredByIntervalAlarms([]));
         }
     }, [selectedTemporalidad, alarms, dispatch]);
 };

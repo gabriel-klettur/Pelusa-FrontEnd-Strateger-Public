@@ -16,15 +16,15 @@ import AlarmTab from '../components/AlarmTab';
 const AlarmContainer = () => {
 
   const dispatch = useDispatch();  
-  const { alarms, page, selectedAlarms, allSelectedAlarms, hasMore, loading, error } = useSelector((state) => state.alarms);  
+  const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore, loading, error } = useSelector((state) => state.alarms);  
   const [viewType, setViewType] = useState('alarms');  
 
   useFetchAlarms();  
   useFilterAlarmsByInterval();            
   useFilterAlarmsByIntervalAndType();     
 
-  const handleAlarmSelection = (alarm) => handleSelectAlarm(alarm, selectedAlarms, dispatch);
-  const sortedAlarms = useSortAlarmsById(viewType, alarms, selectedAlarms, allSelectedAlarms);
+  const handleAlarmSelection = (alarm) => handleSelectAlarm(alarm, filteredByIntervalAlarms, dispatch);
+  const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);
 
   if (error) {
     return <div className="text-center py-4 text-red-600">Error al cargar alarmas: {error}</div>;
@@ -34,7 +34,7 @@ const AlarmContainer = () => {
 
   console.log('-------------------------------------------------------------');
   console.log('currentAlarms:', currentAlarms);
-  console.log('selectedAlarms:', selectedAlarms);
+  console.log('selectedAlarms:', filteredByIntervalAlarms);
   console.log('handleAlarmSelection:', handleAlarmSelection);
   console.log('-------------------------------------------------------------');
 
@@ -47,11 +47,11 @@ const AlarmContainer = () => {
           if (index === 0) {
             setViewType('alarms');
           } else if (index === 1) {
-            setViewType('selectedAlarms');
+            setViewType('filteredByIntervalAlarms');
           } else if (index === 2) {
-            setViewType('selectedAlarms');
+            setViewType('filteredByIntervalAlarms');
           } else {
-            setViewType('allSelectedAlarms');
+            setViewType('filteredByIntervalAndTypeAlarms');
           }
         }}>
           <Tab.List className="flex justify-start bg-african_violet-300">
@@ -62,16 +62,16 @@ const AlarmContainer = () => {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable alarms={currentAlarms} selectedAlarms={selectedAlarms} handleSelectAlarm={handleAlarmSelection} />
+              <AlarmTable alarms={currentAlarms} selectedAlarms={filteredByIntervalAlarms} handleSelectAlarm={handleAlarmSelection} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

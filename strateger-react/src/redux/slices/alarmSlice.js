@@ -18,28 +18,28 @@ const initialFilteredTemporalidades = {
 const alarmSlice = createSlice({
   name: 'alarms',
   initialState: {
-    alarms: [],
-    loading: false,
-    error: null,
-    page: 0,
-    selectedAlarms: [],
-    allSelectedAlarms: [],
+    alarms: [],        
+    filteredByIntervalAlarms: [],
+    filteredByIntervalAndTypeAlarms: [],
     strategyFilteredAlarms: [],
+    page: 0,
     offset: 0,
-    hasMore: true,
+    hasMore: true,  
     filteredTemporalidades: initialFilteredTemporalidades,
     selectedTemporalidad: '',
     selectedTypes: {},
+    loading: false,
+    error: null,
   },
   reducers: {
     setPage(state, action) {
       state.page = action.payload;
     },
-    setSelectedAlarms(state, action) {
-      state.selectedAlarms = action.payload;
+    setFilteredByIntervalAlarms(state, action) {
+      state.filteredByIntervalAlarms = action.payload;
     },
-    setAllSelectedAlarms(state, action) {
-      state.allSelectedAlarms = action.payload;
+    setFilteredByIntervalAndTypeAlarms(state, action) {  
+      state.filteredByIntervalAndTypeAlarms = action.payload;
     },
     setStrategyFilteredAlarms(state, action) {
       state.strategyFilteredAlarms = action.payload;
@@ -92,8 +92,8 @@ const alarmSlice = createSlice({
 
 export const {
   setPage,
-  setSelectedAlarms,
-  setAllSelectedAlarms,
+  setFilteredByIntervalAlarms,
+  setFilteredByIntervalAndTypeAlarms,  // Nuevo nombre
   setStrategyFilteredAlarms,
   incrementTemporalidad,
   decrementTemporalidad,
@@ -106,7 +106,7 @@ export const selectSelectedTemporalidad = (state) => state.alarms.selectedTempor
 export const selectSelectedTypes = (state) => state.alarms.selectedTypes;
 export const selectFilteredTemporalidades = (state) => state.alarms.filteredTemporalidades;
 export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
-export const selectAllSelectedAlarms = (state) => state.alarms.allSelectedAlarms;
-
+export const selectFilteredByIntervalAlarms = (state) => state.alarms.filteredByIntervalAlarms;
+export const selectFilteredByIntervalAndTypeAlarms = (state) => state.alarms.filteredByIntervalAndTypeAlarms;
 
 export default alarmSlice.reducer;

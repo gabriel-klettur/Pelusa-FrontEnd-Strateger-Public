@@ -1,6 +1,6 @@
   
   
-  import { setSelectedAlarms } from '../../../../redux/slices/alarmSlice';
+  import { setFilteredByIntervalAlarms } from '../../../../redux/slices/alarmSlice';
 
   const handleSelectAlarm = (alarm, selectedAlarms, dispatch) => {
 
@@ -11,7 +11,7 @@
     } else {
       newSelectedAlarms = [...selectedAlarms, alarm];
     }
-    dispatch(setSelectedAlarms(newSelectedAlarms));
+    dispatch(setFilteredByIntervalAlarms(newSelectedAlarms));
   };
 
   export default handleSelectAlarm;
