@@ -1,10 +1,9 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
 
-const AlarmTab = ({ tabName, setViewType }) => {
+const AlarmTab = ({ tabName}) => {
   return (
-    <Tab
-      onClick={setViewType}
+    <Tab      
       className={({ selected }) =>
         `px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${
           selected

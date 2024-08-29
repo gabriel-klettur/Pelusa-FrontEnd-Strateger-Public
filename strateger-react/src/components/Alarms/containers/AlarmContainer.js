@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Tab } from '@headlessui/react';
 
@@ -13,8 +13,7 @@ import AlarmTab from '../components/AlarmTab';
 
 const AlarmContainer = () => {
   
-  const { loading, error } = useSelector((state) => state.alarms);  
-  const [viewType, setViewType] = useState('alarms');
+  const { loading, error } = useSelector((state) => state.alarms);    
   
   //Si se modifica [dispatch, alarms.length] se vuelve a ejecutar el hook
   useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'
@@ -35,23 +34,23 @@ const AlarmContainer = () => {
       <div className="text-sm">
         <Tab.Group>
           <Tab.List className="flex justify-start bg-african_violet-300">
-            <AlarmTab tabName="Alarms" setViewType={() => setViewType('alarms')} />
-            <AlarmTab tabName="Selected Alarms" setViewType={() => setViewType('filteredByIntervalAlarms')} />
-            <AlarmTab tabName="Filtered by Selected Interval" setViewType={() => setViewType('filteredByIntervalAlarms')} />
-            <AlarmTab tabName="Filtered by Selected Interval and Type" setViewType={() => setViewType('filteredByIntervalAndTypeAlarms')} />            
+            <AlarmTab tabName="Alarms"/>
+            <AlarmTab tabName="Selected Alarms"/>
+            <AlarmTab tabName="Filtered by Selected Interval"/>
+            <AlarmTab tabName="Filtered by Selected Interval and Type"/>            
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <AlarmTable viewType={viewType} />
+              <AlarmTable viewType={'alarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={viewType} />
+              <AlarmTable viewType={'filteredByClickAlarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={viewType} />
+              <AlarmTable viewType={'filteredByIntervalAlarms'} />
             </Tab.Panel>
             <Tab.Panel>
-              <AlarmTable viewType={viewType} />
+              <AlarmTable viewType={'filteredByIntervalAndTypeAlarms'} />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>        
