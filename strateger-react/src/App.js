@@ -66,36 +66,36 @@ const App = () => {
               </Tab>
             ))}
           </TabList>
-          <div className="bg-african_violet-900">
+          <div>
               <LightweightChart
                 initialTemporalidad={initialTemporalidad}
                 initialStartDate={formattedStartDate}
                 initialEndDate={formattedCurrentDate}
               />            
           </div>
-          <TabPanels className="">
-            <TabPanel className="pt-1 bg-african_violet-800">
+          <TabPanels className="pt-1 bg-african_violet-600">
+            <TabPanel>
               <Alarms />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <Orders />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <StrategyCard />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <Diary />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <Account />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <Position />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               <Backtesting />
             </TabPanel>
-            <TabPanel className="pt-1  bg-african_violet-800">
+            <TabPanel>
               Configuración
             </TabPanel>
           </TabPanels>
