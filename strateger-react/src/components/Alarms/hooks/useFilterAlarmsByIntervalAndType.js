@@ -24,11 +24,8 @@ const useFilterAlarmsByIntervalAndType = () => {
                     dispatch(setFilteredByIntervalAndTypeAlarms(allAlarms));
                 });
             }
-
             return;
         }
-
-        console.log('Filtrando por Type de alarma:', selectedTypes);        
         
         // Iterate over each temporalidad and filter alarms
         Object.keys(selectedTypes).forEach(temporalidad => {
