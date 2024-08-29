@@ -3,17 +3,19 @@ import { createChart } from 'lightweight-charts';
 
 export const initializeChart = (container) => {
   const chart = createChart(container, {
-    autoSize: true, // Habilitar autoSize
+    autoSize: true,
     layout: {
-      backgroundColor: '#ffffff',
-      textColor: '#000',
+      background:{
+        color: '#000',
+      },
+      textColor: '#fff',
     },
     grid: {
       vertLines: {
-        color: '#e1e1e1',
+        color: '#252525',
       },
       horzLines: {
-        color: '#e1e1e1',
+        color: '#252525',
       },
     },
     timeScale: {
