@@ -9,14 +9,13 @@ import useSortAlarmsById from '../../hooks/useSortAlarmsById';
 
 import handleSelectAlarmByClick from './handleSelectAlarmByClick';  // Function, Handle alarm selection by click
 
-const AlarmTable = ({ viewType }) => {
+const AlarmTable = ({ viewTabType }) => {
 
-  const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore } = useSelector((state) => state.alarms);  
-  const {filteredByClickAlarms} = useSelector((state) => state.alarms);  
+  const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore, filteredByClickAlarms } = useSelector((state) => state.alarms);    
 
   const dispatch = useDispatch();  
 
-  const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);  // Hook, Sort alarms by id
+  const sortedAlarms = useSortAlarmsById(viewTabType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, filteredByClickAlarms);  // Hook, Sort alarms by id
   const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
 
   // Definición de columnas para Tablita (aunque no se utilizarán directamente aquí)
@@ -39,6 +38,7 @@ const AlarmTable = ({ viewType }) => {
       key={index}
       alarm={item}
       isSelectedByInterval={filteredByIntervalAlarms.some((a) => a.id === item.id)}
+      isSelectedByClicks={filteredByClickAlarms.some((a) => a.id === item.id)}
       handleSelectAlarm={handleAlarmSelectionByClick}
     />
   );  
