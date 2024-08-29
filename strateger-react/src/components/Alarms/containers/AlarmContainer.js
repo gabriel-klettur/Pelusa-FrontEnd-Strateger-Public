@@ -32,12 +32,6 @@ const AlarmContainer = () => {
 
   const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
 
-  console.log('-------------------------------------------------------------');
-  console.log('currentAlarms:', currentAlarms);
-  console.log('selectedAlarms:', filteredByIntervalAlarms);
-  console.log('handleAlarmSelection:', handleAlarmSelection);
-  console.log('-------------------------------------------------------------');
-
   return (
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
