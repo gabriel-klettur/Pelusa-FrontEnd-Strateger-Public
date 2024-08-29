@@ -4,14 +4,20 @@ import React from 'react';
 import Tablita from '../../../common/Tablita';
 import AlarmRow from './AlarmRow';
 import { useDispatch, useSelector } from 'react-redux';
+import Pagination from '../../components/AlarmTable/Pagination';
+import useSortAlarmsById from '../../hooks/useSortAlarmsById';
 
 import handleSelectAlarmByClick from './handleSelectAlarmByClick';  // Function, Handle alarm selection by click
 
-const AlarmTable = ({ alarms, selectedAlarmsByInterval }) => {
+const AlarmTable = ({ viewType }) => {
 
+  const { alarms, page, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, hasMore } = useSelector((state) => state.alarms);  
   const {filteredByClickAlarms} = useSelector((state) => state.alarms);  
 
   const dispatch = useDispatch();  
+
+  const sortedAlarms = useSortAlarmsById(viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms);  // Hook, Sort alarms by id
+  const currentAlarms = sortedAlarms.slice(page * 20, (page * 20) + 20);
 
   // Definición de columnas para Tablita (aunque no se utilizarán directamente aquí)
   const columns = [
@@ -32,13 +38,21 @@ const AlarmTable = ({ alarms, selectedAlarmsByInterval }) => {
     <AlarmRow
       key={index}
       alarm={item}
-      isSelectedByInterval={selectedAlarmsByInterval.some((a) => a.id === item.id)}
+      isSelectedByInterval={filteredByIntervalAlarms.some((a) => a.id === item.id)}
       handleSelectAlarm={handleAlarmSelectionByClick}
     />
   );  
 
   return (
-    <Tablita columns={columns} data={alarms} renderRow={renderRow} />
+    <div>
+    <Tablita columns={columns} data={currentAlarms} renderRow={renderRow} />
+    <Pagination 
+          page={page} 
+          hasMore={hasMore} 
+          endIndex={page * 20 + currentAlarms.length} 
+          alarmsLength={sortedAlarms.length}           
+    />
+    </div>
   );
 };
 
