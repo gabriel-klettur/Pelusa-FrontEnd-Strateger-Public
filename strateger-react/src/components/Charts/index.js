@@ -1,5 +1,5 @@
 // src/components/TradingViewChart/index.js
-import LightweightChart from './LightweightChart';
+import LightweightChart from './MainCharts';
 import Toolbar from './Toolbar';
 import { initializeChart } from './config/chartConfig';
 import { setSeriesData, initializeSeries } from './utils/series/seriesConfig';

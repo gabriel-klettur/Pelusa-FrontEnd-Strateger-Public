@@ -26,7 +26,7 @@ import ordersImage from '../images/orders.webp';
 import positionsImage from '../images/positions.webp';
 import backtestingImage from '../images/backtesting.webp';
 
-const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
+const MainChartsContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
   const { data, loading, chartInterval } = useChartData(initialTemporalidad, new Date(startDate).toISOString(), new Date(endDate).toISOString());
@@ -136,4 +136,4 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
   );
 };
 
-export default ChartContainer;
+export default MainChartsContainer;
