@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from '../markers/Alarms';
-import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
-import { mapPositionsToMarkers } from '../markers/PositionsChart'; // Asegúrate de importar correctamente
+import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers } from '../utils/markers/Alarms';
+import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../utils/markers/OrdersChart';
+import { mapPositionsToMarkers } from '../utils/markers/PositionsChart'; // Asegúrate de importar correctamente
 import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../redux/slices/alarmSlice';
 import { selectFilteredOrders } from '../../../redux/slices/orderSlice';
 import { selectBacktestingResult } from '../../../redux/slices/backtestingSlice';

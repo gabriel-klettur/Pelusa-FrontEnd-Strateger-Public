@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateChartData, setPositionMarkers } from '../../../../redux/slices/tradingViewChartSlice';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/slices/backtestingSlice';
 
-import { mapPositionsToMarkers } from '../../../TradingViewChart/markers/PositionsChart';
+import { mapPositionsToMarkers } from '../../../TradingViewChart/utils/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 

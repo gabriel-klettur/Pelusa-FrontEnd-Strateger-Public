@@ -1,5 +1,5 @@
 // Path: strateger-react/src/components/TradingViewChart/series/seriesConfig.js
-import { formatChartData, sortAndRemoveDuplicates } from '../data/chartData';
+import { formatChartData, sortAndRemoveDuplicates } from '../../data/chartData';
 import { calculateEMA, createEMASeries } from '../indicators/Emas';
 import { calculateStochastic, createStochasticSeries } from '../indicators/Stochastic'; // Importar el indicador Stochastic
 
