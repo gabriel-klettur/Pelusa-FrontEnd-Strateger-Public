@@ -7,7 +7,7 @@ import { setSelectedTab, selectSelectedTab } from './redux/slices/tabSlice';
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
-import LightweightChart from './components/TradingViewChart/LightweightChart';
+import LightweightChart from './components/Charts/LightweightChart';
 import { StrategyCard } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
