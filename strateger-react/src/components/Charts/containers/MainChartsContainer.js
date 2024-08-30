@@ -3,28 +3,28 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import useChartData from './hooks/useChartData';
-import useChart from './hooks/useChart';
-import useMarkers from './hooks/useMarkers';
+import useChartData from '../hooks/useChartData';
+import useChart from '../hooks/useChart';
+import useMarkers from '../hooks/useMarkers';
 
-import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
-import { selectSelectedTab } from '../../redux/slices/tabSlice';
+import { setTradingViewChartParameters } from '../../../redux/slices/tradingViewChartSlice';
+import { selectSelectedTab } from '../../../redux/slices/tabSlice';
 
-import BacktestingForm from '../Backtesting/components/BacktestingForm/BacktestingForm';
-import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';
-import { SummaryChart } from '../Account';
-import { ToolAlarmBar } from '../Alarms';
-import { ToolOrderBar }  from '../Orders';
+import BacktestingForm from '../../Backtesting/components/BacktestingForm/BacktestingForm';
+import DiaryCalendar from '../../Diary/components/DiaryCalendar/DiaryCalendar';
+import { SummaryChart } from '../../Account';
+import { ToolAlarmBar } from '../../Alarms';
+import { ToolOrderBar }  from '../../Orders';
 
-import ToolbarCharts from './components/ToolbarCharts';
+import ToolbarCharts from '../components/ToolbarCharts';
 
-import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 // Importa las imágenes que quieres usar para cada tab
-import alarmImage from './images/alarm.webp';
-import ordersImage from './images/orders.webp';
-import positionsImage from './images/positions.webp';
-import backtestingImage from './images/backtesting.webp';
+import alarmImage from '../images/alarm.webp';
+import ordersImage from '../images/orders.webp';
+import positionsImage from '../images/positions.webp';
+import backtestingImage from '../images/backtesting.webp';
 
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();

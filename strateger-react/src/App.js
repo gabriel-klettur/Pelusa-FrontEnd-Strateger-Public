@@ -1,13 +1,12 @@
 // Path: strateger-react/src/App.js
 
 import React, { useEffect } from 'react';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTab, selectSelectedTab } from './redux/slices/tabSlice';
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
-import LightweightChart from './components/Charts/LightweightChart';
+import CandleStickChart from './components/Charts/MainCharts';
 import { StrategyCard } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
@@ -33,74 +32,58 @@ const App = () => {
     dispatch(loadSlicesInOrder());
   }, [dispatch]);
 
-  const handleTabChange = (index) => {
+  const handleButtonClick = (index) => {
     dispatch(setSelectedTab(index));
   };
 
+  const buttonsMap = [
+    'Alarmas',
+    'Órdenes',
+    'Estrategias',
+    'Diario',
+    'Account',
+    'Positions',
+    'Backtesting',
+    'Config'
+  ];
+
   return (
     <div className="min-h-screen bg-african_violet-200 text-african_violet-100">
-      <div className="w-full"> {/* Usa todo el ancho de la pantalla */}
-        <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
-          <TabList className="flex bg-african_violet-200">
-            {[
-              'Alarmas',
-              'Órdenes',
-              'Estrategias',
-              'Diario',
-              'Account',
-              'Positions',
-              'Backtesting',
-              'Configuración',
-            ].map((tabName, index) => (
-              <Tab
-                key={index}
-                className={({ selected }) =>
-                  `w-full h-14 text-sm font-medium transition-colors duration-200 ${
-                    selected
-                      ? 'bg-african_violet-400 shadow text-african_violet-900'
-                      : 'text-african_violet-700 hover:bg-african_violet-200 hover:text-african_violet-900'
-                  }`
-                }
-              >
-                {tabName}
-              </Tab>
-            ))}
-          </TabList>
-          <div>
-              <LightweightChart
-                initialTemporalidad={initialTemporalidad}
-                initialStartDate={formattedStartDate}
-                initialEndDate={formattedCurrentDate}
-              />            
-          </div>
-          <TabPanels className="pt-1 bg-african_violet-600">
-            <TabPanel>
-              <Alarms />
-            </TabPanel>
-            <TabPanel>
-              <Orders />
-            </TabPanel>
-            <TabPanel>
-              <StrategyCard />
-            </TabPanel>
-            <TabPanel>
-              <Diary />
-            </TabPanel>
-            <TabPanel>
-              <Account />
-            </TabPanel>
-            <TabPanel>
-              <Position />
-            </TabPanel>
-            <TabPanel>
-              <Backtesting />
-            </TabPanel>
-            <TabPanel>
-              Configuración
-            </TabPanel>
-          </TabPanels>
-        </TabGroup>
+      <div className="w-full flex"> {/* Flex para organizar los botones en una fila */}
+        {buttonsMap.map((buttonLabel, index) => (
+          <button
+            key={index}
+            onClick={() => handleButtonClick(index)}
+            className={`w-full h-14 text-sm font-medium transition-colors duration-200 ${
+              selectedTab === index
+                ? 'bg-african_violet-400 shadow text-african_violet-900'
+                : 'text-african_violet-700 hover:bg-african_violet-200 hover:text-african_violet-900'
+            }`}
+          >
+            {buttonLabel}
+          </button>
+        ))}
       </div>
+
+      <div>
+        <CandleStickChart
+          initialTemporalidad={initialTemporalidad}
+          initialStartDate={formattedStartDate}
+          initialEndDate={formattedCurrentDate}
+        />
+      </div>
+
+      <div className="pt-1 bg-african_violet-600">
+        {selectedTab === 0 && <Alarms />}
+        {selectedTab === 1 && <Orders />}
+        {selectedTab === 2 && <StrategyCard />}
+        {selectedTab === 3 && <Diary />}
+        {selectedTab === 4 && <Account />}
+        {selectedTab === 5 && <Position />}
+        {selectedTab === 6 && <Backtesting />}
+        {selectedTab === 7 && <div>Configuración</div>}
+      </div>
+      
       <div className="fixed bottom-4 right-20">
         <Reloj direction="up" />
       </div>

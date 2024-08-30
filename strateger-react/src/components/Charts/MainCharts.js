@@ -1,7 +1,7 @@
 // LightweightChart.js
 import React from 'react';
 import useDateRange from './hooks/useDateRange';
-import ChartContainer from './ChartContainer';
+import ChartContainer from './containers/MainChartsContainer';
 
 const LightweightChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
   const { startDate, endDate, handleDateChange } = useDateRange(new Date(initialStartDate), new Date(initialEndDate));
