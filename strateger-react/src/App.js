@@ -6,7 +6,7 @@ import { setSelectedTab, selectSelectedTab } from './redux/slices/tabSlice';
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
-import CandleStickChart from './components/Charts/MainCharts';
+import MainCharts from './components/Charts/MainCharts';
 import { StrategyCard } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
@@ -66,7 +66,7 @@ const App = () => {
       </div>
 
       <div>
-        <CandleStickChart
+        <MainCharts
           initialTemporalidad={initialTemporalidad}
           initialStartDate={formattedStartDate}
           initialEndDate={formattedCurrentDate}

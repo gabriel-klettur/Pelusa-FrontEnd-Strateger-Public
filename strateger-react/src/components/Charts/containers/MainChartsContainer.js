@@ -1,13 +1,12 @@
 // Path: strateger-react/src/components/TradingViewChart/ChartContainer.js
 
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import useChartData from '../hooks/useChartData';
 import useChart from '../hooks/useChart';
 import useMarkers from '../hooks/useMarkers';
 
-import { setTradingViewChartParameters } from '../../../redux/slices/tradingViewChartSlice';
 import { selectSelectedTab } from '../../../redux/slices/tabSlice';
 
 import BacktestingForm from '../../Backtesting/components/BacktestingForm/BacktestingForm';
@@ -16,7 +15,6 @@ import { SummaryChart } from '../../Account';
 import { ToolAlarmBar } from '../../Alarms';
 import { ToolOrderBar }  from '../../Orders';
 
-import ToolbarCharts from '../components/ToolbarCharts';
 
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
@@ -27,38 +25,12 @@ import positionsImage from '../images/positions.webp';
 import backtestingImage from '../images/backtesting.webp';
 
 const MainChartsContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
-  const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
+  
   const { data, loading, chartInterval } = useChartData(initialTemporalidad, new Date(startDate).toISOString(), new Date(endDate).toISOString());
   const { chartContainerRef, candlestickSeriesRef, stochasticChartContainerRef } = useChart(data);
+  
   useMarkers(candlestickSeriesRef, chartInterval);
-
-  const [interval, setInterval] = useState(initialTemporalidad);
-
-  // Función que se ejecuta cuando se cambia el intervalo
-  const handleIntervalChange = (newInterval) => {
-    console.log('Cambio de intervalo', newInterval);
-    setInterval(newInterval);
-    dispatch(
-      setTradingViewChartParameters({
-        interval: newInterval,
-        startDate: new Date(startDate).toISOString(),
-        endDate: new Date(endDate).toISOString(),
-      })
-    );
-  };
-
-  // Función que se ejecuta cuando se cambia la fecha
-  const handleDateChange = (newStartDate, newEndDate) => {
-    onDateChange(newStartDate, newEndDate);
-    dispatch(
-      setTradingViewChartParameters({
-        interval,
-        startDate: new Date(startDate).toISOString(),
-        endDate: new Date(endDate).toISOString(),
-      })
-    );
-  };
 
   const simulatedResults = [
     { date: '2024-08-01', pnl: 100000 },
@@ -86,17 +58,8 @@ const MainChartsContainer = ({ initialTemporalidad, startDate, endDate, onDateCh
   return (
     <div className="relative bg-african_violet-600">
       <LoadingOverlay isLoading={loading} />
-      <div className="bg-african_violet-600 pt-1">
-        <ToolbarCharts
-          activeInterval={interval}
-          onIntervalChange={handleIntervalChange}
-          startDate={new Date(startDate)}
-          endDate={new Date(endDate)}
-          onDateChange={handleDateChange}
-        />
-      </div>
+      
       <div className="grid grid-cols-10 gap-1 ">
-
         {/* LEFT - Contenedor del gráfico y el indicador estocástico*/}
         <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg mt-1 "`}>
           <div
@@ -131,7 +94,6 @@ const MainChartsContainer = ({ initialTemporalidad, startDate, endDate, onDateCh
           </div>
         </div>
       </div>
-
     </div>
   );
 };
