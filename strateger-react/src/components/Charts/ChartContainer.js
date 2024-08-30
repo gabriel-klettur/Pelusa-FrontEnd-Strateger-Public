@@ -16,7 +16,7 @@ import { SummaryChart } from '../Account';
 import { ToolAlarmBar } from '../Alarms';
 import { ToolOrderBar }  from '../Orders';
 
-import Toolbar from './components/Toolbar';
+import ToolbarCharts from './components/ToolbarCharts';
 
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
@@ -35,7 +35,9 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 
   const [interval, setInterval] = useState(initialTemporalidad);
 
+  // Función que se ejecuta cuando se cambia el intervalo
   const handleIntervalChange = (newInterval) => {
+    console.log('Cambio de intervalo', newInterval);
     setInterval(newInterval);
     dispatch(
       setTradingViewChartParameters({
@@ -46,13 +48,14 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     );
   };
 
+  // Función que se ejecuta cuando se cambia la fecha
   const handleDateChange = (newStartDate, newEndDate) => {
     onDateChange(newStartDate, newEndDate);
     dispatch(
       setTradingViewChartParameters({
         interval,
-        startDate: newStartDate.toISOString(),
-        endDate: newEndDate.toISOString(),
+        startDate: new Date(startDate).toISOString(),
+        endDate: new Date(endDate).toISOString(),
       })
     );
   };
@@ -84,7 +87,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
     <div className="relative bg-african_violet-600">
       <LoadingOverlay isLoading={loading} />
       <div className="bg-african_violet-600 pt-1">
-        <Toolbar
+        <ToolbarCharts
           activeInterval={interval}
           onIntervalChange={handleIntervalChange}
           startDate={new Date(startDate)}
