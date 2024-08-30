@@ -16,7 +16,7 @@ import { SummaryChart } from '../Account';
 import { ToolAlarmBar } from '../Alarms';
 import { ToolOrderBar }  from '../Orders';
 
-import Toolbar from './Toolbar';
+import Toolbar from './components/Toolbar';
 
 import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
 
@@ -29,11 +29,7 @@ import backtestingImage from './images/backtesting.webp';
 const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
-  const { data, loading, chartInterval } = useChartData(
-    initialTemporalidad,
-    new Date(startDate).toISOString(),
-    new Date(endDate).toISOString()
-  );
+  const { data, loading, chartInterval } = useChartData(initialTemporalidad, new Date(startDate).toISOString(), new Date(endDate).toISOString());
   const { chartContainerRef, candlestickSeriesRef, stochasticChartContainerRef } = useChart(data);
   useMarkers(candlestickSeriesRef, chartInterval);
 

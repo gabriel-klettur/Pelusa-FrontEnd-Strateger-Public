@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Reloj from '../common/Reloj';
+import Reloj from '../../common/Reloj';
 
 const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateChange }) => {
   const [localDate, setLocalDate] = useState(startDate);
