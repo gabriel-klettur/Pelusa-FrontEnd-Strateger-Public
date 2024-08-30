@@ -3,7 +3,7 @@
 import React from 'react';
 import DiaryEntry from './DiaryEntry';
 
-import Ventanita from '../../../common/Ventanita';
+import Ventanita from '../../../common/UI/Ventanita';
 
 const DiaryList = ({ entries, onEdit, onDelete }) => {
   return (

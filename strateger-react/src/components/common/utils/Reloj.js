@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Popover } from '@headlessui/react';
-import { updateTime } from '../../redux/slices/timeSlice';
+import { updateTime } from '../../../redux/slices/timeSlice';
 import { format } from 'date-fns';
 
 const Reloj = ({ direction = 'up' }) => {

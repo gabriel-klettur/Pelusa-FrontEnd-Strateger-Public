@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import Tablita from '../../../common/Tablita';
+import Tablita from '../../../common/UI/Tablita';
 
 const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeData, LoadingOverlay }) => {
 

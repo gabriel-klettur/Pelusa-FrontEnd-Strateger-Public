@@ -7,7 +7,7 @@ import AccountCharts from './components/AccountCharts/AccountCharts'; // Corregi
 import AccountInformation from './components/AccountInformation/AccountInformation';
 import TotalBalanceAccounts from './components/TotalBalanceAccounts';
 
-import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../common/utils/LoadingOverlay/LoadingOverlay';
 
 const Account = () => {  
 

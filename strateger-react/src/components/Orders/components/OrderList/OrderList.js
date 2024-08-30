@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders, setPage, selectFilteredOrders } from '../../../../redux/slices/orderSlice';
 
-import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
-import Tablita from '../../../common/Tablita';
+import LoadingOverlay from '../../../common/utils/LoadingOverlay/LoadingOverlay';
+import Tablita from '../../../common/UI/Tablita';
 
 const OrderList = () => {
   const dispatch = useDispatch();

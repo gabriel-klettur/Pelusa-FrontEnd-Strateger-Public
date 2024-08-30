@@ -1,7 +1,7 @@
 // src/components/TradingViewChart/Reloj.js
 
 import React from 'react';
-import RelojComponent from '../../../common/Reloj'; // Importa el componente Reloj que ya existe
+import RelojComponent from '../../../common/utils/Reloj'; // Importa el componente Reloj que ya existe
 
 const Reloj = ({ direction }) => {
   return (

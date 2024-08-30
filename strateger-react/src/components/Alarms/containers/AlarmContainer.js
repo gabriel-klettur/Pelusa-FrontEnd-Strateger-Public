@@ -4,7 +4,7 @@ import { Tab } from '@headlessui/react';
 
 import AlarmTable from '../components/AlarmTable/AlarmTable';
 
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../../common/utils/LoadingOverlay/LoadingOverlay';
 
 import useFetchAlarms from '../hooks/useFetchAlarms';  
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';

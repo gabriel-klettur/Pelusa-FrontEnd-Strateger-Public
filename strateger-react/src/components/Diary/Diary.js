@@ -5,7 +5,7 @@ import useDiary from './hooks/useDiary';
 import DiaryList from './components/DiaryList/DiaryList';
 import DiaryEntryForm from './components/DiaryEntryForm/DiaryEntryForm';
 
-import Ventanita from '../common/Ventanita';
+import Ventanita from '../common/UI/Ventanita';
 
 const Diary = () => {
   const {

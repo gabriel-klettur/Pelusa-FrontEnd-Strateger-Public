@@ -10,7 +10,7 @@ import {
   updateTotalBalanceInUSD,
 } from '../../../../redux/slices/accountSlice';
 
-import Tarjetitas from '../../../common/Tarjetitas';
+import Tarjetitas from '../../../common/UI/Tarjetitas';
 
 const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();

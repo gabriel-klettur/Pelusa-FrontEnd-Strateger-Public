@@ -8,7 +8,7 @@ import { FilteredOrderList } from '../../../Orders';
 
 import { setStrategyFilteredAlarms } from '../../../../redux/slices/alarmSlice';
 
-import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
+import Ventanita from '../../../common/UI/Ventanita'; // Asegúrate de importar Ventanita
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '..
 import { selectTicker } from '../../../../redux/slices/tickerSlice'; // Importa selectTicker
 import Legend from '../../../TradingViewLineal/Legend';
 
-import Ventanita from '../../../common/Ventanita';
+import Ventanita from '../../../common/UI/Ventanita';
 
 const SummaryChart = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);

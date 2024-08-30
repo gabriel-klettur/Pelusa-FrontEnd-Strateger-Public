@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
 
 import React from 'react';
-import Tablita from '../../../common/Tablita';
+import Tablita from '../../../common/UI/Tablita';
 import AlarmRow from './AlarmRow';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../components/AlarmTable/Pagination';

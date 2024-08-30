@@ -7,7 +7,7 @@ import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingErro
 
 import { mapPositionsToMarkers } from '../../../Charts/utils/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';
-import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../../../common/utils/LoadingOverlay/LoadingOverlay';
 
 
 const BacktestingResult = () => {

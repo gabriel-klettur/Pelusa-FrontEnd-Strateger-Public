@@ -9,7 +9,7 @@ import DiaryItem from './DiaryItem';
 import PaginationReferencesForm from './PaginationReferencesForm';
 import SelectedIds from './SelectedIds';
 
-import Ventanita from '../../../../common/Ventanita';
+import Ventanita from '../../../../common/UI/Ventanita';
 
 const ReferencesForm = ({
   alarms, orders, strategies, diaryEntries, handleSelectReference,

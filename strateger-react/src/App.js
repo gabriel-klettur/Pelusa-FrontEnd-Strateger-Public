@@ -10,7 +10,7 @@ import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
 import { Backtesting } from './components/Backtesting';
-import Reloj from './components/common/Reloj';
+import Reloj from './components/common/utils/Reloj';
 import ToolbarCharts from './components/Charts/components/ToolbarCharts/ToolbarCharts';
 import useDateRange from './components/Charts/hooks/useDateRange';
 
@@ -102,6 +102,7 @@ const App = () => {
       </div>
 
       <div className="grid grid-cols-10 gap-1">
+        
         {/* LEFT - Contenedor del gráfico y el indicador estocástico*/}
         <div className={`" ${leftContainerSpan} flex flex-col bg-white p-2 rounded-br-lg mt-1 "`}>
           <MainCharts

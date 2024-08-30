@@ -12,8 +12,8 @@ import {
 } from '../../../../redux/slices/accountSlice';
 
 import { fetchTicker } from '../../../../redux/slices/tickerSlice';
-import Tablita from '../../../common/Tablita';
-import Tarjetitas from '../../../common/Tarjetitas';
+import Tablita from '../../../common/UI/Tablita';
+import Tarjetitas from '../../../common/UI/Tarjetitas';
 
 const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   const dispatch = useDispatch();

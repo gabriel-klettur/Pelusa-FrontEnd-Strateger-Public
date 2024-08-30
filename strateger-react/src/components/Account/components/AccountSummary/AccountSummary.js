@@ -9,7 +9,7 @@ import PerpUSDTMSummary from './PerpUSDTMSummary';
 import SpotSummary from './SpotSummary';
 import PerpCOINMSummary from './PerpCOINMSummary';
 
-import Ventanita from '../../../common/Ventanita';
+import Ventanita from '../../../common/UI/Ventanita';
 
 const AccountSummary = ({LoadingOverlay}) => {
 

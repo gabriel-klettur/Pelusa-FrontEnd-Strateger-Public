@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Ventanita from '../../../../common/Ventanita'; // Importa Ventanita
-import Inputsito from '../../../../common/Inputsito'; // Importa Inputsito
+import Ventanita from '../../../../common/UI/Ventanita'; // Importa Ventanita
+import Inputsito from '../../../../common/UI/Inputsito'; // Importa Inputsito
 import { saveStrategy } from '../../../../../redux/slices/strategySlice';
 
 const StrategyForm = ({ strategy, onSave, onCancel }) => {

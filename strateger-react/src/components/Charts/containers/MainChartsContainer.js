@@ -4,7 +4,7 @@ import useChartData from '../hooks/useChartData';
 import useChart from '../hooks/useChart';
 import useMarkers from '../hooks/useMarkers';
 
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../../common/utils/LoadingOverlay/LoadingOverlay';
 
 const MainChartsContainer = ({ initialTemporalidad, startDate, endDate }) => {
   
