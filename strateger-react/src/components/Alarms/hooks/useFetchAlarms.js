@@ -1,4 +1,5 @@
-// useFetchAlarms.js
+//Path: strateger-react/src/components/Alarms/hooks/useFetchAlarms.js
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAlarms } from '../../../redux/slices/alarmSlice';
@@ -11,7 +12,7 @@ const useFetchAlarms = () => {
         if (alarms.length === 0) {
             dispatch(fetchAlarms({ limit: 500, offset: 0 }));
         }
-    }, [dispatch, alarms.length]);
+    }, [dispatch, alarms.length]);                              
 };
 
 export default useFetchAlarms;
