@@ -1,32 +1,38 @@
+//Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
+
+// React and Redux
 import React from 'react';
 import { useSelector } from 'react-redux';
+
+// Headless UI
 import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 
+// Components
+import AlarmTab from '../components/AlarmTab';
 import AlarmTable from '../components/AlarmTable/AlarmTable';
-
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
+import ErrorMessage from '../../common/ErrorMessage';
 
+// Hooks
 import useFetchAlarms from '../hooks/useFetchAlarms';  
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
-import AlarmTab from '../components/AlarmTab';
+
+
 
 const AlarmContainer = () => {
   
   const { loading, error } = useSelector((state) => state.alarms);    
   
-  //Si se modifica [dispatch, alarms.length] se vuelve a ejecutar el hook
   useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'
-
-  //Si se modifica [selectedTemporalidad, alarms, dispatch], se vuelve a ejecutar el hook
+  
   useFilterAlarmsByInterval();              // Hook, Filter alarms by interval, save to store           'filteredByIntervalAlarms'
-
-  //Si se modifica [selectedTypes, alarms, dispatch, selectedTemporalidad], se vuelve a ejecutar el hook
+  
   useFilterAlarmsByIntervalAndType();       // Hook, Filter alarms by interval and type, save to store  'filteredByIntervalAndTypeAlarms'
 
   if (error) {
-    return <div className="text-center py-4 text-red-600">Error al cargar alarmas: {error}</div>;
-  }
+    <ErrorMessage message={error}/>
+  };
 
   return (
     <div className="relative">
