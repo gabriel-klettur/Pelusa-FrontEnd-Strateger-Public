@@ -6,23 +6,23 @@ const useSortAlarmsById = (viewType, alarms, filteredByIntervalAlarms, filteredB
   const [sortedAlarms, setSortedAlarms] = useState([]);
 
   useEffect(() => {
-    let listToUse = [];
+    let listToSort = [];
     
     switch (viewType) {
       case 'filteredByIntervalAlarms':        
-        listToUse = filteredByIntervalAlarms;        
+        listToSort = filteredByIntervalAlarms;        
         break;
       case 'filteredByClickAlarms':        
-        listToUse = filteredByClickAlarms;
+        listToSort = filteredByClickAlarms;
         break;
       case 'filteredByIntervalAndTypeAlarms':        
-        listToUse = filteredByIntervalAndTypeAlarms;
+        listToSort = filteredByIntervalAndTypeAlarms;
         break;
       default:        
-        listToUse = alarms;
+        listToSort = alarms;
     }
-    
-    setSortedAlarms(listToUse);
+    const sortedList = [...listToSort].sort((a, b) => b.id - a.id);
+    setSortedAlarms(sortedList);
   }, [viewType, alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, filteredByClickAlarms]);
 
   return sortedAlarms;
