@@ -18,16 +18,14 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
-
-
 const AlarmContainer = () => {
   
   const { loading, error } = useSelector((state) => state.alarms);    
   
-  useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'
-  
-  useFilterAlarmsByInterval();              // Hook, Filter alarms by interval, save to store           'filteredByIntervalAlarms'
-  
+  useFetchAlarms();                         // Hook, Fetch alarms from API, save to store               'alarms'  
+
+  // To filter using the AlarmToolPanel
+  useFilterAlarmsByInterval();              // Hook, Filter alarms by interval, save to store           'filteredByIntervalAlarms'  
   useFilterAlarmsByIntervalAndType();       // Hook, Filter alarms by interval and type, save to store  'filteredByIntervalAndTypeAlarms'
 
   if (error) {

@@ -13,9 +13,6 @@
    */
   const handleSelectAlarmByClick = (alarm, selectedAlarmsByClicks, dispatch) => {
     
-    console.log('Activandose handleSelectAlarmByInterval');
-
-
     let newSelectedAlarms;    
     const isSelected = selectedAlarmsByClicks.some((a) => a.id === alarm.id);
     if (isSelected) {
@@ -23,7 +20,7 @@
     } else {
       newSelectedAlarms = [...selectedAlarmsByClicks, alarm];
     }    
-    dispatch(setFilteredByClickAlarms(newSelectedAlarms));    //Deberia ser en otro state de redux llamado FilteredByClick
+    dispatch(setFilteredByClickAlarms(newSelectedAlarms));   
   };
 
   export default handleSelectAlarmByClick;
