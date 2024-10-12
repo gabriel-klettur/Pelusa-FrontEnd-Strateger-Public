@@ -38,13 +38,16 @@ const alarmSlice = createSlice({
       state.page = action.payload;
     },
     setFilteredByClickAlarms(state, action) {
-      state.filteredByClickAlarms = action.payload;
+      const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
+      state.filteredByClickAlarms = sortedAlarms;
     },
     setFilteredByIntervalAlarms(state, action) {
-      state.filteredByIntervalAlarms = action.payload;
+      const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
+      state.filteredByIntervalAlarms = sortedAlarms;
     },
-    setFilteredByIntervalAndTypeAlarms(state, action) {  
-      state.filteredByIntervalAndTypeAlarms = action.payload;
+    setFilteredByIntervalAndTypeAlarms(state, action) {
+      const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
+      state.filteredByIntervalAndTypeAlarms = sortedAlarms;
     },
     setStrategyFilteredAlarms(state, action) {
       state.strategyFilteredAlarms = action.payload;
@@ -83,8 +86,9 @@ const alarmSlice = createSlice({
       .addCase(fetchAlarms.fulfilled, (state, action) => {
         if (action.payload.length < 500) {
           state.hasMore = false;
-        }
-        state.alarms = [...state.alarms, ...action.payload];
+        }        
+        const newAlarms = action.payload.sort((a, b) => b.id - a.id);
+        state.alarms = [...state.alarms, ...newAlarms];
         state.loading = false;
         state.offset += 500;
       })

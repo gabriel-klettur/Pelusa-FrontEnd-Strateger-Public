@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
 
 // React and Redux
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
@@ -41,23 +41,6 @@ const AlarmContainer = () => {
   useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
   useFilterAlarmsByIntervalAndType();       // Hook para filtrar alarmas por intervalo y tipo
 
-  //Usar useMemo para ordenar las alarmas
-  const sortedAlarms = useMemo(() => {
-    return [...alarms].sort((a, b) => b.id - a.id);
-  }, [alarms]);
-  
-  const sortedFilteredByIntervalAlarms = useMemo(() => {
-    return [...filteredByIntervalAlarms].sort((a, b) => b.id - a.id);
-  }, [filteredByIntervalAlarms]);
-  
-  const sortedFilteredByClickAlarms = useMemo(() => {
-    return [...filteredByClickAlarms].sort((a, b) => b.id - a.id);
-  }, [filteredByClickAlarms]);
-  
-  const sortedFilteredByIntervalAndTypeAlarms = useMemo(() => {
-    return [...filteredByIntervalAndTypeAlarms].sort((a, b) => b.id - a.id);
-  }, [filteredByIntervalAndTypeAlarms]);
-
 
   // Definir las columnas para la tabla
   const columns = [
@@ -82,16 +65,16 @@ const AlarmContainer = () => {
     
     switch (viewTabType) {
       case 'filteredByIntervalAlarms':        
-        listToPaginate = sortedFilteredByIntervalAlarms;        
+        listToPaginate = filteredByIntervalAlarms;        
         break;
       case 'filteredByClickAlarms':        
-        listToPaginate = sortedFilteredByClickAlarms;
+        listToPaginate = filteredByClickAlarms;
         break;
       case 'filteredByIntervalAndTypeAlarms':        
-        listToPaginate = sortedFilteredByIntervalAndTypeAlarms;
+        listToPaginate = filteredByIntervalAndTypeAlarms;
         break;
       default:        
-        listToPaginate = sortedAlarms;
+        listToPaginate = alarms;
     }
   
     const currentAlarms = listToPaginate.slice(page * 20, (page * 20) + 20);
