@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
 
 // React and Redux
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
@@ -41,6 +41,24 @@ const AlarmContainer = () => {
   useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
   useFilterAlarmsByIntervalAndType();       // Hook para filtrar alarmas por intervalo y tipo
 
+  //Usar useMemo para ordenar las alarmas
+  const sortedAlarms = useMemo(() => {
+    return [...alarms].sort((a, b) => b.id - a.id);
+  }, [alarms]);
+  
+  const sortedFilteredByIntervalAlarms = useMemo(() => {
+    return [...filteredByIntervalAlarms].sort((a, b) => b.id - a.id);
+  }, [filteredByIntervalAlarms]);
+  
+  const sortedFilteredByClickAlarms = useMemo(() => {
+    return [...filteredByClickAlarms].sort((a, b) => b.id - a.id);
+  }, [filteredByClickAlarms]);
+  
+  const sortedFilteredByIntervalAndTypeAlarms = useMemo(() => {
+    return [...filteredByIntervalAndTypeAlarms].sort((a, b) => b.id - a.id);
+  }, [filteredByIntervalAndTypeAlarms]);
+
+
   // Definir las columnas para la tabla
   const columns = [
     { label: 'ID', key: 'id' },
@@ -60,27 +78,27 @@ const AlarmContainer = () => {
 
   // Función para obtener los datos según el tipo de vista
   const getDataForViewType = (viewTabType) => {
-    let listToSort = [];
+    let listToPaginate = [];
     
     switch (viewTabType) {
       case 'filteredByIntervalAlarms':        
-        listToSort = filteredByIntervalAlarms;        
+        listToPaginate = sortedFilteredByIntervalAlarms;        
         break;
       case 'filteredByClickAlarms':        
-        listToSort = filteredByClickAlarms;
+        listToPaginate = sortedFilteredByClickAlarms;
         break;
       case 'filteredByIntervalAndTypeAlarms':        
-        listToSort = filteredByIntervalAndTypeAlarms;
+        listToPaginate = sortedFilteredByIntervalAndTypeAlarms;
         break;
       default:        
-        listToSort = alarms;
+        listToPaginate = sortedAlarms;
     }
-    const sortedList = [...listToSort].sort((a, b) => b.id - a.id);
-    const currentAlarms = sortedList.slice(page * 20, (page * 20) + 20);
-
-    return { data: currentAlarms, totalLength: sortedList.length };
+  
+    const currentAlarms = listToPaginate.slice(page * 20, (page * 20) + 20);
+  
+    return { data: currentAlarms, totalLength: listToPaginate.length };
   };
-
+  
   if (error) {
     return <ErrorMessage message={error}/>;
   }
