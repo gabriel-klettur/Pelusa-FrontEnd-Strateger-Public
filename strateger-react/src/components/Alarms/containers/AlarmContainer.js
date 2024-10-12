@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Tab } from '@headlessui/react';
+import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 
 import AlarmTable from '../components/AlarmTable/AlarmTable';
 
@@ -32,28 +32,28 @@ const AlarmContainer = () => {
     <div className="relative">
       <LoadingOverlay isLoading={loading} />
       <div className="text-sm">
-        <Tab.Group>
-          <Tab.List className="flex justify-start bg-african_violet-300">
+        <TabGroup>
+          <TabList className="flex justify-start bg-african_violet-300">
             <AlarmTab tabName="Alarms"/>
             <AlarmTab tabName="Selected Alarms"/>
             <AlarmTab tabName="Filtered by Selected Interval"/>
             <AlarmTab tabName="Filtered by Selected Interval and Type"/>            
-          </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
               <AlarmTable viewTabType={'alarms'} />
-            </Tab.Panel>
-            <Tab.Panel>
+            </TabPanel>
+            <TabPanel>
               <AlarmTable viewTabType={'filteredByClickAlarms'} />
-            </Tab.Panel>
-            <Tab.Panel>
+            </TabPanel>
+            <TabPanel>
               <AlarmTable viewTabType={'filteredByIntervalAlarms'} />
-            </Tab.Panel>
-            <Tab.Panel>
+            </TabPanel>
+            <TabPanel>
               <AlarmTable viewTabType={'filteredByIntervalAndTypeAlarms'} />
-            </Tab.Panel>
-          </Tab.Panels>
-        </Tab.Group>        
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>        
       </div>
     </div>
   );
