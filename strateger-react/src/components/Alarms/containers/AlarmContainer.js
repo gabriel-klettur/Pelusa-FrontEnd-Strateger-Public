@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
 
 // React and Redux
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
@@ -58,29 +58,6 @@ const AlarmContainer = () => {
   const handleAlarmSelectionByClick = (alarm) => {
     handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch);
   };
-
-  // Función para obtener los datos según el tipo de vista
-  const getDataForViewType = (viewTabType) => {
-    let listToPaginate = [];
-    
-    switch (viewTabType) {
-      case 'filteredByIntervalAlarms':        
-        listToPaginate = filteredByIntervalAlarms;        
-        break;
-      case 'filteredByClickAlarms':        
-        listToPaginate = filteredByClickAlarms;
-        break;
-      case 'filteredByIntervalAndTypeAlarms':        
-        listToPaginate = filteredByIntervalAndTypeAlarms;
-        break;
-      default:        
-        listToPaginate = alarms;
-    }
-  
-    const currentAlarms = listToPaginate.slice(page * 20, (page * 20) + 20);
-  
-    return { data: currentAlarms, totalLength: listToPaginate.length };
-  };
   
   if (error) {
     return <ErrorMessage message={error}/>;
@@ -101,8 +78,7 @@ const AlarmContainer = () => {
             <TabPanel>
               <AlarmTable
                 columns={columns}
-                data={getDataForViewType('alarms').data}
-                totalLength={getDataForViewType('alarms').totalLength}
+                data={alarms}                
                 page={page}
                 hasMore={hasMore}
                 handleAlarmSelectionByClick={handleAlarmSelectionByClick}
@@ -113,8 +89,7 @@ const AlarmContainer = () => {
             <TabPanel>
               <AlarmTable
                 columns={columns}
-                data={getDataForViewType('filteredByClickAlarms').data}
-                totalLength={getDataForViewType('filteredByClickAlarms').totalLength}
+                data={filteredByClickAlarms}                
                 page={page}
                 hasMore={hasMore}
                 handleAlarmSelectionByClick={handleAlarmSelectionByClick}
@@ -125,8 +100,7 @@ const AlarmContainer = () => {
             <TabPanel>
               <AlarmTable
                 columns={columns}
-                data={getDataForViewType('filteredByIntervalAlarms').data}
-                totalLength={getDataForViewType('filteredByIntervalAlarms').totalLength}
+                data={filteredByIntervalAlarms}                
                 page={page}
                 hasMore={hasMore}
                 handleAlarmSelectionByClick={handleAlarmSelectionByClick}
@@ -137,8 +111,7 @@ const AlarmContainer = () => {
             <TabPanel>
               <AlarmTable
                 columns={columns}
-                data={getDataForViewType('filteredByIntervalAndTypeAlarms').data}
-                totalLength={getDataForViewType('filteredByIntervalAndTypeAlarms').totalLength}
+                data={filteredByIntervalAndTypeAlarms}                
                 page={page}
                 hasMore={hasMore}
                 handleAlarmSelectionByClick={handleAlarmSelectionByClick}

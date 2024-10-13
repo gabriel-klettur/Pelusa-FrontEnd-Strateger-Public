@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/AlarmTable/AlarmTable.js
+//Path: strateger-react/src/components/Alarms/components/AlarmTable/AlarmTable.js
 
 import React from 'react';
 import Tablita from '../../../common/Tablita';
@@ -7,14 +7,16 @@ import Pagination from './Pagination'; // Asegúrate de ajustar la ruta de impor
 
 const AlarmTable = ({
   columns,
-  data,
-  totalLength,
+  data,  
   page,
   hasMore,
   handleAlarmSelectionByClick,
   filteredByIntervalAlarms,
   filteredByClickAlarms,
 }) => {
+
+  const totalAlarmsLength = data.length;
+  const paginatedData = data.slice(page * 20, (page * 20) + 20);
 
   // Renderizado de la fila utilizando AlarmRow
   const renderRow = (item, index) => (
@@ -29,12 +31,12 @@ const AlarmTable = ({
 
   return (
     <div>
-      <Tablita columns={columns} data={data} renderRow={renderRow} />
+      <Tablita columns={columns} data={paginatedData} renderRow={renderRow} />
       <Pagination 
         page={page} 
         hasMore={hasMore} 
-        endIndex={page * 20 + data.length} 
-        alarmsLength={totalLength}       
+        endIndex={page * 20 + paginatedData.length} 
+        alarmsLength={totalAlarmsLength}       
       />
     </div>
   );
