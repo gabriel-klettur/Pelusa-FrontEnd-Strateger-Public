@@ -30,9 +30,7 @@ const AlarmContainer = () => {
     alarms,
     filteredByIntervalAlarms,
     filteredByIntervalAndTypeAlarms,
-    filteredByClickAlarms,
-    page,
-    hasMore,
+    filteredByClickAlarms,    
     loading,
     error,
   } = useSelector((state) => state.alarms);
@@ -40,19 +38,6 @@ const AlarmContainer = () => {
   useFetchAlarms();                         // Hook para obtener las alarmas desde la API
   useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
   useFilterAlarmsByIntervalAndType();       // Hook para filtrar alarmas por intervalo y tipo
-
-
-  // Definir las columnas para la tabla
-  const columns = [
-    { label: 'ID', key: 'id' },
-    { label: 'Ticker', key: 'Ticker' },
-    { label: 'T', key: 'Temporalidad' },
-    { label: 'Entry Price', key: 'Entry_Price_Alert' },
-    { label: 'Exit Price', key: 'Exit_Price_Alert' },
-    { label: 'Time', key: 'Time_Alert' },
-    { label: 'Type', key: 'Order' },
-    { label: 'Estrategia', key: 'Strategy' },
-  ];
 
   // Función para manejar la selección de una alarma por clic
   const handleAlarmSelectionByClick = (alarm) => {
@@ -76,47 +61,27 @@ const AlarmContainer = () => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <AlarmTable
-                columns={columns}
-                data={alarms}                
-                page={page}
-                hasMore={hasMore}
-                handleAlarmSelectionByClick={handleAlarmSelectionByClick}
-                filteredByIntervalAlarms={filteredByIntervalAlarms}
-                filteredByClickAlarms={filteredByClickAlarms}
+              <AlarmTable                
+                data={alarms}                                
+                handleAlarmSelectionByClick={handleAlarmSelectionByClick}                
               />
             </TabPanel>
             <TabPanel>
-              <AlarmTable
-                columns={columns}
-                data={filteredByClickAlarms}                
-                page={page}
-                hasMore={hasMore}
-                handleAlarmSelectionByClick={handleAlarmSelectionByClick}
-                filteredByIntervalAlarms={filteredByIntervalAlarms}
-                filteredByClickAlarms={filteredByClickAlarms}
+              <AlarmTable                
+                data={filteredByClickAlarms}                                
+                handleAlarmSelectionByClick={handleAlarmSelectionByClick}                
               />
             </TabPanel>
             <TabPanel>
-              <AlarmTable
-                columns={columns}
-                data={filteredByIntervalAlarms}                
-                page={page}
-                hasMore={hasMore}
-                handleAlarmSelectionByClick={handleAlarmSelectionByClick}
-                filteredByIntervalAlarms={filteredByIntervalAlarms}
-                filteredByClickAlarms={filteredByClickAlarms}
+              <AlarmTable                
+                data={filteredByIntervalAlarms}                                
+                handleAlarmSelectionByClick={handleAlarmSelectionByClick}                
               />
             </TabPanel>
             <TabPanel>
-              <AlarmTable
-                columns={columns}
-                data={filteredByIntervalAndTypeAlarms}                
-                page={page}
-                hasMore={hasMore}
-                handleAlarmSelectionByClick={handleAlarmSelectionByClick}
-                filteredByIntervalAlarms={filteredByIntervalAlarms}
-                filteredByClickAlarms={filteredByClickAlarms}
+              <AlarmTable                
+                data={filteredByIntervalAndTypeAlarms}                                
+                handleAlarmSelectionByClick={handleAlarmSelectionByClick}                
               />
             </TabPanel>
           </TabPanels>

@@ -49,3 +49,5 @@ const AlarmRow = ({ alarm, isSelectedByInterval, isSelectedByClicks, handleSelec
 };
 
 export default AlarmRow;
+
+
