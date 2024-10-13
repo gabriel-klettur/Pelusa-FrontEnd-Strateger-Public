@@ -20,8 +20,7 @@ const AlarmTable = ({ data }) => {
   const totalAlarmsLength = data.length;
   const paginatedData = data.slice(page * 20, (page * 20) + 20);
 
-  // Column headers
-  const columns = [
+  const columnsHeaders = [
     { label: 'ID', key: 'id' },
     { label: 'Ticker', key: 'Ticker' },
     { label: 'T', key: 'Temporalidad' },
@@ -32,9 +31,8 @@ const AlarmTable = ({ data }) => {
     { label: 'Estrategia', key: 'Strategy' },
   ];
 
-  // Renderizado de la fila utilizando AlarmRow
-  const renderRow = (item, index) => {
-    // Calcular la clase aquí
+
+  const renderRow = (item, index) => {    
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
       ? 'bg-green-600 text-white'
       : filteredByIntervalAlarms.some((a) => a.id === item.id)
@@ -45,22 +43,26 @@ const AlarmTable = ({ data }) => {
       <AlarmRow
         key={index}
         alarm={item}
-        rowClassName={rowClassName}  // Pasar la clase como prop
+        rowClassName={rowClassName} 
         handleSelectAlarm={(alarm) => handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch)}
       />
     );
   };  
 
   return (
-    <div>
-      <Tablita data={paginatedData} columns={columns} renderRow={renderRow} />
+    <>
+      <Tablita 
+        data={paginatedData} 
+        columns={columnsHeaders} 
+        renderRow={renderRow} 
+      />
       <Pagination 
         page={page} 
         hasMore={hasMore} 
         endIndex={page * 20 + paginatedData.length} 
         alarmsLength={totalAlarmsLength}       
       />
-    </div>
+    </>
   );
 };
 
