@@ -1,23 +1,26 @@
 //Path: strateger-react/src/components/Alarms/components/AlarmTable/AlarmTable.js
 
+//React and Redux
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Components
 import Tablita from '../../../common/Tablita';
 import AlarmRow from './AlarmRow';
-import Pagination from './Pagination'; // Asegúrate de ajustar la ruta de importación
+import Pagination from './Pagination';
 
-const AlarmTable = ({
-  data,  
-  handleAlarmSelectionByClick,
-}) => {
+// Hooks and functions
+import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
 
+const AlarmTable = ({ data }) => {
+  const dispatch = useDispatch();
   const { page, hasMore } = useSelector((state) => state.alarms);
   const { filteredByIntervalAlarms, filteredByClickAlarms } = useSelector((state) => state.alarms);
 
   const totalAlarmsLength = data.length;
   const paginatedData = data.slice(page * 20, (page * 20) + 20);
 
-  // Definir las columnas para la tabla
+  // Column headers
   const columns = [
     { label: 'ID', key: 'id' },
     { label: 'Ticker', key: 'Ticker' },
@@ -30,15 +33,23 @@ const AlarmTable = ({
   ];
 
   // Renderizado de la fila utilizando AlarmRow
-  const renderRow = (item, index) => (
-    <AlarmRow
-      key={index}
-      alarm={item}
-      isSelectedByInterval={filteredByIntervalAlarms.some((a) => a.id === item.id)}
-      isSelectedByClicks={filteredByClickAlarms.some((a) => a.id === item.id)}
-      handleSelectAlarm={handleAlarmSelectionByClick}
-    />
-  );  
+  const renderRow = (item, index) => {
+    // Calcular la clase aquí
+    const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
+      ? 'bg-green-600 text-white'
+      : filteredByIntervalAlarms.some((a) => a.id === item.id)
+        ? 'bg-african_violet-200 text-white'
+        : 'bg-white text-african_violet-400';
+  
+    return (
+      <AlarmRow
+        key={index}
+        alarm={item}
+        rowClassName={rowClassName}  // Pasar la clase como prop
+        handleSelectAlarm={(alarm) => handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch)}
+      />
+    );
+  };  
 
   return (
     <div>
