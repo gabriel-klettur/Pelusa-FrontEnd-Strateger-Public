@@ -18,7 +18,57 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
-const AlarmContainer = () => {    
+/**
+ * AlarmContainer component.
+ * 
+ * This component is responsible for displaying alarms in different filtered views.
+ * It uses several custom hooks to fetch and filter alarms, and displays them in a tabbed interface.
+ * 
+ * @component
+ * 
+ * @returns {JSX.Element} The rendered component.
+ * 
+ * @example
+ * return (
+ *   <AlarmContainer />
+ * )
+ * 
+ * @hook
+ * @name useFetchAlarms
+ * @description Fetches alarms from the API.
+ * 
+ * @hook
+ * @name useFilterAlarmsByInterval
+ * @description Filters alarms by a selected interval.
+ * 
+ * @hook
+ * @name useFilterAlarmsByIntervalAndType
+ * @description Filters alarms by a selected interval and type.
+ * 
+ * @hook
+ * @name useSelector
+ * @description Retrieves state from the Redux store.
+ * 
+ * @param {Object} state - The Redux state.
+ * @param {Object} state.alarms - The alarms state.
+ * @param {boolean} state.alarms.loading - Indicates if alarms are being loaded.
+ * @param {string} state.alarms.error - Error message if there was an error loading alarms.
+ * @param {Array} state.alarms.alarms - The list of all alarms.
+ * @param {Array} state.alarms.filteredByIntervalAlarms - The list of alarms filtered by interval.
+ * @param {Array} state.alarms.filteredByIntervalAndTypeAlarms - The list of alarms filtered by interval and type.
+ * @param {Array} state.alarms.filteredByClickAlarms - The list of alarms filtered by click.
+ * 
+ * @requires ErrorMessage
+ * @requires LoadingOverlay
+ * @requires TabGroup
+ * @requires TabList
+ * @requires TabPanel
+ * @requires TabPanels
+ * @requires AlarmTab
+ * @requires AlarmTable
+ */
+
+const AlarmTablesContainer = () => {    
   const { loading, error } = useSelector((state) => state.alarms);
   const { alarms, filteredByIntervalAlarms, filteredByIntervalAndTypeAlarms, filteredByClickAlarms   } = useSelector((state) => state.alarms);
 
@@ -69,4 +119,4 @@ const AlarmContainer = () => {
   );
 };
 
-export default AlarmContainer;
+export default AlarmTablesContainer;
