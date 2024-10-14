@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/AlarmToolPanel.js
+
 import React from 'react';
 import { TabGroup, TabList, TabPanels } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
