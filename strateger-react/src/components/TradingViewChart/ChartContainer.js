@@ -13,7 +13,7 @@ import { selectSelectedTab } from '../../redux/slices/tabSlice';
 import BacktestingForm from '../Backtesting/components/BacktestingForm/BacktestingForm';
 import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';
 import { SummaryChart } from '../Account';
-import { ToolAlarmBar } from '../Alarms';
+import { AlarmToolPanelContainer } from '../Alarms';
 import { ToolOrderBar }  from '../Orders';
 
 import Toolbar from './Toolbar';
@@ -71,7 +71,7 @@ const ChartContainer = ({ initialTemporalidad, startDate, endDate, onDateChange 
 
   // Mapeo de cada tab a su contenido y atributos específicos de imagen
   const tabContentMap = {
-    0: { component: <ToolAlarmBar />,                             image: alarmImage,        ImageHeight: 'h-64' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
+    0: { component: <AlarmToolPanelContainer />,                             image: alarmImage,        ImageHeight: 'h-64' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
     1: { component: <ToolOrderBar />,                             image: ordersImage,       ImageHeight: 'h-96' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
     2: { component: null,                                         image: null,              ImageHeight: 'h-0' , componentHeight: 'h-0' , leftContainerSpan: 'col-span-10' , rightContainerSpan: 'col-span-0' },
     3: { component: <DiaryCalendar results={simulatedResults} />, image: null,              ImageHeight: 'h-0' , componentHeight: 'h-32' , leftContainerSpan: 'col-span-8' , rightContainerSpan: 'col-span-2' },
