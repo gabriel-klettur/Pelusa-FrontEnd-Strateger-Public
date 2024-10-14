@@ -12,7 +12,26 @@ import Pagination from './Pagination';
 // Hooks and functions
 import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
 
+/**
+ * AlarmTable component renders a table of alarms with pagination.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Array} props.data - The array of alarm data to be displayed.
+ *
+ * @returns {JSX.Element} The rendered AlarmTable component.
+ *
+ * @example
+ * const data = [
+ *   { id: 1, Ticker: 'AAPL', Temporalidad: '1D', Entry_Price_Alert: 150, Exit_Price_Alert: 155, Time_Alert: '10:00', Order: 'Buy', Strategy: 'Breakout' },
+ *   { id: 2, Ticker: 'BTCUSDT, Temporalidad: '1H', Entry_Price_Alert: 45000, Exit_Price_Alert: 46000, Time_Alert: '12:00', Order: 'Sell', Strategy: 'Reversal' },
+ *   // more alarm data
+ * ];
+ * <AlarmTable data={data} />
+ */
 const AlarmTable = ({ data }) => {
+
+  console.log('AlarmTable:', data);
   const dispatch = useDispatch();
   const { page, hasMore } = useSelector((state) => state.alarms);
   const { filteredByIntervalAlarms, filteredByClickAlarms } = useSelector((state) => state.alarms);
