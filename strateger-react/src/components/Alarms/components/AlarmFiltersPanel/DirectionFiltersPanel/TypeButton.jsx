@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/ToolAlarmBar/TypeButton.js
+// Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
 
 import React from 'react';
 

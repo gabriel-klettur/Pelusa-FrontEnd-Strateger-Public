@@ -1,4 +1,6 @@
-import AlarmToolPanel from "../components/AlarmToolPanel/AlarmToolPanel";
+//Path: strateger-react/src/components/Alarms/containers/AlarmFiltersPanelContainer.jsx
+
+import AlarmFiltersPanel from "../components/AlarmFiltersPanel/AlarmFiltersPanel";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { 
@@ -11,16 +13,8 @@ import {
     } from '../../../redux/slices/alarmFilterSlice';
   
 
-const AlarmToolPanelContainer = () => {
+const AlarmFiltersPanelContainer = () => {
     const temporalidades = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
-    const Longtypes = [
-    'order open long', 'order close long',   
-    'indicator open long', 'indicator close long'
-    ];
-    const Shorttypes = [
-    'order open short', 'order close short', 
-    'indicator open short', 'indicator close short'
-    ];
 
     const dispatch = useDispatch();
 
@@ -45,10 +39,8 @@ const AlarmToolPanelContainer = () => {
     };
 
     return (        
-        <AlarmToolPanel 
-            temporalidades={temporalidades}
-            Longtypes={Longtypes}
-            Shorttypes={Shorttypes}
+        <AlarmFiltersPanel 
+            temporalidades={temporalidades}            
             selectedTemporalidad={selectedTemporalidad}
             selectedTypes={selectedTypes}
             toggleTemporalidad={toggleTemporalidad}
@@ -57,4 +49,4 @@ const AlarmToolPanelContainer = () => {
     );
 }
 
-export default AlarmToolPanelContainer;
+export default AlarmFiltersPanelContainer;

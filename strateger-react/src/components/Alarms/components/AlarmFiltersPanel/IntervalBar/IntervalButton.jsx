@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const TemporalidadButton = ({
+const IntervalButton = ({
   temporalidad,
   selectedTemporalidad,  
   selectedIntervalAndTypes,
@@ -26,4 +26,4 @@ const TemporalidadButton = ({
   );
 };
 
-export default TemporalidadButton;
+export default IntervalButton;

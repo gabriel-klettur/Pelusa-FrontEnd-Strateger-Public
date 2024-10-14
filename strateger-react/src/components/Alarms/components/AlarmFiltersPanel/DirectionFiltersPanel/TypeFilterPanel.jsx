@@ -1,8 +1,9 @@
-import React from 'react';
+//Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
+
 import TypeButton from './TypeButton';
 import { TabPanel } from '@headlessui/react';
 
-const TypeTabPanel = ({ types, selectedTemporalidad, selectedTypes, toggleType }) => {
+const TypeFilterPanel = ({ types, selectedTemporalidad, selectedTypes, toggleType }) => {
   return (
     <TabPanel className="h-full">
       <div className="h-full grid grid-cols-2">
@@ -19,4 +20,4 @@ const TypeTabPanel = ({ types, selectedTemporalidad, selectedTypes, toggleType }
   );
 };
 
-export default TypeTabPanel;
+export default TypeFilterPanel;

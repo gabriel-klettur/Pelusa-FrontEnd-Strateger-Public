@@ -1,4 +1,5 @@
-import React from 'react';
+//Path: strateger-react/src/components/Alarms/components/AlarmTab.js
+
 import { Tab } from '@headlessui/react';
 
 const AlarmTab = ({ tabName}) => {

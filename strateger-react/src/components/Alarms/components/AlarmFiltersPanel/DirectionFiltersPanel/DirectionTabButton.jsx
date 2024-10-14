@@ -1,7 +1,8 @@
-import React from 'react';
+//Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/DirectionTab.js
+
 import { Tab } from '@headlessui/react';
 
-const DirectionTab = ({ direction }) => {
+const DirectionTabButton = ({ direction }) => {
   return (
     <Tab
       className={({ selected }) =>
@@ -18,4 +19,4 @@ const DirectionTab = ({ direction }) => {
   );
 };
 
-export default DirectionTab;
+export default DirectionTabButton;
