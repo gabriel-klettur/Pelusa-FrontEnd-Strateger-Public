@@ -1,13 +1,16 @@
 // useSetAllSelectedAlarms.js
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredByIntervalAndTypeAlarms, removeSelectedTypes } from '../../../redux/slices/alarmSlice';
+
+import { setFilteredByIntervalAndTypeAlarms } from '../../../redux/slices/alarmSlice';          
+import { removeSelectedTypes } from '../../../redux/slices/alarmFilterSlice';                   
+
 
 const useFilterAlarmsByIntervalAndType = () => {
     const dispatch = useDispatch();
-    const alarms = useSelector((state) => state.alarms.alarms);
-    const selectedTemporalidad = useSelector((state) => state.alarms.selectedTemporalidad);
-    const selectedTypes = useSelector((state) => state.alarms.selectedTypes);
+    const alarms = useSelector((state) => state.alarms.alarms);                                     
+    const selectedTemporalidad = useSelector((state) => state.alarmsFilter.selectedTemporalidad);         
+    const selectedTypes = useSelector((state) => state.alarmsFilter.selectedTypes);                       
 
     useEffect(() => {
 

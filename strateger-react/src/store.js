@@ -3,6 +3,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import alarmReducer from './redux/slices/alarmSlice';
+import alarmFilterReducer from './redux/slices/alarmFilterSlice';
 import orderReducer from './redux/slices/orderSlice';
 import strategyReducer from './redux/slices/strategySlice';
 import diaryReducer from './redux/slices/diarySlice';
@@ -18,6 +19,7 @@ const store = configureStore({
   reducer: {
     time: timeReducer,
     alarms: alarmReducer,
+    alarmsFilter: alarmFilterReducer,
     orders: orderReducer,
     strategies: strategyReducer,
     diary: diaryReducer,
