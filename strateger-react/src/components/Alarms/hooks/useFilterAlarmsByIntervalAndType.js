@@ -3,14 +3,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setFilteredByIntervalAndTypeAlarms } from '../../../redux/slices/alarmSlice';          
-import { removeSelectedTypes } from '../../../redux/slices/alarmFilterSlice';                   
+import { removeEmptySelectedTypes } from '../../../redux/slices/alarmFilterSlice';                   
 
 
 const useFilterAlarmsByIntervalAndType = () => {
     const dispatch = useDispatch();
-    const alarms = useSelector((state) => state.alarms.alarms);                                     
-    const selectedTemporalidad = useSelector((state) => state.alarmsFilter.selectedTemporalidad);         
-    const selectedTypes = useSelector((state) => state.alarmsFilter.selectedTypes);                       
+    const alarms = useSelector((state) => state.alarms.alarms);  
+
+    const selectedTemporalidad = useSelector((state) => state.alarmsFilter.selectedTemporalidad);           // Interval selected (1m, 5m, 15m, etc)
+    const selectedTypes = useSelector((state) => state.alarmsFilter.selectedTypes);                         // Types selected (Long, Short/ open long, close long, etc)
 
     useEffect(() => {
 
@@ -19,12 +20,13 @@ const useFilterAlarmsByIntervalAndType = () => {
         // Verificación adicional para asegurar que selectedTypes no solo tenga claves, sino que también contenga arrays con elementos
         const hasValidTypes = Object.keys(selectedTypes).some(key => selectedTypes[key].length > 0);    
         
+        // If no temporalidad or types are selected, return all alarms
         if (Object.keys(selectedTypes).length === 0 || selectedTemporalidad === '' || !hasValidTypes) {                                    
             
             if (Object.keys(selectedTypes).length > 0) {
                 Object.keys(selectedTypes).forEach(temporalidad => {
-                    dispatch(removeSelectedTypes(temporalidad));
-                    dispatch(setFilteredByIntervalAndTypeAlarms(allAlarms));
+                    dispatch(removeEmptySelectedTypes(temporalidad));                       //Delete empty key (temporalidad) from the selectedTypes object, only if it has no elements
+                    dispatch(setFilteredByIntervalAndTypeAlarms(allAlarms));        
                 });
             }
             return;
@@ -34,7 +36,7 @@ const useFilterAlarmsByIntervalAndType = () => {
         Object.keys(selectedTypes).forEach(temporalidad => {
 
             if (temporalidad === '' || selectedTypes[temporalidad].length === 0) {                
-                dispatch(removeSelectedTypes(temporalidad)); // Esto eliminará la clave con array vacío
+                dispatch(removeEmptySelectedTypes(temporalidad)); // Esto eliminará la clave con array vacío
                 return;
             }
 

@@ -31,7 +31,7 @@ const alarmFilterSlice = createSlice({
         [state.selectedTemporalidad]: action.payload,
       };
     },
-    removeSelectedTypes(state, action) {
+    removeEmptySelectedTypes(state, action) {
       const temporalidad = action.payload;
       if (state.selectedTypes[temporalidad].length === 0) {
         delete state.selectedTypes[temporalidad];
@@ -45,7 +45,7 @@ export const {
   incrementTemporalidad,
   decrementTemporalidad,
   setSelectedTypes,
-  removeSelectedTypes
+  removeEmptySelectedTypes
 } = alarmFilterSlice.actions;
 
 export const selectSelectedTemporalidad = (state) => state.alarmsFilter.selectedTemporalidad;
