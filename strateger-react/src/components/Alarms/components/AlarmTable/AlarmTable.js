@@ -31,7 +31,6 @@ import handleSelectAlarmByClick from './handleSelectAlarmByClick';
  */
 const AlarmTable = ({ data }) => {
 
-  console.log('AlarmTable:', data);
   const dispatch = useDispatch();
   const { page, hasMore } = useSelector((state) => state.alarms);
   const { filteredByIntervalAlarms, filteredByClickAlarms } = useSelector((state) => state.alarms);

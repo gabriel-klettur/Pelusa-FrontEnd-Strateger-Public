@@ -1,7 +1,5 @@
 // Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
 
-import React from 'react';
-
 const TypeButton = ({ type, selectedTypes, toggleType }) => {
   return (
     <button 

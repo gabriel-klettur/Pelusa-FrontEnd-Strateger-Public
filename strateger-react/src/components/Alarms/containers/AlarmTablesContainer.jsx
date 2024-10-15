@@ -78,7 +78,7 @@ const AlarmTablesContainer = () => {
 
   if (error) {
     return <ErrorMessage message={error}/>;
-  }
+  }  
 
   return (
     <div className="relative">
