@@ -1,4 +1,21 @@
-const Pagination = ({ page, handlePreviousPage, handleNextPage, hasMore, endIndex, orders }) => {
+import { useDispatch } from 'react-redux';
+import { fetchOrders, setPage } from '../../../../redux/slices/orderSlice';
+
+const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
+
+    const dispatch = useDispatch();
+
+    const handlePreviousPage = () => {
+        dispatch(setPage(Math.max(page - 1, 0)));
+      };
+    
+      const handleNextPage = () => {
+        const nextPage = page + 1;
+        if (nextPage * 20 >= orders.length && hasMore) {
+          dispatch(fetchOrders({ limit: 500, offset }));
+        }
+        dispatch(setPage(nextPage));
+      };
 
     return(        
         <div className="flex justify-between mt-4">

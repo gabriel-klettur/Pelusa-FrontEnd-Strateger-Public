@@ -2,7 +2,8 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setPage, selectFilteredOrders } from '../../../../redux/slices/orderSlice';
+
+import { fetchOrders, selectFilteredOrders } from '../../../../redux/slices/orderSlice';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import Tablita from '../../../common/Tablita';
@@ -12,7 +13,7 @@ import Pagination from './Pagination';
 const OrderTable = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectFilteredOrders);
-  const { loading, error, page, hasMore, offset } = useSelector((state) => state.orders);
+  const { loading, error, page, hasMore } = useSelector((state) => state.orders);
 
   useEffect(() => {
     if (orders.length === 0) {
@@ -20,17 +21,6 @@ const OrderTable = () => {
     }
   }, [dispatch, orders.length]);
 
-  const handlePreviousPage = () => {
-    dispatch(setPage(Math.max(page - 1, 0)));
-  };
-
-  const handleNextPage = () => {
-    const nextPage = page + 1;
-    if (nextPage * 20 >= orders.length && hasMore) {
-      dispatch(fetchOrders({ limit: 500, offset }));
-    }
-    dispatch(setPage(nextPage));
-  };
 
   if (error) {
     return <div className="text-center py-4 text-red-600">Error al cargar órdenes: {error}</div>;
@@ -82,9 +72,18 @@ const OrderTable = () => {
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={loading} />
-      <Tablita columns={columns} data={data} />
-      <Pagination page={page} handlePreviousPage={handlePreviousPage} handleNextPage={handleNextPage} hasMore={hasMore} endIndex={endIndex} orders={orders} />
+      <LoadingOverlay 
+        isLoading={loading}
+      />
+      <Tablita 
+        columns={columns} 
+        data={data} 
+      />
+      <Pagination 
+        page={page}         
+        hasMore={hasMore} 
+        endIndex={endIndex} 
+        orders={orders} />
       
       {loading && <div className="text-center py-4">Cargando más órdenes...</div>}
     </div>
