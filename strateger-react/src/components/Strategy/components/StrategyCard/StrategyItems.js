@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './StrategyItems.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FilteredOrderList } from '../../../Orders';
+import { OrdersInStrategyTable } from '../../../Orders';
 
 import { setStrategyFilteredAlarms } from '../../../../redux/slices/alarmSlice';
 
@@ -329,8 +329,8 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
       </div>
 
       {isShowingOrders && (
-        <div className="mt-4">
-          <FilteredOrderList strategy={strategy} />
+        <div className="mt-4">          
+          <OrdersInStrategyTable strategy={strategy} />
         </div>
       )}
     </div>

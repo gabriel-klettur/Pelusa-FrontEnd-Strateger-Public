@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/slices/orderSlice';
 import FilteredOrderRow from './FilteredOrderRow';
 
-const FilteredOrderList = ({ strategy }) => {
+const OrdersInStrategyTable = ({ strategy }) => {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   const filteredOrders = useSelector(selectFilteredOrders);
@@ -118,4 +118,4 @@ const FilteredOrderList = ({ strategy }) => {
   );
 };
 
-export default FilteredOrderList;
+export default OrdersInStrategyTable;

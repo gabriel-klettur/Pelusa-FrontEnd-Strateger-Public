@@ -7,7 +7,7 @@ import { fetchOrders, setPage, selectFilteredOrders } from '../../../../redux/sl
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import Tablita from '../../../common/Tablita';
 
-const OrderList = () => {
+const OrderTable = () => {
   const dispatch = useDispatch();
   const orders = useSelector(selectFilteredOrders);
   const { loading, error, page, hasMore, offset } = useSelector((state) => state.orders);
@@ -113,4 +113,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default OrderTable;

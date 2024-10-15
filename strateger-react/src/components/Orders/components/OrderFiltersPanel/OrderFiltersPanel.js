@@ -10,7 +10,7 @@ const symbols = ['BTC-USDT', 'ETH-USDT']; // Añadir todos los símbolos que nec
 const positionSides = ['LONG', 'SHORT'];
 const types = ['LIMIT', 'MARKET'];
 
-const ToolOrderBar = () => {
+const OrderFiltersPanel = () => {
   const dispatch = useDispatch();
   const filters = useSelector(selectFilters);
 
@@ -76,4 +76,4 @@ const ToolOrderBar = () => {
   );
 };
 
-export default ToolOrderBar;
+export default OrderFiltersPanel;
