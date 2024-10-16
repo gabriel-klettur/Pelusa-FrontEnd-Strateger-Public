@@ -32,14 +32,14 @@ const orderSlice = createSlice({
   name: 'orders',
   initialState: {
     orders: [],
-    loading: false,
-    error: null,
-    selectedOrderId: null,
+    filteredOrders: [],
+    filters: initialFilters,    
+    selectedOrderId: null,        
+    page: 0,
     offset: 0,
     hasMore: true,
-    page: 0,
-    filters: initialFilters, 
-    filteredOrders: [] 
+    loading: false,
+    error: null    
   },
   reducers: {
     setSelectedOrderId(state, action) {
