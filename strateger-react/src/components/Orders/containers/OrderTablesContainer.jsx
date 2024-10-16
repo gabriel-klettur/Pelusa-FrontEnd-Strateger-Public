@@ -17,17 +17,15 @@ const OrderTablesContainer = () => {
             />          
           </TabList>
           <TabPanels>
-            <TabPanel>
-  
-              <OrderTable />       {/* This is the component that will display Perpr USDT-M Orders */}
-              
+            <TabPanel>  
+              <OrderTable 
+                type="perp_usdt-m"
+              />               
             </TabPanel>
             <TabPanel>
-  
-              <div>
-                Waiting for BINGXAPI endpoint implementation
-              </div>
-  
+              <OrderTable 
+                type="perp_coin-m"
+              />              
             </TabPanel>
           </TabPanels>
         </TabGroup>
