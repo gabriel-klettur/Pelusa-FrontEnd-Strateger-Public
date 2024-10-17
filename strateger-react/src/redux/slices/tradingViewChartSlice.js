@@ -57,7 +57,7 @@ export const fetchTradingViewChartData = createAsyncThunk(
         return rejectWithValue('Invalid date range');
       }
 
-      const response = await axios.get(`${config.apiURL}/bingx/get-k-line-data`, {
+      const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
         params: {
           symbol: "BTC-USDT",
           interval: adjustedInterval,

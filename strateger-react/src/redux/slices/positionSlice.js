@@ -8,7 +8,7 @@ import config from '../../config';
 export const fetchPositionsCoinM = createAsyncThunk(
   'positions/fetchPositionsCoinM',
   async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-positions-coinm`);
+    const response = await axios.get(`${config.apiURL}/bingx/coinm/get-positions-coinm`);
     const data = JSON.parse(response.data);
     if (data && data.data) {
       return data.data;
@@ -21,7 +21,7 @@ export const fetchPositionsCoinM = createAsyncThunk(
 export const fetchPositionsUSDTM = createAsyncThunk(
   'positions/fetchPositionsUSDTM',
   async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-positions-usdtm`);
+    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-positions-usdtm`);
     const data = JSON.parse(response.data);
     if (data && data.data) {
       return data.data;
@@ -34,7 +34,7 @@ export const fetchPositionsUSDTM = createAsyncThunk(
 export const fetchSpotDepositRecords = createAsyncThunk(
   'positions/fetchSpotDepositRecords',
   async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-spot-deposit-records`);
+    const response = await axios.get(`${config.apiURL}/bingx/spot/get-spot-deposit-records`);
     const data = JSON.parse(response.data); // Analiza el JSON string
     if (Array.isArray(data)) {
       return data;

@@ -13,7 +13,7 @@ const updateSpotBalanceUSD = createAsyncThunk(
 export const fetchPerpUSDTMBalance = createAsyncThunk(
   'account/fetchPerpUSDTMBalance',
   async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-balance-perp-usdtm`);
+    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-balance-perp-usdtm`);
     const data = JSON.parse(response.data);
 
     if (data && data.data && data.data.balance) {
@@ -27,7 +27,7 @@ export const fetchPerpUSDTMBalance = createAsyncThunk(
 export const fetchPerpCOINMBalance = createAsyncThunk(
   'account/fetchPerpCOINMBalance',
   async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-balance-perp-coinm`);
+    const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
     const data = JSON.parse(response.data);
     
     if (data && data.data) {
@@ -41,7 +41,7 @@ export const fetchPerpCOINMBalance = createAsyncThunk(
 export const fetchSpotBalance = createAsyncThunk(
   'account/fetchSpotBalance',
   async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-balance-spot`);
+    const response = await axios.get(`${config.apiURL}/bingx/spot/get-balance-spot`);
     const data = JSON.parse(response.data);
     if (data && data.data && data.data.balances) {
       return { balances: data.data.balances, lastPrice };

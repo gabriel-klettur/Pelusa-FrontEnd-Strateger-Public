@@ -7,7 +7,7 @@ import config from '../../config';
 export const fetchTicker = createAsyncThunk(
   'ticker/fetchTicker',
   async (symbol) => {
-    const response = await axios.get(`${config.apiURL}/bingx/get-ticker`, {
+    const response = await axios.get(`${config.apiURL}/bingx/main/get-ticker`, {
       params: { symbol }
     });
     const data = JSON.parse(response.data);

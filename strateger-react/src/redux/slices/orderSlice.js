@@ -11,7 +11,7 @@ export const fetchOrders = createAsyncThunk(
     if (startDate) params.startDate = startDate;
     if (endDate) params.endDate = endDate;
 
-    const response = await axios.get(`${config.apiURL}/bingx/get-all-full-orders`, { params });
+    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-all-full-orders`, { params });
     const data = JSON.parse(response.data);  // Parsea la cadena JSON
     if (data && data.data && data.data.orders) {
       return data.data.orders;
