@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrders, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/slices/orderSlice';
+import { fetchOrdersUsdtm, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/slices/orderSlice';
 import FilteredOrderRow from './FilteredOrderRow';
 
 const OrdersInStrategyTable = ({ strategy }) => {
@@ -14,7 +14,7 @@ const OrdersInStrategyTable = ({ strategy }) => {
     const endDate = new Date().toISOString();
     
     if (orders.length === 0) {
-      dispatch(fetchOrders({ limit: 500, offset: 0, startDate, endDate }));
+      dispatch(fetchOrdersUsdtm({ limit: 500, offset: 0, startDate, endDate }));
     } else {
       const newFilteredOrders = orders.filter(order => {
         const orderTime = new Date(order.time).getTime();
@@ -35,7 +35,7 @@ const OrdersInStrategyTable = ({ strategy }) => {
   const handleNextPage = () => {
     const nextPage = page + 1;
     if (nextPage * 20 >= orders.length && hasMore) {
-      dispatch(fetchOrders({ limit: 500, offset }));
+      dispatch(fetchOrdersUsdtm({ limit: 500, offset }));
     }
     dispatch(setPage(nextPage));
   };

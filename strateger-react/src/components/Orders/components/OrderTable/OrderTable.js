@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrders, selectFilteredOrders } from '../../../../redux/slices/orderSlice';
+import { fetchOrdersUsdtm, selectFilteredOrders } from '../../../../redux/slices/orderSlice';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import Tablita from '../../../common/Tablita';
@@ -17,7 +17,7 @@ const OrderTable = () => {
 
   useEffect(() => {
     if (orders.length === 0) {
-      dispatch(fetchOrders({ limit: 500, offset: 0 }));
+      dispatch(fetchOrdersUsdtm({ limit: 500, offset: 0 }));
     }
   }, [dispatch, orders.length]);
 

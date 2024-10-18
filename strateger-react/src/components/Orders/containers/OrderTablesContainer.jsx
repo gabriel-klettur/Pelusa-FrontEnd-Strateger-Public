@@ -15,6 +15,12 @@ const OrderTablesContainer = () => {
             <OrderTab 
               tabname="Orders Perp COIN-M" 
             />          
+            <OrderTab 
+              tabname="Orders SPOT" 
+            />          
+            <OrderTab 
+              tabname="Orders Standard Futures" 
+            />          
           </TabList>
           <TabPanels>
             <TabPanel>  
@@ -26,8 +32,19 @@ const OrderTablesContainer = () => {
               <OrderTable 
                 type="perp_coin-m"
               />              
+            </TabPanel>            
+            <TabPanel>
+              <OrderTable 
+                type="spot"
+              />
+            </TabPanel>
+            <TabPanel>
+              <OrderTable 
+                type="standard_futures"
+              />
             </TabPanel>
           </TabPanels>
+          
         </TabGroup>
       </div>
     );

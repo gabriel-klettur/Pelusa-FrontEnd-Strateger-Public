@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { fetchOrders, setPage } from '../../../../redux/slices/orderSlice';
+import { fetchOrdersUsdtm, setPage } from '../../../../redux/slices/orderSlice';
 
 const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
 
@@ -12,7 +12,7 @@ const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
       const handleNextPage = () => {
         const nextPage = page + 1;
         if (nextPage * 20 >= orders.length && hasMore) {
-          dispatch(fetchOrders({ limit: 500, offset }));
+          dispatch(fetchOrdersUsdtm({ limit: 500, offset }));
         }
         dispatch(setPage(nextPage));
       };

@@ -1,11 +1,9 @@
-// Path: strateger-react/src/slices/orderSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../../config';
 
-export const fetchOrders = createAsyncThunk(
-  'orders/fetchOrders',
+export const fetchOrdersUsdtm = createAsyncThunk(
+  'orders/fetchOrdersUsdtm',
   async ({ limit, offset, startDate, endDate }) => {
     const params = { limit, offset };
     if (startDate) params.startDate = startDate;
@@ -31,7 +29,7 @@ const initialFilters = {
 const orderSlice = createSlice({
   name: 'orders',
   initialState: {
-    orders: [],
+    ordersUsdtm: [],  // Cambiado
     filteredOrders: [],
     filters: initialFilters,    
     selectedOrderId: null,        
@@ -50,7 +48,7 @@ const orderSlice = createSlice({
     },
     setFilters(state, action) {
       state.filters = action.payload;
-      state.filteredOrders = state.orders.filter(order => 
+      state.filteredOrders = state.ordersUsdtm.filter(order => 
         (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
         (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
         (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
@@ -62,10 +60,10 @@ const orderSlice = createSlice({
     },
     appendOrders(state, action) {
       const newOrders = action.payload;
-      const allOrders = [...state.orders, ...newOrders];
+      const allOrders = [...state.ordersUsdtm, ...newOrders];
       const uniqueOrders = Array.from(new Set(allOrders.map(order => order.orderId)))
                                 .map(id => allOrders.find(order => order.orderId === id));
-      state.orders = uniqueOrders;
+      state.ordersUsdtm = uniqueOrders;
       state.filteredOrders = uniqueOrders.filter(order => 
         (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
         (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
@@ -76,16 +74,16 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrders.pending, (state) => {
+      .addCase(fetchOrdersUsdtm.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchOrders.fulfilled, (state, action) => {
+      .addCase(fetchOrdersUsdtm.fulfilled, (state, action) => {
         if (action.payload.length < 500) {
           state.hasMore = false;
         }
-        state.orders = [...state.orders, ...action.payload];
-        state.filteredOrders = state.orders.filter(order => 
+        state.ordersUsdtm = [...state.ordersUsdtm, ...action.payload];
+        state.filteredOrders = state.ordersUsdtm.filter(order => 
           (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
           (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
           (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
@@ -94,7 +92,7 @@ const orderSlice = createSlice({
         state.loading = false;
         state.offset += 500;
       })
-      .addCase(fetchOrders.rejected, (state, action) => {
+      .addCase(fetchOrdersUsdtm.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -103,7 +101,7 @@ const orderSlice = createSlice({
 
 export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders, appendOrders } = orderSlice.actions;
 
-export const selectOrders = (state) => state.orders.orders;
+export const selectOrders = (state) => state.orders.ordersUsdtm;  // Cambiado
 export const selectFilters = (state) => state.orders.filters; 
 export const selectFilteredOrders = (state) => state.orders.filteredOrders; 
 
