@@ -1,7 +1,8 @@
 // Path: redux/orders/index.js
 
 // Importaciones del slice
-import orderReducer, { setFilters, setPage, setFilteredOrders, setSelectedOrderId } from './orderSlice'; // Importar `setFilters`
+import orderReducer from './orderSlice'; // Importar `setFilters`
+import { setFilters, setPage, setFilteredOrders, setSelectedOrderId } from './orderSlice'; // Importar `setFilters`
 
 // Importaciones de Thunks (acciones asíncronas)
 import { fetchOrdersUsdtm } from './orderThunks';
