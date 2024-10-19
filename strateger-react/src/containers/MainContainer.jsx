@@ -1,9 +1,3 @@
-
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { setTradingViewChartParameters } from '../redux/tradingViewChart/tradingViewChartSlice';
-
 import NavBarContainer from "./NavBarContainer";
 import BarChart from '../components/Charts/BarChart/BarChart';
 import Reloj from '../components/common/Reloj';
@@ -24,24 +18,13 @@ const MainContainer = () => {
     const formattedStartDate = startDate.toISOString();
 
     //!-----------------------------------------------------
-    const [currentInterval, setCurrentInterval] = useState(initialTemporalidad);    //! Crear un Redux con el intervalo actual. 'ToolBarSlice'
 
-    const dispatch = useDispatch();
-    const handleIntervalChange = (newInterval) => {
-        setCurrentInterval(newInterval);
-        dispatch(setTradingViewChartParameters({
-          interval: newInterval,
-          startDate: new Date(startDate).toISOString(),
-          endDate: new Date(currentDate).toISOString(),
-        }));
-    };
 
     return (
         <>      
             <>
                 <Toolbar
-                    currentInterval={currentInterval}
-                    handleIntervalChange={handleIntervalChange}
+                    initialTemporalidad={initialTemporalidad}
                     startDate={startDate}
                     endDate={currentDate}                    
                 />

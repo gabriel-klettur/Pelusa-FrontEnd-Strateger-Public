@@ -1,12 +1,27 @@
 // Path: strateger-react/src/components/TradingViewChart/Toolbar.js
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setTradingViewChartParameters } from '../../redux/tradingViewChart/tradingViewChartSlice';
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Reloj from '../common/Reloj';
 
-const Toolbar = ({ currentInterval, handleIntervalChange, startDate, endDate, onDateChange }) => {
+const Toolbar = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
+  const [currentInterval, setCurrentInterval] = useState(initialTemporalidad);    //! Crear un Redux con el intervalo actual. 'ToolBarSlice'
   const [localDate, setLocalDate] = useState(startDate);
+  const dispatch = useDispatch();
+
+
+  const handleIntervalChange = (newInterval) => {
+      setCurrentInterval(newInterval);
+      dispatch(setTradingViewChartParameters({
+        interval: newInterval,
+        startDate: new Date(startDate).toISOString(),
+        endDate: new Date(endDate).toISOString(),
+      }));
+  };
 
   useEffect(() => {
     setLocalDate(startDate);
