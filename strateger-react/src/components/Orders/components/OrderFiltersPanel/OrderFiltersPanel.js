@@ -1,8 +1,8 @@
-// Path: strateger-react/src/components/Orders/ToolOrderBar/ToolOrderBar.js
+// Path: strateger-react/src/components/Oders/components/OrderFiltersPanel/OrderFiltersPanel.js
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilters, selectFilters } from '../../../../redux/order/orderSlice';
+import { setFilters, selectFilters } from '../../../../redux/order'; // Ruta correcta a `redux/orders/index.js`
 import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];
@@ -31,7 +31,6 @@ const OrderFiltersPanel = () => {
 
   return (
     <div className="grid grid-cols-8 gap-4 bg-african_violet-300 text-pomp_and_power-400">
-
       <div className="col-span-2 border-2 border-african_violet-500 flex flex-wrap justify-center items-center">
         {sides.map((side) => (
           <FilterButton

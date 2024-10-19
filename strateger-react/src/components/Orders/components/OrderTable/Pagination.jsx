@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { fetchOrdersUsdtm, setPage } from '../../../../redux/order/orderSlice';
+import { fetchOrdersUsdtm, setPage } from '../../../../redux/order';
 
 const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
 

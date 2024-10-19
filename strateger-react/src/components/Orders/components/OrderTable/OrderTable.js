@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrdersUsdtm, selectFilteredOrders } from '../../../../redux/order/orderSlice';
+import { fetchOrdersUsdtm, selectFilteredOrders } from '../../../../redux/order';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import Tablita from '../../../common/Tablita';

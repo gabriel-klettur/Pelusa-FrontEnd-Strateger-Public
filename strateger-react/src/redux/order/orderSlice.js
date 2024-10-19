@@ -1,23 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import config from '../../config';
-
-export const fetchOrdersUsdtm = createAsyncThunk(
-  'orders/fetchOrdersUsdtm',
-  async ({ limit, offset, startDate, endDate }) => {
-    const params = { limit, offset };
-    if (startDate) params.startDate = startDate;
-    if (endDate) params.endDate = endDate;
-
-    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-all-full-orders`, { params });
-    const data = JSON.parse(response.data);  // Parsea la cadena JSON
-    if (data && data.data && data.data.orders) {
-      return data.data.orders;
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchOrdersUsdtm } from './orderThunks';
 
 const initialFilters = {
   Side: [],
@@ -25,8 +7,6 @@ const initialFilters = {
   PositionSide: '',
   Type: ''
 };
-
-
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -105,9 +85,5 @@ const orderSlice = createSlice({
 });
 
 export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders, appendOrders } = orderSlice.actions;
-
-export const selectOrders = (state) => state.orders.ordersUsdtm; 
-export const selectFilters = (state) => state.orders.filters; 
-export const selectFilteredOrders = (state) => state.orders.filteredOrdersUsdtm; 
 
 export default orderSlice.reducer;

@@ -9,7 +9,7 @@ import { mapPositionsToMarkers } from '../markers/PositionsChart';
 import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm/alarmSlice';
 
 
-import { selectFilteredOrders } from '../../../redux/order/orderSlice';
+import { selectFilteredOrders } from '../../../redux/order';
 import { selectBacktestingResult } from '../../../redux/backtesting/backtestingSlice';
 import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../redux/tradingViewChart/tradingViewChartSlice';
 

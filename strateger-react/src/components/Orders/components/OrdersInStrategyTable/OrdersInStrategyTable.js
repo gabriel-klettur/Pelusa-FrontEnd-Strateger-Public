@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrdersUsdtm, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/order/orderSlice';
+import { fetchOrdersUsdtm, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/order';
 import FilteredOrderRow from './FilteredOrderRow';
 
 const OrdersInStrategyTable = ({ strategy }) => {
