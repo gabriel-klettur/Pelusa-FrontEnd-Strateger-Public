@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Reloj from '../common/Reloj';
 
-const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateChange }) => {
+const Toolbar = ({ currentInterval, handleIntervalChange, startDate, endDate, onDateChange }) => {
   const [localDate, setLocalDate] = useState(startDate);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
 
   const buttonClasses = (interval) =>
     `px-6 font-semibold transition-colors duration-300 ${
-      activeInterval === interval
+      currentInterval === interval
         ? 'bg-african_violet-500 text-white'
         : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
     }`;
@@ -27,7 +27,7 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
     const newEndDate = new Date(date);
 
     // Adjust startDate and endDate based on the selected interval
-    switch (activeInterval) {
+    switch (currentInterval) {
       case '1m':
         newStartDate.setMinutes(newStartDate.getMinutes() - 1000);
         newEndDate.setMinutes(newEndDate.getMinutes() + 1000);
@@ -78,7 +78,7 @@ const Toolbar = ({ activeInterval, onIntervalChange, startDate, endDate, onDateC
           <button
             key={interval}
             className={`${buttonClasses(interval)} flex-grow flex-basis-0`} // Asegura que los botones crezcan y ocupen el mismo espacio
-            onClick={() => onIntervalChange(interval)}
+            onClick={() => handleIntervalChange(interval)}
           >
             {interval}
           </button>

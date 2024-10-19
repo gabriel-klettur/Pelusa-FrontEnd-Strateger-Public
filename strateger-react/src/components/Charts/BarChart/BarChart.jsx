@@ -2,13 +2,7 @@
 
 import BarChartContainer from './containers/BarChartContainer';
 
-
-
-const BarChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
-
-  
-  
-
+const BarChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {  
   return (
     <>
       <BarChartContainer

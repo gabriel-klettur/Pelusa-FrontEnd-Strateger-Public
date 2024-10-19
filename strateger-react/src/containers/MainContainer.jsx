@@ -24,24 +24,24 @@ const MainContainer = () => {
     const formattedStartDate = startDate.toISOString();
 
     //!-----------------------------------------------------
-    const [interval, setInterval] = useState(initialTemporalidad);
+    const [currentInterval, setCurrentInterval] = useState(initialTemporalidad);    //! Crear un Redux con el intervalo actual. 'ToolBarSlice'
 
     const dispatch = useDispatch();
     const handleIntervalChange = (newInterval) => {
-        setInterval(newInterval);
+        setCurrentInterval(newInterval);
         dispatch(setTradingViewChartParameters({
           interval: newInterval,
           startDate: new Date(startDate).toISOString(),
           endDate: new Date(currentDate).toISOString(),
         }));
-      };
+    };
 
     return (
         <>      
             <>
                 <Toolbar
-                    activeInterval={interval}
-                    onIntervalChange={handleIntervalChange}
+                    currentInterval={currentInterval}
+                    handleIntervalChange={handleIntervalChange}
                     startDate={startDate}
                     endDate={currentDate}                    
                 />
