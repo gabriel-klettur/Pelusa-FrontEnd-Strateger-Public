@@ -7,8 +7,8 @@ import PerpUSDTMChart from './PerpUSDTMChart';
 import SpotChart from './SpotChart';
 import PerpCOINMChart from './PerpCOINMChart';
 
-import { ChartComponent } from '../../../TradingViewLineal/TradingViewLineal';
-import Legend from '../../../TradingViewLineal/Legend';
+import { ChartComponent } from '../../../Charts/TradingViewLineal/TradingViewLineal';
+import Legend from '../../../Charts/TradingViewLineal/Legend';
 
 import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
 import { selectLastPrice } from '../../../../redux/tradingViewChart';

@@ -7,18 +7,18 @@ import useChartData from './hooks/useChartData';
 import useChart from './hooks/useChart';
 import useMarkers from './hooks/useMarkers';
 
-import { setTradingViewChartParameters } from '../../redux/tradingViewChart/tradingViewChartSlice';
-import { selectSelectedTab } from '../../redux/tab/tabSlice';
+import { setTradingViewChartParameters } from '../../../redux/tradingViewChart/tradingViewChartSlice';
+import { selectSelectedTab } from '../../../redux/tab/tabSlice';
 
-import BacktestingForm from '../Backtesting/components/BacktestingForm/BacktestingForm';
-import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';
-import { SummaryChart } from '../Account';
-import { AlarmFiltersPanelContainer } from '../Alarms';
-import { ToolOrderBar }  from '../Orders';
+import BacktestingForm from '../../Backtesting/components/BacktestingForm/BacktestingForm';
+import DiaryCalendar from '../../Diary/components/DiaryCalendar/DiaryCalendar';
+import { SummaryChart } from '../../Account';
+import { AlarmFiltersPanelContainer } from '../../Alarms';
+import { ToolOrderBar }  from '../../Orders';
 
 import Toolbar from './Toolbar';
 
-import LoadingOverlay from '../common/LoadingOverlay/LoadingOverlay';
+import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 
 // Importa las imágenes que quieres usar para cada tab
 import alarmImage from './images/alarm.webp';

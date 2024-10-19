@@ -6,12 +6,12 @@ import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers }
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
 import { mapPositionsToMarkers } from '../markers/PositionsChart';
 
-import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm';
+import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../../redux/alarm';
 
 
-import { selectFilteredOrders } from '../../../redux/order';
-import { selectBacktestingResult } from '../../../redux/backtesting';
-import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../redux/tradingViewChart';
+import { selectFilteredOrders } from '../../../../redux/order';
+import { selectBacktestingResult } from '../../../../redux/backtesting';
+import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../../redux/tradingViewChart';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
   const dispatch = useDispatch();
