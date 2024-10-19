@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectTotalBalanceInUSD } from '../../../redux/account/accountSlice';
+import { selectTotalBalanceInUSD } from '../../../redux/account';
 
 const TotalBalanceAccounts = ({ LoadingOverlay }) => {
     const totalBalanceInUSD = useSelector(selectTotalBalanceInUSD);

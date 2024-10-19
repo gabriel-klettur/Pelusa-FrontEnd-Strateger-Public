@@ -1,103 +1,7 @@
 // Path: strateger-react/src/slices/accountSlice.js
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import config from '../../config';
-
-const updateSpotBalanceUSD = createAsyncThunk(
-  'account/updateSpotBalanceUSD',
-  async (balanceUSD) => balanceUSD
-);
-
-// Async thunks for fetching balances
-export const fetchPerpUSDTMBalance = createAsyncThunk(
-  'account/fetchPerpUSDTMBalance',
-  async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-balance-perp-usdtm`);
-    const data = JSON.parse(response.data);
-
-    if (data && data.data && data.data.balance) {
-      return { balance: data.data.balance, lastPrice };
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-export const fetchPerpCOINMBalance = createAsyncThunk(
-  'account/fetchPerpCOINMBalance',
-  async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
-    const data = JSON.parse(response.data);
-    
-    if (data && data.data) {
-      return { balances: data.data, lastPrice };
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-export const fetchSpotBalance = createAsyncThunk(
-  'account/fetchSpotBalance',
-  async ({ lastPrice }) => {
-    const response = await axios.get(`${config.apiURL}/bingx/spot/get-balance-spot`);
-    const data = JSON.parse(response.data);
-    if (data && data.data && data.data.balances) {
-      return { balances: data.data.balances, lastPrice };
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-export const fetchAllAccountsData = createAsyncThunk(
-  'account/fetchAllAccountsData',
-  async () => {
-    const response = await axios.get(`${config.apiURL}/strateger/accounts/get-all-data-bingx-acc`);
-    const data = response.data;
-    if (data && data.data) {
-      return data.data;
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-// Initial state
-const initialState = {
-  allAccountsData: {
-    data: [],
-    perpUSDTMAccounts: [],
-    perpCOINMAccounts: [],
-    spotAccounts: [],
-    loading: false,
-    error: null,
-    loaded: false,
-  },
-  perpUSDTM: {
-    dataUSD: null,
-    dataBTC: null,
-    loading: false,
-    error: null,
-    loaded: false,
-  },
-  perpCOINM: {
-    dataBTC: [],
-    dataUSD: [],
-    loading: false,
-    error: null,
-    loaded: false
-  },
-  spot: {
-    balances: [],
-    balanceUSD: null,
-    loading: false,
-    error: null,
-    loaded: false
-  },
-  totalBalanceInUSD: null
-};
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance, fetchAllAccountsData, updateSpotBalanceUSD } from './accountThunks';
 
 const convertUSDTMDataToBTC = (data, lastPrice) => {
   if (!data || !lastPrice) {
@@ -134,6 +38,40 @@ const calculateTotalBalanceInUSD = (state) => {
   const spotUSD = state.spot.balanceUSD ? parseFloat(state.spot.balanceUSD) : 0;
 
   state.totalBalanceInUSD = perpUSDTMUSD + perpCOINMUSD + spotUSD;
+};
+
+const initialState = {
+  allAccountsData: {
+    data: [],
+    perpUSDTMAccounts: [],
+    perpCOINMAccounts: [],
+    spotAccounts: [],
+    loading: false,
+    error: null,
+    loaded: false,
+  },
+  perpUSDTM: {
+    dataUSD: null,
+    dataBTC: null,
+    loading: false,
+    error: null,
+    loaded: false,
+  },
+  perpCOINM: {
+    dataBTC: [],
+    dataUSD: [],
+    loading: false,
+    error: null,
+    loaded: false
+  },
+  spot: {
+    balances: [],
+    balanceUSD: null,
+    loading: false,
+    error: null,
+    loaded: false
+  },
+  totalBalanceInUSD: null
 };
 
 // Account slice
@@ -227,15 +165,5 @@ const accountSlice = createSlice({
 // Export the updateTotalBalanceInUSD action
 export const { updateTotalBalanceInUSD } = accountSlice.actions;
 export const updateSpotBalanceUSDAction = updateSpotBalanceUSD;
-
-// Selectors
-export const selectPerpUSDTM = (state) => state.account.perpUSDTM;
-export const selectPerpCOINM = (state) => state.account.perpCOINM;
-export const selectSpot = (state) => state.account.spot;
-export const selectTotalBalanceInUSD = (state) => state.account.totalBalanceInUSD;
-export const selectAllAccountsData = (state) => state.account.allAccountsData;
-export const selectCoinMTimeData = (state) => state.account.allAccountsData.perpCOINMAccounts;
-export const selectUSDTMTimeData = (state) => state.account.allAccountsData.perpUSDTMAccounts;
-export const selectSpotTimeData = (state) => state.account.allAccountsData.spotAccounts;
 
 export default accountSlice.reducer;

@@ -4,12 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@headlessui/react';
 
-import {
-  fetchSpotBalance,
-  selectSpot,
-  updateSpotBalanceUSDAction,
-  updateTotalBalanceInUSD,
-} from '../../../../redux/account/accountSlice';
+import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction, updateTotalBalanceInUSD, } from '../../../../redux/account';
 
 import { fetchTicker } from '../../../../redux/ticker/tickerSlice';
 import Tablita from '../../../common/Tablita';

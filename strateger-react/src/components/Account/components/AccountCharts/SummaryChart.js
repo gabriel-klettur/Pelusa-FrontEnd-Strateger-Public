@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../../TradingViewLineal/TradingViewLineal';
-import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account/accountSlice';
+import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
 import { selectTicker } from '../../../../redux/ticker/tickerSlice'; // Importa selectTicker
 import Legend from '../../../TradingViewLineal/Legend';
 

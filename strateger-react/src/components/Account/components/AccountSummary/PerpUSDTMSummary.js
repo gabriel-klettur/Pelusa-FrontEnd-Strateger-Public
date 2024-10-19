@@ -4,11 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@headlessui/react';
 
-import {
-  fetchPerpUSDTMBalance,
-  selectPerpUSDTM,
-  updateTotalBalanceInUSD,
-} from '../../../../redux/account/accountSlice';
+import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from '../../../../redux/account';
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
