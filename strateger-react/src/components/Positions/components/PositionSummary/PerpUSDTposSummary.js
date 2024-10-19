@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPositionsUSDTM } from '../../../../redux/position/positionSlice';
+import { fetchPositionsUSDTM } from '../../../../redux/position';
 
 const PerpUSDTposSummary = () => {
   const dispatch = useDispatch();

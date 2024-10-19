@@ -5,7 +5,7 @@
 import { fetchStrategies } from '../redux/strategy/strategySlice';
 import { fetchDiaryEntries } from '../redux/diary';
 //import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
-import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position/positionSlice';
+import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';
 import { fetchTradingViewChartData } from '../redux/tradingViewChart/tradingViewChartSlice';
 import { fetchTicker } from '../redux/ticker/tickerSlice'; // Importa fetchTicker
 

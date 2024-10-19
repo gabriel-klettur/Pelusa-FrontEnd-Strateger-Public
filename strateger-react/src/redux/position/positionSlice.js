@@ -1,48 +1,8 @@
 // Path: strateger-react/src/slices/positionSlice.js
 
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import axios from 'axios';
-import config from '../../config';
+import { createSlice } from '@reduxjs/toolkit';
 
-// Async thunks for fetching positions
-export const fetchPositionsCoinM = createAsyncThunk(
-  'positions/fetchPositionsCoinM',
-  async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/coinm/get-positions-coinm`);
-    const data = JSON.parse(response.data);
-    if (data && data.data) {
-      return data.data;
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-export const fetchPositionsUSDTM = createAsyncThunk(
-  'positions/fetchPositionsUSDTM',
-  async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-positions-usdtm`);
-    const data = JSON.parse(response.data);
-    if (data && data.data) {
-      return data.data;
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
-
-export const fetchSpotDepositRecords = createAsyncThunk(
-  'positions/fetchSpotDepositRecords',
-  async () => {
-    const response = await axios.get(`${config.apiURL}/bingx/spot/get-spot-deposit-records`);
-    const data = JSON.parse(response.data); // Analiza el JSON string
-    if (Array.isArray(data)) {
-      return data;
-    } else {
-      throw new Error('Invalid response structure');
-    }
-  }
-);
+import { fetchPositionsCoinM, fetchPositionsUSDTM, fetchSpotDepositRecords } from './positionThunks';
 
 // Initial state
 const initialState = {
@@ -113,55 +73,5 @@ const positionSlice = createSlice({
       });
   }
 });
-
-// Selectors
-export const selectCoinMPositions = (state) => state.positions.coinM;
-export const selectUSDTMPositions = (state) => state.positions.usdtM;
-export const selectSpotRecords = (state) => state.positions.spot;
-
-export const selectCoinMPositionsList = createSelector(
-  [selectCoinMPositions],
-  (coinM) => coinM?.positions || []
-);
-
-export const selectUSDTMPositionsList = createSelector(
-  [selectUSDTMPositions],
-  (usdtM) => usdtM?.positions || []
-);
-
-export const selectSpotRecordsList = createSelector(
-  [selectSpotRecords],
-  (spot) => spot?.records || []
-);
-
-export const selectCoinMLoading = createSelector(
-  [selectCoinMPositions],
-  (coinM) => coinM?.loading
-);
-
-export const selectUSDTMLoading = createSelector(
-  [selectUSDTMPositions],
-  (usdtM) => usdtM?.loading
-);
-
-export const selectSpotLoading = createSelector(
-  [selectSpotRecords],
-  (spot) => spot?.loading
-);
-
-export const selectCoinMError = createSelector(
-  [selectCoinMPositions],
-  (coinM) => coinM?.error
-);
-
-export const selectUSDTMError = createSelector(
-  [selectUSDTMPositions],
-  (usdtM) => usdtM?.error
-);
-
-export const selectSpotError = createSelector(
-  [selectSpotRecords],
-  (spot) => spot?.error
-);
 
 export default positionSlice.reducer;
