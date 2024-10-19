@@ -1,10 +1,15 @@
 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setTradingViewChartParameters } from '../redux/tradingViewChart/tradingViewChartSlice';
+
 import NavBarContainer from "./NavBarContainer";
 import BarChart from '../components/Charts/BarChart/BarChart';
 import Reloj from '../components/common/Reloj';
+import Toolbar from '../components/ToolBar/Toolbar';
 
 const MainContainer = () => {
-
   
     //! ----------------- Chart Settings -----------------
     const initialTemporalidad = '1d'; // Define el intervalo inicial como '1d'
@@ -19,9 +24,28 @@ const MainContainer = () => {
     const formattedStartDate = startDate.toISOString();
 
     //!-----------------------------------------------------
+    const [interval, setInterval] = useState(initialTemporalidad);
+
+    const dispatch = useDispatch();
+    const handleIntervalChange = (newInterval) => {
+        setInterval(newInterval);
+        dispatch(setTradingViewChartParameters({
+          interval: newInterval,
+          startDate: new Date(startDate).toISOString(),
+          endDate: new Date(currentDate).toISOString(),
+        }));
+      };
 
     return (
-        <>                    
+        <>      
+            <>
+                <Toolbar
+                    activeInterval={interval}
+                    onIntervalChange={handleIntervalChange}
+                    startDate={startDate}
+                    endDate={currentDate}                    
+                />
+            </>              
             <>
                 <BarChart
                     initialTemporalidad={initialTemporalidad}
