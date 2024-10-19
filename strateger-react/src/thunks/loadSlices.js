@@ -2,7 +2,7 @@
 
 //import { fetchAlarms } from '../slices/alarmSlice';
 //import { fetchOrders } from '../slices/orderSlice';
-import { fetchStrategies } from '../redux/strategy/strategySlice';
+import { fetchStrategies } from '../redux/strategy';
 import { fetchDiaryEntries } from '../redux/diary';
 //import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
 import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';

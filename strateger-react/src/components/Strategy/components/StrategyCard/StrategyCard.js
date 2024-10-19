@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchStrategies, saveStrategy, removeStrategy } from '../../../../redux/strategy/strategySlice';
+import { fetchStrategies, saveStrategy, removeStrategy } from '../../../../redux/strategy';
 
 import StrategyItem from './StrategyItems';
 import StrategyForm from '../forms/StrategyForm/StrategyForm';
