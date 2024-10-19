@@ -6,7 +6,7 @@ import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers }
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../markers/OrdersChart';
 import { mapPositionsToMarkers } from '../markers/PositionsChart';
 
-import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm/alarmSlice';
+import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm';
 
 
 import { selectFilteredOrders } from '../../../redux/order';

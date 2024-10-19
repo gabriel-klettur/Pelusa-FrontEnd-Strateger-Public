@@ -6,7 +6,7 @@ const initialFilteredTemporalidades = {
   '1m': 0, '5m': 0, '15m': 0, '30m': 0, '1h': 0, '4h': 0, 'D': 0, 'W': 0, 'M': 0
 };
 
-const alarmFilterSlice = createSlice({
+const alarmFilterPanelSlice = createSlice({
   name: 'alarmFilters',
   initialState: {
     filteredTemporalidades: initialFilteredTemporalidades,
@@ -46,10 +46,6 @@ export const {
   decrementTemporalidad,
   setSelectedTypes,
   removeEmptySelectedTypes
-} = alarmFilterSlice.actions;
+} = alarmFilterPanelSlice.actions;
 
-export const selectSelectedTemporalidad = (state) => state.alarmsFilter.selectedTemporalidad;
-export const selectSelectedTypes = (state) => state.alarmsFilter.selectedTypes;
-export const selectFilteredTemporalidades = (state) => state.alarmsFilter.filteredTemporalidades;
-
-export default alarmFilterSlice.reducer;
+export default alarmFilterPanelSlice.reducer;

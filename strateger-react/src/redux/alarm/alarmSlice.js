@@ -1,16 +1,7 @@
 //Path: strateger-react/src/redux/slices/alarmSlice.js
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import config from '../../config';
-
-export const fetchAlarms = createAsyncThunk(
-  'alarms/fetchAlarms',
-  async ({ limit, offset }) => {
-    const response = await axios.get(`${config.apiURL}/alarms/alarms?limit=${limit}&offset=${offset}&latest=true`);    
-    return response.data.sort((a, b) => b.id - a.id);  
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchAlarms } from './alarmThunks';
 
 const alarmSlice = createSlice({
   name: 'alarms',
@@ -76,9 +67,6 @@ export const {
   setStrategyFilteredAlarms,
 } = alarmSlice.actions;
 
-export const selectFilteredByClickAlarms = (state) => state.alarms.filteredByClickAlarms;
-export const selectFilteredByIntervalAlarms = (state) => state.alarms.filteredByIntervalAlarms;
-export const selectFilteredByIntervalAndTypeAlarms = (state) => state.alarms.filteredByIntervalAndTypeAlarms;
-export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
+
 
 export default alarmSlice.reducer;

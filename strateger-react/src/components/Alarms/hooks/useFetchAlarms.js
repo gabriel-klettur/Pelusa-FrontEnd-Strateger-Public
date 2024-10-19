@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAlarms } from '../../../redux/alarm/alarmSlice';
+import { fetchAlarms } from '../../../redux/alarm';
 
 const useFetchAlarms = () => {
     const dispatch = useDispatch();

@@ -3,7 +3,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import alarmReducer from './alarm/alarmSlice';
-import alarmFilterReducer from './alarm/alarmFilterSlice';
+import alarmFilterReducer from './alarm/filtersPanel/alarmFilterPanelSlice';
 import orderReducer from './order/orderSlice';
 import strategyReducer from './strategy/strategySlice';
 import diaryReducer from './diary/diarySlice';
