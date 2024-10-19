@@ -3,7 +3,7 @@
 //import { fetchAlarms } from '../slices/alarmSlice';
 //import { fetchOrders } from '../slices/orderSlice';
 import { fetchStrategies } from '../redux/strategy/strategySlice';
-import { fetchDiaryEntries } from '../redux/diary/diarySlice';
+import { fetchDiaryEntries } from '../redux/diary';
 //import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
 import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position/positionSlice';
 import { fetchTradingViewChartData } from '../redux/tradingViewChart/tradingViewChartSlice';
