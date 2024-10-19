@@ -8,7 +8,7 @@ import BarChartContainer from './containers/BarChartContainer';
 
 import { setTradingViewChartParameters } from '../../../redux/tradingViewChart/tradingViewChartSlice';
 
-import Toolbar from './components/Toolbar';
+import Toolbar from '../../ToolBar/Toolbar';
 
 const BarChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => {
 
@@ -20,13 +20,11 @@ const BarChart = ({ initialTemporalidad, initialStartDate, initialEndDate }) => 
 
   const handleIntervalChange = (newInterval) => {
     setInterval(newInterval);
-    dispatch(
-      setTradingViewChartParameters({
-        interval: newInterval,
-        startDate: new Date(startDate).toISOString(),
-        endDate: new Date(endDate).toISOString(),
-      })
-    );
+    dispatch(setTradingViewChartParameters({
+      interval: newInterval,
+      startDate: new Date(startDate).toISOString(),
+      endDate: new Date(endDate).toISOString(),
+    }));
   };
 
   return (
