@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/TradingViewChart/hooks/useChart.js
 import { useEffect, useRef } from 'react';
 import { initializeChart } from '../config/chartConfig';
-import { initializeSeries, setSeriesData } from '../series/seriesConfig';
+import { initializeSeries, setSeriesData } from '../components/series/seriesConfig';
 
 const useChart = (data) => {
   const chartContainerRef = useRef();
