@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import {fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/slices/accountSlice';
+import {fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account/accountSlice';
 
 import AccountTable from "./AccountTable";
 

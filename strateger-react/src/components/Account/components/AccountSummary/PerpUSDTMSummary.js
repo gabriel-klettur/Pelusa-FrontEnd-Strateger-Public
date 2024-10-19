@@ -8,7 +8,7 @@ import {
   fetchPerpUSDTMBalance,
   selectPerpUSDTM,
   updateTotalBalanceInUSD,
-} from '../../../../redux/slices/accountSlice';
+} from '../../../../redux/account/accountSlice';
 
 import Tarjetitas from '../../../common/Tarjetitas';
 

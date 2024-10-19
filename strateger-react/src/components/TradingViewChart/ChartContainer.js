@@ -7,8 +7,8 @@ import useChartData from './hooks/useChartData';
 import useChart from './hooks/useChart';
 import useMarkers from './hooks/useMarkers';
 
-import { setTradingViewChartParameters } from '../../redux/slices/tradingViewChartSlice';
-import { selectSelectedTab } from '../../redux/slices/tabSlice';
+import { setTradingViewChartParameters } from '../../redux/tradingViewChart/tradingViewChartSlice';
+import { selectSelectedTab } from '../../redux/tab/tabSlice';
 
 import BacktestingForm from '../Backtesting/components/BacktestingForm/BacktestingForm';
 import DiaryCalendar from '../Diary/components/DiaryCalendar/DiaryCalendar';

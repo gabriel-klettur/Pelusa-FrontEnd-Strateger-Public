@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { format } from 'date-fns'; 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateChartData, setPositionMarkers } from '../../../../redux/slices/tradingViewChartSlice';
-import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/slices/backtestingSlice';
+import { updateChartData, setPositionMarkers } from '../../../../redux/tradingViewChart/tradingViewChartSlice';
+import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting/backtestingSlice';
 
 import { mapPositionsToMarkers } from '../../../TradingViewChart/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';

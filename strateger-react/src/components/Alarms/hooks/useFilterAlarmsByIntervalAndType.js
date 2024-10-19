@@ -2,8 +2,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setFilteredByIntervalAndTypeAlarms } from '../../../redux/slices/alarmSlice';          
-import { removeEmptySelectedTypes } from '../../../redux/slices/alarmFilterSlice';                   
+import { setFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm/alarmSlice';          
+import { removeEmptySelectedTypes } from '../../../redux/alarm/alarmFilterSlice';                   
 
 
 const useFilterAlarmsByIntervalAndType = () => {

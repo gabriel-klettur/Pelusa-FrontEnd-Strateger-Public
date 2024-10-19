@@ -10,7 +10,7 @@ import {
   selectTradingViewChartStartDate, 
   selectTradingViewChartEndDate, 
   selectTradingViewChartInterval 
-} from '../../../redux/slices/tradingViewChartSlice';
+} from '../../../redux/tradingViewChart/tradingViewChartSlice';
 
 const useChartData = (initialTemporalidad, initialStartDate, initialEndDate) => {
   const dispatch = useDispatch();

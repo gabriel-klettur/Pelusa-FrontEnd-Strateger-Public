@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDiaryEntries, saveDiaryEntry, removeDiaryEntry } from '../../../redux/slices/diarySlice';
+import { fetchDiaryEntries, saveDiaryEntry, removeDiaryEntry } from '../../../redux/diary/diarySlice';
 
 const useDiary = () => {
   const entries = useSelector((state) => state.diary.items);

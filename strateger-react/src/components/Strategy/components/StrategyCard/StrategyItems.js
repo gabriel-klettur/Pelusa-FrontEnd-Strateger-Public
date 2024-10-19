@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { OrdersInStrategyTable } from '../../../Orders';
 
-import { setStrategyFilteredAlarms } from '../../../../redux/slices/alarmSlice';
+import { setStrategyFilteredAlarms } from '../../../../redux/alarm/alarmSlice';
 
 import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
 

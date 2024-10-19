@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { fetchAlarms, setPage } from '../../../../redux/slices/alarmSlice';
+import { fetchAlarms, setPage } from '../../../../redux/alarm/alarmSlice';
 
 const Pagination = ({ page, hasMore, endIndex, alarmsLength, offset }) => {
   const dispatch = useDispatch();

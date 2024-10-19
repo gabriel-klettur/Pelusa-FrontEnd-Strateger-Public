@@ -9,9 +9,9 @@ import {
   selectSpot,
   updateSpotBalanceUSDAction,
   updateTotalBalanceInUSD,
-} from '../../../../redux/slices/accountSlice';
+} from '../../../../redux/account/accountSlice';
 
-import { fetchTicker } from '../../../../redux/slices/tickerSlice';
+import { fetchTicker } from '../../../../redux/ticker/tickerSlice';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 

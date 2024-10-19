@@ -26,11 +26,16 @@ const initialFilters = {
   Type: ''
 };
 
+
+
 const orderSlice = createSlice({
   name: 'orders',
   initialState: {
-    ordersUsdtm: [],  // Cambiado
-    filteredOrders: [],
+    ordersUsdtm: [],
+    ordersCoinm: [],
+    ordersSpot: [],
+    ordersStandard: [],
+    filteredOrdersUsdtm: [],
     filters: initialFilters,    
     selectedOrderId: null,        
     page: 0,
@@ -48,7 +53,7 @@ const orderSlice = createSlice({
     },
     setFilters(state, action) {
       state.filters = action.payload;
-      state.filteredOrders = state.ordersUsdtm.filter(order => 
+      state.filteredOrdersUsdtm = state.ordersUsdtm.filter(order => 
         (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
         (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
         (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
@@ -56,7 +61,7 @@ const orderSlice = createSlice({
       );
     },
     setFilteredOrders(state, action) {
-      state.filteredOrders = action.payload;
+      state.filteredOrdersUsdtm = action.payload;
     },
     appendOrders(state, action) {
       const newOrders = action.payload;
@@ -64,7 +69,7 @@ const orderSlice = createSlice({
       const uniqueOrders = Array.from(new Set(allOrders.map(order => order.orderId)))
                                 .map(id => allOrders.find(order => order.orderId === id));
       state.ordersUsdtm = uniqueOrders;
-      state.filteredOrders = uniqueOrders.filter(order => 
+      state.filteredOrdersUsdtm = uniqueOrders.filter(order => 
         (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
         (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
         (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
@@ -83,7 +88,7 @@ const orderSlice = createSlice({
           state.hasMore = false;
         }
         state.ordersUsdtm = [...state.ordersUsdtm, ...action.payload];
-        state.filteredOrders = state.ordersUsdtm.filter(order => 
+        state.filteredOrdersUsdtm = state.ordersUsdtm.filter(order => 
           (state.filters.Side.length === 0 || state.filters.Side.includes(order.side)) &&
           (state.filters.Symbol === '' || order.symbol === state.filters.Symbol) &&
           (state.filters.PositionSide === '' || order.positionSide === state.filters.PositionSide) &&
@@ -101,8 +106,8 @@ const orderSlice = createSlice({
 
 export const { setSelectedOrderId, setPage, setFilters, setFilteredOrders, appendOrders } = orderSlice.actions;
 
-export const selectOrders = (state) => state.orders.ordersUsdtm;  // Cambiado
+export const selectOrders = (state) => state.orders.ordersUsdtm; 
 export const selectFilters = (state) => state.orders.filters; 
-export const selectFilteredOrders = (state) => state.orders.filteredOrders; 
+export const selectFilteredOrders = (state) => state.orders.filteredOrdersUsdtm; 
 
 export default orderSlice.reducer;

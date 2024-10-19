@@ -10,7 +10,7 @@ import {
         setSelectedTypes, 
         selectSelectedTemporalidad, 
         selectSelectedTypes 
-    } from '../../../redux/slices/alarmFilterSlice';
+    } from '../../../redux/alarm/alarmFilterSlice';
   
 
 const AlarmFiltersPanelContainer = () => {

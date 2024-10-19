@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setFilteredByIntervalAlarms } from '../../../redux/slices/alarmSlice';
+import { setFilteredByIntervalAlarms } from '../../../redux/alarm/alarmSlice';
 
 const useFilterAlarmsByInterval = () => {
     const dispatch = useDispatch();
