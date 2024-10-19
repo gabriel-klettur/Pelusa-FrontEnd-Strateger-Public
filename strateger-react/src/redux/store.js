@@ -1,7 +1,6 @@
-// Path: strateger-react/src/store.js
+// Path: src/redux/store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import { composeWithDevTools } from '@redux-devtools/extension';
 import alarmReducer from './alarm/alarmSlice';
 import alarmFilterReducer from './alarm/filtersPanel/alarmFilterPanelSlice';
 import orderReducer from './order/orderSlice';
@@ -30,7 +29,9 @@ const store = configureStore({
     positions: positionReducer,
     tab: tabReducer, 
   },
-  devTools: composeWithDevTools(),
+  devTools: {
+    actionsDenylist: ['time/updateTime'], // Ignorar la acción 'time/updateTime'
+  },
 });
 
 export default store;
