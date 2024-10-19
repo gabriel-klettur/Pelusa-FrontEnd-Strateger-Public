@@ -1,6 +1,6 @@
 
 import NavBarContainer from "./NavBarContainer";
-import LightweightChart from '../components/Charts/BarChart/BarChart';
+import BarChart from '../components/Charts/BarChart/BarChart';
 import Reloj from '../components/common/Reloj';
 
 const MainContainer = () => {
@@ -23,7 +23,7 @@ const MainContainer = () => {
     return (
         <>                    
             <>
-                <LightweightChart
+                <BarChart
                     initialTemporalidad={initialTemporalidad}
                     initialStartDate={formattedStartDate}
                     initialEndDate={formattedCurrentDate}
