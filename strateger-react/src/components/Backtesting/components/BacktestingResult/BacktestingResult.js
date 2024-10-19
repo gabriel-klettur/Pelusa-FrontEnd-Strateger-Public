@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { updateChartData, setPositionMarkers } from '../../../../redux/tradingViewChart/tradingViewChartSlice';
-import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting/backtestingSlice';
+import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting';
 
 import { mapPositionsToMarkers } from '../../../TradingViewChart/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';

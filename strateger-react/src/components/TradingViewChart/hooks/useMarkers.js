@@ -10,7 +10,7 @@ import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } f
 
 
 import { selectFilteredOrders } from '../../../redux/order';
-import { selectBacktestingResult } from '../../../redux/backtesting/backtestingSlice';
+import { selectBacktestingResult } from '../../../redux/backtesting';
 import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../redux/tradingViewChart/tradingViewChartSlice';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
