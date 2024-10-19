@@ -6,7 +6,7 @@ import { Switch } from '@headlessui/react';
 
 import { fetchSpotBalance, selectSpot, updateSpotBalanceUSDAction, updateTotalBalanceInUSD, } from '../../../../redux/account';
 
-import { fetchTicker } from '../../../../redux/ticker/tickerSlice';
+import { fetchTicker } from '../../../../redux/ticker';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 

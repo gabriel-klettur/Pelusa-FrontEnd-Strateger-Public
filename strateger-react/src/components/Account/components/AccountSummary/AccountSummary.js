@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectTicker } from '../../../../redux/ticker/tickerSlice';
+import { selectTicker } from '../../../../redux/ticker';
 
 import PerpUSDTMSummary from './PerpUSDTMSummary';
 import SpotSummary from './SpotSummary';
