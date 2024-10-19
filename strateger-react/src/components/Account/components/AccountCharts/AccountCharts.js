@@ -11,7 +11,7 @@ import { ChartComponent } from '../../../TradingViewLineal/TradingViewLineal';
 import Legend from '../../../TradingViewLineal/Legend';
 
 import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
-import { selectLastPrice } from '../../../../redux/tradingViewChart/tradingViewChartSlice';
+import { selectLastPrice } from '../../../../redux/tradingViewChart';
 
 import Ventanita from '../../../common/Ventanita';
 

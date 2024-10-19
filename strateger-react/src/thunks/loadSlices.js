@@ -6,7 +6,7 @@ import { fetchStrategies } from '../redux/strategy/strategySlice';
 import { fetchDiaryEntries } from '../redux/diary';
 //import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
 import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';
-import { fetchTradingViewChartData } from '../redux/tradingViewChart/tradingViewChartSlice';
+import { fetchTradingViewChartData } from '../redux/tradingViewChart';
 import { fetchTicker } from '../redux/ticker'; // Importa fetchTicker
 
 export const loadSlicesInOrder = () => async (dispatch) => {
