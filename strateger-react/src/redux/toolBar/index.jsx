@@ -1,11 +1,11 @@
 //Slice
-import toolBarReducer from './toolbarSlice';
+import toolBarReducer from './toolBarSlice';
 
 //Selectors
-import { selectTemporalidad, selectCurrentDate, selectStartDate } from './toolbarSlice';
+import { selectTemporalidad, selectCurrentDate, selectStartDate } from './toolBarSelectors';
 
 //Actions
-import { setTemporalidad, setCurrentDate, setStartDate } from './toolbarSlice';
+import { setTemporalidad, setCurrentDate, setStartDate } from './toolBarSlice';
 
 //TODO Actions
 export { setTemporalidad, setCurrentDate, setStartDate };
