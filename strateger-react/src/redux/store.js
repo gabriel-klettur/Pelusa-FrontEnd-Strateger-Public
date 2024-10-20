@@ -13,6 +13,7 @@ import timeReducer from './time/timeSlice';
 import tickerReducer from './ticker/tickerSlice';
 import positionReducer from './position/positionSlice';
 import tabReducer from './tab/tabSlice'; 
+import toolBarReducer from './toolBar/toolBarSlice';
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     ticker: tickerReducer, 
     positions: positionReducer,
     tab: tabReducer, 
+    toolbar: toolBarReducer
   },
   devTools: {
     actionsDenylist: ['time/updateTime'], // Ignorar la acción 'time/updateTime'
