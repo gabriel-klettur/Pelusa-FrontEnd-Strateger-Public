@@ -6,7 +6,7 @@ import useMarkers from '../hooks/useMarkers';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 
-const BarChartContainer = ({ initialTemporalidad, startDate, endDate }) => {  
+const CandlestickChartContainer = ({ initialTemporalidad, startDate, endDate }) => {  
 
   const { data, loading, chartInterval } = useChartData(
     initialTemporalidad,
@@ -33,4 +33,4 @@ const BarChartContainer = ({ initialTemporalidad, startDate, endDate }) => {
   );
 };
 
-export default BarChartContainer;
+export default CandlestickChartContainer;

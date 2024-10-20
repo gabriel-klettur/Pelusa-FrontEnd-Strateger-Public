@@ -1,7 +1,7 @@
 import NavBarContainer from "./NavBarContainer";
-import BarChart from '../components/Charts/BarChart/BarChart';
+import CandlestickChart from '../components/Charts/CandlestickChartChart/CandlestickChart';
 import Reloj from '../components/common/Reloj';
-import Toolbar from '../components/ToolBar/Toolbar';
+import Toolbar from '../components/ToolBar';
 
 const MainContainer = () => {
   
@@ -29,7 +29,7 @@ const MainContainer = () => {
                 />
             </>              
             <>
-                <BarChart
+                <CandlestickChart
                     initialTemporalidad={initialTemporalidad}
                     initialStartDate={formattedStartDate}
                     initialEndDate={formattedCurrentDate}
