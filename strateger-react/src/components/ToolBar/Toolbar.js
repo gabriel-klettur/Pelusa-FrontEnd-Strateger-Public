@@ -1,40 +1,20 @@
 // Path: strateger-react/src/components/TradingViewChart/Toolbar.js
 
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setTradingViewChartParameters } from '../../redux/tradingViewChart/tradingViewChartSlice';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Reloj from '../common/Reloj';
+
+import IntervalBarContainer from './containers/IntervalBarContainer';
+import RelojContainer from './containers/RelojContainer';
 
 const Toolbar = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
-  const [currentInterval, setCurrentInterval] = useState(initialTemporalidad);    //! Crear un Redux con el intervalo actual. 'ToolBarSlice'
+  const [currentInterval, setCurrentInterval] = useState(initialTemporalidad); 
   const [localDate, setLocalDate] = useState(startDate);
-  const dispatch = useDispatch();
-
-
-  const handleIntervalChange = (newInterval) => {
-      setCurrentInterval(newInterval);
-      dispatch(setTradingViewChartParameters({
-        interval: newInterval,
-        startDate: new Date(startDate).toISOString(),
-        endDate: new Date(endDate).toISOString(),
-      }));
-  };
 
   useEffect(() => {
     setLocalDate(startDate);
   }, [startDate]);
-
-  const buttonClasses = (interval) =>
-    `px-6 font-semibold transition-colors duration-300 ${
-      currentInterval === interval
-        ? 'bg-african_violet-500 text-white'
-        : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
-    }`;
-
-  const intervals = ['1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w', '1M'];
 
   const handleDateChange = (date) => {
     setLocalDate(date);
@@ -85,31 +65,27 @@ const Toolbar = ({ initialTemporalidad, startDate, endDate, onDateChange }) => {
 
     onDateChange(newStartDate.toISOString(), newEndDate.toISOString());
   };
-
+  
   return (
     <div className="grid grid-cols-2 h-12 col-span-10 gap-2 bg-african_violet-300 ml-1 mr-1">
-      <div className="flex w-full bg-african_violet-300 border-r-4 border-african_violet-500">
-        {intervals.map((interval) => (
-          <button
-            key={interval}
-            className={`${buttonClasses(interval)} flex-grow flex-basis-0`} // Asegura que los botones crezcan y ocupen el mismo espacio
-            onClick={() => handleIntervalChange(interval)}
-          >
-            {interval}
-          </button>
-        ))}
-      </div>
+
+      <IntervalBarContainer
+        currentInterval={currentInterval}
+        setCurrentInterval={setCurrentInterval}
+        startDate={startDate}
+        endDate={endDate}
+      />
 
       <div className="grid grid-cols-4 gap-4 h-12 bg-african_violet-300">
-        <div className="col-span-2 flex justify-center items-center justify-self-end h-12 border-r-4 border-l-4 border-african_violet-500">
-          <Reloj direction="down" />
-        </div>
+
+        <RelojContainer />
+        
         <div className="col-span-2 flex justify-center items-center justify-self-end h-12 border-l-4 border-african_violet-500">
           <DatePicker
             selected={localDate}
             onChange={handleDateChange}
             showTimeSelect
-            dateFormat="yyyy-MM-dd HH:mm:ss"
+            dateFormat="HH:mm dd-MM-yyyy" 
             className="px-4 h-12 font-semibold transition-colors duration-300 bg-african_violet-200 hover:bg-african_violet-600 text-white text-center"
           />
         </div>
