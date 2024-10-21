@@ -7,18 +7,22 @@ import DirectionTabs from './DirectionFiltersPanel/DirectionTabs';
 
 const AlarmFiltersPanel = ({temporalidades, selectedTemporalidad, selectedTypes, toggleTemporalidad, toggleType}) => {
   return (
-    <div className="flex flex-col">      
-      <IntervalBar  
-        temporalidades={temporalidades}
-        selectedTemporalidad={selectedTemporalidad}
-        selectedTypes={selectedTypes}
-        toggleTemporalidad={toggleTemporalidad}
-      />
-      <DirectionTabs
-        selectedTemporalidad={selectedTemporalidad}
-        selectedTypes={selectedTypes}
-        toggleType={toggleType}
-      />      
+    <div className="h-full flex flex-col">
+      <>
+        <IntervalBar  
+          temporalidades={temporalidades}
+          selectedTemporalidad={selectedTemporalidad}
+          selectedTypes={selectedTypes}
+          toggleTemporalidad={toggleTemporalidad}
+        />
+      </>
+      <div className="h-full">
+        <DirectionTabs
+          selectedTemporalidad={selectedTemporalidad}
+          selectedTypes={selectedTypes}
+          toggleType={toggleType}
+        />   
+      </div>   
     </div>
   );
 };

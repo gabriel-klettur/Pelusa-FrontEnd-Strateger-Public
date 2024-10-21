@@ -16,12 +16,12 @@ const DirectionTabs = ({ selectedTemporalidad, selectedTypes, toggleType}) => {
     ];
     return (
         <>
-            <TabGroup className="">
+            <TabGroup className="flex flex-col h-full">
                 <TabList className="flex justify-center space-x-1 bg-african_violet-500 p-1">          
                     <DirectionTabButton direction="Long" />
                     <DirectionTabButton direction="Short" />          
                 </TabList>
-                <TabPanels className="h-44">
+                <TabPanels className="h-full">
                     <TypeFilterTabPanel 
                         types={Longtypes} 
                         selectedTemporalidad={selectedTemporalidad} 

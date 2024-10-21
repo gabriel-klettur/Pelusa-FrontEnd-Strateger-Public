@@ -3,6 +3,7 @@ import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 import CandlestickChart from '../../Charts/CandlestickChartChart/CandlestickChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
 import Toolbar from '../../ToolBar/Toolbar';
+import AlarmInfoPanel from './AlarmInfoPanel';
 
 const AlarmContainer = () => {
     return (
@@ -12,8 +13,10 @@ const AlarmContainer = () => {
                 <div className='col-span-7'>
                     <CandlestickChart/>
                 </div>
-                <div className='col-span-3'>
-                    <AlarmFiltersPanelContainer/>
+                <div className='flex flex-col h-full col-span-3'>
+                    <AlarmInfoPanel/>
+                    <AlarmFiltersPanelContainer/>                
+
                 </div>
             </div>
             <AlarmTablesContainer/>            

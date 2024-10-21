@@ -38,14 +38,16 @@ const AlarmFiltersPanelContainer = () => {
         dispatch(setSelectedTemporalidad(temp));
     };
 
-    return (        
-        <AlarmFiltersPanel 
-            temporalidades={temporalidades}            
-            selectedTemporalidad={selectedTemporalidad}
-            selectedTypes={selectedTypes}
-            toggleTemporalidad={toggleTemporalidad}
-            toggleType={toggleType}
-        />
+    return (   
+        <div className="h-full">
+            <AlarmFiltersPanel 
+                temporalidades={temporalidades}            
+                selectedTemporalidad={selectedTemporalidad}
+                selectedTypes={selectedTypes}
+                toggleTemporalidad={toggleTemporalidad}
+                toggleType={toggleType}
+            />
+        </div>     
     );
 }
 
