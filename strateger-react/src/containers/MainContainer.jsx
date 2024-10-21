@@ -5,35 +5,13 @@ import Toolbar from '../components/ToolBar';
 
 const MainContainer = () => {
   
-    //! ----------------- Chart Settings -----------------
-    const initialTemporalidad = '1d'; // Define el intervalo inicial como '1d'
-
-    // Obtener la fecha actual y formatearla
-    const currentDate = new Date();
-    const formattedCurrentDate = currentDate.toISOString();    
-
-    // Calcular la fecha de inicio (1000 días antes de la fecha actual)
-    const startDate = new Date();
-    startDate.setDate(currentDate.getDate() - 1000);
-    const formattedStartDate = startDate.toISOString();
-
-    //!-----------------------------------------------------
-
     return (
         <>      
             <>
-                <Toolbar
-                    initialTemporalidad={initialTemporalidad}
-                    startDate={startDate}
-                    endDate={currentDate}                    
-                />
+                <Toolbar />
             </>              
             <>
-                <CandlestickChart
-                    initialTemporalidad={initialTemporalidad}
-                    initialStartDate={formattedStartDate}
-                    initialEndDate={formattedCurrentDate}
-                />            
+                <CandlestickChart />            
             </>
             <>
                 <NavBarContainer />                    

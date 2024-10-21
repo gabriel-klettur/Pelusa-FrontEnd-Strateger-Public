@@ -1,4 +1,4 @@
-// Path: redux/ToolBarSlice.js
+// Path: strateger-react/src/redux/toolBar/toolBarSlice.jsx
 
 import { createSlice } from '@reduxjs/toolkit';
 

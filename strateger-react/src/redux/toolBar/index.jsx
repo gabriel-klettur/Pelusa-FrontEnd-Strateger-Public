@@ -1,3 +1,5 @@
+//Path: strateger-react/src/redux/toolbar/index.jsx
+
 //Slice
 import toolBarReducer from './toolBarSlice';
 

@@ -1,12 +1,22 @@
 // Path: strateger-react/src/components/Charts/CandlestickChartChart/containers/CandlestickChartContainer.js
 
+import { useSelector } from 'react-redux';
+
+import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
+
 import useChartData from '../hooks/useChartData';
 import useChart from '../hooks/useChart';
 import useMarkers from '../hooks/useMarkers';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 
-const CandlestickChartContainer = ({ initialTemporalidad, startDate, endDate }) => {  
+
+const CandlestickChartContainer = () => {  
+
+  const initialTemporalidad = useSelector(selectTemporalidad);
+  const startDate = useSelector(selectStartDate);
+  const endDate = useSelector(selectCurrentDate);
+
 
   const { data, loading, chartInterval } = useChartData(
     initialTemporalidad,

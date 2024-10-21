@@ -29,7 +29,7 @@ const store = configureStore({
     ticker: tickerReducer, 
     positions: positionReducer,
     tab: tabReducer, 
-    toolbar: toolBarReducer
+    toolBar: toolBarReducer
   },
   devTools: {
     actionsDenylist: ['time/updateTime'], // Ignorar la acción 'time/updateTime'
