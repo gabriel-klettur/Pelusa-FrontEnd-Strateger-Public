@@ -38,7 +38,8 @@ const NavBarContainer = () => {
                     <Tab
                         key={index}
                         className={({ selected }) =>
-                        `w-full h-14 text-sm font-medium transition-colors duration-200 ${
+                        `w-full h-14 text-sm font-medium transition-colors duration-200
+                        ${
                             selected
                             ? 'bg-african_violet-400 shadow text-african_violet-900'
                             : 'text-african_violet-700 hover:bg-african_violet-200 hover:text-african_violet-900'
@@ -49,29 +50,29 @@ const NavBarContainer = () => {
                     </Tab>
                     ))}
                 </TabList>
-                <TabPanels className="">
-                    <TabPanel className="pt-1 bg-african_violet-800">
-                        <Alarms />
+                <TabPanels>
+                    <TabPanel>
+                        <Alarms/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <Orders />
+                    <TabPanel>
+                        <Orders/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <StrategyCard />
+                    <TabPanel>
+                        <StrategyCard/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <Diary />
+                    <TabPanel >
+                        <Diary/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <Account />
+                    <TabPanel>
+                        <Account/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <Position />
+                    <TabPanel >
+                        <Position/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
-                        <Backtesting />
+                    <TabPanel>
+                        <Backtesting/>
                     </TabPanel>
-                    <TabPanel className="pt-1  bg-african_violet-800">
+                    <TabPanel>
                         Configuración
                     </TabPanel>
                 </TabPanels>
