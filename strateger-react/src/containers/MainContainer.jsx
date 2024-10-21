@@ -1,18 +1,10 @@
 import NavBarContainer from "./NavBarContainer";
-import CandlestickChart from '../components/Charts/CandlestickChartChart/CandlestickChart';
 import Reloj from '../components/common/Reloj';
-import Toolbar from '../components/ToolBar';
 
 const MainContainer = () => {
   
     return (
-        <>      
-            <>
-                <Toolbar />
-            </>              
-            <>
-                <CandlestickChart />            
-            </>
+        <>                  
             <>
                 <NavBarContainer />                    
             </>

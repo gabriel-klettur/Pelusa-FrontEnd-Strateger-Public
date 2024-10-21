@@ -1,13 +1,15 @@
 // Path: strateger-react/src/components/Alarms/Alarms.js
 import React from 'react';
 
-import AlarmTablesContainer from './containers/AlarmTablesContainer';
+import AlarmsContainer from './containers/AlarmContainer';
 
 const Alarms = () => {  
 
   return (
-    <>      
-      <AlarmTablesContainer />
+    <>     
+       
+      <AlarmsContainer />
+      
     </>
   );
 };

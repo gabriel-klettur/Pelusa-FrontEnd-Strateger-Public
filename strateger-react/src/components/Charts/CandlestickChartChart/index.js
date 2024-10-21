@@ -1,5 +1,5 @@
 //Path: strateger-react/src/components/Charts/CandlestickChartChart/index.js
-import LightweightChart from './CandlestickChart';
+import CandlestickChart from './CandlestickChart';
 import Toolbar from './components/Toolbar';
 import { initializeChart } from './config/chartConfig';
 import { setSeriesData, initializeSeries } from './components/series/seriesConfig';
@@ -9,7 +9,7 @@ import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers }
 import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from './components/markers/OrdersChart';
 
 export {
-  LightweightChart,
+  CandlestickChart,
   Toolbar,
   initializeChart,
   setSeriesData,
