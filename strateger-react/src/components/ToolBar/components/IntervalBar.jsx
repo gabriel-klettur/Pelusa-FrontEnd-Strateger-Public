@@ -11,7 +11,7 @@ const IntervalBar = ({intervals, currentInterval, handleIntervalChange }) => {
         }`;
 
     return(
-        <div className="flex w-full bg-african_violet-300 border-r-4 border-african_violet-500">
+        <div className="flex w-full bg-african_violet-300">
             {intervals.map((interval) => (
             <button
                 key={interval}
