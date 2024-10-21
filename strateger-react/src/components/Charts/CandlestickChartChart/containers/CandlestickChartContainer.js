@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/ChartContainer.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/containers/CandlestickChartContainer.js
 
 import useChartData from '../hooks/useChartData';
 import useChart from '../hooks/useChart';

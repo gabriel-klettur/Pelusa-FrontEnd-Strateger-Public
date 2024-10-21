@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/series/seriesConfig.js
+// Path: src/components/Charts/CandlestickChartChart/components/series/seriesConfig.js
 import { formatChartData, sortAndRemoveDuplicates } from '../../utils/chartData';
 import { calculateEMA, createEMASeries } from '../indicators/emas';
 import { calculateStochastic, createStochasticSeries } from '../indicators/Stochastic'; // Importar el indicador Stochastic

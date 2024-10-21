@@ -47,8 +47,8 @@ const adjustDates = (interval, startDate, endDate) => {
     return { interval, expandedStartDate, expandedEndDate };
   };
 
-export const fetchTradingViewChartData = createAsyncThunk(
-    'tradingViewChart/fetchTradingViewChartData',
+export const fetchCandlestickChartData = createAsyncThunk(
+    'candlestickChart/fetchCandlestickChartData',
     async ({ interval, startDate, endDate }, { rejectWithValue }) => {
       try {
         const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(interval, startDate, endDate);

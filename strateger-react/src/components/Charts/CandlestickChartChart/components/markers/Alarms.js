@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/markers/Alarms.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/components/markers/OrdersChart.js
 
 const getCandleTime = (time, interval) => {
   const date = new Date(time * 1000);

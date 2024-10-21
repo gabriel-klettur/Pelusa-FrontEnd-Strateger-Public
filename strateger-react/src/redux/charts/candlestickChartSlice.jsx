@@ -1,11 +1,11 @@
-// src/slices/tradingViewChartSlice.js
+//Path: strateger-react/src/redux/charts/CandlestickChartSlice.jsx
 
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchTradingViewChartData } from './tradingViewChartThunks';
+import { fetchCandlestickChartData } from './candlestickChartThunks';
 
-const tradingViewChartSlice = createSlice({
-  name: 'tradingViewChart',
+const candlestickChartSlice = createSlice({
+  name: 'candlestickChart',
   initialState: {
     data: [],
     loading: false,
@@ -19,7 +19,7 @@ const tradingViewChartSlice = createSlice({
     positionMarkers: [], // nuevo estado para los marcadores de posiciones
   },
   reducers: {
-    setTradingViewChartParameters(state, action) {
+    setCandlestickChartParameters(state, action) {
       state.startDate = new Date(action.payload.startDate).toISOString();
       state.endDate = new Date(action.payload.endDate).toISOString();
       state.interval = action.payload.interval;
@@ -39,23 +39,23 @@ const tradingViewChartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTradingViewChartData.pending, (state) => {
+      .addCase(fetchCandlestickChartData.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchTradingViewChartData.fulfilled, (state, action) => {
+      .addCase(fetchCandlestickChartData.fulfilled, (state, action) => {
         state.data = action.payload.formattedData;
         state.lastPrice = action.payload.lastPrice;
         state.loading = false;
       })
-      .addCase(fetchTradingViewChartData.rejected, (state, action) => {
+      .addCase(fetchCandlestickChartData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   }
 });
 
-export const { setTradingViewChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData } = tradingViewChartSlice.actions;
+export const { setCandlestickChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData } = candlestickChartSlice.actions;
 
-export default tradingViewChartSlice.reducer;
+export default candlestickChartSlice.reducer;
 

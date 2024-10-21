@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/hooks/useChart.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/components/hooks/useChart.js
 import { useEffect, useRef } from 'react';
 import { initializeChart } from '../config/chartConfig';
 import { initializeSeries, setSeriesData } from '../components/series/seriesConfig';

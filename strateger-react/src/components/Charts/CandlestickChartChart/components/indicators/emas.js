@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/indicators/Indicators.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/components/indicators/emas.js
 export const calculateEMA = (data, period) => {
     const k = 2 / (period + 1);
     let emaArray = [];

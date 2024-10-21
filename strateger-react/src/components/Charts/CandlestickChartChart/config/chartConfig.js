@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/config/chartConfig.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/config/chartConfig.js
 import { createChart } from 'lightweight-charts';
 
 export const initializeChart = (container) => {

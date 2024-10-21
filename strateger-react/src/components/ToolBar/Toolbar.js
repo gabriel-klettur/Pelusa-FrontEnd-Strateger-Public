@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/Toolbar.js
+// Path: src/components/ToolBar/Toolbar.js
 
 import ToolBarContainer from "./containers/ToolBarContainer";
 

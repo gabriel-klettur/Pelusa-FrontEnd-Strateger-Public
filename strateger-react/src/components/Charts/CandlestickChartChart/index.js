@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/index.js
+//Path: strateger-react/src/components/Charts/CandlestickChartChart/index.js
 import LightweightChart from './CandlestickChart';
 import Toolbar from './components/Toolbar';
 import { initializeChart } from './config/chartConfig';

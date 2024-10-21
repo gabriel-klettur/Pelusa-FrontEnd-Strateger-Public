@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/TradingViewChart/indicators/Stochastic.js
+// Path: strateger-react/src/components/candlestickChart/indicators/Stochastic.js
 
 export const calculateStochastic = (data, periodK = 14, periodD = 3) => {
     if (!data || data.length < periodK) return { kValues: [], dValues: [] };

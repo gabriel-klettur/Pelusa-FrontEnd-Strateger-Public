@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/markers/PositionsChart.js
+// Path: strateger-react/src/components/Charts/CandlestickChartChart/components/markers/PositionsChart.js
 
 export const mapPositionsToMarkers = (positions) => {
     return positions.map(position => {

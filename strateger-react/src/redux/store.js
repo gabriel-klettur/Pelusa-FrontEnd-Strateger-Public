@@ -8,7 +8,7 @@ import strategyReducer from './strategy/strategySlice';
 import diaryReducer from './diary/diarySlice';
 import accountReducer from './account/accountSlice';
 import backtestingReducer from './backtesting/backtestingSlice';
-import tradingViewChartReducer from './tradingViewChart/tradingViewChartSlice';
+import candlestickChartReducer from './charts/candlestickChartSlice';
 import timeReducer from './time/timeSlice';
 import tickerReducer from './ticker/tickerSlice';
 import positionReducer from './position/positionSlice';
@@ -25,7 +25,7 @@ const store = configureStore({
     diary: diaryReducer,
     account: accountReducer,      
     backtesting: backtestingReducer,
-    tradingViewChart: tradingViewChartReducer,
+    candlestickChart: candlestickChartReducer,
     ticker: tickerReducer, 
     positions: positionReducer,
     tab: tabReducer, 

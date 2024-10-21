@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/hooks/useDateRange.js
+// src/components/Charts/CandlestickChartChart/hooks/useDateRange.js
 import { useState } from 'react';
 
 const useDateRange = (initialStartDate, initialEndDate) => {

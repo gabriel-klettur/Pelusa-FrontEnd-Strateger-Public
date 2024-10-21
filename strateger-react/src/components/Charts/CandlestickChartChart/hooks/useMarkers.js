@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/hooks/useMarkers.js
+// Path: src/components/Charts/CandlestickChartChart/hooks/useMarkers.js
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } f
 
 import { selectFilteredOrders } from '../../../../redux/order';
 import { selectBacktestingResult } from '../../../../redux/backtesting';
-import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../../redux/tradingViewChart';
+import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../../redux/charts';
 
 const useMarkers = (candlestickSeriesRef, chartInterval) => {
   const dispatch = useDispatch();

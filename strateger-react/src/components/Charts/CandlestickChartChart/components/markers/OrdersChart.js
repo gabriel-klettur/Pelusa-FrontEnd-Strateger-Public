@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/markers/OrdersChart.js
+// Path: strateger-react/src/components/Charts/CandlestickChart/components/markers/OrdersChart.js
 
 export const mapOrdersToMarkers = (orders, interval) => {
   return orders.map(order => {

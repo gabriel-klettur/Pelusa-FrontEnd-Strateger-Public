@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { format } from 'date-fns'; 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateChartData, setPositionMarkers } from '../../../../redux/tradingViewChart/tradingViewChartSlice';
+import { updateChartData, setPositionMarkers } from '../../../../redux/charts';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting';
 
 import { mapPositionsToMarkers } from '../../../Charts/CandlestickChartChart/components/markers/PositionsChart';

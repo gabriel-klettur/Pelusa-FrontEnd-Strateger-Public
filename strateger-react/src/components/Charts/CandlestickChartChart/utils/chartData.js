@@ -1,4 +1,4 @@
-// src/components/TradingViewChart/data/chartData.js
+//Path: strateger-react/src/components/Charts/CandlestickChartChart/utils/chartData.js
 export const formatChartData = (data) => {
     return data.map(item => ({
       time: Math.floor(item[0] / 1000), // Convertir el tiempo al formato Unix timestamp en segundos
