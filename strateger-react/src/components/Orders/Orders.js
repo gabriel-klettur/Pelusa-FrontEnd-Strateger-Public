@@ -1,10 +1,12 @@
 // Path: strateger-react/src/components/Orders/Orders.js
 
-import OrderTablesContainer from "./containers/OrderTablesContainer";
+import OrderContainer from "./containers/OrderContainer";
+
+
 
 const Orders = () => {
   return(
-    <OrderTablesContainer/>  
+    <OrderContainer /> 
   );
 };
 

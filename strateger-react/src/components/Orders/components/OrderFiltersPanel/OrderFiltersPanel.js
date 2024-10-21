@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilters, selectFilters } from '../../../../redux/order'; // Ruta correcta a `redux/orders/index.js`
+import { setFilters, selectFilters } from '../../../../redux/order'; 
 import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];
-const symbols = ['BTC-USDT', 'ETH-USDT']; // Añadir todos los símbolos que necesites
+const symbols = ['BTC-USDT', 'ETH-USDT']; 
 const positionSides = ['LONG', 'SHORT'];
 const types = ['LIMIT', 'MARKET'];
 
@@ -29,46 +29,60 @@ const OrderFiltersPanel = () => {
     dispatch(setFilters(updatedFilters));
   };
 
+
+
   return (
-    <div className="grid grid-cols-8 gap-4 bg-african_violet-300 text-pomp_and_power-400">
-      <div className="col-span-2 border-2 border-african_violet-500 flex flex-wrap justify-center items-center">
+    <div className="h-full flex justify-between align-center text-center">
+      
+      <div className="h-full w-full">
         {sides.map((side) => (
-          <FilterButton
-            key={side}
-            label={side}
-            isActive={filters.Side.includes(side)}
-            onClick={() => toggleFilter('Side', side)}            
-          />
+          <div className="h-1/2">
+            <FilterButton
+              key={side}
+              label={side}
+              isActive={filters.Side.includes(side)}
+              onClick={() => toggleFilter('Side', side)}            
+            />
+          </div>
         ))}
       </div>
-      <div className="col-span-2 border-2 border-african_violet-500 flex flex-wrap justify-center items-center">
+
+      <div className="h-full w-full">
         {symbols.map((symbol) => (
-          <FilterButton
-            key={symbol}
-            label={symbol}
-            isActive={filters.Symbol === symbol}
-            onClick={() => toggleFilter('Symbol', symbol)}
-          />
+          <div className="h-1/2">
+            <FilterButton
+              key={symbol}
+              label={symbol}
+              isActive={filters.Symbol === symbol}
+              onClick={() => toggleFilter('Symbol', symbol)}
+            />
+          </div>
         ))}
       </div>
-      <div className="col-span-2 border-2 border-african_violet-500 flex flex-wrap justify-center items-center">
+
+      <div className="h-full w-full">
         {positionSides.map((positionSide) => (
-          <FilterButton
-            key={positionSide}
-            label={positionSide}
-            isActive={filters.PositionSide === positionSide}
-            onClick={() => toggleFilter('PositionSide', positionSide)}
-          />
+          <div className="h-1/2">
+            <FilterButton
+              key={positionSide}
+              label={positionSide}
+              isActive={filters.PositionSide === positionSide}
+              onClick={() => toggleFilter('PositionSide', positionSide)}
+            />
+          </div>
         ))}
       </div>
-      <div className="col-span-2 border-2 border-african_violet-500 flex flex-wrap justify-center items-center">
+      
+      <div className="h-full w-full">
         {types.map((type) => (
-          <FilterButton
-            key={type}
-            label={type}
-            isActive={filters.Type === type}
-            onClick={() => toggleFilter('Type', type)}
-          />
+          <div className="h-1/2">
+            <FilterButton
+              key={type}
+              label={type}
+              isActive={filters.Type === type}
+              onClick={() => toggleFilter('Type', type)}
+            />
+          </div>
         ))}
       </div>
     </div>
