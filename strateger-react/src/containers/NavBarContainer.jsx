@@ -24,7 +24,7 @@ const NavBarContainer = () => {
     return (
         <>
             <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
-                <TabList className="flex bg-african_violet-200">
+                <TabList className="flex">
                     {[
                     'Alarmas',
                     'Órdenes',
@@ -38,11 +38,11 @@ const NavBarContainer = () => {
                     <Tab
                         key={index}
                         className={({ selected }) =>
-                        `w-full h-14 text-sm font-medium transition-colors duration-200
+                        `w-full h-full p-4 text-sm font-medium transition-colors duration-200
                         ${
                             selected
-                            ? 'bg-african_violet-400 shadow text-african_violet-900'
-                            : 'text-african_violet-700 hover:bg-african_violet-200 hover:text-african_violet-900'
+                            ? 'bg-african_violet-400 text-african_violet-900'
+                            : 'bg-african_violet-200 text-african_violet-700 hover:text-african_violet-900'
                         }`
                         }
                     >
