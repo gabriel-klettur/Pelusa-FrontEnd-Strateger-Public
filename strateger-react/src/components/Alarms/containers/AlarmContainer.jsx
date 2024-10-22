@@ -16,7 +16,6 @@ const AlarmContainer = () => {
                 <div className='flex flex-col h-full col-span-3'>
                     <AlarmInfoPanel/>
                     <AlarmFiltersPanelContainer/>                
-
                 </div>
             </div>
             <AlarmTablesContainer/>            

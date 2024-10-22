@@ -1,11 +1,11 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmFiltersPanel/DirectionFiltersPanel/DirectionTabs.jsx
+//Path: strateger-react/src/components/Alarms/components/AlarmFiltersPanel/DirectionFiltersPanel/OrderTypePanel.jsx
 
 import { TabGroup, TabList, TabPanels } from '@headlessui/react';
 
 import DirectionTabButton from './DirectionTabButton';
 import TypeFilterTabPanel from './TypeFilterPanel';
 
-const DirectionTabs = ({ selectedTemporalidad, selectedTypes, toggleType}) => {
+const OrderTypePanel = ({ selectedTemporalidad, selectedTypes}) => {
     const Longtypes = [
         'order open long', 'order close long',   
         'indicator open long', 'indicator close long'
@@ -25,14 +25,12 @@ const DirectionTabs = ({ selectedTemporalidad, selectedTypes, toggleType}) => {
                     <TypeFilterTabPanel 
                         types={Longtypes} 
                         selectedTemporalidad={selectedTemporalidad} 
-                        selectedTypes={selectedTypes} 
-                        toggleType={toggleType} 
+                        selectedTypes={selectedTypes}                         
                     />
                     <TypeFilterTabPanel 
                         types={Shorttypes} 
                         selectedTemporalidad={selectedTemporalidad} 
-                        selectedTypes={selectedTypes} 
-                        toggleType={toggleType} 
+                        selectedTypes={selectedTypes}                         
                     />
                 </TabPanels>
             </TabGroup>
@@ -40,4 +38,4 @@ const DirectionTabs = ({ selectedTemporalidad, selectedTypes, toggleType}) => {
     )
 }
 
-export default DirectionTabs;
+export default OrderTypePanel;
