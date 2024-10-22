@@ -9,7 +9,7 @@ import { mapPositionsToMarkers } from '../components/markers/PositionsChart';
 import { selectStrategyFilteredAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../../redux/alarm';
 
 
-import { selectFilteredOrders } from '../../../../redux/order';
+import { selectFilteredOrdersUsdtm } from '../../../../redux/order';
 import { selectBacktestingResult } from '../../../../redux/backtesting';
 import { setAlarmMarkers, setOrderMarkers, setPositionMarkers, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from '../../../../redux/charts';
 
@@ -17,7 +17,7 @@ const useMarkers = (candlestickSeriesRef, chartInterval) => {
   const dispatch = useDispatch();
   const strategyFilteredAlarms = useSelector(selectStrategyFilteredAlarms);
   const allSelectedAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
-  const filteredOrders = useSelector(selectFilteredOrders);
+  const filteredOrders = useSelector(selectFilteredOrdersUsdtm);
   const backtestingResult = useSelector(selectBacktestingResult);
   const alarmMarkers = useSelector(selectAlarmMarkers);
   const orderMarkers = useSelector(selectOrderMarkers);
