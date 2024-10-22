@@ -29,16 +29,12 @@ const OrderFiltersPanel = () => {
     dispatch(setFilters(updatedFilters));
   };
 
-
-
   return (
     <div className="h-full flex justify-between align-center text-center">
-      
       <div className="h-full w-full">
-        {sides.map((side) => (
-          <div className="h-1/2">
+        {sides.map((side, index) => (
+          <div className="h-1/2" key={`side-${index}`}>
             <FilterButton
-              key={side}
               label={side}
               isActive={filters.Side.includes(side)}
               onClick={() => toggleFilter('Side', side)}            
@@ -48,10 +44,9 @@ const OrderFiltersPanel = () => {
       </div>
 
       <div className="h-full w-full">
-        {symbols.map((symbol) => (
-          <div className="h-1/2">
+        {symbols.map((symbol, index) => (
+          <div className="h-1/2" key={`symbol-${index}`}>
             <FilterButton
-              key={symbol}
               label={symbol}
               isActive={filters.Symbol === symbol}
               onClick={() => toggleFilter('Symbol', symbol)}
@@ -61,10 +56,9 @@ const OrderFiltersPanel = () => {
       </div>
 
       <div className="h-full w-full">
-        {positionSides.map((positionSide) => (
-          <div className="h-1/2">
+        {positionSides.map((positionSide, index) => (
+          <div className="h-1/2" key={`positionSide-${index}`}>
             <FilterButton
-              key={positionSide}
               label={positionSide}
               isActive={filters.PositionSide === positionSide}
               onClick={() => toggleFilter('PositionSide', positionSide)}
@@ -74,10 +68,9 @@ const OrderFiltersPanel = () => {
       </div>
       
       <div className="h-full w-full">
-        {types.map((type) => (
-          <div className="h-1/2">
+        {types.map((type, index) => (
+          <div className="h-1/2" key={`type-${index}`}>
             <FilterButton
-              key={type}
               label={type}
               isActive={filters.Type === type}
               onClick={() => toggleFilter('Type', type)}
