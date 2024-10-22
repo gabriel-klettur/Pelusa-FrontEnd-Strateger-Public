@@ -1,9 +1,6 @@
 // Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
 
 const TypeButton = ({ label, selectedTypes, onClick }) => {
-
-  console.log('TypeButton', label, selectedTypes);
-
   return (
     <button 
       className={`font-semibold text-sm shadow-m transition-colors duration-200 
