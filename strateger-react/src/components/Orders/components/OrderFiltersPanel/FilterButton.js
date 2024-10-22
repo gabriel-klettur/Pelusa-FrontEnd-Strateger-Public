@@ -2,8 +2,6 @@
 
 const FilterButton = ({ label, isActive, onClick }) => {
 
-  console.log('FilterButton', label, isActive);
-
   return(
     <button
       className={`w-full h-full px-4 py-2 font-semibold transition-colors duration-200

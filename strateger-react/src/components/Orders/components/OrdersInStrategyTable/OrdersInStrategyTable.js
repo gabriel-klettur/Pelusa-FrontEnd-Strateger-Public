@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrdersUsdtm, setSelectedOrderId, setPage, selectOrders, selectFilteredOrders, setFilteredOrders } from '../../../../redux/order';
+import { fetchOrdersUsdtm, setSelectedOrderId, setPage, selectOrdersUsdtm, selectFilteredOrdersUsdtm, setFilteredOrders } from '../../../../redux/order';
 import FilteredOrderRow from './FilteredOrderRow';
 
 const OrdersInStrategyTable = ({ strategy }) => {
   const dispatch = useDispatch();
-  const orders = useSelector(selectOrders);
-  const filteredOrders = useSelector(selectFilteredOrders);
+  const orders = useSelector(selectOrdersUsdtm);
+  const filteredOrders = useSelector(selectFilteredOrdersUsdtm);
   const { loading, error, selectedOrderId, page, hasMore, offset } = useSelector((state) => state.orders);
 
   useEffect(() => {

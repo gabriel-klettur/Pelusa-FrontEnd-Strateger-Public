@@ -3,23 +3,23 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrdersUsdtm, selectFilteredOrders } from '../../../../redux/order';
+import { selectFilteredOrdersUsdtm } from '../../../../redux/order';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import Tablita from '../../../common/Tablita';
 
 import Pagination from './Pagination';
 
-const OrderTable = () => {
+const OrderTable = ({fetchOrder}) => {
   const dispatch = useDispatch();
-  const orders = useSelector(selectFilteredOrders);
+  const orders = useSelector(selectFilteredOrdersUsdtm);
   const { loading, error, page, hasMore } = useSelector((state) => state.orders);
 
   useEffect(() => {
-    if (orders.length === 0) {
-      dispatch(fetchOrdersUsdtm({ limit: 500, offset: 0 }));
-    }
-  }, [dispatch, orders.length]);
+    
+    dispatch(fetchOrder({ limit: 500, offset: 0 }));
+    
+  }, [dispatch,fetchOrder]);
 
 
   if (error) {
