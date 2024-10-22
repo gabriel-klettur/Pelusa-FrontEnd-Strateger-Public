@@ -1,14 +1,8 @@
-
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import OrderTable from '../components/OrderTable/OrderTable';
 import OrderTab from '../components/OrderTab';
 
-import { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard } from '../../../redux/order';
-
 const OrderTablesContainer = () => { 
-    
-
-
     return (
       <div className="bg-african_violet-400 text-sm"> {/* Set text-sm here for consistency */}
         <TabGroup>
@@ -28,27 +22,18 @@ const OrderTablesContainer = () => {
           </TabList>
           <TabPanels>
             <TabPanel>  
-              <OrderTable 
-                fetchOrder={fetchOrdersUsdtm}
-              />               
+              <OrderTable orderType="usdtm" />               
             </TabPanel>
             <TabPanel>
-              <OrderTable 
-                fetchOrder={fetchOrdersCoinm}
-              />              
+              <OrderTable orderType="coinm" />              
             </TabPanel>            
             <TabPanel>
-              <OrderTable 
-                fetchOrder={fetchOrdersSpot}
-              />
+              <OrderTable orderType="spot" />
             </TabPanel>
             <TabPanel>
-              <OrderTable 
-                fetchOrder={fetchOrdersStandard}
-              />
+              <OrderTable orderType="standard" />
             </TabPanel>
-          </TabPanels>
-          
+          </TabPanels>          
         </TabGroup>
       </div>
     );

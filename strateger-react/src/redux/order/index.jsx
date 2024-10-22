@@ -32,7 +32,23 @@ import {
   selectFilteredOrdersUsdtm,
   selectFilteredOrdersCoinm,
   selectFilteredOrdersSpot,
-  selectFilteredOrdersStandard
+  selectFilteredOrdersStandard,
+  selectLoadingUsdtm,
+  selectErrorUsdtm,
+  selectPageUsdtm,
+  selectHasMoreUsdtm,
+  selectLoadingCoinm,
+  selectErrorCoinm,
+  selectPageCoinm,
+  selectHasMoreCoinm,
+  selectLoadingSpot,
+  selectErrorSpot,
+  selectPageSpot,
+  selectHasMoreSpot,
+  selectLoadingStandard,
+  selectErrorStandard,
+  selectPageStandard,
+  selectHasMoreStandard
 } from './orderSelectors';
 
 // Exportar Thunks
@@ -56,7 +72,23 @@ export {
   selectFilteredOrdersUsdtm,
   selectFilteredOrdersCoinm,
   selectFilteredOrdersSpot,
-  selectFilteredOrdersStandard
+  selectFilteredOrdersStandard,
+  selectLoadingUsdtm,
+  selectErrorUsdtm,
+  selectPageUsdtm,
+  selectHasMoreUsdtm,
+  selectLoadingCoinm,
+  selectErrorCoinm,
+  selectPageCoinm,
+  selectHasMoreCoinm,
+  selectLoadingSpot,
+  selectErrorSpot,
+  selectPageSpot,
+  selectHasMoreSpot,
+  selectLoadingStandard,
+  selectErrorStandard,
+  selectPageStandard,
+  selectHasMoreStandard
 };
 
 // Exportar Acciones
