@@ -1,4 +1,4 @@
-import NavContainer from '../../containers/NavBarContainer';
+import NavContainer from './containers/NavBarContainer';
 
 const NavBar = () => {
     return (
