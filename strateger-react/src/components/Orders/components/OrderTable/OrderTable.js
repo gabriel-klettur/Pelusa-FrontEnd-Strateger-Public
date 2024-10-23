@@ -58,6 +58,90 @@ const OrderTable = ({ orderType }) => {
     selectHasMoreStandard
   );
 
+
+  const columnsUsdtm = [
+    { label: 'Order ID', key: 'orderId' },
+    { label: 'Symbol', key: 'symbol' },
+    { label: 'Side', key: 'side' },
+    { label: 'Leverage', key: 'leverage' },
+    { label: 'Type', key: 'type' },
+    { label: 'Position Side', key: 'positionSide' },
+    { label: 'Reduce Only', key: 'reduceOnly' },
+    { label: 'Quantity (BTC)', key: 'quantity' },
+    { label: 'Price', key: 'price' },
+    { label: 'Average Price', key: 'averagePrice' },
+    { label: 'Status', key: 'status' },
+    { label: 'Profit (USD)', key: 'profit' },
+    { label: 'Commission (USD)', key: 'commission' },
+    { label: 'Stop Price', key: 'stopPrice' },
+    { label: 'Working Type', key: 'workingType' },
+    { label: 'Order Time', key: 'time' },
+    { label: 'Update Time', key: 'updateTime' },
+    //TODO implementar stop lost and take profit
+  ];
+
+  const columnsCoinm = [
+    { label: 'Order ID', key: 'orderId' },
+    { label: 'Symbol', key: 'symbol' },
+    { label: 'Side', key: 'side' },
+    //!{ label: 'Leverage', key: 'leverage' },             //In the Coinm Wallet leverage is defined in the wallet configuration
+    { label: 'Type', key: 'type' },
+    { label: 'Position Side', key: 'positionSide' },
+    { label: 'Reduce Only', key: 'reduceOnly' },
+    { label: 'Quantity', key: 'quantity' },
+    { label: 'Price', key: 'price' },
+    { label: 'Average Price', key: 'averagePrice' },
+    { label: 'Status', key: 'status' },
+    { label: 'Profit', key: 'profit' },
+    { label: 'Commission', key: 'commission' },
+    { label: 'Stop Price', key: 'stopPrice' },
+    { label: 'Working Type', key: 'workingType' },
+    { label: 'Order Time', key: 'time' },
+    { label: 'Update Time', key: 'updateTime' },
+    //TODO implementar stop lost and take profit
+  ];
+
+  const columnsSpot = [
+    { label: 'Order ID', key: 'orderId' },
+    { label: 'Symbol', key: 'symbol' },
+    { label: 'Side', key: 'side' },    
+    { label: 'Type', key: 'type' },
+    { label: 'Reduce Only', key: 'reduceOnly' },
+    { label: 'Quantity', key: 'quantity' },
+    { label: 'Price', key: 'price' },
+    { label: 'Average Price', key: 'averagePrice' },
+    { label: 'Status', key: 'status' },
+    { label: 'Cummulative Quote Quantity', key: 'cummulativeQuoteQty' },
+    { label: 'Commission', key: 'commission' },    
+    { label: 'Working Type', key: 'workingType' },
+    { label: 'Order Time', key: 'time' },
+    { label: 'Update Time', key: 'updateTime' },
+  ];
+
+  const columnsStandard = [
+    { label: 'Order ID', key: 'orderId' },
+
+    { label: 'Symbol', key: 'symbol' },    
+    { label: 'Leverage', key: 'leverage' },
+    { label: 'Position Side', key: 'positionSide' },
+    { label: 'Reduce Only', key: 'reduceOnly' },    
+    { label: 'Average Price', key: 'averagePrice' },
+    { label: 'Status', key: 'status' },
+    
+    
+    { label: 'Order Time', key: 'time' },
+    { label: 'Update Time', key: 'updateTime' },
+    
+  ];
+
+  const columns = 
+    orderType === 'usdtm' ? columnsUsdtm :
+    orderType === 'coinm' ? columnsCoinm :
+    orderType === 'spot' ? columnsSpot :
+    columnsStandard;
+
+
+
   useEffect(() => {    
     dispatch(fetchOrder({ limit: 500, offset: 0 }));  
   }, [dispatch, fetchOrder]);
@@ -71,43 +155,28 @@ const OrderTable = ({ orderType }) => {
 
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
-  // Definición de columnas para Tablita
-  const columns = [
-    { label: 'Order ID', key: 'orderId' },
-    { label: 'Symbol', key: 'symbol' },
-    { label: 'Side', key: 'side' },
-    { label: 'Type', key: 'type' },
-    { label: 'Position Side', key: 'positionSide' },
-    { label: 'Reduce Only', key: 'reduceOnly' },
-    { label: 'Quantity', key: 'quantity' },
-    { label: 'Price', key: 'price' },
-    { label: 'Average Price', key: 'averagePrice' },
-    { label: 'Status', key: 'status' },
-    { label: 'Profit', key: 'profit' },
-    { label: 'Commission', key: 'commission' },
-    { label: 'Stop Price', key: 'stopPrice' },
-    { label: 'Working Type', key: 'workingType' },
-    { label: 'Order Time', key: 'orderTime' },
-    { label: 'Update Time', key: 'updateTime' },
-  ];
+
+  console.log('currentOrders', currentOrders);
 
   // Formateo de los datos para Tablita
   const data = currentOrders.map((order) => ({
-    orderId: order.orderId,
+    orderId: order.orderId || order.positionId,    
     symbol: order.symbol,
     side: order.side,
     type: order.type,
+    leverage: order.leverage,
     positionSide: order.positionSide,
     reduceOnly: order.reduceOnly ? 'Yes' : 'No',
-    quantity: order.quantity,
+    quantity: order.quantity || order.origQty,
     price: order.price,
-    averagePrice: order.averagePrice,
+    averagePrice: order.averagePrice || order.avgPrice,
     status: order.status,
     profit: order.profit,
-    commission: order.commission,
+    cummulativeQuoteQty: order.cummulativeQuoteQty,
+    commission: order.commission || order.fee,
     stopPrice: order.stopPrice,
-    workingType: order.workingType,
-    orderTime: new Date(order.orderTime).toLocaleString(),
+    workingType: order.workingType || order.type,
+    time: new Date(order.time).toLocaleString(),
     updateTime: new Date(order.updateTime).toLocaleString(),
   }));
 
@@ -126,7 +195,7 @@ const OrderTable = ({ orderType }) => {
         endIndex={endIndex} 
         orders={orders} />
       
-      {loading && <div className="text-center py-4">Cargando más órdenes...</div>}
+      {loading}
     </div>
   );
 };
