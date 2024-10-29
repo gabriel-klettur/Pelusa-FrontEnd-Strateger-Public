@@ -53,18 +53,18 @@ const refencesLabels = ({ references }) => {
   );
 };
 
-const actionButtons = ({ onEdit, onDelete }) => {
+const actionButtons = ({ onEdit, onDelete, id }) => {
   return (
     <div className="flex justify-between">
       <button
         className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors duration-200"
-        onClick={onEdit}
+        onClick={() => onEdit(id)} 
       >
         Edit
       </button>
       <button
         className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200"
-        onClick={onDelete}
+        onClick={() => onDelete(id)} 
       >
         Delete
       </button>
@@ -82,7 +82,7 @@ const TarjetitaEditDelete = ({ id, date, text, photos, references, onEdit, onDel
       {commentLabel({ comment: text })}
       {photosDiary({ photos })}                 
       {refencesLabels({ references })}
-      {actionButtons({ onEdit, onDelete })}   
+      {actionButtons({ onEdit, onDelete, id})}   
 
     </div>
   );

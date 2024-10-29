@@ -25,7 +25,7 @@ const useDiary = () => {
     }
   };
 
-  const handleDeleteEntry = (id) => {
+  const handleDeleteEntry = (id) => {    
     dispatch(removeDiaryEntry(id))
       .catch((error) => console.error('Error deleting the diary entry:', error));
   };

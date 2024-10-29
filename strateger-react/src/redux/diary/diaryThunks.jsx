@@ -43,8 +43,7 @@ export const saveDiaryEntry = createAsyncThunk('diary/saveDiaryEntry', async (en
   }
 });
 
-export const removeDiaryEntry = createAsyncThunk('diary/removeDiaryEntry', async (entryId, { rejectWithValue }) => {
-  console.log('removeDiaryEntry called with id:', entryId);
+export const removeDiaryEntry = createAsyncThunk('diary/removeDiaryEntry', async (entryId, { rejectWithValue }) => {  
   try {
     const response = await axios.delete(`${BASE_URL}/delete/${entryId}`);
     if (response.status === 200) {
