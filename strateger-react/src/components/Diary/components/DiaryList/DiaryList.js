@@ -8,26 +8,29 @@ import Ventanita from '../../../common/Ventanita';
 const DiaryList = ({ entries, onEdit, onDelete }) => {
   return (
     <div>
-      {entries.length === 0 ? (
-        <p>No entries found.</p>
-      ) : (
-        entries.map((entry) => (
-          <div className='mb-4'>
-
-            <Ventanita
-              titulo={`Diary Entry ${entry.id}`}
-              contenido={
-                <DiaryEntry
-                  key={`diary-entry-${entry.id}`}
-                  entry={entry}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
+      <Ventanita
+        titulo="Diary Entries"
+        contenido={      
+          entries.length === 0 ? (
+            <p>No entries found.</p>
+          ) : (
+            entries.map((entry) => (
+              <div key={`diary-entry-${entry.id}`} className='mb-4'>
+                <Ventanita
+                  titulo={`Diary Entry ${entry.id}`}
+                  contenido={
+                    <DiaryEntry
+                      key={`diary-entry-${entry.id}`}
+                      entry={entry}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                    />
+                  }
                 />
-              }
-            />
-          </div>
-        ))
-      )}
+              </div>
+            ))
+          )}    
+      />
     </div>
   );
 };
