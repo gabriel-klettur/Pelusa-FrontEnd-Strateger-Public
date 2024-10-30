@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { initializeChart } from '../config/chartConfig';
-import { initializeSeries } from '../components/series/seriesConfig';
+import { initializeStochastickSeries } from '../components/series/stochastickSeries';
 
 const useStochasticChart = () => {
   const stochasticChartContainerRef = useRef();
@@ -12,7 +12,7 @@ const useStochasticChart = () => {
     if (stochasticChartContainerRef.current) {
       stochasticChartRef.current = initializeChart(stochasticChartContainerRef.current);
 
-      const { stochasticKSeries, stochasticDSeries } = initializeSeries(stochasticChartRef.current);
+      const { stochasticKSeries, stochasticDSeries } = initializeStochastickSeries(stochasticChartRef.current);
       stochasticKSeriesRef.current = stochasticKSeries;
       stochasticDSeriesRef.current = stochasticDSeries;
     }
