@@ -3,12 +3,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImages } from '../../../../redux/diary';
-import DateForm from '../../../common/DateForm'
+import DateForm from './DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/ReferencesForm';
 
 import Ventanita from '../../../common/Ventanita';
+import SubmitButton from './SubmitButton';
+import ClearButton from './ClearButton';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -21,20 +23,24 @@ const initialState = {
 };
 
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
-  const [formData, setFormData] = useState(initialState);
-  const [currentPage, setCurrentPage] = useState(1); 
-  const [selectedIds, setSelectedIds] = useState([]); 
-  const [errors, setErrors] = useState({});
-  const fileInputRef = useRef(null);
 
+  console.log("DiaryEntryForm.js, entry:", entry);
   const dispatch = useDispatch();
-
   const orders = useSelector((state) => state.orders.orders) || []; 
   const alarms = useSelector((state) => state.alarms.alarms) || []; 
   const strategies = useSelector((state) => state.strategies.items) || []; 
   const diaryEntries = useSelector((state) => state.diary.items) || []; 
+  
+  
+  const [formData, setFormData] = useState(initialState);   //DiaryEntryForm  
+  const [errors, setErrors] = useState({});                 //DiaryEntryForm
 
-  const itemsPerPage = 10; 
+  const [currentPage, setCurrentPage] = useState(1);        //ReferencesForm
+  const [selectedIds, setSelectedIds] = useState([]);       //ReferencesForm
+  
+  const fileInputRef = useRef(null);                        //PhotosForm
+
+
 
   useEffect(() => {
     if (entry) {
@@ -132,75 +138,42 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
               </div>
             )}
             
-            <Ventanita 
-              titulo="Date / Time"
-              contenido={
-                <DateForm 
-                  date={formData.date} 
-                  handleChange={handleChange} 
-                  name="date"             
-                />
-              }
-            />
-            
-            <Ventanita
-              titulo="Comment"
-              contenido={
-                <TextForm
-                  text={formData.text}
-                  handleChange={handleChange}
-                  error={errors.text}
-                />
-              }
-            />            
-            
-            <Ventanita
-              titulo='Photos'
-              contenido={
-                <PhotosForm
-                  photos={formData.photos}
-                  handlePhotoChange={handlePhotoChange}
-                  fileInputRef={fileInputRef}
-                />
-              }
-            />
-            
-            <Ventanita
-              titulo="References"
 
-              contenido={
-                <ReferencesForm
-                  alarms={alarms}
-                  orders={orders}
-                  strategies={strategies}
-                  diaryEntries={diaryEntries}
-                  handleSelectReference={handleSelectReference}
-                  handleAddId={handleAddId}
-                  isSelected={isSelected}
-                  currentPage={currentPage}
-                  itemsPerPage={itemsPerPage}
-                  setCurrentPage={setCurrentPage}
-                  selectedIds={selectedIds}
-                />
-              }
+            <DateForm 
+              date={formData.date} 
+              handleChange={handleChange} 
+              name="date"             
+            />    
+
+            <TextForm
+              text={formData.text}
+              handleChange={handleChange}
+              error={errors.text}
+            />    
+
+            <PhotosForm
+              photos={formData.photos}
+              handlePhotoChange={handlePhotoChange}
+              fileInputRef={fileInputRef}
+            />   
+
+            <ReferencesForm
+              alarms={alarms}
+              orders={orders}
+              strategies={strategies}
+              diaryEntries={diaryEntries}
+              handleSelectReference={handleSelectReference}
+              handleAddId={handleAddId}
+              isSelected={isSelected}
+              currentPage={currentPage}              
+              setCurrentPage={setCurrentPage}
+              selectedIds={selectedIds}
             />
+              
             
             <div className="flex justify-between">
-              <button
-                type="submit"
-                className={`font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200 ${
-                  entry ? 'bg-orange-500 hover:bg-orange-700 text-white' : 'bg-blue-500 hover:bg-blue-700 text-white'
-                }`}
-              >
-                {entry ? 'Modify Entry' : 'Save Entry'}
-              </button>
-              <button
-                type="button"
-                className="bg-african_violet-400 hover:bg-african_violet-300 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
-                onClick={handleClear}
-              >
-                Clear Entry
-              </button>
+              <SubmitButton entry={entry} />
+              <ClearButton handleClear={handleClear} />
             </div>
 
           </form>
