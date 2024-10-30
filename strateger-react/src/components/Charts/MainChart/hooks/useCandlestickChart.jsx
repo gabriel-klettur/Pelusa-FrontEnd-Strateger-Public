@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { initializeChart } from '../config/chartConfig';
-import { initializeSeries } from '../components/series/seriesConfig';
+
+import { initialCandlestickSeries } from '../components/series/candlestickSeries';
+import { initializeEmasSeries } from '../components/series/emasSeries';
 
 const useCandlestickChart = () => {
   const chartContainerRef = useRef();
@@ -14,7 +16,8 @@ const useCandlestickChart = () => {
     if (chartContainerRef.current) {
       chartRef.current = initializeChart(chartContainerRef.current);
 
-      const { candlestickSeries, ema10Series, ema55Series, ema200Series } = initializeSeries(chartRef.current);
+      const { candlestickSeries } = initialCandlestickSeries(chartRef.current);
+      const { ema10Series, ema55Series, ema200Series } = initializeEmasSeries(chartRef.current);
 
       candlestickSeriesRef.current = candlestickSeries;
       ema10SeriesRef.current = ema10Series;
