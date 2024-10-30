@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Diary/containers/DiaryListContainer.jsx
+
 import Ventanita from "../../common/Ventanita";
 import DiaryEntry from "../components/DiaryList/DiaryEntry/DiaryEntry";
 import useDiary from '../hooks/useDiary';
