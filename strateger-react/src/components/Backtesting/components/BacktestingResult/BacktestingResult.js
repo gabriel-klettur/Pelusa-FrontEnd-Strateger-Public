@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateChartData, setPositionMarkers } from '../../../../redux/charts';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting';
 
-import { mapPositionsToMarkers } from '../../../Charts/CandlestickChartChart/components/markers/PositionsChart';
+import { mapPositionsToMarkers } from '../../../Charts/MainChart/components/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 
