@@ -18,9 +18,10 @@ import { setCandlestickSeriesData } from '../components/series/candlestickSeries
 import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
+import IndicatorButton from '../components/buttons/IndicatorButton';
 
 const ChartContainer = ( ) => {
-    const [showStochastic, setShowStochastic] = useState(false);
+    const [showStochastic, setShowStochastic] = useState(false);    
 
     const initialTemporalidad = useSelector(selectTemporalidad);
     const startDate = useSelector(selectStartDate);
@@ -89,15 +90,16 @@ const ChartContainer = ( ) => {
     useMarkers(candlestickSeriesRef, chartInterval); //* -----  Hook to set markers on the chart -----
     return (
         <div className="relative bg-african_violet-900">
-          <LoadingOverlay isLoading={loading} />    
-          <button
-          onClick={() => setShowStochastic(prev => !prev)}
-          className="absolute top-1 left-1 z-10 px-1 py-1 bg-african_violet-500 text-white rounded"
-        >
-          Stochastic
-        </button>
+          <LoadingOverlay isLoading={loading} />  
+
+          <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
+            <IndicatorButton setShow={setShowStochastic} indicatorName='Stochastic'/>            
+          </div>
+          
           <div className="flex flex-col">
-            <CandlestickChartContainer chartContainerRef={chartContainerRef} />        
+            <CandlestickChartContainer 
+              chartContainerRef={chartContainerRef}               
+            />        
             <div className={showStochastic ? "block" : "hidden"}>
               <StochasticChartContainer stochasticChartContainerRef={stochasticChartContainerRef} />
             </div>               
