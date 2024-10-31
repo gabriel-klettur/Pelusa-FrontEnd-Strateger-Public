@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Diary/DiaryEntryForm/DiaryEntryForm.js
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { uploadImages } from '../../../../redux/diary';
 import DateForm from './DateForm'
 import TextForm from './TextForm';
@@ -24,24 +24,18 @@ const initialState = {
 
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
-  console.log("DiaryEntryForm.js, entry:", entry);
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.orders) || []; 
-  const alarms = useSelector((state) => state.alarms.alarms) || []; 
-  const strategies = useSelector((state) => state.strategies.items) || []; 
-  const diaryEntries = useSelector((state) => state.diary.items) || []; 
-  
-  
+
   const [formData, setFormData] = useState(initialState);   //DiaryEntryForm  
   const [errors, setErrors] = useState({});                 //DiaryEntryForm
 
-  const [currentPage, setCurrentPage] = useState(1);        //ReferencesForm
+  
   const [selectedIds, setSelectedIds] = useState([]);       //ReferencesForm
   
   const fileInputRef = useRef(null);                        //PhotosForm
 
-
-
+  // Hook to update the form data when the entry prop changes, 
+  // if entry is not null then set the form data to the entry, otherwise set it to the initial state
   useEffect(() => {
     if (entry) {
       setFormData(entry);
@@ -52,9 +46,8 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     }
   }, [entry]);
 
-  useEffect(() => {
-    setCurrentPage(1); 
-  }, [setCurrentPage]);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,16 +106,10 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     setSelectedIds(references);
   };
 
-  const handleAddId = (id) => {
-    setSelectedIds((prev) => [...prev, id]);
-  };
 
-  const isSelected = (type, id) => {
-    return selectedIds.includes(`${type}-${id}`);
-  };
 
-  return (
-    <div className="col-span-10">
+
+  return (    
       <Ventanita 
         titulo={
           <div>
@@ -130,7 +117,7 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           </div>
         }
         contenido={
-          <form onSubmit={handleSubmit} className="">               
+          <form onSubmit={handleSubmit}>               
             
             {errors.global && (
               <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
@@ -158,15 +145,8 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             />   
 
             <ReferencesForm
-              alarms={alarms}
-              orders={orders}
-              strategies={strategies}
-              diaryEntries={diaryEntries}
-              handleSelectReference={handleSelectReference}
-              handleAddId={handleAddId}
-              isSelected={isSelected}
-              currentPage={currentPage}              
-              setCurrentPage={setCurrentPage}
+              handleSelectReference={handleSelectReference}              
+              setSelectedIds={setSelectedIds}              
               selectedIds={selectedIds}
             />
               
@@ -179,7 +159,6 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
           </form>
         } 
       />              
-    </div>
   );
 };
 

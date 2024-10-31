@@ -1,9 +1,9 @@
 
-import DiaryEntryForm from "../components/DiaryEntryForm/DiaryEntryForm";
 import useDiary from '../hooks/useDiary';
 import DiaryListContainer from "./DiaryListContainer";
 import MainChart from "../../Charts/MainChart/MainChart";
 import DiaryCalendar from "../components/DiaryCalendar/DiaryCalendar";
+import DiaryEntryFormContainer from "./DiaryEntryFormContainer";
 
 const DiaryContainer = () => {
     
@@ -44,7 +44,7 @@ const DiaryContainer = () => {
             </div>
             <div className="grid grid-cols-10">
                 <div className="col-span-4 p-1">                    {/* COLUMN LEFT */}
-                    <DiaryEntryForm
+                    <DiaryEntryFormContainer
                         onSave={handleAddOrUpdateEntry}
                         entry={editingEntry}
                         onCancelEdit={handleCancelEdit}

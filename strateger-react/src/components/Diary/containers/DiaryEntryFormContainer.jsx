@@ -1,10 +1,13 @@
-const DiaryEntryFormContainer = () => {
-    return(
-        <div className="flex flex-col">                
-            
-        </div>
-    )
+import DiaryEntryForm from "../components/DiaryEntryForm/DiaryEntryForm";
 
+const DiaryEntryFormContainer = ({ onSave, entry, onCancelEdit }) => {
+    return(
+        <DiaryEntryForm 
+            onSave={onSave} 
+            entry={entry} 
+            onCancelEdit={onCancelEdit}
+        />
+    )
 }
 
 export default DiaryEntryFormContainer;

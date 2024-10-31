@@ -1,6 +1,8 @@
 // Path: strateger-react/src/components/Diary/DiaryEntryForm/ReferencesForm/ReferencesForm.js
 
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import { Tab } from '@headlessui/react';
 import AlarmItem from './AlarmItem';
 import OrderItem from './OrderItem';
@@ -11,11 +13,13 @@ import SelectedIds from './SelectedIds';
 
 import Ventanita from '../../../../common/Ventanita';
 
-const ReferencesForm = ({
-  alarms, orders, strategies, diaryEntries, handleSelectReference,
-  handleAddId, isSelected, currentPage, setCurrentPage, selectedIds
-}) => {
+const ReferencesForm = ({ handleSelectReference, selectedIds, setSelectedIds }) => {
+  const orders = useSelector((state) => state.orders.orders) || []; 
+  const alarms = useSelector((state) => state.alarms.alarms) || []; 
+  const strategies = useSelector((state) => state.strategies.items) || []; 
+  const diaryEntries = useSelector((state) => state.diary.items) || []; 
 
+  const [currentPage, setCurrentPage] = useState(1);        //ReferencesForm
   const itemsPerPage = 10; 
 
   const getCurrentItems = (items) => {
@@ -31,6 +35,18 @@ const ReferencesForm = ({
     ['Strategies', { items: strategies, component: StrategyItem, itemKey: 'strategy' }],
     ['Diary', { items: diaryEntries, component: DiaryItem, itemKey: 'diary' }],
   ]);  
+
+  const isSelected = (type, id) => {
+    return selectedIds.includes(`${type}-${id}`);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1); 
+  }, [setCurrentPage]);
+
+  const handleAddId = (id) => {
+    setSelectedIds((prev) => [...prev, id]);
+  };
 
   return (
     <div className="mb-4">
