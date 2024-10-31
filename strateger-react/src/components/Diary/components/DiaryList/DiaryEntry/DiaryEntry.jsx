@@ -5,6 +5,7 @@ import ReferencesLabels from "./ReferencesLabels";
 import ActionButtons from "./ActionButtons";
 
 const DiaryEntry = ({ entry, onEdit, onDelete }) => {
+
   return (    
     <div className="flex flex-col">      
       <DateLabel date={entry.date} />

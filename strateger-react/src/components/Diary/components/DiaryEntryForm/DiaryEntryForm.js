@@ -26,21 +26,18 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState(initialState);   //DiaryEntryForm  
-  const [errors, setErrors] = useState({});                 //DiaryEntryForm
+  const [formData, setFormData] = useState(initialState);   
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const [errors, setErrors] = useState({});                 
 
   
-  const [selectedIds, setSelectedIds] = useState([]);       //ReferencesForm
-  
-  const fileInputRef = useRef(null);                        //PhotosForm
+  const fileInputRef = useRef(null);                        
 
   // Hook to update the form data when the entry prop changes, 
   // if entry is not null then set the form data to the entry, otherwise set it to the initial state
   useEffect(() => {
-
-    console.log('entry:', entry);
-    
-    if (entry) {
+    if (entry) {      
       setFormData(entry);
       setSelectedIds(entry.references);
     } else {
@@ -127,14 +124,13 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             handleChange={handleChange}
             error={errors.text}
           />    
-
+          
           <PhotosForm
             photos={formData.photos}
             handlePhotoChange={handlePhotoChange}
             fileInputRef={fileInputRef}
             setFormData={setFormData}
-          />   
-
+          />           
           <ReferencesForm            
             setSelectedIds={setSelectedIds}              
             selectedIds={selectedIds}

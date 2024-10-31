@@ -1,30 +1,34 @@
-// Path: strateger-react/src/components/Diary/DiaryEntryForm/PhotosForm.js
-
 import Ventanita from "../../../common/Ventanita";
 import Slider from "react-slick";
+import config from "../../../../config";
 
 const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
   
   const sliderSettings = {
     dots: true,
-    infinite: false, // Cambiar a false para evitar duplicación infinita
+    infinite: false, // Cambia a true si deseas un loop continuo
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1, // Solo una imagen a la vez
+    slidesToScroll: 1,
+    arrows: true,
+    adaptiveHeight: true, // Ajusta la altura automáticamente
+    centerMode: true, // Centra la imagen en el carrusel
+    centerPadding: "0px", // Evita padding en los lados
   };
 
   return (
-    <>  
+    <div className="">
       <Ventanita
         titulo='Photos'
         contenido={
-          <>
+          <div className="">
             {photos.length > 0 && (
+              console.log('photos:', photos),              
               <Slider {...sliderSettings} className="mb-4">
                 {photos.map((photo, index) => (
                   <div key={index} className="flex justify-center items-center">
                     <img
-                      src={URL.createObjectURL(photo)} // Utilizar URL.createObjectURL para fotos locales
+                      src={photo instanceof File ? URL.createObjectURL(photo) : `${config.apiURL}${photo}`} 
                       alt={`Attachment ${index + 1}`}
                       className="h-48 w-auto object-cover rounded-lg shadow-md"
                     />
@@ -50,10 +54,10 @@ const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
                 file:cursor-pointer
               "
             />
-          </>
+          </div>
         }
       />
-    </>
+    </div>
   );
 };
 
