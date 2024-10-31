@@ -37,6 +37,9 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   // Hook to update the form data when the entry prop changes, 
   // if entry is not null then set the form data to the entry, otherwise set it to the initial state
   useEffect(() => {
+
+    console.log('entry:', entry);
+    
     if (entry) {
       setFormData(entry);
       setSelectedIds(entry.references);
@@ -46,16 +49,15 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     }
   }, [entry]);
 
-
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log('name:', name, ', value:', value);
     setFormData({ ...formData, [name]: value });
   };
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
+    console.log('files:', files);
     setFormData({ ...formData, photos: files });
   };
 
@@ -98,67 +100,54 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     }
   };
 
-  const handleSelectReference = (type, id) => {
-    const reference = `${type}-${id}`;
-    const references = selectedIds.includes(reference)
-      ? selectedIds.filter(ref => ref !== reference)
-      : [...selectedIds, reference];
-    setSelectedIds(references);
-  };
-
-
-
-
   return (    
-      <Ventanita 
-        titulo={
-          <div>
-            {entry ? 'Editing Entry' : 'Add New Entry'}
-          </div>
-        }
-        contenido={
-          <form onSubmit={handleSubmit}>               
-            
-            {errors.global && (
-              <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
-                {errors.global}
-              </div>
-            )}
-            
-
-            <DateForm 
-              date={formData.date} 
-              handleChange={handleChange} 
-              name="date"             
-            />    
-
-            <TextForm
-              text={formData.text}
-              handleChange={handleChange}
-              error={errors.text}
-            />    
-
-            <PhotosForm
-              photos={formData.photos}
-              handlePhotoChange={handlePhotoChange}
-              fileInputRef={fileInputRef}
-            />   
-
-            <ReferencesForm
-              handleSelectReference={handleSelectReference}              
-              setSelectedIds={setSelectedIds}              
-              selectedIds={selectedIds}
-            />
-              
-            
-            <div className="flex justify-between">
-              <SubmitButton entry={entry} />
-              <ClearButton handleClear={handleClear} />
+    <Ventanita 
+      titulo={
+        <div>
+          {entry ? 'Editing Entry' : 'Add New Entry'}
+        </div>
+      }
+      contenido={
+        <form onSubmit={handleSubmit}>               
+          
+          {errors.global && (
+            <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
+              {errors.global}
             </div>
+          )}
+          
+          <DateForm 
+            date={formData.date} 
+            handleChange={handleChange} 
+            name="date"             
+          />    
 
-          </form>
-        } 
-      />              
+          <TextForm
+            text={formData.text}
+            handleChange={handleChange}
+            error={errors.text}
+          />    
+
+          <PhotosForm
+            photos={formData.photos}
+            handlePhotoChange={handlePhotoChange}
+            fileInputRef={fileInputRef}
+            setFormData={setFormData}
+          />   
+
+          <ReferencesForm            
+            setSelectedIds={setSelectedIds}              
+            selectedIds={selectedIds}
+          />
+                      
+          <div className="flex justify-between">
+            <SubmitButton entry={entry} />
+            <ClearButton handleClear={handleClear} />
+          </div>
+
+        </form>
+      } 
+    />              
   );
 };
 

@@ -13,7 +13,7 @@ import SelectedIds from './SelectedIds';
 
 import Ventanita from '../../../../common/Ventanita';
 
-const ReferencesForm = ({ handleSelectReference, selectedIds, setSelectedIds }) => {
+const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
   const orders = useSelector((state) => state.orders.orders) || []; 
   const alarms = useSelector((state) => state.alarms.alarms) || []; 
   const strategies = useSelector((state) => state.strategies.items) || []; 
@@ -46,6 +46,14 @@ const ReferencesForm = ({ handleSelectReference, selectedIds, setSelectedIds }) 
 
   const handleAddId = (id) => {
     setSelectedIds((prev) => [...prev, id]);
+  };
+
+  const handleSelectReference = (type, id) => {
+    const reference = `${type}-${id}`;
+    const references = selectedIds.includes(reference)
+      ? selectedIds.filter(ref => ref !== reference)
+      : [...selectedIds, reference];
+    setSelectedIds(references);
   };
 
   return (

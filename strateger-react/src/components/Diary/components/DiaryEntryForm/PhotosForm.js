@@ -3,7 +3,7 @@
 import Ventanita from "../../../common/Ventanita";
 import Slider from "react-slick";
 
-const PhotosForm = ({ photos, handlePhotoChange, fileInputRef }) => {
+const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
   
   const sliderSettings = {
     dots: true,

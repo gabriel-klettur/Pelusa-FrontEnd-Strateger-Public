@@ -1,11 +1,15 @@
 import DiaryEntryForm from "../components/DiaryEntryForm/DiaryEntryForm";
+import useDiary from '../hooks/useDiary';
 
-const DiaryEntryFormContainer = ({ onSave, entry, onCancelEdit }) => {
+const DiaryEntryFormContainer = () => {
+
+    const { editingEntry, handleAddOrUpdateEntry, handleCancelEdit } = useDiary();
+
     return(
         <DiaryEntryForm 
-            onSave={onSave} 
-            entry={entry} 
-            onCancelEdit={onCancelEdit}
+            onSave={handleAddOrUpdateEntry} 
+            entry={editingEntry} 
+            onCancelEdit={handleCancelEdit}
         />
     )
 }

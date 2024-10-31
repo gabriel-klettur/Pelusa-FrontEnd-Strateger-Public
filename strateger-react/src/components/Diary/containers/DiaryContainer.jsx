@@ -1,14 +1,12 @@
 
-import useDiary from '../hooks/useDiary';
+
 import DiaryListContainer from "./DiaryListContainer";
 import MainChart from "../../Charts/MainChart/MainChart";
 import DiaryCalendar from "../components/DiaryCalendar/DiaryCalendar";
 import DiaryEntryFormContainer from "./DiaryEntryFormContainer";
 
 const DiaryContainer = () => {
-    
-    const { editingEntry, handleAddOrUpdateEntry, handleCancelEdit } = useDiary();
-    
+
     const results = [
         {
           date: '2024-10-01', // Fecha en formato ISO
@@ -44,11 +42,7 @@ const DiaryContainer = () => {
             </div>
             <div className="grid grid-cols-10">
                 <div className="col-span-4 p-1">                    {/* COLUMN LEFT */}
-                    <DiaryEntryFormContainer
-                        onSave={handleAddOrUpdateEntry}
-                        entry={editingEntry}
-                        onCancelEdit={handleCancelEdit}
-                    />                          
+                    <DiaryEntryFormContainer />                          
                 </div>      
                 <div className="col-span-6 pt-1 pr-1 pb-1">        {/* COLUMN RIGHT */}
                     <DiaryListContainer />         
