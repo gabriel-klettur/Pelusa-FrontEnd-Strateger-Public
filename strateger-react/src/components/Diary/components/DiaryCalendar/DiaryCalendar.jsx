@@ -9,8 +9,7 @@ const DiaryCalendar = ({ results }) => {
   
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
-      const result = results.find((r) => new Date(r.date).toDateString() === date.toDateString());
-      console.log(result);
+      const result = results.find((r) => new Date(r.date).toDateString() === date.toDateString());      
       if (result) {
         return (
           <div className="text-xs text-center font-semibold">
