@@ -31,7 +31,7 @@ const useDiary = () => {
   };
 
   const handleEditEntry = (id) => {
-    const entry = entries.find((entry) => entry.id === id);
+    const entry = entries.find((entry) => entry.id === id);    
     setEditingEntry(entry);
   };
 

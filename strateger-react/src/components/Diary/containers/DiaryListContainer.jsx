@@ -1,13 +1,10 @@
-//Path: strateger-react/src/components/Diary/containers/DiaryListContainer.jsx
+//Path: src/components/Diary/containers/DiaryListContainer.jsx
 
 import Ventanita from "../../common/Ventanita";
 import DiaryEntry from "../components/DiaryList/DiaryEntry/DiaryEntry";
-import useDiary from '../hooks/useDiary';
 
-const DiaryListContainer = () => {
-
-    const { entries, handleDeleteEntry, handleEditEntry } = useDiary();
-
+const DiaryListContainer = ({entries, onEdit, onDelete}) => {
+    
     return (
         <div>
           <Ventanita
@@ -24,8 +21,8 @@ const DiaryListContainer = () => {
                         <DiaryEntry
                           key={`diary-entry-${entry.id}`}
                           entry={entry}
-                          onEdit={handleEditEntry}
-                          onDelete={handleDeleteEntry}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
                         />
                       }
                     />
