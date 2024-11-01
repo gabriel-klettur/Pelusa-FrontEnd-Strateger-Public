@@ -8,7 +8,7 @@ import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from 
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
+const PerpCOINMSummary = ({ lastPrice }) => {
   const dispatch = useDispatch();
   const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
   const [showInBTC, setShowInBTC] = useState(true);
@@ -42,7 +42,7 @@ const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   }
 
   if (dataBTC.length === 0) {
-    return <div className="relative mb-4"><LoadingOverlay isLoading={isLoading} /></div>;      
+    return <div className="relative mb-4"></div>;      
   }
 
   const balance = dataBTC[0];
@@ -52,9 +52,7 @@ const PerpCOINMSummary = ({ lastPrice, LoadingOverlay }) => {
   const currencyLabel = showInBTC ? 'USD' : 'BTC';
 
   return (
-    <div className="relative mb-4">
-      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}
-            
+    <div className="relative mb-4">                  
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch

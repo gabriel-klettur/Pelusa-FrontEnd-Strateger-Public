@@ -2,13 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import getRandomColor from '../../../common/getRandomColor';
-import ContenedorChartWallet from '../../../common/ContenedorChartWallet';
+import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const SpotChart = ({
     spotAccounts,
     ChartComponent,
-    Legend,
-    LoadingOverlay,
+    Legend,    
   }) => {
       
   const [isLoading, setIsLoading] = useState(true); // Estado para manejar la carga
@@ -77,8 +76,7 @@ const SpotChart = ({
       visibleSeries={visibleSeries}
       toggleSeriesVisibility={toggleSeriesVisibility}
       ChartComponent={ChartComponent}
-      Legend={Legend}
-      LoadingOverlay={LoadingOverlay}
+      Legend={Legend}      
     />    
   );
 };

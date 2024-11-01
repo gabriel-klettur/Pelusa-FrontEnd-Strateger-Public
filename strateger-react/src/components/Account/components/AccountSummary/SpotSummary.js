@@ -10,7 +10,7 @@ import { fetchTicker } from '../../../../redux/ticker';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
+const SpotSummary = ({ lastPrice }) => {
   const dispatch = useDispatch();
   const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
   const tickerPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
@@ -94,8 +94,7 @@ const SpotSummary = ({ lastPrice, LoadingOverlay }) => {
   }));
 
   const contenido = (
-    <div>
-      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar el overlay de carga */}
+    <div>      
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch

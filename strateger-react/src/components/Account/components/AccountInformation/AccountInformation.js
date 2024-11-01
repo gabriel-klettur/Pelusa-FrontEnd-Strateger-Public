@@ -7,7 +7,7 @@ import {fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, select
 
 import AccountTable from "./AccountTable";
 
-const AccountInformation = ({LoadingOverlay}) => {
+const AccountInformation = () => {
     const dispatch = useDispatch();
     
     // Obtener datos de Redux
@@ -31,8 +31,7 @@ const AccountInformation = ({LoadingOverlay}) => {
                 error={error} 
                 coinMTimeData={coinMTimeData} 
                 usdtmTimeData={usdtmTimeData} 
-                spotTimeData={spotTimeData} 
-                LoadingOverlay={LoadingOverlay}
+                spotTimeData={spotTimeData}               
             />
         </div>
     );

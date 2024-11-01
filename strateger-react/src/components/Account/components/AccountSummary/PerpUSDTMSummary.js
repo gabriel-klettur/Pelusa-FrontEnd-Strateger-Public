@@ -8,7 +8,7 @@ import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from 
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
+const PerpUSDTMSummary = ({ lastPrice }) => {
   const dispatch = useDispatch();
   const { dataUSD, loading, error, loaded } = useSelector(selectPerpUSDTM);
   const [showInUSD, setShowInUSD] = useState(true);
@@ -42,7 +42,8 @@ const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
   }
 
   if (!dataUSD) {
-    return <div className="relative mb-4"><LoadingOverlay isLoading={isLoading} /></div>;      
+    return <div className="relative mb-4">      
+    </div>;      
   }
 
   const displayValue = (value) =>
@@ -51,7 +52,7 @@ const PerpUSDTMSummary = ({ lastPrice, LoadingOverlay }) => {
 
   return (
     <div className="relative mb-4">
-      <LoadingOverlay isLoading={isLoading} /> {/* Mostrar overlay de carga */}      
+    
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch

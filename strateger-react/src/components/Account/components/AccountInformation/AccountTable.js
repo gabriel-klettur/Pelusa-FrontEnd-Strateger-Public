@@ -4,7 +4,7 @@ import React from 'react';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import Tablita from '../../../common/Tablita';
 
-const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeData, LoadingOverlay }) => {
+const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeData }) => {
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -40,8 +40,7 @@ const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeDa
   };
 
   return (
-    <div className="relative">
-      <LoadingOverlay isLoading={loading} /> {/* Mostrar overlay de carga */}
+    <div className="relative">      
       <TabGroup>
         <TabList className="flex p-1 space-x-1 bg-gray-200 rounded-xl">
           <Tab

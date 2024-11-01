@@ -11,7 +11,7 @@ import PerpCOINMSummary from './PerpCOINMSummary';
 
 import Ventanita from '../../../common/Ventanita';
 
-const AccountSummary = ({LoadingOverlay}) => {
+const AccountSummary = () => {
 
   const lastPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
   return (
@@ -23,8 +23,7 @@ const AccountSummary = ({LoadingOverlay}) => {
             titulo="Perpetual USDT-M"
             contenido={
               <PerpUSDTMSummary 
-                lastPrice={lastPrice}
-                LoadingOverlay={LoadingOverlay}
+                lastPrice={lastPrice}                
               />
             }
           />          
@@ -35,8 +34,7 @@ const AccountSummary = ({LoadingOverlay}) => {
             titulo="Spot"
             contenido={
               <SpotSummary 
-                lastPrice={lastPrice}
-                LoadingOverlay={LoadingOverlay}
+                lastPrice={lastPrice}                
               />
             }
           />          
@@ -47,8 +45,7 @@ const AccountSummary = ({LoadingOverlay}) => {
             titulo="Perpetual COIN-M"
             contenido={
               <PerpCOINMSummary
-                lastPrice={lastPrice}
-                LoadingOverlay={LoadingOverlay}
+                lastPrice={lastPrice}                
               />
             }
           />

@@ -1,14 +1,13 @@
 // Path: strateger-react/src/components/Account/AccountCharts/PerpCOINMChart.js
 
 import React, { useState, useEffect } from 'react';
-import ContenedorChartWallet from '../../../common/ContenedorChartWallet';
+import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const PerpCOINMChart = ({ 
   perpCOINMAccounts, 
   lastPrice, 
   ChartComponent, 
-  Legend, 
-  LoadingOverlay 
+  Legend,   
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,8 +79,7 @@ const PerpCOINMChart = ({
       visibleSeries={visibleSeries}
       toggleSeriesVisibility={toggleSeriesVisibility}
       ChartComponent={ChartComponent}
-      Legend={Legend}
-      LoadingOverlay={LoadingOverlay}
+      Legend={Legend}      
     /> 
   );
 };

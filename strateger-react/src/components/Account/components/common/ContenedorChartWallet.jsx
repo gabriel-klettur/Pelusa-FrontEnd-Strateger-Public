@@ -24,15 +24,14 @@ const ContenedorChartWallet = ({
   visibleSeries,
   toggleSeriesVisibility,
   ChartComponent,
-  Legend,
-  LoadingOverlay,
+  Legend,  
 }) => {
 
-    const validatedPriceFormat = priceFormat && typeof priceFormat === 'object' ? priceFormat : {};
+  const validatedPriceFormat = priceFormat && typeof priceFormat === 'object' ? priceFormat : {};
+  console.log('seriesData:', seriesData);
 
   return (
-    <div className="grid grid-cols-1">
-      <LoadingOverlay isLoading={isLoading} /> {/* Muestra el overlay de carga */}
+    <div className="grid grid-cols-1">      
 
       <div className="grid grid-cols-1 gap-4">
         <ChartComponent

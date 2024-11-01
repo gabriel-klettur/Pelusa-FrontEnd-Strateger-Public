@@ -15,7 +15,7 @@ import { selectLastPrice } from '../../../../redux/charts';
 
 import Ventanita from '../../../common/Ventanita';
 
-const AccountCharts = ({LoadingOverlay}) => {
+const AccountCharts = () => {
   const perpCOINMAccounts = useSelector(selectCoinMTimeData);
   const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
   const lastPrice = useSelector(selectLastPrice);
@@ -30,8 +30,7 @@ const AccountCharts = ({LoadingOverlay}) => {
             <PerpUSDTMChart
               perpUSDTMAccounts={perpUSDTMAccounts}
               ChartComponent={ChartComponent}
-              Legend={Legend}
-              LoadingOverlay={LoadingOverlay}
+              Legend={Legend}              
             />
           } 
         />
@@ -43,8 +42,7 @@ const AccountCharts = ({LoadingOverlay}) => {
             <SpotChart 
               spotAccounts={spotAccounts} 
               ChartComponent={ChartComponent} 
-              Legend={Legend} 
-              LoadingOverlay={LoadingOverlay}
+              Legend={Legend}               
             />
           }
         />
@@ -57,8 +55,7 @@ const AccountCharts = ({LoadingOverlay}) => {
               perpCOINMAccounts={perpCOINMAccounts}
               lastPrice={lastPrice}
               ChartComponent={ChartComponent}
-              Legend={Legend}
-              LoadingOverlay={LoadingOverlay}
+              Legend={Legend}              
             />
           }
         />
