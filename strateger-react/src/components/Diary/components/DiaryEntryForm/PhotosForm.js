@@ -1,41 +1,64 @@
 import Ventanita from "../../../common/Ventanita";
-import Slider from "react-slick";
 import config from "../../../../config";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
 const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
-  
-  const sliderSettings = {
-    dots: true,
-    infinite: false, // Cambia a true si deseas un loop continuo
-    speed: 500,
-    slidesToShow: 1, // Solo una imagen a la vez
-    slidesToScroll: 1,
-    arrows: true,
-    adaptiveHeight: true, // Ajusta la altura automáticamente
-    centerMode: true, // Centra la imagen en el carrusel
-    centerPadding: "0px", // Evita padding en los lados
-  };
+  const renderPhotoSlider = () => (
+    <div className="relative">
+      <Swiper
+        modules={[Navigation]}
+        spaceBetween={10} // Espacio entre slides
+        slidesPerView={1} // Cambia a 2 o más si quieres mostrar múltiples imágenes al mismo tiempo
+        loop={true} // Habilita el loop continuo del slider
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
+        className="w-96 " // Asegura que el slider ocupe todo el ancho disponible
+      >
+        {photos.map((photo, index) => (
+          <SwiperSlide key={index} className="flex justify-center items-center">
+            <img
+              src={photo instanceof File ? URL.createObjectURL(photo) : `${config.apiURL}${photo}`}
+              alt={`Attachment ${index + 1}`}
+              className="h-48 w-auto rounded-lg"
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Botón izquierdo */}
+      <button
+        className="swiper-button-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-3 rounded-full hover:bg-gray-700 transition"
+        aria-label="Previous slide"
+      >
+        
+      </button>
+
+      {/* Botón derecho */}
+      <button
+        className="swiper-button-next absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-60 text-white p-3 rounded-full hover:bg-gray-700 transition"
+        aria-label="Next slide"
+      >
+        
+      </button>
+    </div>
+  );
 
   return (
-    <div className="">
+    <div className="w-full">
       <Ventanita
-        titulo='Photos'
+        titulo="Photos"
         contenido={
-          <div className="">
-            {photos.length > 0 && (
-              console.log('photos:', photos),              
-              <Slider {...sliderSettings} className="mb-4">
-                {photos.map((photo, index) => (
-                  <div key={index} className="flex justify-center items-center">
-                    <img
-                      src={photo instanceof File ? URL.createObjectURL(photo) : `${config.apiURL}${photo}`} 
-                      alt={`Attachment ${index + 1}`}
-                      className="h-48 w-auto object-cover rounded-lg shadow-md"
-                    />
-                  </div>
-                ))}
-              </Slider>
-            )}
+          <div className="flex flex-col items-center justify-center space-y-4 p-4">
+            {photos.length > 0 && renderPhotoSlider()}
             <input
               type="file"
               name="photos"
@@ -43,7 +66,7 @@ const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
               onChange={handlePhotoChange}
               ref={fileInputRef}
               className="                    
-                w-full 
+                w-auto 
                 focus:ring focus:ring-blue-200 focus:border-blue-500
                 file:bg-african_violet-500          
                 file:text-white
@@ -51,7 +74,7 @@ const PhotosForm = ({ photos, fileInputRef, handlePhotoChange }) => {
                 file:px-4 
                 file:rounded
                 file:border-none
-                file:cursor-pointer
+                file:cursor-pointer                
               "
             />
           </div>
