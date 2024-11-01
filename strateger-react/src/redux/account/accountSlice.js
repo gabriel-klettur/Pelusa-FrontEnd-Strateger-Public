@@ -14,7 +14,7 @@ const initialState = {
     error: null,
     loaded: false,
   },
-  balances: {
+  currentBalances: {
     balanceUSDTM: {
       dataUSD: null,
       dataBTC: null,
@@ -35,7 +35,7 @@ const initialState = {
       loading: false,
       error: null,
       loaded: false,
-    },
+    }
   },
   totalBalanceInUSD: null,
 };
@@ -47,67 +47,67 @@ const accountSlice = createSlice({
   reducers: {
     updateTotalBalanceInUSD: (state) => {
       calculateTotalBalanceInUSD(state);
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
-      //!--------------------------- Perp USDT-M balance ------------------------------------------
+      // Perp USDT-M balance
       .addCase(fetchPerpUSDTMBalance.pending, (state) => {
-        state.balances.balanceUSDTM.loading = true;
-        state.balances.balanceUSDTM.error = null;
+        state.currentBalances.balanceUSDTM.loading = true;
+        state.currentBalances.balanceUSDTM.error = null;
       })
       .addCase(fetchPerpUSDTMBalance.fulfilled, (state, action) => {
         const lastPrice = action.payload.lastPrice;
-        state.balances.balanceUSDTM.dataUSD = action.payload.balance;
-        state.balances.balanceUSDTM.dataBTC = convertUSDTMDataToBTC(action.payload.balance, lastPrice);
-        state.balances.balanceUSDTM.loading = false;
-        state.balances.balanceUSDTM.loaded = true;
+        state.currentBalances.balanceUSDTM.dataUSD = action.payload.balance;
+        state.currentBalances.balanceUSDTM.dataBTC = convertUSDTMDataToBTC(action.payload.balance, lastPrice);
+        state.currentBalances.balanceUSDTM.loading = false;
+        state.currentBalances.balanceUSDTM.loaded = true;
         calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchPerpUSDTMBalance.rejected, (state, action) => {
-        state.balances.balanceUSDTM.loading = false;
-        state.balances.balanceUSDTM.error = action.error.message;
+        state.currentBalances.balanceUSDTM.loading = false;
+        state.currentBalances.balanceUSDTM.error = action.error.message;
       })
 
-      //!---------------------------- Perp COIN-M balance -----------------------------------------
+      // Perp COIN-M balance
       .addCase(fetchPerpCOINMBalance.pending, (state) => {
-        state.balances.balanceCOINM.loading = true;
-        state.balances.balanceCOINM.error = null;
+        state.currentBalances.balanceCOINM.loading = true;
+        state.currentBalances.balanceCOINM.error = null;
       })
-      .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {
+      .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {        
         const lastPrice = action.payload.lastPrice;
-        state.balances.balanceCOINM.dataBTC = action.payload.balances;
-        state.balances.balanceCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, lastPrice);
-        state.balances.balanceCOINM.loading = false;
-        state.balances.balanceCOINM.loaded = true;
+        state.currentBalances.balanceCOINM.dataBTC = action.payload.balances;
+        state.currentBalances.balanceCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, lastPrice);
+        state.currentBalances.balanceCOINM.loading = false;
+        state.currentBalances.balanceCOINM.loaded = true;
         calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchPerpCOINMBalance.rejected, (state, action) => {
-        state.balances.balanceCOINM.loading = false;
-        state.balances.balanceCOINM.error = action.error.message;
+        state.currentBalances.balanceCOINM.loading = false;
+        state.currentBalances.balanceCOINM.error = action.error.message;
       })
 
-      //!------------------------------  Spot balance ------------------------------------------
+      // Spot balance
       .addCase(fetchSpotBalance.pending, (state) => {
-        state.balances.balanceSpot.loading = true;
-        state.balances.balanceSpot.error = null;
+        state.currentBalances.balanceSpot.loading = true;
+        state.currentBalances.balanceSpot.error = null;
       })
-      .addCase(fetchSpotBalance.fulfilled, (state, action) => {
-        state.balances.balanceSpot.balances = action.payload.balances;
-        state.balances.balanceSpot.loading = false;
-        state.balances.balanceSpot.loaded = true;
+      .addCase(fetchSpotBalance.fulfilled, (state, action) => {        
+        state.currentBalances.balanceSpot.balances = action.payload.balances;
+        state.currentBalances.balanceSpot.loading = false;
+        state.currentBalances.balanceSpot.loaded = true;
         calculateTotalBalanceInUSD(state);
       })
       .addCase(fetchSpotBalance.rejected, (state, action) => {
-        state.balances.balanceSpot.loading = false;
-        state.balances.balanceSpot.error = action.error.message;
+        state.currentBalances.balanceSpot.loading = false;
+        state.currentBalances.balanceSpot.error = action.error.message;
       })
       .addCase(updateSpotBalanceUSD.fulfilled, (state, action) => {
-        state.balances.balanceSpot.balanceUSD = action.payload;
+        state.currentBalances.balanceSpot.balanceUSD = action.payload;
         calculateTotalBalanceInUSD(state);
       })
 
-      //!----------------------- Fetch track record accounts data -------------------------------
+      // Fetch all accounts data
       .addCase(fetchTrackRecordBingXAllAccounts.pending, (state) => {
         state.trackrecordAccountsData.loading = true;
         state.trackrecordAccountsData.error = null;
@@ -125,7 +125,7 @@ const accountSlice = createSlice({
         state.trackrecordAccountsData.loading = false;
         state.trackrecordAccountsData.error = action.error.message;
       });
-  },
+  }
 });
 
 // Export the updateTotalBalanceInUSD action
