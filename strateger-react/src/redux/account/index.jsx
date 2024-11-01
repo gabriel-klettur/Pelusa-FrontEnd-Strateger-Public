@@ -1,15 +1,16 @@
 import accountReducer from './accountSlice'
+
 import { updateTotalBalanceInUSD, updateSpotBalanceUSDAction } from './accountSlice'
 
-import { selectPerpUSDTM, selectPerpCOINM, selectSpot, selectTotalBalanceInUSD, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from './accountSelectors'
+import { selectPerpUSDTM, selectPerpCOINM, selectSpot, selectTotalBalanceInUSD, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from './accountSelectors'
 
-import { updateSpotBalanceUSD, fetchSpotBalance, fetchPerpCOINMBalance, fetchAllAccountsData, fetchPerpUSDTMBalance } from './accountThunks'
+import { updateSpotBalanceUSD, fetchSpotBalance, fetchPerpCOINMBalance, fetchTrackRecordBingXAllAccounts, fetchPerpUSDTMBalance } from './accountThunks'
 
 // Selectors
-export { selectPerpUSDTM, selectPerpCOINM, selectSpot, selectTotalBalanceInUSD, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData }
+export { selectPerpUSDTM, selectPerpCOINM, selectSpot, selectTotalBalanceInUSD, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData }
 
 // Thunks
-export { updateSpotBalanceUSD, fetchSpotBalance, fetchPerpCOINMBalance, fetchAllAccountsData, fetchPerpUSDTMBalance }
+export { updateSpotBalanceUSD, fetchSpotBalance, fetchPerpCOINMBalance, fetchTrackRecordBingXAllAccounts, fetchPerpUSDTMBalance }
 
 // Reducer
 export { updateTotalBalanceInUSD , updateSpotBalanceUSDAction }

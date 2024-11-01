@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import {fetchAllAccountsData, selectAllAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
+import {fetchTrackRecordBingXAllAccounts, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
 
 import AccountTable from "./AccountTable";
 
@@ -11,17 +11,17 @@ const AccountInformation = () => {
     const dispatch = useDispatch();
     
     // Obtener datos de Redux
-    const allAccountsData = useSelector(selectAllAccountsData);
+    const trackrecordAccountsData = useSelector(selectTrackRecordAccountsData);
     const coinMTimeData = useSelector(selectCoinMTimeData);
     const usdtmTimeData = useSelector(selectUSDTMTimeData);
     const spotTimeData = useSelector(selectSpotTimeData);
 
     // Obtener estado de carga y error
-    const { loading, error } = allAccountsData;
+    const { loading, error } = trackrecordAccountsData;
 
     // Despachar acción para obtener datos
     useEffect(() => {
-        dispatch(fetchAllAccountsData());
+        dispatch(fetchTrackRecordBingXAllAccounts());
     }, [dispatch]);
 
     return (

@@ -48,8 +48,8 @@ export const fetchSpotBalance = createAsyncThunk(
     }
 );
   
-export const fetchAllAccountsData = createAsyncThunk(
-    'account/fetchAllAccountsData',
+export const fetchTrackRecordBingXAllAccounts = createAsyncThunk(
+    'account/fetchTrackRecordBingXAllAccounts',
     async () => {
         const response = await axios.get(`${config.apiURL}/strateger/accounts/get-all-data-bingx-acc`);
         const data = response.data;

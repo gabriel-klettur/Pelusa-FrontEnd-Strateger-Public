@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const PerpUSDTMChart = ({
-  perpUSDTMAccounts,    
+  balanceUSDTMAccount,    
   ChartComponent, 
   Legend,   
 }) => {  
@@ -12,27 +12,27 @@ const PerpUSDTMChart = ({
 
   // Manejar los datos y el estado de carga
   useEffect(() => {
-    if (perpUSDTMAccounts.length > 0) {
+    if (balanceUSDTMAccount.length > 0) {
       setIsLoading(false); // Marca como cargado cuando los datos están disponibles
     }
-  }, [perpUSDTMAccounts]);
+  }, [balanceUSDTMAccount]);
 
   // Transformar y ordenar los datos para el gráfico
-  const balanceData = perpUSDTMAccounts
+  const balanceData = balanceUSDTMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.balance,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
-  const unrealizedProfitData = perpUSDTMAccounts
+  const unrealizedProfitData = balanceUSDTMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.unrealizedProfit,
     }))
     .sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
 
-  const equityData = perpUSDTMAccounts
+  const equityData = balanceUSDTMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000, // Convertir a timestamp en segundos
       value: account.equity,

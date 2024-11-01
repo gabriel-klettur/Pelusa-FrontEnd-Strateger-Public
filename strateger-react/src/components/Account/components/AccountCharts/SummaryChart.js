@@ -9,9 +9,9 @@ import Legend from '../../../Charts/LinealChart/Legend';
 import Ventanita from '../../../common/Ventanita';
 
 const SummaryChart = () => {
-  const perpCOINMAccounts = useSelector(selectCoinMTimeData);
-  const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
-  const spotAccounts = useSelector(selectSpotTimeData);
+  const balanceCOINMAccount = useSelector(selectCoinMTimeData);
+  const balanceUSDTMAccount = useSelector(selectUSDTMTimeData);
+  const balanceSpotAccount = useSelector(selectSpotTimeData);
   const tickerPrices = useSelector(selectTicker); // Obtén los precios de los tickers
   const lastPrice = useSelector(state => selectTicker(state)['BTC-USDT']); // Obtén el precio de BTC-USDT
 
@@ -43,13 +43,13 @@ const SummaryChart = () => {
     return uniqueData.sort((a, b) => a.time - b.time); // Ordenar por tiempo ascendente
   };
 
-  const balanceDataCOINM = processData(perpCOINMAccounts, true); // Convertir COINM a USD
-  const balanceDataUSDTM = processData(perpUSDTMAccounts);
+  const balanceDataCOINM = processData(balanceCOINMAccount, true); // Convertir COINM a USD
+  const balanceDataUSDTM = processData(balanceUSDTMAccount);
 
-  const calculateSpotSumInUSD = (spotAccounts, tickerPrices) => {
+  const calculateSpotSumInUSD = (balanceSpotAccount, tickerPrices) => {
     const sumDataMap = {};
 
-    spotAccounts.forEach(account => {
+    balanceSpotAccount.forEach(account => {
       const time = roundToHour(new Date(account.dateTime).getTime() / 1000); // Convertir a timestamp en segundos y redondear
       const asset = account.asset;
       const balance = account.balance;
@@ -68,7 +68,7 @@ const SummaryChart = () => {
     })).sort((a, b) => a.time - b.time);
   };
 
-  const balanceDataSPOTSum = calculateSpotSumInUSD(spotAccounts, tickerPrices);
+  const balanceDataSPOTSum = calculateSpotSumInUSD(balanceSpotAccount, tickerPrices);
 
   const mergeData = (data1, data2) => {
     const mergedData = [];

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const PerpCOINMChart = ({ 
-  perpCOINMAccounts, 
+  balanceCOINMAccount, 
   lastPrice, 
   ChartComponent, 
   Legend,   
@@ -12,26 +12,26 @@ const PerpCOINMChart = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (perpCOINMAccounts.length > 0 && lastPrice) {
+    if (balanceCOINMAccount.length > 0 && lastPrice) {
       setIsLoading(false);
     }
-  }, [perpCOINMAccounts, lastPrice]);
+  }, [balanceCOINMAccount, lastPrice]);
 
-  const balanceData = perpCOINMAccounts
+  const balanceData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
       value: account.balance * lastPrice,
     }))
     .sort((a, b) => a.time - b.time);
 
-  const unrealizedProfitData = perpCOINMAccounts
+  const unrealizedProfitData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
       value: account.unrealizedProfit * lastPrice,
     }))
     .sort((a, b) => a.time - b.time);
 
-  const equityData = perpCOINMAccounts
+  const equityData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
       value: account.equity * lastPrice,

@@ -5,7 +5,7 @@ import getRandomColor from '../../../common/getRandomColor';
 import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const SpotChart = ({
-    spotAccounts,
+    balanceSpotAccount,
     ChartComponent,
     Legend,    
   }) => {
@@ -16,8 +16,8 @@ const SpotChart = ({
 
   // Agrupar los datos por 'asset' y generar series
   useEffect(() => {
-    if (spotAccounts.length > 0) {
-      const seriesDataMap = spotAccounts.reduce((acc, account) => {
+    if (balanceSpotAccount.length > 0) {
+      const seriesDataMap = balanceSpotAccount.reduce((acc, account) => {
         const time = new Date(account.dateTime).getTime() / 1000;
         if (!acc[account.asset]) {
           acc[account.asset] = [];
@@ -47,7 +47,7 @@ const SpotChart = ({
       setVisibleSeries(initialVisibility);
       setIsLoading(false); // Termina la carga después de inicializar datos
     }
-  }, [spotAccounts]);
+  }, [balanceSpotAccount]);
 
   const toggleSeriesVisibility = (name) => {
     setVisibleSeries((prevState) => ({

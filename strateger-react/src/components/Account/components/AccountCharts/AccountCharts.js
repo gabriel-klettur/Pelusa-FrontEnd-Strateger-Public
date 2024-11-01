@@ -16,10 +16,10 @@ import { selectLastPrice } from '../../../../redux/charts';
 import Ventanita from '../../../common/Ventanita';
 
 const AccountCharts = () => {
-  const perpCOINMAccounts = useSelector(selectCoinMTimeData);
-  const perpUSDTMAccounts = useSelector(selectUSDTMTimeData);
+  const balanceCOINMAccount = useSelector(selectCoinMTimeData);
+  const balanceUSDTAccount = useSelector(selectUSDTMTimeData);
   const lastPrice = useSelector(selectLastPrice);
-  const spotAccounts = useSelector(selectSpotTimeData);
+  const balanceSpotAccount = useSelector(selectSpotTimeData);
 
   return (
     <div className="grid grid-cols-3 gap-4">
@@ -28,7 +28,7 @@ const AccountCharts = () => {
           titulo="Perpetual USDT-M" 
           contenido={
             <PerpUSDTMChart
-              perpUSDTMAccounts={perpUSDTMAccounts}
+              balanceUSDTAccount={balanceUSDTAccount}
               ChartComponent={ChartComponent}
               Legend={Legend}              
             />
@@ -40,7 +40,7 @@ const AccountCharts = () => {
           titulo="Spot"
           contenido={
             <SpotChart 
-              spotAccounts={spotAccounts} 
+              balanceSpotAccount={balanceSpotAccount} 
               ChartComponent={ChartComponent} 
               Legend={Legend}               
             />
@@ -52,7 +52,7 @@ const AccountCharts = () => {
           titulo="Perpetual COIN-M"
           contenido={
             <PerpCOINMChart
-              perpCOINMAccounts={perpCOINMAccounts}
+              balanceCOINMAccount={balanceCOINMAccount}
               lastPrice={lastPrice}
               ChartComponent={ChartComponent}
               Legend={Legend}              

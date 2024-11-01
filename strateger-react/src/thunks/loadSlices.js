@@ -4,7 +4,7 @@
 //import { fetchOrders } from '../slices/orderSlice';
 import { fetchStrategies } from '../redux/strategy';
 import { fetchDiaryEntries } from '../redux/diary';
-//import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance } from '../slices/accountSlice';
+import { fetchTrackRecordBingXAllAccounts } from '../redux/account';
 import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';
 import { fetchCandlestickChartData } from '../redux/charts';
 import { fetchTicker } from '../redux/ticker'; // Importa fetchTicker
@@ -28,9 +28,13 @@ export const loadSlicesInOrder = () => async (dispatch) => {
 
     await dispatch(fetchStrategies({ skip: 0, limit: 10 }));
     await dispatch(fetchDiaryEntries({ skip: 0, limit: 10 }));
+
+
     //await dispatch(fetchPerpUSDTMBalance()); // Dependent on CandlestickChart
     //await dispatch(fetchPerpCOINMBalance()); // Dependent on CandlestickChart
     //await dispatch(fetchSpotBalance());     // Dependent on CandlestickChart
+    await dispatch(fetchTrackRecordBingXAllAccounts());
+
     await dispatch(fetchPositionsCoinM());
     await dispatch(fetchPositionsUSDTM());    
   } catch (error) {
