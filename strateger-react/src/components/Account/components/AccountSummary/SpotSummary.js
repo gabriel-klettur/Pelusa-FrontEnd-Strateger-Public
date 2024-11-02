@@ -10,18 +10,17 @@ import { fetchTicker } from '../../../../redux/ticker';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const SpotSummary = ({ currentBTCPrice }) => {
+const SpotSummary = () => {
   const dispatch = useDispatch();
   const { balances, error, loaded, balanceUSD } = useSelector(selectSpot);
   const tickerPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
   const [showInUSD, setShowInUSD] = useState(true);
   
-
   useEffect(() => {
-    if (!loaded && currentBTCPrice) {
-      dispatch(fetchSpotBalance(currentBTCPrice));
+    if (!loaded) {
+      dispatch(fetchSpotBalance());
     }
-  }, [dispatch, loaded, currentBTCPrice]);
+  }, [dispatch, loaded]);
 
   useEffect(() => {
     const tickersToFetch = balances
@@ -50,7 +49,6 @@ const SpotSummary = ({ currentBTCPrice }) => {
     (acc, balance) => acc + getPriceInUSD(balance.asset, balance.free),
     0
   );
-  const totalBalanceInBTC = totalBalanceInUSD / (currentBTCPrice || 1);
 
   useEffect(() => {
     dispatch(updateSpotBalanceUSDAction(totalBalanceInUSD));
@@ -62,8 +60,8 @@ const SpotSummary = ({ currentBTCPrice }) => {
     }
   }, [loaded, balanceUSD, dispatch]);
 
-  const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
-  const currencyLabel = showInUSD ? 'USD' : 'BTC';
+  const displayValue = totalBalanceInUSD.toFixed(2);
+  const currencyLabel = showInUSD ? 'USD' : 'ASSET';
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -103,9 +101,8 @@ const SpotSummary = ({ currentBTCPrice }) => {
           />
         </Switch>
       </div>
-      <div className="grid grid-cols-2 gap-4">        
-        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
-        <Tarjetitas descripcion="Balance" contenido={displayValue} />
+      <div className="grid grid-cols-1 gap-4 align-center text-center">
+        <Tarjetitas descripcion="Total Balance" contenido={displayValue} />
       </div>
       {filteredBalances.length === 0 ? (
         <div>No balances available</div>

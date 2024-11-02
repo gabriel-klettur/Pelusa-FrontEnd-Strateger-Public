@@ -61,11 +61,11 @@ export const fetchPerpCOINMBalance = createAsyncThunk(
   
 export const fetchSpotBalance = createAsyncThunk(
     'account/fetchSpotBalance',
-    async ({ currentBTCPrice }) => {
+    async () => {
         const response = await axios.get(`${config.apiURL}/bingx/spot/get-balance-spot`);
         const data = JSON.parse(response.data);
         if (data && data.data && data.data.balances) {
-        return { balances: data.data.balances, currentBTCPrice };
+        return { balances: data.data.balances };
         } else {
         throw new Error('Invalid response structure');
         }
