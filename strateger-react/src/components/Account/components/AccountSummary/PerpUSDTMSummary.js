@@ -8,18 +8,19 @@ import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from 
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const PerpUSDTMSummary = ({ currentBTCPrice }) => {
+const PerpUSDTMSummary = () => {
   const dispatch = useDispatch();
+  
   const { dataUSD, error, loaded } = useSelector(selectPerpUSDTM);
   const [showInUSD, setShowInUSD] = useState(true);
   
 
   // Efecto para cargar datos si aún no se han cargado
   useEffect(() => {
-    if (!loaded && currentBTCPrice) {
-      dispatch(fetchPerpUSDTMBalance({ currentBTCPrice }));
+    if (!loaded) {
+      dispatch(fetchPerpUSDTMBalance());
     }
-  }, [dispatch, loaded, currentBTCPrice]);
+  }, [dispatch, loaded]);
 
   // Efecto para actualizar el balance total en USD
   useEffect(() => {
@@ -28,6 +29,17 @@ const PerpUSDTMSummary = ({ currentBTCPrice }) => {
     }
   }, [loaded, dataUSD, dispatch]);
 
+  const displayValue = (value) =>{
+    if (showInUSD) {
+      return parseFloat(value).toFixed(2);
+    } else {
+      return parseFloat(value).toFixed(6);
+    }
+  }
+
+
+  const currencyLabel = showInUSD ? 'USD' : 'BTC';
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -35,10 +47,6 @@ const PerpUSDTMSummary = ({ currentBTCPrice }) => {
   if (!dataUSD) {
     return <div className="relative mb-4"></div>;      
   }
-
-  const displayValue = (value) =>
-    showInUSD ? parseFloat(value).toFixed(2) : currentBTCPrice ? (parseFloat(value) / currentBTCPrice).toFixed(6) : 'N/A';
-  const currencyLabel = showInUSD ? 'USD' : 'BTC';
 
   return (
     <div className="relative mb-4">
@@ -59,15 +67,18 @@ const PerpUSDTMSummary = ({ currentBTCPrice }) => {
           />
         </Switch>
       </div>
-      <div className="grid grid-cols-2 gap-4">        
-        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
-        <Tarjetitas descripcion="Balance" contenido={displayValue(dataUSD.balance)} />
-        <Tarjetitas descripcion="Equity" contenido={displayValue(dataUSD.equity)} />
-        <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(dataUSD.unrealizedProfit)} />
-        <Tarjetitas descripcion="Realised Profit" contenido={displayValue(dataUSD.realisedProfit)} />
-        <Tarjetitas descripcion="Available Margin" contenido={displayValue(dataUSD.availableMargin)} />
-        <Tarjetitas descripcion="Used Margin" contenido={displayValue(dataUSD.usedMargin)} />        
+      {dataUSD.map((item, index) => (
+        <div className="grid grid-cols-2 gap-4" key={item.asset}>        
+        <Tarjetitas descripcion="Asset" contenido={item.asset} />
+        <Tarjetitas descripcion="Balance" contenido={displayValue(item.balance)} />
+        <Tarjetitas descripcion="Equity" contenido={displayValue(item.equity)} />
+        <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(item.unrealizedProfit)} />
+        <Tarjetitas descripcion="Realised Profit" contenido={displayValue(item.realisedProfit)} />
+        <Tarjetitas descripcion="Available Margin" contenido={displayValue(item.availableMargin)} />
+        <Tarjetitas descripcion="Used Margin" contenido={displayValue(item.usedMargin)} />        
       </div>
+      ))};
+      
     </div>
   );
 };
