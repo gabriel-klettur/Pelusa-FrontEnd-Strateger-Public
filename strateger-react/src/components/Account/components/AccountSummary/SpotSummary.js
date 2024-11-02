@@ -10,6 +10,8 @@ import { fetchTicker } from '../../../../redux/ticker';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 
+import Ventanita from '../../../common/Ventanita';
+
 const SpotSummary = () => {
   const dispatch = useDispatch();
   const { balances, error, loaded, balanceUSD } = useSelector(selectSpot);
@@ -84,32 +86,37 @@ const SpotSummary = () => {
   }));
 
   const contenido = (
-    <div>      
-      <div className="flex items-center mb-4">
-        <span className="mr-2">{currencyLabel}</span>
-        <Switch
-          checked={showInUSD}
-          onChange={setShowInUSD}
-          className={`${
-            showInUSD ? 'bg-blue-600' : 'bg-gray-200'
-          } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
-        >
-          <span
-            className={`${
-              showInUSD ? 'translate-x-6' : 'translate-x-1'
-            } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
-          />
-        </Switch>
-      </div>
-      <div className="grid grid-cols-1 gap-4 align-center text-center">
-        <Tarjetitas descripcion="Total Balance" contenido={displayValue} />
-      </div>
-      {filteredBalances.length === 0 ? (
-        <div>No balances available</div>
-      ) : (
-        <Tablita columns={columns} data={data} />
-      )}
-    </div>
+    <Ventanita
+      titulo="Spot"
+      contenido={
+        <div>      
+          <div className="flex items-center mb-4">
+            <span className="mr-2">{currencyLabel}</span>
+            <Switch
+              checked={showInUSD}
+              onChange={setShowInUSD}
+              className={`${
+                showInUSD ? 'bg-blue-600' : 'bg-gray-200'
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200`}
+            >
+              <span
+                className={`${
+                  showInUSD ? 'translate-x-6' : 'translate-x-1'
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200`}
+              />
+            </Switch>
+          </div>
+          <div className="grid grid-cols-1 gap-4 align-center text-center">
+            <Tarjetitas descripcion="Total Balance" contenido={displayValue} />
+          </div>
+          {filteredBalances.length === 0 ? (
+            <div>No balances available</div>
+          ) : (
+            <Tablita columns={columns} data={data} />
+          )}
+        </div>
+      }
+    />  
   );
 
   return (
