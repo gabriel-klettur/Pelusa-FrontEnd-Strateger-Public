@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const PerpUSDTMChart = ({
-  balanceUSDTMAccount,    
+  balanceUSDTMAccount = [],    
   ChartComponent, 
   Legend,   
 }) => {  

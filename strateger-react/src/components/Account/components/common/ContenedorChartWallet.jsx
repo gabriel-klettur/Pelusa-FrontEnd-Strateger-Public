@@ -28,7 +28,6 @@ const ContenedorChartWallet = ({
 }) => {
 
   const validatedPriceFormat = priceFormat && typeof priceFormat === 'object' ? priceFormat : {};
-  console.log('seriesData:', seriesData);
 
   return (
     <div className="grid grid-cols-1">      
