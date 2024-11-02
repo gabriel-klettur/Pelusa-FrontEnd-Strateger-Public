@@ -25,7 +25,7 @@ const AccountTable = ({ loading, error, coinMTimeData, usdtmTimeData, spotTimeDa
       { label: 'Date Time', key: 'dateTime' },
     ];
 
-    // Formatear los datos para Tablita
+    // Formatear llas fechas para Tablita
     const data = accounts.map((account) => ({
       ...account,
       dateTime: new Date(account.dateTime).toLocaleString(),

@@ -9,10 +9,11 @@ const initialState = {
     data: [],
     balanceUSDTMAccount: [],
     balanceCOINMAccount: [],
-    balanceSpotAccount: [],
+    balanceSpotAccount: [],    
     loading: false,
     error: null,
     loaded: false,
+
   },
   currentBalances: {
     balanceUSDTM: {

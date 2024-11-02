@@ -1,13 +1,11 @@
-// Path: strateger-react/src/components/Account/AccountInformation/AccountInformation.js
 
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import {fetchTrackRecordBingXAllAccounts, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
+import {fetchTrackRecordBingXAllAccounts, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../redux/account';
+import AccountTable from "../components/AccountInformation/AccountTable";
 
-import AccountTable from "./AccountTable";
-
-const AccountInformation = () => {
+const AccountInformationContainer = () => {
     const dispatch = useDispatch();
     
     // Obtener datos de Redux
@@ -35,6 +33,8 @@ const AccountInformation = () => {
             />
         </div>
     );
-};
+    
+}
 
-export default AccountInformation;
+export default AccountInformationContainer;
+
