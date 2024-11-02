@@ -10,9 +10,9 @@ import Tarjetitas from '../../../common/Tarjetitas';
 
 const PerpUSDTMSummary = ({ currentBTCPrice }) => {
   const dispatch = useDispatch();
-  const { dataUSD, loading, error, loaded } = useSelector(selectPerpUSDTM);
+  const { dataUSD, error, loaded } = useSelector(selectPerpUSDTM);
   const [showInUSD, setShowInUSD] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  
 
   // Efecto para cargar datos si aún no se han cargado
   useEffect(() => {
@@ -28,22 +28,12 @@ const PerpUSDTMSummary = ({ currentBTCPrice }) => {
     }
   }, [loaded, dataUSD, dispatch]);
 
-  // Efecto para manejar el estado de carga local
-  useEffect(() => {
-    if (loading) {
-      setIsLoading(true);
-    } else if (loaded && dataUSD) {
-      setIsLoading(false);
-    }
-  }, [loading, loaded, dataUSD]);
-
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (!dataUSD) {
-    return <div className="relative mb-4">      
-    </div>;      
+    return <div className="relative mb-4"></div>;      
   }
 
   const displayValue = (value) =>
