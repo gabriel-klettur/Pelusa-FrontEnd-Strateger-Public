@@ -15,8 +15,8 @@ export const fetchPerpUSDTMBalance = createAsyncThunk(
 
         console.log('fetchPerpUSDTMBalance', data);
 
-        if (data && data.data && data.data.balance) {
-        return { balance: data.data.balance, currentBTCPrice };
+        if (data && data.data) {
+        return { balance: data.data, currentBTCPrice };
         } else {
         throw new Error('Invalid response structure');
         }
@@ -27,10 +27,10 @@ export const fetchPerpCOINMBalance = createAsyncThunk(
     'account/fetchPerpCOINMBalance',
     async ({ currentBTCPrice }) => {
         const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
-        const data = JSON.parse(response.data);
-
-        console.log('fetchPerpCOINMBalance', data);
+        const data = JSON.parse(response.data);        
         
+        console.log('fetchPerpCOINMBalance', data);
+
         if (data && data.data) {
         return { balances: data.data, currentBTCPrice };
         } else {
