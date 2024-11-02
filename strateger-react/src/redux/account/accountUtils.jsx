@@ -1,28 +1,28 @@
 // Path: src/redux/account/accountUtils.js
 
-export const convertUSDTMDataToBTC = (data, lastPrice) => {
-    if (!data || !lastPrice) {
+export const convertUSDTMDataToBTC = (data, currentBTCPrice) => {
+    if (!data || !currentBTCPrice) {
       return null;
     }
     return {
-      balance: parseFloat(data.balance) / lastPrice,
-      equity: parseFloat(data.equity) / lastPrice,
-      unrealizedProfit: parseFloat(data.unrealizedProfit) / lastPrice,
-      realisedProfit: parseFloat(data.realisedProfit) / lastPrice,
-      availableMargin: parseFloat(data.availableMargin) / lastPrice
+      balance: parseFloat(data.balance) / currentBTCPrice,
+      equity: parseFloat(data.equity) / currentBTCPrice,
+      unrealizedProfit: parseFloat(data.unrealizedProfit) / currentBTCPrice,
+      realisedProfit: parseFloat(data.realisedProfit) / currentBTCPrice,
+      availableMargin: parseFloat(data.availableMargin) / currentBTCPrice
     };
   };
   
-  export const convertCOINMDataToUSD = (data, lastPrice) => {
-    if (!data || !lastPrice) {
+  export const convertCOINMDataToUSD = (data, currentBTCPrice) => {
+    if (!data || !currentBTCPrice) {
       return null;
     }
     return data.map((balance) => ({
-      balance: parseFloat(balance.balance) * lastPrice,
-      equity: parseFloat(balance.equity) * lastPrice,
-      unrealizedProfit: parseFloat(balance.unrealizedProfit) * lastPrice,
-      realisedProfit: parseFloat(balance.realisedProfit) * lastPrice,
-      availableMargin: parseFloat(balance.availableMargin) * lastPrice,
+      balance: parseFloat(balance.balance) * currentBTCPrice,
+      equity: parseFloat(balance.equity) * currentBTCPrice,
+      unrealizedProfit: parseFloat(balance.unrealizedProfit) * currentBTCPrice,
+      realisedProfit: parseFloat(balance.realisedProfit) * currentBTCPrice,
+      availableMargin: parseFloat(balance.availableMargin) * currentBTCPrice,
     }));
   };
   

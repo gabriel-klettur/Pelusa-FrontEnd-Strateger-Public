@@ -11,10 +11,6 @@ import Ventanita from '../../common/Ventanita';
 const AccountSummaryContainer = () => {
     const currentBTCPrice = useSelector((state) => selectTicker(state)['BTC-USDT']);
 
-
-    console.log("currentBTCPrice: ", currentBTCPrice);
-
-    
     return (
       <div>
         
@@ -24,7 +20,7 @@ const AccountSummaryContainer = () => {
               titulo="Perpetual USDT-M"
               contenido={
                 <PerpUSDTMSummary 
-                  lastPrice={currentBTCPrice}                
+                  currentBTCPrice={currentBTCPrice}                
                 />
               }
             />          
@@ -35,7 +31,7 @@ const AccountSummaryContainer = () => {
               titulo="Spot"
               contenido={
                 <SpotSummary 
-                  lastPrice={currentBTCPrice}                
+                  currentBTCPrice={currentBTCPrice}                
                 />
               }
             />          
@@ -46,7 +42,7 @@ const AccountSummaryContainer = () => {
               titulo="Perpetual COIN-M"
               contenido={
                 <PerpCOINMSummary
-                  lastPrice={currentBTCPrice}                
+                  currentBTCPrice={currentBTCPrice}                
                 />
               }
             />

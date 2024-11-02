@@ -80,9 +80,9 @@ export const fetchCandlestickChartData = createAsyncThunk(
   
           formattedData.sort((a, b) => a[0] - b[0]);
   
-          const lastPrice = formattedData[formattedData.length - 1]?.[4] || null;
+          const currentBTCPrice = formattedData[formattedData.length - 1]?.[4] || null;
   
-          return { formattedData, lastPrice };
+          return { formattedData, currentBTCPrice };
         } else {
           return rejectWithValue(resultData.msg || 'Unknown error from API');
         }

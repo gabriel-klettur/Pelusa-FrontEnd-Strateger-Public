@@ -5,36 +5,36 @@ import ContenedorChartWallet from '../common/ContenedorChartWallet';
 
 const PerpCOINMChart = ({ 
   balanceCOINMAccount, 
-  lastPrice, 
+  currentBTCPrice, 
   ChartComponent, 
   Legend,   
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (balanceCOINMAccount.length > 0 && lastPrice) {
+    if (balanceCOINMAccount.length > 0 && currentBTCPrice) {
       setIsLoading(false);
     }
-  }, [balanceCOINMAccount, lastPrice]);
+  }, [balanceCOINMAccount, currentBTCPrice]);
 
   const balanceData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
-      value: account.balance * lastPrice,
+      value: account.balance * currentBTCPrice,
     }))
     .sort((a, b) => a.time - b.time);
 
   const unrealizedProfitData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
-      value: account.unrealizedProfit * lastPrice,
+      value: account.unrealizedProfit * currentBTCPrice,
     }))
     .sort((a, b) => a.time - b.time);
 
   const equityData = balanceCOINMAccount
     .map((account) => ({
       time: new Date(account.dateTime).getTime() / 1000,
-      value: account.equity * lastPrice,
+      value: account.equity * currentBTCPrice,
     }))
     .sort((a, b) => a.time - b.time);
 

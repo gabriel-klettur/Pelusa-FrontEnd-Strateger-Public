@@ -18,7 +18,7 @@ import Ventanita from '../../../common/Ventanita';
 const AccountCharts = () => {
   const balanceCOINMAccount = useSelector(selectCoinMTimeData);
   const balanceUSDTAccount = useSelector(selectUSDTMTimeData);
-  const lastPrice = useSelector(selectLastPrice);
+  const currentBTCPrice = useSelector(selectLastPrice);
   const balanceSpotAccount = useSelector(selectSpotTimeData);
 
   return (
@@ -53,7 +53,7 @@ const AccountCharts = () => {
           contenido={
             <PerpCOINMChart
               balanceCOINMAccount={balanceCOINMAccount}
-              lastPrice={lastPrice}
+              currentBTCPrice={currentBTCPrice}
               ChartComponent={ChartComponent}
               Legend={Legend}              
             />

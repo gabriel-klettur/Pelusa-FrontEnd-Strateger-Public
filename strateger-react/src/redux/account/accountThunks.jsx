@@ -9,12 +9,14 @@ export const updateSpotBalanceUSD = createAsyncThunk(
 
 export const fetchPerpUSDTMBalance = createAsyncThunk(
     'account/fetchPerpUSDTMBalance',
-    async ({ lastPrice }) => {
+    async ({ currentBTCPrice }) => {
         const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-balance-perp-usdtm`);
         const data = JSON.parse(response.data);
 
+        console.log('fetchPerpUSDTMBalance', data);
+
         if (data && data.data && data.data.balance) {
-        return { balance: data.data.balance, lastPrice };
+        return { balance: data.data.balance, currentBTCPrice };
         } else {
         throw new Error('Invalid response structure');
         }
@@ -23,12 +25,14 @@ export const fetchPerpUSDTMBalance = createAsyncThunk(
   
 export const fetchPerpCOINMBalance = createAsyncThunk(
     'account/fetchPerpCOINMBalance',
-    async ({ lastPrice }) => {
+    async ({ currentBTCPrice }) => {
         const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
         const data = JSON.parse(response.data);
+
+        console.log('fetchPerpCOINMBalance', data);
         
         if (data && data.data) {
-        return { balances: data.data, lastPrice };
+        return { balances: data.data, currentBTCPrice };
         } else {
         throw new Error('Invalid response structure');
         }
@@ -37,11 +41,11 @@ export const fetchPerpCOINMBalance = createAsyncThunk(
   
 export const fetchSpotBalance = createAsyncThunk(
     'account/fetchSpotBalance',
-    async ({ lastPrice }) => {
+    async ({ currentBTCPrice }) => {
         const response = await axios.get(`${config.apiURL}/bingx/spot/get-balance-spot`);
         const data = JSON.parse(response.data);
         if (data && data.data && data.data.balances) {
-        return { balances: data.data.balances, lastPrice };
+        return { balances: data.data.balances, currentBTCPrice };
         } else {
         throw new Error('Invalid response structure');
         }

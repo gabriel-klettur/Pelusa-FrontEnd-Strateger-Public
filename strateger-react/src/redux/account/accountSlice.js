@@ -58,9 +58,9 @@ const accountSlice = createSlice({
         state.currentBalances.balanceUSDTM.error = null;
       })
       .addCase(fetchPerpUSDTMBalance.fulfilled, (state, action) => {
-        const lastPrice = action.payload.lastPrice;
+        const currentBTCPrice = action.payload.currentBTCPrice;
         state.currentBalances.balanceUSDTM.dataUSD = action.payload.balance;
-        state.currentBalances.balanceUSDTM.dataBTC = convertUSDTMDataToBTC(action.payload.balance, lastPrice);
+        state.currentBalances.balanceUSDTM.dataBTC = convertUSDTMDataToBTC(action.payload.balance, currentBTCPrice);
         state.currentBalances.balanceUSDTM.loading = false;
         state.currentBalances.balanceUSDTM.loaded = true;
         calculateTotalBalanceInUSD(state);
@@ -76,9 +76,9 @@ const accountSlice = createSlice({
         state.currentBalances.balanceCOINM.error = null;
       })
       .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {        
-        const lastPrice = action.payload.lastPrice;
+        const currentBTCPrice = action.payload.currentBTCPrice;
         state.currentBalances.balanceCOINM.dataBTC = action.payload.balances;
-        state.currentBalances.balanceCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, lastPrice);
+        state.currentBalances.balanceCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, currentBTCPrice);
         state.currentBalances.balanceCOINM.loading = false;
         state.currentBalances.balanceCOINM.loaded = true;
         calculateTotalBalanceInUSD(state);

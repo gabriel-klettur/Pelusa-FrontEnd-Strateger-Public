@@ -10,18 +10,18 @@ import { fetchTicker } from '../../../../redux/ticker';
 import Tablita from '../../../common/Tablita';
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const SpotSummary = ({ lastPrice }) => {
+const SpotSummary = ({ currentBTCPrice }) => {
   const dispatch = useDispatch();
-  const { balances, loading, error, loaded, balanceUSD } = useSelector(selectSpot);
+  const { balances, error, loaded, balanceUSD } = useSelector(selectSpot);
   const tickerPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
   const [showInUSD, setShowInUSD] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
-    if (!loaded && lastPrice) {
-      dispatch(fetchSpotBalance(lastPrice));
+    if (!loaded && currentBTCPrice) {
+      dispatch(fetchSpotBalance(currentBTCPrice));
     }
-  }, [dispatch, loaded, lastPrice]);
+  }, [dispatch, loaded, currentBTCPrice]);
 
   useEffect(() => {
     const tickersToFetch = balances
@@ -49,7 +49,7 @@ const SpotSummary = ({ lastPrice }) => {
     (acc, balance) => acc + getPriceInUSD(balance.asset, balance.free),
     0
   );
-  const totalBalanceInBTC = totalBalanceInUSD / (lastPrice || 1);
+  const totalBalanceInBTC = totalBalanceInUSD / (currentBTCPrice || 1);
 
   useEffect(() => {
     dispatch(updateSpotBalanceUSDAction(totalBalanceInUSD));
@@ -60,15 +60,6 @@ const SpotSummary = ({ lastPrice }) => {
       dispatch(updateTotalBalanceInUSD());
     }
   }, [loaded, balanceUSD, dispatch]);
-
-  // Manejo del estado de carga local
-  useEffect(() => {
-    if (loading) {
-      setIsLoading(true);
-    } else if (loaded) {
-      setIsLoading(false);
-    }
-  }, [loading, loaded]);
 
   const displayValue = showInUSD ? totalBalanceInUSD.toFixed(2) : totalBalanceInBTC.toFixed(6);
   const currencyLabel = showInUSD ? 'USD' : 'BTC';

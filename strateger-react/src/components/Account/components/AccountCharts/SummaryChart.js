@@ -13,7 +13,7 @@ const SummaryChart = () => {
   const balanceUSDTMAccount = useSelector(selectUSDTMTimeData);
   const balanceSpotAccount = useSelector(selectSpotTimeData);
   const tickerPrices = useSelector(selectTicker); // Obtén los precios de los tickers
-  const lastPrice = useSelector(state => selectTicker(state)['BTC-USDT']); // Obtén el precio de BTC-USDT
+  const currentBTCPrice = useSelector(state => selectTicker(state)['BTC-USDT']); // Obtén el precio de BTC-USDT
 
   const roundToHour = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -27,7 +27,7 @@ const SummaryChart = () => {
       let value = account.balance;
 
       if (convertToUSD) {
-        value *= lastPrice;
+        value *= currentBTCPrice;
       } else if (isSpot) {
         const tickerPrice = tickerPrices[`${account.asset}-USDT`] || (account.asset === 'USDT' ? 1 : 0); // Precio del ticker o 1 si es USDT o 0 si no está disponible
         value *= tickerPrice;

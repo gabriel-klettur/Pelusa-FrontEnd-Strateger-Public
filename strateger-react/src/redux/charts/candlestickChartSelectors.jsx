@@ -4,7 +4,7 @@ export const selectCandlestickChartError = state => state.candlestickChart.error
 export const selectCandlestickChartStartDate = state => state.candlestickChart.startDate;
 export const selectCandlestickChartEndDate = state => state.candlestickChart.endDate;
 export const selectCandlestickChartInterval = state => state.candlestickChart.interval;
-export const selectLastPrice = state => state.candlestickChart.lastPrice;
+export const selectLastPrice = state => state.candlestickChart.currentBTCPrice;
 export const selectAlarmMarkers = state => state.candlestickChart.alarmMarkers;
 export const selectOrderMarkers = state => state.candlestickChart.orderMarkers;
 export const selectPositionMarkers = state => state.candlestickChart.positionMarkers;
