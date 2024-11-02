@@ -1,9 +1,11 @@
 
 
-//import AccountCharts from '../components/AccountCharts/AccountCharts'; // Corregir nombre
-//import AccountSummary from '../components/AccountSummary/AccountSummary';
+//import AccountCharts from '../components/AccountCharts/AccountCharts'; 
+
+
 
 import AccountInformationContainer from "./AccountInformationContainer";
+import AccountSummaryContainer from "./AccountSummaryContainer";
 
 //import TotalBalanceAccounts from '../components/TotalBalanceAccounts';
 
@@ -14,7 +16,7 @@ const AccountContainer = () => {
           {/*<TotalBalanceAccounts />*/}
           <div className="p-4 grid grid-cols-1 gap-2 bg-african_violet-200">
             {/*<AccountCharts/>*/} 
-            {/*<AccountSummary />*/}
+            <AccountSummaryContainer />
             <AccountInformationContainer />
           </div>
         </div>

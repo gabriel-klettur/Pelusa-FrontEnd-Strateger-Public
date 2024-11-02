@@ -27,9 +27,9 @@ export const convertUSDTMDataToBTC = (data, lastPrice) => {
   };
   
   export const calculateTotalBalanceInUSD = (state) => {
-    const perpUSDTMUSD = state.balanceUSDTM.dataUSD ? parseFloat(state.balanceUSDTM.dataUSD.balance) : 0;
-    const perpCOINMUSD = state.balanceCOINM.dataUSD ? state.balanceCOINM.dataUSD.reduce((acc, balance) => acc + parseFloat(balance.balance), 0) : 0;
-    const spotUSD = state.balanceSpot.balanceUSD ? parseFloat(state.balanceSpot.balanceUSD) : 0;
+    const perpUSDTMUSD = state.currentBalances.balanceUSDTM.dataUSD ? parseFloat(state.currentBalances.balanceUSDTM.dataUSD.balance) : 0;
+    const perpCOINMUSD = state.currentBalances.balanceCOINM.dataUSD ? state.currentBalances.balanceCOINM.dataUSD.reduce((acc, balance) => acc + parseFloat(balance.balance), 0) : 0;
+    const spotUSD = state.currentBalances.balanceSpot.balanceUSD ? parseFloat(state.currentBalances.balanceSpot.balanceUSD) : 0;
   
     state.totalBalanceInUSD = perpUSDTMUSD + perpCOINMUSD + spotUSD;
   };

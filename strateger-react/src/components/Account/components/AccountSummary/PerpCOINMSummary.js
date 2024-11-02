@@ -8,7 +8,7 @@ import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from 
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const PerpCOINMSummary = ({ lastPrice }) => {
+const PerpCOINMSummary = ({ currentBTCPrice }) => {
   const dispatch = useDispatch();
   const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
   const [showInBTC, setShowInBTC] = useState(true);
@@ -16,10 +16,10 @@ const PerpCOINMSummary = ({ lastPrice }) => {
 
   // Efecto para cargar datos si aún no se han cargado
   useEffect(() => {
-    if (!loaded && lastPrice) {
-      dispatch(fetchPerpCOINMBalance({ lastPrice }));
+    if (!loaded && currentBTCPrice) {
+      dispatch(fetchPerpCOINMBalance({ currentBTCPrice }));
     }
-  }, [dispatch, loaded, lastPrice]);
+  }, [dispatch, loaded, currentBTCPrice]);
 
   // Efecto para actualizar el balance total en USD
   useEffect(() => {
@@ -48,7 +48,7 @@ const PerpCOINMSummary = ({ lastPrice }) => {
   const balance = dataBTC[0];
 
   const displayValue = (value) =>
-    showInBTC ? (lastPrice ? (parseFloat(value) * lastPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
+    showInBTC ? (currentBTCPrice ? (parseFloat(value) * currentBTCPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
   const currencyLabel = showInBTC ? 'USD' : 'BTC';
 
   return (
