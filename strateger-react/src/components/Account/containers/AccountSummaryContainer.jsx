@@ -41,9 +41,7 @@ const AccountSummaryContainer = () => {
             <Ventanita
               titulo="Perpetual COIN-M"
               contenido={
-                <PerpCOINMSummary
-                  currentBTCPrice={currentBTCPrice}                
-                />
+                <PerpCOINMSummary />
               }
             />
           </div>          

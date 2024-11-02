@@ -7,6 +7,16 @@ export const updateSpotBalanceUSD = createAsyncThunk(
     async (balanceUSD) => balanceUSD
 );
 
+/**
+ * Thunk action to fetch the perpetual USDT-M balance.
+ *
+ * @function
+ * @name fetchPerpUSDTMBalance
+ * @param {Object} params - The parameters object.
+ * @param {number} params.currentBTCPrice - The current price of BTC.
+ * @returns {Promise<Object>} The balance data for the USDM account, this object can contains an array of data.
+ * @throws {Error} If the response structure is invalid.
+ */
 export const fetchPerpUSDTMBalance = createAsyncThunk(
     'account/fetchPerpUSDTMBalance',
     async ({ currentBTCPrice }) => {
@@ -23,16 +33,26 @@ export const fetchPerpUSDTMBalance = createAsyncThunk(
     }
 );
   
+/**
+ * Thunk action to fetch perpetual COIN-M balance.
+ *
+ * @function
+ * @name fetchPerpCOINMBalance
+ * @param {Object} params - The parameters object.
+ * @param {number} params.currentBTCPrice - The current price of BTC.
+ * @returns {Promise<Object>} The balance data for the COIN-M account, this object can contains an array of data.
+ * @throws {Error} If the response structure is invalid.
+ */
 export const fetchPerpCOINMBalance = createAsyncThunk(
     'account/fetchPerpCOINMBalance',
-    async ({ currentBTCPrice }) => {
+    async () => {
         const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
         const data = JSON.parse(response.data);        
         
         console.log('fetchPerpCOINMBalance', data);
 
         if (data && data.data) {
-        return { balances: data.data, currentBTCPrice };
+        return { balances: data.data };
         } else {
         throw new Error('Invalid response structure');
         }

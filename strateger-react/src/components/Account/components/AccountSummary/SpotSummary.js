@@ -40,7 +40,8 @@ const SpotSummary = ({ currentBTCPrice }) => {
   }, [balances, tickerPrices, dispatch]);
 
   const getPriceInUSD = (asset, amount) => {
-    if (asset === 'USDT') return parseFloat(amount);
+    if (asset === 'USDT') 
+      return parseFloat(amount);
     const tickerPrice = tickerPrices[`${asset}-USDT`];
     return tickerPrice ? parseFloat(amount) * tickerPrice : 0;
   };

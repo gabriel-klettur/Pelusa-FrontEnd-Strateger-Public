@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchPerpUSDTMBalance, fetchPerpCOINMBalance, fetchSpotBalance, fetchTrackRecordBingXAllAccounts, updateSpotBalanceUSD } from './accountThunks';
-import { convertUSDTMDataToBTC, convertCOINMDataToUSD, calculateTotalBalanceInUSD } from './accountUtils';
+import { convertUSDTMDataToBTC, calculateTotalBalanceInUSD } from './accountUtils';
 
 const initialState = {
   trackrecordAccountsData: {
@@ -24,8 +24,7 @@ const initialState = {
       loaded: false,
     },
     balanceCOINM: {
-      dataBTC: [],
-      dataUSD: [],
+      data: [],      
       loading: false,
       error: null,
       loaded: false,
@@ -75,10 +74,8 @@ const accountSlice = createSlice({
         state.currentBalances.balanceCOINM.loading = true;
         state.currentBalances.balanceCOINM.error = null;
       })
-      .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {        
-        const currentBTCPrice = action.payload.currentBTCPrice;
-        state.currentBalances.balanceCOINM.dataBTC = action.payload.balances;
-        state.currentBalances.balanceCOINM.dataUSD = convertCOINMDataToUSD(action.payload.balances, currentBTCPrice);
+      .addCase(fetchPerpCOINMBalance.fulfilled, (state, action) => {                
+        state.currentBalances.balanceCOINM.data = action.payload.balances;        
         state.currentBalances.balanceCOINM.loading = false;
         state.currentBalances.balanceCOINM.loaded = true;
         calculateTotalBalanceInUSD(state);

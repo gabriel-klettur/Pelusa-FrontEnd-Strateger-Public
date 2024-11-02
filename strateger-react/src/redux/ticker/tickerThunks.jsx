@@ -1,3 +1,5 @@
+//Path: src/redux/ticker/tickerThunks.jsx
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import axios from 'axios';

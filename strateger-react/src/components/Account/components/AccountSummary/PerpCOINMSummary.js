@@ -4,55 +4,62 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@headlessui/react';
 
-import { fetchPerpCOINMBalance, selectPerpCOINM, updateTotalBalanceInUSD } from '../../../../redux/account';
+import { fetchPerpCOINMBalance, selectPerpCOINM } from '../../../../redux/account';
 
 import Tarjetitas from '../../../common/Tarjetitas';
+import { fetchTicker } from '../../../../redux/ticker';
 
-const PerpCOINMSummary = ({ currentBTCPrice }) => {
+const PerpCOINMSummary = () => {
   const dispatch = useDispatch();
-  const { dataBTC, dataUSD, loading, error, loaded } = useSelector(selectPerpCOINM);
+  const { data,  error, loaded } = useSelector(selectPerpCOINM);
+  const tickersPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
   const [showInBTC, setShowInBTC] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Efecto para cargar datos si aún no se han cargado
   useEffect(() => {
-    if (!loaded && currentBTCPrice) {
-      dispatch(fetchPerpCOINMBalance({ currentBTCPrice }));
+    if (!loaded) {
+      dispatch(fetchPerpCOINMBalance());
     }
-  }, [dispatch, loaded, currentBTCPrice]);
+  }, [dispatch, loaded]);
 
-  // Efecto para actualizar el balance total en USD
   useEffect(() => {
-    if (loaded) {
-      dispatch(updateTotalBalanceInUSD());
+    const tickersToFetch = data.filter(
+      (balance) =>
+        balance.asset !== 'USDT' &&
+        balance.asset !== 'BTC' &&
+        parseFloat(balance.balance) > 0 &&
+        !tickersPrices[`${balance.asset}-USDT`]
+    ).map((balance) => `${balance.asset}-USDT`);
+    
+    if (tickersToFetch.length > 0) {
+      tickersToFetch.forEach((ticker) => dispatch(fetchTicker(ticker)));
     }
-  }, [loaded, dataUSD, dispatch]);
 
-  // Efecto para manejar el estado de carga local
-  useEffect(() => {
-    if (loading) {
-      setIsLoading(true);
-    } else if (loaded && dataBTC.length > 0) {
-      setIsLoading(false);
+  }, [data, tickersPrices, dispatch]);
+
+  const displayValue = (value, ticker) => {
+    if (showInBTC) {
+      if (tickersPrices[`${ticker}-USDT`]) {
+        return (parseFloat(value) * tickersPrices[`${ticker}-USDT`]).toFixed(2);
+      } else {
+        return 'N/A';
+      }
+    } else {
+      return parseFloat(value).toFixed(6);
     }
-  }, [loading, loaded, dataBTC]);
+  };
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  if (dataBTC.length === 0) {
+  if (data.length === 0) {
     return <div className="relative mb-4"></div>;      
   }
-
-  const balance = dataBTC[0];
-
-  const displayValue = (value) =>
-    showInBTC ? (currentBTCPrice ? (parseFloat(value) * currentBTCPrice).toFixed(2) : 'N/A') : parseFloat(value).toFixed(6);
-  const currencyLabel = showInBTC ? 'USD' : 'BTC';
+  const currencyLabel = showInBTC ? 'USD' : 'ASSET';
 
   return (
-    <div className="relative mb-4">                  
+    <div className="relative mb-4">     
       <div className="flex items-center mb-4">
         <span className="mr-2">{currencyLabel}</span>
         <Switch
@@ -69,15 +76,18 @@ const PerpCOINMSummary = ({ currentBTCPrice }) => {
           />
         </Switch>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <Tarjetitas descripcion="Asset" contenido={currencyLabel} />
-        <Tarjetitas descripcion="Balance" contenido={displayValue(balance.balance)} />
-        <Tarjetitas descripcion="Equity" contenido={displayValue(balance.equity)} />
-        <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(balance.unrealizedProfit)} />
-        <Tarjetitas descripcion="Available Margin" contenido={displayValue(balance.availableMargin)} />
-        <Tarjetitas descripcion="Used Margin" contenido={displayValue(balance.usedMargin)} />
-      </div>
-    </div>
+
+      {data.map((balance) => (
+        <div className="grid grid-cols-2 gap-4">
+          <Tarjetitas descripcion="Asset" contenido={balance.asset} />
+          <Tarjetitas descripcion="Balance" contenido={displayValue(balance.balance, balance.asset)} />
+          <Tarjetitas descripcion="Equity" contenido={displayValue(balance.equity, balance.asset)} />
+          <Tarjetitas descripcion="Unrealized Profit" contenido={displayValue(balance.unrealizedProfit, balance.asset)} />
+          <Tarjetitas descripcion="Available Margin" contenido={displayValue(balance.availableMargin, balance.asset)} />
+          <Tarjetitas descripcion="Used Margin" contenido={displayValue(balance.usedMargin, balance.asset)} />
+        </div>   
+      ))}   
+    </div>  
   );
 };
 

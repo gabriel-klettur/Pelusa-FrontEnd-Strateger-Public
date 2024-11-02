@@ -1,3 +1,4 @@
+//Path: src/redux/ticker/index.jsx
 
 // Slice
 import tickerReducer from './tickerSlice';
