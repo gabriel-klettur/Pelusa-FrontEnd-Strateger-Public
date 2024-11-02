@@ -15,7 +15,7 @@ import Ventanita from '../../common/Ventanita';
 
 const AccountChartsContainer = () => {
     const balanceCOINMAccount = useSelector(selectCoinMTimeData);
-    const balanceUSDTAccount = useSelector(selectUSDTMTimeData);    
+    const balanceUSDTMAccount = useSelector(selectUSDTMTimeData);    
     const balanceSpotAccount = useSelector(selectSpotTimeData);
 
     const uniqueAssetsCOINMAccount = new Set(Object.values(balanceCOINMAccount).map((item) => item.asset));
@@ -26,6 +26,8 @@ const AccountChartsContainer = () => {
         COINAccountGroupedByAsset[asset] = Object.values(balanceCOINMAccount).filter(entry => entry.asset === asset);
     });
 
+    console.log('balanceSpotAccount', balanceSpotAccount);
+
     return (
       <div className="grid grid-cols-3 gap-4">
         <div className="">
@@ -33,7 +35,7 @@ const AccountChartsContainer = () => {
             titulo="Perpetual USDT-M" 
             contenido={
               <PerpUSDTMChart
-                balanceUSDTAccount={balanceUSDTAccount}
+                balanceUSDTMAccount={balanceUSDTMAccount}
                 ChartComponent={ChartComponent}
                 Legend={Legend}              
               />
