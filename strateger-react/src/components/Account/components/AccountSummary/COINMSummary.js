@@ -11,7 +11,7 @@ import { fetchTicker } from '../../../../redux/ticker';
 
 import Ventanita from '../../../common/Ventanita';
 
-const PerpCOINMSummary = () => {
+const COINMSummary = () => {
   const dispatch = useDispatch();
   const { data,  error, loaded } = useSelector(selectPerpCOINM);
   const tickersPrices = useSelector((state) => (state.ticker ? state.ticker.prices : {}));
@@ -101,4 +101,4 @@ const PerpCOINMSummary = () => {
   );
 };
 
-export default PerpCOINMSummary;
+export default COINMSummary;

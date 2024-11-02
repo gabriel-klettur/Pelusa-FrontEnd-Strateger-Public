@@ -1,15 +1,15 @@
-import PerpUSDTMSummary from '../components/AccountSummary/PerpUSDTMSummary';
+import USDMSummary from '../components/AccountSummary/USDMSummary';
 import SpotSummary from '../components/AccountSummary/SpotSummary';
-import PerpCOINMSummary from '../components/AccountSummary/PerpCOINMSummary';
+import COINMSummary from '../components/AccountSummary/COINMSummary';
 
 const AccountSummaryContainer = () => {
     
     return (
       <div>        
         <div className="grid grid-cols-3 gap-4">            
-            <PerpUSDTMSummary />                                
+            <USDMSummary />                                
             <SpotSummary />                  
-            <PerpCOINMSummary />        
+            <COINMSummary />        
         </div>
       </div>  
     );  

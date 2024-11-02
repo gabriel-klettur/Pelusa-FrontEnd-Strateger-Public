@@ -9,7 +9,7 @@ import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from 
 
 import Tarjetitas from '../../../common/Tarjetitas';
 
-const PerpUSDTMSummary = () => {
+const USDMSummary = () => {
   const dispatch = useDispatch();
   
   const { dataUSD, error, loaded } = useSelector(selectPerpUSDTM);
@@ -54,7 +54,7 @@ const PerpUSDTMSummary = () => {
 
       
       <Ventanita
-        titulo="Perpetual USDT-M"
+        titulo="Perpetual USD-M"
         contenido={
           <>
             <div className="flex items-center mb-4">
@@ -91,4 +91,4 @@ const PerpUSDTMSummary = () => {
   );
 };
 
-export default PerpUSDTMSummary;
+export default USDMSummary;
