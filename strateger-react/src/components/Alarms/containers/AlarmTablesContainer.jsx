@@ -19,6 +19,9 @@ import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByInterval
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
 import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectFilteredByIntervalAlarms, selectFilteredByIntervalAndTypeAlarms, selectFilteredByClickAlarms } from '../../../redux/alarm';
+import {selectAlarmsPage, selectAlarmsHasMore } from '../../../redux/alarm';
+
+
 
 const AlarmTablesContainer = () => {    
   const loading = useSelector(selectAlarmsLoading);
@@ -28,6 +31,9 @@ const AlarmTablesContainer = () => {
   const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const filteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
   const filteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
+
+  const AlarmPage = useSelector(selectAlarmsPage);
+  const AlarmHasMore = useSelector(selectAlarmsHasMore);
 
   useFetchAlarms();                         // Hook para obtener las alarmas desde la API
   useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
@@ -51,22 +57,30 @@ const AlarmTablesContainer = () => {
           <TabPanels>
             <TabPanel>
               <AlarmTable                
-                data={dataAlarms}                                                
+                data={dataAlarms}   
+                page={AlarmPage}
+                hasMore={AlarmHasMore}                                             
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
                 data={filteredByClickAlarms}                                                
+                page={AlarmPage}
+                hasMore={AlarmHasMore}                                             
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
                 data={filteredByIntervalAlarms}                                                
+                page={AlarmPage}
+                hasMore={AlarmHasMore}                                             
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
                 data={filteredByIntervalAndTypeAlarms}                                                
+                page={AlarmPage}
+                hasMore={AlarmHasMore}                                             
               />
             </TabPanel>
           </TabPanels>

@@ -12,14 +12,13 @@ import Pagination from './Pagination';
 // Hooks and functions
 import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
 
-import { selectAlarmsPage, selectAlarmsHasMore, selectFilteredByClickAlarms, selectFilteredByIntervalAlarms } from '../../../../redux/alarm';
+import {  selectFilteredByClickAlarms, selectFilteredByIntervalAlarms } from '../../../../redux/alarm';
 
-const AlarmTable = ({ data }) => {
+
+const AlarmTable = ({ data, page, hasMore }) => {
 
   const dispatch = useDispatch();
 
-  const page = useSelector(selectAlarmsPage);
-  const hasMore = useSelector(selectAlarmsHasMore);
 
   const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
