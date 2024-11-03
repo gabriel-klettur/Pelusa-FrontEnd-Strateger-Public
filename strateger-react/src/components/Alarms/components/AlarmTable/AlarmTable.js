@@ -15,14 +15,14 @@ import handleSelectAlarmByClick from './handleSelectAlarmByClick';
 import {  selectFilteredByClickAlarms, selectFilteredByIntervalAlarms } from '../../../../redux/alarm';
 
 
-const AlarmTable = ({ data, page, hasMore }) => {
+const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
 
   const dispatch = useDispatch();
 
   const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
 
-  const totalAlarmsLength = data.length;
+  const totalDataLength = data.length;
   const paginatedData = data.slice(page * 20, (page * 20) + 20);
 
   const columnsHeaders = [
@@ -64,8 +64,11 @@ const AlarmTable = ({ data, page, hasMore }) => {
       <Pagination 
         page={page} 
         hasMore={hasMore} 
+        setHasMore={setHasMore}
         endIndex={page * 20 + paginatedData.length} 
-        alarmsLength={totalAlarmsLength}       
+        totalDataLength={totalDataLength}  
+        offset={offset}   
+        setPage={setPage}  
       />
     </>
   );

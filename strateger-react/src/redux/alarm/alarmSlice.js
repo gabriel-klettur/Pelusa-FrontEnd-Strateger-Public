@@ -20,16 +20,33 @@ const alarmSlice = createSlice({
     filteredByIntervalAlarms: initialStates,
     filteredByIntervalAndTypeAlarms: initialStates,
     strategyFilteredAlarms: [],
-    page: 0,
-    offset: 0,
-    hasMore: true,  
-    loading: false,
-    error: null,
   },
   reducers: {
-    setPage(state, action) {
+    setPageAlarms(state, action) {
       state.alarms.page = action.payload;
     },
+    setPageFilteredByClickAlarms(state, action) {
+      state.filteredByClickAlarms.page = action.payload;
+    },
+    setPageFilteredByIntervalAlarms(state, action) {
+      state.filteredByIntervalAlarms.page = action.payload;
+    },
+    setPageFilteredByIntervalAndTypeAlarms(state, action) {
+      state.filteredByIntervalAndTypeAlarms.page = action.payload;
+    },
+    setHasMoreAlarms(state, action) {
+      state.alarms.hasMore = action.payload;
+    },
+    setHasMoreFilteredByClickAlarms(state, action) {
+      state.filteredByClickAlarms.hasMore = action.payload;
+    },
+    setHasMoreFilteredByIntervalAlarms(state, action) {
+      state.filteredByIntervalAlarms.hasMore = action.payload;
+    },
+    setHasMoreFilteredByIntervalAndTypeAlarms(state, action) {
+      state.filteredByIntervalAndTypeAlarms.hasMore = action.payload;
+    },    
+
     setFilteredByClickAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
       state.filteredByClickAlarms.data = sortedAlarms;
@@ -69,7 +86,14 @@ const alarmSlice = createSlice({
 });
 
 export const {
-  setPage,
+  setPageAlarms,
+  setPageFilteredByClickAlarms,
+  setPageFilteredByIntervalAlarms,
+  setPageFilteredByIntervalAndTypeAlarms,
+  setHasMoreAlarms,
+  setHasMoreFilteredByClickAlarms,
+  setHasMoreFilteredByIntervalAlarms,
+  setHasMoreFilteredByIntervalAndTypeAlarms,
   setFilteredByClickAlarms,
   setFilteredByIntervalAlarms,
   setFilteredByIntervalAndTypeAlarms,  

@@ -18,34 +18,53 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
-import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectFilteredByIntervalAlarms, selectFilteredByIntervalAndTypeAlarms, selectFilteredByClickAlarms } from '../../../redux/alarm';
-import {selectAlarmsPage, selectAlarmsHasMore } from '../../../redux/alarm';
+import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
+import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, selectFilteredByIntervalAlarmsError, selectFilteredByIntervalAlarmsLoading, selectFilteredByIntervalAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsError, selectFilteredByIntervalAndTypeAlarmsLoading, selectFilteredByIntervalAndTypeAlarmsHasMore } from '../../../redux/alarm';
 
-
+import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
+import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 
 const AlarmTablesContainer = () => {    
-  const loading = useSelector(selectAlarmsLoading);
-  const error = useSelector(selectAlarmsError);
+  const loadingAlarms = useSelector(selectAlarmsLoading);
+  const errorAlarms = useSelector(selectAlarmsError);  
+  const PageAlarm = useSelector(selectAlarmsPage);
+  const HasMoreAlarm = useSelector(selectAlarmsHasMore);
   const dataAlarms = useSelector(selectAlarmsData);
+  const offsetAlarms = useSelector(selectAlarmsOffset);
+  
 
-  const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
-  const filteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
-  const filteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
+  const dataFilteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
+  const pageFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsPage);
+  const errorFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsError);
+  const loadingFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsLoading);
+  const hasMoreFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsHasMore);
 
-  const AlarmPage = useSelector(selectAlarmsPage);
-  const AlarmHasMore = useSelector(selectAlarmsHasMore);
+  const dataFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
+  const pageFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsPage);
+  const errorFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsError);
+  const loadingFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsLoading);
+  const hasMoreFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsHasMore);
+
+  const dataFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
+  const pageFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsPage);
+  const errorFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsError);
+  const loadingFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsLoading);
+  const hasMoreFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsHasMore);
+
 
   useFetchAlarms();                         // Hook para obtener las alarmas desde la API
   useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
   useFilterAlarmsByIntervalAndType();       // Hook para filtrar alarmas por intervalo y tipo
 
-  if (error) {
-    return <ErrorMessage message={error}/>;
+  if (errorAlarms) {
+    return <ErrorMessage message={errorAlarms}/>;
   }  
 
   return (
     <div className="relative">
-      <LoadingOverlay isLoading={loading} />
+      <LoadingOverlay isLoading={loadingAlarms} />
       <div className="text-sm">
         <TabGroup>
           <TabList className="flex justify-start bg-african_violet-300">
@@ -58,29 +77,38 @@ const AlarmTablesContainer = () => {
             <TabPanel>
               <AlarmTable                
                 data={dataAlarms}   
-                page={AlarmPage}
-                hasMore={AlarmHasMore}                                             
+                page={PageAlarm}
+                hasMore={HasMoreAlarm} 
+                setHasMore={setHasMoreAlarms} 
+                offset={offsetAlarms}     
+                setPage={setPageAlarms}                                      
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
-                data={filteredByClickAlarms}                                                
-                page={AlarmPage}
-                hasMore={AlarmHasMore}                                             
+                data={dataFilteredByClickAlarms}                                                
+                page={pageFilteredByClickAlarms}
+                hasMore={hasMoreFilteredByClickAlarms}                                             
+                setHasMore={setHasMoreFilteredByClickAlarms}
+                setPage={setPageFilteredByClickAlarms}                                      
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
-                data={filteredByIntervalAlarms}                                                
-                page={AlarmPage}
-                hasMore={AlarmHasMore}                                             
+                data={dataFilteredByIntervalAlarms}                                                
+                page={pageFilteredByIntervalAlarms}
+                hasMore={hasMoreFilteredByIntervalAlarms}                                             
+                setHasMore={setHasMoreFilteredByIntervalAlarms}
+                setPage={setPageFilteredByIntervalAlarms}                                      
               />
             </TabPanel>
             <TabPanel>
               <AlarmTable                
-                data={filteredByIntervalAndTypeAlarms}                                                
-                page={AlarmPage}
-                hasMore={AlarmHasMore}                                             
+                data={dataFilteredByIntervalAndTypeAlarms}                                                
+                page={pageFilteredByIntervalAndTypeAlarms}
+                hasMore={hasMoreFilteredByIntervalAndTypeAlarms}                                                                                             
+                setHasMore={setHasMoreFilteredByIntervalAndTypeAlarms}
+                setPage={setPageFilteredByIntervalAndTypeAlarms}                                      
               />
             </TabPanel>
           </TabPanels>

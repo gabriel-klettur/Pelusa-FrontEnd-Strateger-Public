@@ -1,19 +1,36 @@
 import { useDispatch } from 'react-redux';
-import { fetchAlarms, setPage } from '../../../../redux/alarm';
+import { fetchAlarms } from '../../../../redux/alarm';
+import { useEffect } from 'react';
 
-const Pagination = ({ page, hasMore, endIndex, alarmsLength, offset }) => {
+const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage}) => {
   const dispatch = useDispatch();
 
   const handlePreviousPage = () => {
     dispatch(setPage(Math.max(page - 1, 0)));
   };
 
-  const handleNextPage = () => {
-    const nextPage = page + 1;
-    if (nextPage * 20 >= alarmsLength && hasMore) {
-      dispatch(fetchAlarms({ limit: 500, offset }));
+  console.log('----------------------------------------------')
+  console.log('page', page);  
+  console.log('totalDataLength', totalDataLength);
+  console.log('endIndex', endIndex);
+  console.log('hasMore', hasMore);
+  console.log('offset', offset);
+
+  useEffect(() => {
+    if(offset === undefined ){
+      if (page * 20 >= totalDataLength && hasMore) {         
+        dispatch(setHasMore(false));
+      }
     }
-    dispatch(setPage(nextPage));
+  }, [offset, page, totalDataLength, hasMore, dispatch, setHasMore]);
+  
+
+  const handleNextPage = () => {  
+    const nextPage = page + 1;
+      if (nextPage * 20 >= totalDataLength && hasMore) {
+        dispatch(fetchAlarms({ limit: 500, offset: offset }));
+      }
+      dispatch(setPage(nextPage));
   };
 
   return (
@@ -31,12 +48,12 @@ const Pagination = ({ page, hasMore, endIndex, alarmsLength, offset }) => {
       </button>
       <button
         className={`px-5 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
-          !hasMore && endIndex >= alarmsLength
+          !hasMore && endIndex >= totalDataLength
             ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
             : 'bg-african_violet-500 text-white hover:bg-african_violet-700'
         }`}
         onClick={handleNextPage}
-        disabled={!hasMore && endIndex >= alarmsLength}
+        disabled={!hasMore && endIndex >= totalDataLength}
       >
         Siguiente
       </button>
