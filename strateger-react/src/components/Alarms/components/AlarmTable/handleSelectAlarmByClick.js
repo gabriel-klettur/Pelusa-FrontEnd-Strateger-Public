@@ -1,7 +1,7 @@
   //Path: src/components/Alarms/components/AlarmTable/handleSelectAlarmByClick.js
 
   
-  import { setFilteredByClickAlarms } from '../../../../redux/alarm/alarmSlice';
+  import { setFilteredByClickAlarms } from '../../../../redux/alarm';
 
   /**
    * Handles the selection of an alarm by click.

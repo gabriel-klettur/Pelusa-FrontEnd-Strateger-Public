@@ -1,4 +1,4 @@
-export const selectFilteredByClickAlarms = (state) => state.alarms.filteredByClickAlarms;
+
 export const selectFilteredByIntervalAlarms = (state) => state.alarms.filteredByIntervalAlarms;
 export const selectFilteredByIntervalAndTypeAlarms = (state) => state.alarms.filteredByIntervalAndTypeAlarms;
 export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;
@@ -11,3 +11,5 @@ export const selectAlarmsPage = (state) => state.alarms.alarms.page;
 export const selectAlarmsOffset = (state) => state.alarms.alarms.offset;
 export const selectAlarmsHasMore = (state) => state.alarms.alarms.hasMore;
 export const selectAlarmsError = (state) => state.alarms.alarms.error;
+
+export const selectFilteredByClickAlarms = (state) => state.alarms.filteredByClickAlarms;
