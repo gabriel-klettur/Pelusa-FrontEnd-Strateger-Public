@@ -9,7 +9,7 @@ import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 
 // Components
 import AlarmTab from '../components/AlarmTab';
-import { AlarmTable } from '../components/AlarmTable';
+import AlarmTable from '../components/AlarmTable/AlarmTable';
 import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 import ErrorMessage from '../../common/ErrorMessage';
 
