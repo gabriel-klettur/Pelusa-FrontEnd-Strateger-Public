@@ -155,9 +155,6 @@ const OrderTable = ({ orderType }) => {
 
   const currentOrders = [...orders].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
 
-
-  console.log('currentOrders', currentOrders);
-
   // Formateo de los datos para Tablita
   const data = currentOrders.map((order) => ({
     orderId: order.orderId || order.positionId,    

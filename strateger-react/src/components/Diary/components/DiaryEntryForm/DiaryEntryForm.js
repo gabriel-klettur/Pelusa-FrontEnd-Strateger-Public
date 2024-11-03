@@ -47,14 +47,12 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
   }, [entry]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log('name:', name, ', value:', value);
+    const { name, value } = e.target;    
     setFormData({ ...formData, [name]: value });
   };
 
   const handlePhotoChange = (e) => {
-    const files = Array.from(e.target.files);
-    console.log('files:', files);
+    const files = Array.from(e.target.files);    
     setFormData({ ...formData, photos: files });
   };
 

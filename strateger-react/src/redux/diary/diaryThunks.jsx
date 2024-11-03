@@ -32,8 +32,7 @@ export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', asy
   return response.data;
 });
 
-export const saveDiaryEntry = createAsyncThunk('diary/saveDiaryEntry', async (entry) => {
-  console.log('saveDiaryEntry called with:', entry);
+export const saveDiaryEntry = createAsyncThunk('diary/saveDiaryEntry', async (entry) => {  
   if (entry.id && entry.id !== '') {
     const response = await axios.put(`${BASE_URL}/update/${entry.id}`, entry);
     return response.data;

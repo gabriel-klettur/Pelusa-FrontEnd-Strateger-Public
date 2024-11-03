@@ -21,9 +21,7 @@ export const fetchPerpUSDTMBalance = createAsyncThunk(
     'account/fetchPerpUSDTMBalance',
     async () => {
         const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-balance-perp-usdtm`);
-        const data = JSON.parse(response.data);
-
-        console.log('fetchPerpUSDTMBalance', data);
+        const data = JSON.parse(response.data);        
 
         if (data && data.data) {
         return { balance: data.data };
@@ -47,9 +45,7 @@ export const fetchPerpCOINMBalance = createAsyncThunk(
     'account/fetchPerpCOINMBalance',
     async () => {
         const response = await axios.get(`${config.apiURL}/bingx/coinm/get-balance-perp-coinm`);
-        const data = JSON.parse(response.data);        
-        
-        console.log('fetchPerpCOINMBalance', data);
+        const data = JSON.parse(response.data);                    
 
         if (data && data.data) {
         return { balances: data.data };

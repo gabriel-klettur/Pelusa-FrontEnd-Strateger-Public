@@ -63,9 +63,7 @@ const PerpUSDTMChart = ({
     backgroundColor: 'white',
     lineColor: '#2962FF',
     textColor: 'black',
-  };
-
-  console.log('PerpUSDTMChart', seriesData);
+  };  
 
   return (
     <ContenedorChartWallet
