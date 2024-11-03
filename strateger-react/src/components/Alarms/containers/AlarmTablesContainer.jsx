@@ -19,9 +19,9 @@ import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByInterval
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
 import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
-import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
-import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, selectFilteredByIntervalAlarmsError, selectFilteredByIntervalAlarmsLoading, selectFilteredByIntervalAlarmsHasMore } from '../../../redux/alarm';
-import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsError, selectFilteredByIntervalAndTypeAlarmsLoading, selectFilteredByIntervalAndTypeAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, selectFilteredByIntervalAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsHasMore } from '../../../redux/alarm';
 
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
@@ -37,20 +37,17 @@ const AlarmTablesContainer = () => {
 
   const dataFilteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
   const pageFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsPage);
-  const errorFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsError);
-  const loadingFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsLoading);
+
   const hasMoreFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsHasMore);
 
   const dataFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const pageFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsPage);
-  const errorFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsError);
-  const loadingFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsLoading);
+  
   const hasMoreFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsHasMore);
 
   const dataFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
   const pageFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsPage);
-  const errorFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsError);
-  const loadingFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsLoading);
+  
   const hasMoreFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsHasMore);
 
 
