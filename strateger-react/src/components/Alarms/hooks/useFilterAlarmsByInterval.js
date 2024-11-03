@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setFilteredByIntervalAlarms } from '../../../redux/alarm/alarmSlice';
 
-import { selectAlarms } from '../../../redux/alarm';
+import { selectAlarmsData } from '../../../redux/alarm';
 
 const useFilterAlarmsByInterval = () => {
     const dispatch = useDispatch();
     
-    const alarms = useSelector(selectAlarms);                                                               // All alarms
+    const alarms = useSelector(selectAlarmsData);
     const selectedTemporalidad = useSelector((state) => state.alarmsFilter.selectedTemporalidad);           // Interval selected (1m, 5m, 15m, etc)
 
     useEffect(() => {          

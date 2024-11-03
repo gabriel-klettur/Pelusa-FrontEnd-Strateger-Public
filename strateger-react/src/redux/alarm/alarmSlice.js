@@ -28,7 +28,7 @@ const alarmSlice = createSlice({
   },
   reducers: {
     setPage(state, action) {
-      state.page = action.payload;
+      state.alarms.page = action.payload;
     },
     setFilteredByClickAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);

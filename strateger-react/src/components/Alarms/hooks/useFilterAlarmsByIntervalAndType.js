@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilteredByIntervalAndTypeAlarms } from '../../../redux/alarm/alarmSlice';          
 import { removeEmptySelectedTypes } from '../../../redux/alarm/filtersPanel/alarmFilterPanelSlice';                   
 
-import { selectAlarms } from '../../../redux/alarm';
+import { selectAlarmsData } from '../../../redux/alarm';
 
 const useFilterAlarmsByIntervalAndType = () => {
     const dispatch = useDispatch();
-    const alarms = useSelector(selectAlarms);  
+    const alarms = useSelector(selectAlarmsData);  
 
     const selectedIntevals = useSelector((state) => state.alarmsFilter.selectedTemporalidad);           // Interval selected (1m, 5m, 15m, etc)
     const selectedTypes = useSelector((state) => state.alarmsFilter.selectedTypes);                         // Types selected (Long, Short/ open long, close long, etc)
