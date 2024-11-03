@@ -10,9 +10,11 @@ import { setStrategyFilteredAlarms } from '../../../../redux/alarm/alarmSlice';
 
 import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
 
+import { selectAlarmsData } from '../../../../redux/alarm';
+
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const dispatch = useDispatch();
-  const allAlarms = useSelector((state) => state.alarms.alarms);
+  const allAlarms = useSelector(selectAlarmsData);
   const [isShowingAlarms, setIsShowingAlarms] = useState(false);
   const [isShowingOrders, setIsShowingOrders] = useState(false);
 

@@ -13,9 +13,11 @@ import SelectedIds from './SelectedIds';
 
 import Ventanita from '../../../../common/Ventanita';
 
+import selectAlarms from '../../../../../redux/alarm';
+
 const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
   const orders = useSelector((state) => state.orders.orders) || []; 
-  const alarms = useSelector((state) => state.alarms.alarms) || []; 
+  const alarms = useSelector(selectAlarms) || []; 
   const strategies = useSelector((state) => state.strategies.items) || []; 
   const diaryEntries = useSelector((state) => state.diary.items) || []; 
 

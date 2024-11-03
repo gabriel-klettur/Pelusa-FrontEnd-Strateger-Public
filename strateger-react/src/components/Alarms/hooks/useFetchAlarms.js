@@ -4,15 +4,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAlarms } from '../../../redux/alarm';
 
+import { selectAlarmsData } from '../../../redux/alarm';
+
 const useFetchAlarms = () => {
     const dispatch = useDispatch();
-    const alarms = useSelector((state) => state.alarms.alarms);
+    const data = useSelector(selectAlarmsData);
 
     useEffect(() => {
-        if (alarms.length === 0) {
+        if (data.length === 0) {
             dispatch(fetchAlarms({ limit: 500, offset: 0 }));
         }
-    }, [dispatch, alarms.length]);                              
+    }, [dispatch, data.length]);                              
 };
 
 export default useFetchAlarms;
