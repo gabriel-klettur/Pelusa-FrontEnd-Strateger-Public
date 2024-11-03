@@ -16,9 +16,9 @@ const alarmSlice = createSlice({
   name: 'alarms',
   initialState: {
     alarms: initialStates,     
-    filteredByClickAlarms: [],   
-    filteredByIntervalAlarms: [],
-    filteredByIntervalAndTypeAlarms: [],
+    filteredByClickAlarms: initialStates,   
+    filteredByIntervalAlarms: initialStates,
+    filteredByIntervalAndTypeAlarms: initialStates,
     strategyFilteredAlarms: [],
     page: 0,
     offset: 0,
@@ -32,15 +32,15 @@ const alarmSlice = createSlice({
     },
     setFilteredByClickAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
-      state.filteredByClickAlarms = sortedAlarms;
+      state.filteredByClickAlarms.data = sortedAlarms;
     },
     setFilteredByIntervalAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
-      state.filteredByIntervalAlarms = sortedAlarms;
+      state.filteredByIntervalAlarms.data = sortedAlarms;
     },
     setFilteredByIntervalAndTypeAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
-      state.filteredByIntervalAndTypeAlarms = sortedAlarms;
+      state.filteredByIntervalAndTypeAlarms.data = sortedAlarms;
     },
     setStrategyFilteredAlarms(state, action) {
       state.strategyFilteredAlarms = action.payload;

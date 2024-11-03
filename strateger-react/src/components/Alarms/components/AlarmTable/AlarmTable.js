@@ -19,7 +19,6 @@ const AlarmTable = ({ data, page, hasMore }) => {
 
   const dispatch = useDispatch();
 
-
   const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
 
