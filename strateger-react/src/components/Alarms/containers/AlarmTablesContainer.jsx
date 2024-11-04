@@ -18,11 +18,13 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
 import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
+//Redux Selectors
 import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
 import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
 import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, selectFilteredByIntervalAlarmsHasMore } from '../../../redux/alarm';
 import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsHasMore } from '../../../redux/alarm';
 
+//Redux Actions
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 
