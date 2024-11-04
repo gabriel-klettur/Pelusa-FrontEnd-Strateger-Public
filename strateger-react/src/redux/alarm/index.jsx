@@ -12,7 +12,6 @@ import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, sel
 import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsError, selectFilteredByIntervalAndTypeAlarmsLoading, selectFilteredByIntervalAndTypeAlarmsHasMore, selectFilteredByIntervalAndTypeAlarmsOffset } from './alarmSelectors';
 
 
-
 //Actions 
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms, setFilteredByClickAlarms, setFilteredByIntervalAlarms, setFilteredByIntervalAndTypeAlarms, setStrategyFilteredAlarms } from './alarmSlice';
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms } from './alarmSlice';

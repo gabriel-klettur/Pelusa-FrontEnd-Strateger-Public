@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import './StrategyItems.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { OrdersInStrategyTable } from '../../../Orders';
-
 import { setStrategyFilteredAlarms } from '../../../../redux/alarm/alarmSlice';
 
 import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
@@ -332,7 +330,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
 
       {isShowingOrders && (
         <div className="mt-4">          
-          <OrdersInStrategyTable strategy={strategy} />
+          TABLE WITH ORDERS WALLET USED IN THIS STRATEGY
         </div>
       )}
     </div>

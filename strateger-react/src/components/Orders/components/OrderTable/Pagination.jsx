@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { fetchOrdersUsdtm, setPage } from '../../../../redux/order';
+import { fetchOrdersUsdtm, setPageUsdtm } from '../../../../redux/order';
 
 const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
 
     const dispatch = useDispatch();
 
     const handlePreviousPage = () => {
-        dispatch(setPage(Math.max(page - 1, 0)));
+        dispatch(setPageUsdtm(Math.max(page - 1, 0)));
       };
     
       const handleNextPage = () => {
@@ -14,7 +14,7 @@ const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
         if (nextPage * 20 >= orders.length && hasMore) {
           dispatch(fetchOrdersUsdtm({ limit: 500, offset }));
         }
-        dispatch(setPage(nextPage));
+        dispatch(setPageUsdtm(nextPage));
       };
 
     return(        

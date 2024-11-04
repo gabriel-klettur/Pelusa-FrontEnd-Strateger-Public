@@ -22,6 +22,7 @@ const alarmSlice = createSlice({
     strategyFilteredAlarms: [],
   },
   reducers: {
+    //TODO ------------------------ Page setters ------------------------
     setPageAlarms(state, action) {
       state.alarms.page = action.payload;
     },
@@ -34,6 +35,8 @@ const alarmSlice = createSlice({
     setPageFilteredByIntervalAndTypeAlarms(state, action) {
       state.filteredByIntervalAndTypeAlarms.page = action.payload;
     },
+
+    //TODO ------------------------ HasMore setters ------------------------
     setHasMoreAlarms(state, action) {
       state.alarms.hasMore = action.payload;
     },
@@ -47,6 +50,7 @@ const alarmSlice = createSlice({
       state.filteredByIntervalAndTypeAlarms.hasMore = action.payload;
     },    
 
+    //TODO ------------------------ Filtered setters ------------------------
     setFilteredByClickAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
       state.filteredByClickAlarms.data = sortedAlarms;
@@ -64,6 +68,7 @@ const alarmSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //! ------------------------ fetchAlarms ------------------------
     builder
       .addCase(fetchAlarms.pending, (state) => {
         state.alarms.loading = true;

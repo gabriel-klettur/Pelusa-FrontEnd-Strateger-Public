@@ -1,103 +1,41 @@
 //Path: strateger-react/src/redux/order/index.jsx
 
-// Importaciones del slice
+// Slice
 import orderReducer from './orderSlice'; 
 
-// Importaciones de acciones (reducers)
-import { 
-  setFilters, 
-  setPage, 
-  setFilteredOrders, 
-  setSelectedOrderId 
-} from './orderSlice';
+// Thunks
+import { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard } from './orderThunks';
 
-// Importaciones de Thunks (acciones asíncronas)
-import { 
-  fetchOrdersUsdtm, 
-  fetchOrdersCoinm, 
-  fetchOrdersSpot, 
-  fetchOrdersStandard 
-} from './orderThunks';
+// Selectors
+import { selectOrderUsdtm, selectFiltersUsdtm, selectFilteredOrdersUsdtm, selectLoadingUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from './orderSelectors';
+import { selectOrderCoinm, selectFiltersCoinm, selectFilteredOrdersCoinm, selectLoadingCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from './orderSelectors';
+import { selectOrderSpot, selectFiltersSpot, selectFilteredOrdersSpot, selectLoadingSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot } from './orderSelectors';
+import { selectOrderStandard, selectFiltersStandard, selectFilteredOrdersStandard, selectLoadingStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from './orderSelectors';
 
-// Importaciones de Selectores
-import { 
-  selectOrdersUsdtm, 
-  selectOrdersCoinm, 
-  selectOrdersSpot, 
-  selectOrdersStandard,
-  selectFiltersUsdtm,
-  selectFiltersCoinm,
-  selectFiltersSpot,
-  selectFiltersStandard,
-  selectFilteredOrdersUsdtm,
-  selectFilteredOrdersCoinm,
-  selectFilteredOrdersSpot,
-  selectFilteredOrdersStandard,
-  selectLoadingUsdtm,
-  selectErrorUsdtm,
-  selectPageUsdtm,
-  selectHasMoreUsdtm,
-  selectLoadingCoinm,
-  selectErrorCoinm,
-  selectPageCoinm,
-  selectHasMoreCoinm,
-  selectLoadingSpot,
-  selectErrorSpot,
-  selectPageSpot,
-  selectHasMoreSpot,
-  selectLoadingStandard,
-  selectErrorStandard,
-  selectPageStandard,
-  selectHasMoreStandard
-} from './orderSelectors';
+// Actions
+import {setSelectedOrderId, 
+        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, 
+        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, 
+        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, 
+        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard } from './orderSlice';
 
-// Exportar Thunks
-export { 
-  fetchOrdersUsdtm, 
-  fetchOrdersCoinm, 
-  fetchOrdersSpot, 
-  fetchOrdersStandard 
-};
+// TODO Selectors
 
-// Exportar Selectores
-export { 
-  selectOrdersUsdtm, 
-  selectOrdersCoinm, 
-  selectOrdersSpot, 
-  selectOrdersStandard,
-  selectFiltersUsdtm,
-  selectFiltersCoinm,
-  selectFiltersSpot,
-  selectFiltersStandard,
-  selectFilteredOrdersUsdtm,
-  selectFilteredOrdersCoinm,
-  selectFilteredOrdersSpot,
-  selectFilteredOrdersStandard,
-  selectLoadingUsdtm,
-  selectErrorUsdtm,
-  selectPageUsdtm,
-  selectHasMoreUsdtm,
-  selectLoadingCoinm,
-  selectErrorCoinm,
-  selectPageCoinm,
-  selectHasMoreCoinm,
-  selectLoadingSpot,
-  selectErrorSpot,
-  selectPageSpot,
-  selectHasMoreSpot,
-  selectLoadingStandard,
-  selectErrorStandard,
-  selectPageStandard,
-  selectHasMoreStandard
-};
+//TODO Thunks
+export { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard };
 
-// Exportar Acciones
-export { 
-  setFilters, 
-  setPage, 
-  setFilteredOrders, 
-  setSelectedOrderId 
-};
+//TODO Selectors
+export { selectOrderUsdtm, selectFiltersUsdtm, selectFilteredOrdersUsdtm, selectLoadingUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm };
+export { selectOrderCoinm, selectFiltersCoinm, selectFilteredOrdersCoinm, selectLoadingCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm };
+export { selectOrderSpot, selectFiltersSpot, selectFilteredOrdersSpot, selectLoadingSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot };
+export { selectOrderStandard, selectFiltersStandard, selectFilteredOrdersStandard, selectLoadingStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard };
+
+//TODO Actions
+export { setSelectedOrderId, 
+        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, 
+        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, 
+        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, 
+        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard };
 
 // Exportar Reducer por defecto
 export default orderReducer;

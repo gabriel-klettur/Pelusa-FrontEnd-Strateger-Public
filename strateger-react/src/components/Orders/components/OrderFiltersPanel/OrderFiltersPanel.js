@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilters, selectFiltersUsdtm } from '../../../../redux/order'; 
+import { setFiltersUsdtm, selectFiltersUsdtm } from '../../../../redux/order'; 
 import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];
@@ -26,7 +26,7 @@ const OrderFiltersPanel = () => {
         : [...filters.Side, value];
     }
 
-    dispatch(setFilters(updatedFilters));
+    dispatch(setFiltersUsdtm(updatedFilters));
   };
 
   return (
