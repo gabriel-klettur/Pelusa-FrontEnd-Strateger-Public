@@ -1,7 +1,8 @@
+//Path: src/redux/order/orderSlice.jsx
+
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard } from './orderThunks';
-import { selectErrorCoinm } from './orderSelectors';
 
 //?-----------------------------------------------------------------------------
 //?---------------------------------- Initial States ---------------------------
