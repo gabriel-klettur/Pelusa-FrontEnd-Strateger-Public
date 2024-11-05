@@ -46,7 +46,7 @@ const OrderTable = ({ data, page, hasMore, setHasMore, offset, setPage, columns,
         totalDataLength={totalDataLength}
         offset={offset}
         setPage={setPage}
-        fetcData={fetchOrders}
+        fetchData={fetchOrders}
       />      
     </div>
   );

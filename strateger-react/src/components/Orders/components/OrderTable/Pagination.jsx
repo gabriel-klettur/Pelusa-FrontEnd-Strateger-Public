@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetcData }) => {
+const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetchData }) => {
     const dispatch = useDispatch();
 
     console.log('Orders/Pagination: setPage=', setPage);
@@ -23,7 +23,7 @@ const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offs
     const handleNextPage = () => {
     const nextPage = page + 1;
     if (nextPage * 20 >= totalDataLength && hasMore) {
-        dispatch(fetcData({ limit: 500, offset: offset }));
+        dispatch(fetchData({ limit: 500, offset: offset }));
     }
     dispatch(setPage(nextPage));
     };
