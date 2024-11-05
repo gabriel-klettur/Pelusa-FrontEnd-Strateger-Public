@@ -1,5 +1,7 @@
 //Path: strateger-react/src/redux/order/orderSelectors.jsx
 
+export const selectSelectedTab = (state) => state.orders.selectedTab;
+
 // Selectores para USDT-M
 export const selectOrderUsdtm = (state) => state.orders.usdtm.ordersData;
 export const selectFiltersUsdtm = (state) => state.orders.usdtm.filters;

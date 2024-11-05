@@ -37,7 +37,8 @@ const orderSlice = createSlice({
     coinm: initialOrderState ,
     spot: initialOrderState,
     standard: initialOrderState ,
-    selectedOrderId: null,        
+    selectedOrderId: null,
+    selectedTab: 'usdtm'      
   },
 
   //TODO -----------------------------------------------------------------------
@@ -47,6 +48,9 @@ const orderSlice = createSlice({
   reducers: {
     setSelectedOrderId(state, action) {
       state.selectedOrderId = action.payload;
+    },
+    setSelectedTab(state, action) {
+      state.selectedTab = action.payload;
     },
     //TODO ------------------------------ USDTM-M -------------------------------
     setPageUsdtm(state, action) {
@@ -250,7 +254,7 @@ const orderSlice = createSlice({
 });
 
 export const { 
-  setSelectedOrderId,
+  setSelectedOrderId, setSelectedTab,
   setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, setErrorUsdm,
   setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, setErrorCoinm,
   setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, setErrorSpot,

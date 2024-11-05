@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFiltersUsdtm, selectFiltersUsdtm } from '../../../../redux/order'; 
+import {  setFiltersUsdtm, setFiltersCoinm, setFiltersSpot, setFiltersStandard,  
+          selectFiltersCoinm, selectFiltersSpot, selectFiltersStandard, selectFiltersUsdtm, 
+          selectSelectedTab } from '../../../../redux/order';
 import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];
@@ -12,7 +14,42 @@ const types = ['LIMIT', 'MARKET'];
 
 const OrderFiltersPanel = () => {
   const dispatch = useDispatch();
-  const filters = useSelector(selectFiltersUsdtm);
+  const selectedTab = useSelector(selectSelectedTab);
+
+  const filters = useSelector((state) => {
+    switch (selectedTab) {
+      case 'usdtm':
+        return selectFiltersUsdtm(state);
+      case 'coinm':
+        return selectFiltersCoinm(state);
+      case 'spot':
+        return selectFiltersSpot(state);
+      case 'standard':
+        return selectFiltersStandard(state);
+      default:
+        return {};
+    }
+  });
+
+  const setFilters = (updatedFilters) => {
+    switch (selectedTab) {
+      case 'usdtm':
+        dispatch(setFiltersUsdtm(updatedFilters));
+        break;
+      case 'coinm':
+        dispatch(setFiltersCoinm(updatedFilters));
+        break;
+      case 'spot':
+        dispatch(setFiltersSpot(updatedFilters));
+        break;
+      case 'standard':
+        dispatch(setFiltersStandard(updatedFilters));
+        break;
+      default:
+        break;
+    }
+};
+
 
   const toggleFilter = (filterType, value) => {
     const updatedFilters = {
@@ -25,8 +62,8 @@ const OrderFiltersPanel = () => {
         ? filters.Side.filter((item) => item !== value)
         : [...filters.Side, value];
     }
-
-    dispatch(setFiltersUsdtm(updatedFilters));
+    
+    setFilters(updatedFilters);
   };
 
   return (

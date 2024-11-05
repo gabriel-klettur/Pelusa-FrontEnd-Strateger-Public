@@ -1,6 +1,6 @@
 //Path: src/components/Orders/containers/OrderTablesContainer.jsx
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
@@ -17,7 +17,7 @@ import useFetchOrdersSpot from '../hooks/useFetchOrdersSpot';
 import useFetchOrdersStandard from '../hooks/useFetchOrdersStandard';
 
 // Thunks
-import { fetchOrdersUsdtm } from '../../../redux/order';
+import { fetchOrdersUsdtm, selectSelectedTab } from '../../../redux/order';
 import { fetchOrdersCoinm } from '../../../redux/order';
 import { fetchOrdersSpot } from '../../../redux/order';
 import { fetchOrdersStandard } from '../../../redux/order';
@@ -29,12 +29,16 @@ import { selectFilteredOrdersSpot, selectErrorSpot, selectPageSpot, selectHasMor
 import { selectFilteredOrdersStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from '../../../redux/order';
 
 //Redux Actions
-import {setPageUsdtm, setHasMoreUsdtm, 
+import {setSelectedTab,
+        setPageUsdtm, setHasMoreUsdtm, 
         setPageCoinm, setHasMoreCoinm,
         setPageSpot, setHasMoreSpot,
         setPageStandard, setHasMoreStandard, }  from '../../../redux/order';
 
 const OrderTablesContainer = () => { 
+    const dispatch = useDispatch();
+
+    const selectedTab = useSelector(selectSelectedTab);
 
     const dataFilteredUsdtm = useSelector(selectFilteredOrdersUsdtm);  
     const pageOrdersUsdtm = useSelector(selectPageUsdtm);
@@ -153,22 +157,33 @@ const OrderTablesContainer = () => {
     if (errorFetchOrdersStandard) {
       return <ErrorMessage message={errorFetchOrdersStandard}/>;
     }
+    
+
+     // Mapear nombres de tab a sus índices y viceversa
+     const tabMap = { usdtm: 0, coinm: 1, spot: 2, standard: 3 };
+     const tabNames = ['usdtm', 'coinm', 'spot', 'standard'];
+
+ 
+     const handleTabChange = (index) => {
+         const tabName = tabNames[index];         
+         dispatch(setSelectedTab(tabName));
+     };
 
     return (
       <div className="bg-african_violet-400 text-sm"> {/* Set text-sm here for consistency */}
-        <TabGroup>
+         <TabGroup selectedIndex={tabMap[selectedTab]} onChange={handleTabChange}>
           <TabList className="flex justify-start bg-african_violet-300">
             <OrderTab 
-              tabname="Orders Perp USDT-M"                             
+              tabname="Orders Perp USDT-M"               
             />
             <OrderTab 
-              tabname="Orders Perp COIN-M" 
+              tabname="Orders Perp COIN-M"               
             />          
             <OrderTab 
-              tabname="Orders SPOT" 
+              tabname="Orders SPOT"               
             />          
             <OrderTab 
-              tabname="Orders Standard Futures" 
+              tabname="Orders Standard Futures"               
             />          
           </TabList>
           <TabPanels>

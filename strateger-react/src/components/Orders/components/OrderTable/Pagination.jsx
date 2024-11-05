@@ -4,9 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetchData }) => {
-    const dispatch = useDispatch();
-
-    console.log('Orders/Pagination: setPage=', setPage);
+    const dispatch = useDispatch();    
 
     useEffect(() => {
         if(offset === undefined ){
