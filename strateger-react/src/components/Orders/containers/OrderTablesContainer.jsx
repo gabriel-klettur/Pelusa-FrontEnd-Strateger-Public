@@ -138,9 +138,16 @@ const OrderTablesContainer = () => {
       { label: 'Average Price', key: 'averagePrice' },
       { label: 'Status', key: 'status' },          
       { label: 'Order Time', key: 'time' },
-      { label: 'Update Time', key: 'updateTime' },
-      
+      { label: 'Update Time', key: 'updateTime' },      
     ];
+
+    const tabMap = { usdtm: 0, coinm: 1, spot: 2, standard: 3 };
+    const tabNames = ['usdtm', 'coinm', 'spot', 'standard'];
+
+    const handleTabChange = (index) => {
+        const tabName = tabNames[index];         
+        dispatch(setSelectedTab(tabName));
+    };
 
     if (errorFetchOrdersUsdtm) {
       return <ErrorMessage message={errorFetchOrdersUsdtm}/>;
@@ -156,18 +163,7 @@ const OrderTablesContainer = () => {
 
     if (errorFetchOrdersStandard) {
       return <ErrorMessage message={errorFetchOrdersStandard}/>;
-    }
-    
-
-     // Mapear nombres de tab a sus índices y viceversa
-     const tabMap = { usdtm: 0, coinm: 1, spot: 2, standard: 3 };
-     const tabNames = ['usdtm', 'coinm', 'spot', 'standard'];
-
- 
-     const handleTabChange = (index) => {
-         const tabName = tabNames[index];         
-         dispatch(setSelectedTab(tabName));
-     };
+    }      
 
     return (
       <div className="bg-african_violet-400 text-sm"> {/* Set text-sm here for consistency */}
