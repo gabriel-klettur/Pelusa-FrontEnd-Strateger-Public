@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetchData}) => {
   const dispatch = useDispatch();
 
-  console.log('Alarms/Pagination: setPage=', setPage);
-
   useEffect(() => {
     if(offset === undefined ){
       if (page * 20 >= totalDataLength && hasMore) {         
