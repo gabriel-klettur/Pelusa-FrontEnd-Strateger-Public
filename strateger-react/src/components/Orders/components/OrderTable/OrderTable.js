@@ -1,12 +1,16 @@
+//Path: src/components/Orders/components/OrderTable/OrderTable.js
+
 import Tablita from '../../../common/Tablita';
 import Pagination from './Pagination';
 
-const OrderTable = ({ data, page, hasMore, setHasMore, offset, setPage, columns }) => {
+const OrderTable = ({ data, page, hasMore, setHasMore, offset, setPage, columns, fetchOrders }) => {
 
   const startIndex = page * 20;
   const endIndex = startIndex + 20;
 
   const currentOrders = [...data].sort((a, b) => b.orderId - a.orderId).slice(startIndex, endIndex);
+
+  const totalDataLength = data.length;
 
   // Formateo de los datos para Tablita
   const formatedData = currentOrders.map((order) => ({
@@ -38,9 +42,14 @@ const OrderTable = ({ data, page, hasMore, setHasMore, offset, setPage, columns 
       />
       <Pagination 
         page={page}         
-        hasMore={hasMore} 
+        hasMore={hasMore}
+        setHasMore={setHasMore} 
         endIndex={endIndex} 
-        orders={data} />      
+        totalDataLength={totalDataLength}
+        offset={offset}
+        setPage={setPage}
+        fetchOrders={fetchOrders}
+      />      
     </div>
   );
 };

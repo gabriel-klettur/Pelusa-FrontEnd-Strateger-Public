@@ -16,6 +16,12 @@ import useFetchOrdersCoinm from '../hooks/useFetchOrdersCoinm';
 import useFetchOrdersSpot from '../hooks/useFetchOrdersSpot';
 import useFetchOrdersStandard from '../hooks/useFetchOrdersStandard';
 
+// Thunks
+import { fetchOrdersUsdtm } from '../../../redux/order';
+import { fetchOrdersCoinm } from '../../../redux/order';
+import { fetchOrdersSpot } from '../../../redux/order';
+import { fetchOrdersStandard } from '../../../redux/order';
+
 //Redux Selectors
 import { selectFilteredOrdersUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from '../../../redux/order';
 import { selectFilteredOrdersCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from '../../../redux/order';
@@ -33,17 +39,13 @@ const OrderTablesContainer = () => {
     const dataFilteredUsdtm = useSelector(selectFilteredOrdersUsdtm);  
     const pageOrdersUsdtm = useSelector(selectPageUsdtm);
     const hasMoreOrdersUsdtm = useSelector(selectHasMoreUsdtm);
-    const offsetOrdersUsdtm = useSelector(selectOffsetUsdtm);
-    const setPageOrdersUsdtm = useSelector(setPageUsdtm);
-    const setHasMoreOrdersUsdtm = useSelector(setHasMoreUsdtm);
+    const offsetOrdersUsdtm = useSelector(selectOffsetUsdtm);        
     const errorFetchOrdersUsdtm = useSelector(selectErrorUsdtm);
     
     const dataFilteredCoinm = useSelector(selectFilteredOrdersCoinm);
     const pageOrdersCoinm = useSelector(selectPageCoinm);
     const hasMoreOrdersCoinm = useSelector(selectHasMoreCoinm);
     const offsetOrdersCoinm = useSelector(selectOffsetCoinm);
-    const setPageOrdersCoinm = useSelector(setPageCoinm);
-    const setHasMoreOrdersCoinm = useSelector(setHasMoreCoinm);
     const errorFetchOrdersCoinm = useSelector(selectErrorCoinm);
 
     
@@ -51,16 +53,12 @@ const OrderTablesContainer = () => {
     const pageOrdersSpot = useSelector(selectPageSpot);
     const hasMoreOrdersSpot = useSelector(selectHasMoreSpot);
     const offsetOrdersSpot = useSelector(selectOffsetSpot);
-    const setPageOrdersSpot = useSelector(setPageSpot);
-    const setHasMoreOrdersSpot = useSelector(setHasMoreSpot);
     const errorFetchOrdersSpot = useSelector(selectErrorSpot);
     
     const dataFilteredStandard = useSelector(selectFilteredOrdersStandard);
     const pageOrdersStandard = useSelector(selectPageStandard);
     const hasMoreOrdersStandard = useSelector(selectHasMoreStandard);
     const offsetOrdersStandard = useSelector(selectOffsetStandard);
-    const setPageOrdersStandard = useSelector(setPageStandard);
-    const setHasMoreOrdersStandard = useSelector(setHasMoreStandard);
     const errorFetchOrdersStandard = useSelector(selectErrorStandard);
 
     useFetchOrdersUsdtm();
@@ -179,10 +177,11 @@ const OrderTablesContainer = () => {
                 data={dataFilteredUsdtm}
                 page={pageOrdersUsdtm}
                 hasMore={hasMoreOrdersUsdtm}
-                setHasMore={setHasMoreOrdersUsdtm}
+                setHasMore={setHasMoreUsdtm}
                 offset={offsetOrdersUsdtm}
-                setPage={setPageOrdersUsdtm}
+                setPage={setPageUsdtm}
                 columns={columnsUsdtm}
+                fetchOrders={fetchOrdersUsdtm}
               />               
             </TabPanel>
             <TabPanel>
@@ -190,10 +189,11 @@ const OrderTablesContainer = () => {
                 data={dataFilteredCoinm}
                 page={pageOrdersCoinm}
                 hasMore={hasMoreOrdersCoinm}
-                setHasMore={setHasMoreOrdersCoinm}
+                setHasMore={setHasMoreCoinm}
                 offset={offsetOrdersCoinm}
-                setPage={setPageOrdersCoinm}      
-                columns={columnsCoinm}          
+                setPage={setPageCoinm}      
+                columns={columnsCoinm}   
+                fetchOrders={fetchOrdersCoinm}       
               />              
             </TabPanel>            
             <TabPanel>
@@ -201,10 +201,11 @@ const OrderTablesContainer = () => {
                 data={dataFilteredSpot}
                 page={pageOrdersSpot}
                 hasMore={hasMoreOrdersSpot}
-                setHasMore={setHasMoreOrdersSpot}
+                setHasMore={setHasMoreSpot}
                 offset={offsetOrdersSpot}
-                setPage={setPageOrdersSpot} 
-                columns={columnsSpot}                
+                setPage={setPageSpot} 
+                columns={columnsSpot}     
+                fetchOrders={fetchOrdersSpot}           
               />
             </TabPanel>
             <TabPanel>
@@ -212,10 +213,11 @@ const OrderTablesContainer = () => {
                 data={dataFilteredStandard}
                 page={pageOrdersStandard}
                 hasMore={hasMoreOrdersStandard}
-                setHasMore={setHasMoreOrdersStandard}
+                setHasMore={setHasMoreStandard}
                 offset={offsetOrdersStandard}
-                setPage={setPageOrdersStandard}                 
+                setPage={setPageStandard}                 
                 columns={columnsStandard}
+                fetchOrders={fetchOrdersStandard}
               />
             </TabPanel>
           </TabPanels>          

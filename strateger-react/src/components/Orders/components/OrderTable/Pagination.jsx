@@ -1,21 +1,32 @@
+//Path: src/components/Orders/components/OrderTable/Pagination.jsx
+
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchOrdersUsdtm, setPageUsdtm } from '../../../../redux/order';
 
-const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
-
+const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetchOrders }) => {
     const dispatch = useDispatch();
 
-    const handlePreviousPage = () => {
-        dispatch(setPageUsdtm(Math.max(page - 1, 0)));
-      };
-    
-      const handleNextPage = () => {
-        const nextPage = page + 1;
-        if (nextPage * 20 >= orders.length && hasMore) {
-          dispatch(fetchOrdersUsdtm({ limit: 500, offset }));
+    console.log('Orders/Pagination: setPage=', setPage);
+
+    useEffect(() => {
+        if(offset === undefined ){
+          if (page * 20 >= totalDataLength && hasMore) {         
+            dispatch(setHasMore(false));
+          }
         }
-        dispatch(setPageUsdtm(nextPage));
-      };
+    }, [offset, page, totalDataLength, hasMore, dispatch, setHasMore]);
+
+    const handlePreviousPage = () => {
+        dispatch(setPage(Math.max(page - 1, 0)));
+    };
+    
+    const handleNextPage = () => {
+    const nextPage = page + 1;
+    if (nextPage * 20 >= totalDataLength && hasMore) {
+        dispatch(fetchOrders({ limit: 500, offset: offset }));
+    }
+    dispatch(setPage(nextPage));
+    };
 
     return(        
         <div className="flex justify-between mt-4">
@@ -32,12 +43,12 @@ const Pagination = ({ page, hasMore, endIndex, orders, offset }) => {
             </button>
             <button
                 className={`px-4 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
-                !hasMore && endIndex >= orders.length
+                !hasMore && endIndex >= totalDataLength
                     ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
                     : 'bg-african_violet-500 text-white hover:bg-african_violet-700'
                 }`}
                 onClick={handleNextPage}
-                disabled={!hasMore && endIndex >= orders.length}
+                disabled={!hasMore && endIndex >= totalDataLength}
             >
                 Siguiente
             </button>
