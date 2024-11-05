@@ -1,4 +1,3 @@
-
 //Path: src/components/Orders/containers/OrderTablesContainer.jsx
 
 import { useSelector } from 'react-redux';
@@ -18,10 +17,10 @@ import useFetchOrdersSpot from '../hooks/useFetchOrdersSpot';
 import useFetchOrdersStandard from '../hooks/useFetchOrdersStandard';
 
 //Redux Selectors
-import { selectOrderUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from '../../../redux/order';
-import { selectOrderCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from '../../../redux/order';
-import { selectOrderSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot } from '../../../redux/order';
-import { selectOrderStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from '../../../redux/order';
+import { selectFilteredOrdersUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from '../../../redux/order';
+import { selectFilteredOrdersCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from '../../../redux/order';
+import { selectFilteredOrdersSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot } from '../../../redux/order';
+import { selectFilteredOrdersStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from '../../../redux/order';
 
 //Redux Actions
 import {setPageUsdtm, setHasMoreUsdtm, 
@@ -31,15 +30,15 @@ import {setPageUsdtm, setHasMoreUsdtm,
 
 const OrderTablesContainer = () => { 
 
-    const dataOrdersUsdtm = useSelector(selectOrderUsdtm);
+    const dataFilteredUsdtm = useSelector(selectFilteredOrdersUsdtm);  
     const pageOrdersUsdtm = useSelector(selectPageUsdtm);
     const hasMoreOrdersUsdtm = useSelector(selectHasMoreUsdtm);
     const offsetOrdersUsdtm = useSelector(selectOffsetUsdtm);
     const setPageOrdersUsdtm = useSelector(setPageUsdtm);
     const setHasMoreOrdersUsdtm = useSelector(setHasMoreUsdtm);
     const errorFetchOrdersUsdtm = useSelector(selectErrorUsdtm);
-
-    const dataOrdersCoinm = useSelector(selectOrderCoinm);
+    
+    const dataFilteredCoinm = useSelector(selectFilteredOrdersCoinm);
     const pageOrdersCoinm = useSelector(selectPageCoinm);
     const hasMoreOrdersCoinm = useSelector(selectHasMoreCoinm);
     const offsetOrdersCoinm = useSelector(selectOffsetCoinm);
@@ -47,15 +46,16 @@ const OrderTablesContainer = () => {
     const setHasMoreOrdersCoinm = useSelector(setHasMoreCoinm);
     const errorFetchOrdersCoinm = useSelector(selectErrorCoinm);
 
-    const dataOrdersSpot = useSelector(selectOrderSpot);
+    
+    const dataFilteredSpot = useSelector(selectFilteredOrdersSpot);
     const pageOrdersSpot = useSelector(selectPageSpot);
     const hasMoreOrdersSpot = useSelector(selectHasMoreSpot);
     const offsetOrdersSpot = useSelector(selectOffsetSpot);
     const setPageOrdersSpot = useSelector(setPageSpot);
     const setHasMoreOrdersSpot = useSelector(setHasMoreSpot);
     const errorFetchOrdersSpot = useSelector(selectErrorSpot);
-
-    const dataOrdersStandard = useSelector(selectOrderStandard);
+    
+    const dataFilteredStandard = useSelector(selectFilteredOrdersStandard);
     const pageOrdersStandard = useSelector(selectPageStandard);
     const hasMoreOrdersStandard = useSelector(selectHasMoreStandard);
     const offsetOrdersStandard = useSelector(selectOffsetStandard);
@@ -67,6 +67,78 @@ const OrderTablesContainer = () => {
     useFetchOrdersCoinm();
     useFetchOrdersSpot();
     useFetchOrdersStandard();
+
+    const columnsUsdtm = [
+      { label: 'Order ID', key: 'orderId' },
+      { label: 'Symbol', key: 'symbol' },
+      { label: 'Side', key: 'side' },
+      { label: 'Leverage', key: 'leverage' },
+      { label: 'Type', key: 'type' },
+      { label: 'Position Side', key: 'positionSide' },
+      { label: 'Reduce Only', key: 'reduceOnly' },
+      { label: 'Quantity (BTC)', key: 'quantity' },
+      { label: 'Price', key: 'price' },
+      { label: 'Average Price', key: 'averagePrice' },
+      { label: 'Status', key: 'status' },
+      { label: 'Profit (USD)', key: 'profit' },
+      { label: 'Commission (USD)', key: 'commission' },
+      { label: 'Stop Price', key: 'stopPrice' },
+      { label: 'Working Type', key: 'workingType' },
+      { label: 'Order Time', key: 'time' },
+      { label: 'Update Time', key: 'updateTime' },
+      //TODO implementar stop lost and take profit
+    ];
+  
+    const columnsCoinm = [
+      { label: 'Order ID', key: 'orderId' },
+      { label: 'Symbol', key: 'symbol' },
+      { label: 'Side', key: 'side' },
+      //!{ label: 'Leverage', key: 'leverage' },             //In the Coinm Wallet leverage is defined in the wallet configuration
+      { label: 'Type', key: 'type' },
+      { label: 'Position Side', key: 'positionSide' },
+      { label: 'Reduce Only', key: 'reduceOnly' },
+      { label: 'Quantity', key: 'quantity' },
+      { label: 'Price', key: 'price' },
+      { label: 'Average Price', key: 'averagePrice' },
+      { label: 'Status', key: 'status' },
+      { label: 'Profit', key: 'profit' },
+      { label: 'Commission', key: 'commission' },
+      { label: 'Stop Price', key: 'stopPrice' },
+      { label: 'Working Type', key: 'workingType' },
+      { label: 'Order Time', key: 'time' },
+      { label: 'Update Time', key: 'updateTime' },
+      //TODO implementar stop lost and take profit
+    ];
+  
+    const columnsSpot = [
+      { label: 'Order ID', key: 'orderId' },
+      { label: 'Symbol', key: 'symbol' },
+      { label: 'Side', key: 'side' },    
+      { label: 'Type', key: 'type' },
+      { label: 'Reduce Only', key: 'reduceOnly' },
+      { label: 'Quantity', key: 'quantity' },
+      { label: 'Price', key: 'price' },
+      { label: 'Average Price', key: 'averagePrice' },
+      { label: 'Status', key: 'status' },
+      { label: 'Cummulative Quote Quantity', key: 'cummulativeQuoteQty' },
+      { label: 'Commission', key: 'commission' },    
+      { label: 'Working Type', key: 'workingType' },
+      { label: 'Order Time', key: 'time' },
+      { label: 'Update Time', key: 'updateTime' },
+    ];
+  
+    const columnsStandard = [
+      { label: 'Order ID', key: 'orderId' },  
+      { label: 'Symbol', key: 'symbol' },    
+      { label: 'Leverage', key: 'leverage' },
+      { label: 'Position Side', key: 'positionSide' },
+      { label: 'Reduce Only', key: 'reduceOnly' },    
+      { label: 'Average Price', key: 'averagePrice' },
+      { label: 'Status', key: 'status' },          
+      { label: 'Order Time', key: 'time' },
+      { label: 'Update Time', key: 'updateTime' },
+      
+    ];
 
     if (errorFetchOrdersUsdtm) {
       return <ErrorMessage message={errorFetchOrdersUsdtm}/>;
@@ -103,47 +175,47 @@ const OrderTablesContainer = () => {
           </TabList>
           <TabPanels>
             <TabPanel>  
-              <OrderTable 
-                orderType="usdtm" 
-                data={dataOrdersUsdtm}
+              <OrderTable                 
+                data={dataFilteredUsdtm}
                 page={pageOrdersUsdtm}
                 hasMore={hasMoreOrdersUsdtm}
                 setHasMore={setHasMoreOrdersUsdtm}
                 offset={offsetOrdersUsdtm}
                 setPage={setPageOrdersUsdtm}
+                columns={columnsUsdtm}
               />               
             </TabPanel>
             <TabPanel>
-              <OrderTable 
-                orderType="coinm"
-                data={dataOrdersCoinm}
+              <OrderTable                 
+                data={dataFilteredCoinm}
                 page={pageOrdersCoinm}
                 hasMore={hasMoreOrdersCoinm}
                 setHasMore={setHasMoreOrdersCoinm}
                 offset={offsetOrdersCoinm}
-                setPage={setPageOrdersCoinm}                
+                setPage={setPageOrdersCoinm}      
+                columns={columnsCoinm}          
               />              
             </TabPanel>            
             <TabPanel>
-              <OrderTable 
-                orderType="spot" 
-                data={dataOrdersSpot}
+              <OrderTable                 
+                data={dataFilteredSpot}
                 page={pageOrdersSpot}
                 hasMore={hasMoreOrdersSpot}
                 setHasMore={setHasMoreOrdersSpot}
                 offset={offsetOrdersSpot}
-                setPage={setPageOrdersSpot}                
+                setPage={setPageOrdersSpot} 
+                columns={columnsSpot}                
               />
             </TabPanel>
             <TabPanel>
-              <OrderTable 
-                orderType="standard" 
-                data={dataOrdersStandard}
+              <OrderTable                 
+                data={dataFilteredStandard}
                 page={pageOrdersStandard}
                 hasMore={hasMoreOrdersStandard}
                 setHasMore={setHasMoreOrdersStandard}
                 offset={offsetOrdersStandard}
                 setPage={setPageOrdersStandard}                 
+                columns={columnsStandard}
               />
             </TabPanel>
           </TabPanels>          

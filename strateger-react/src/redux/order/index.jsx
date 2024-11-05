@@ -14,14 +14,15 @@ import { selectOrderStandard, selectFiltersStandard, selectFilteredOrdersStandar
 
 // Actions
 import {setSelectedOrderId, 
-        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, 
-        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, 
-        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, 
-        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard } from './orderSlice';
+        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, setErrorUsdm,
+        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, setErrorCoinm,
+        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, setErrorSpot,
+        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard, setErrorStandard } from './orderSlice';
 
 // TODO Selectors
 
 //TODO Thunks
+
 export { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard };
 
 //TODO Selectors
@@ -32,10 +33,10 @@ export { selectOrderStandard, selectFiltersStandard, selectFilteredOrdersStandar
 
 //TODO Actions
 export { setSelectedOrderId, 
-        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, 
-        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, 
-        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, 
-        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard };
+        setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, setErrorUsdm,
+        setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm,  setErrorCoinm,
+        setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, setErrorSpot,
+        setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard, setErrorStandard };
 
 // Exportar Reducer por defecto
 export default orderReducer;

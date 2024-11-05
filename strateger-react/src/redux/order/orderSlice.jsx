@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchOrdersUsdtm, fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard } from './orderThunks';
+import { selectErrorCoinm } from './orderSelectors';
+
+//?-----------------------------------------------------------------------------
+//?---------------------------------- Initial States ---------------------------
+//?-----------------------------------------------------------------------------
 
 const initialFilters = {
   Side: [],
@@ -11,7 +16,7 @@ const initialFilters = {
 
 const initialOrderState = {
   ordersData: [],
-  filteredOrders: [], // Cada tipo tiene su filteredOrders
+  filteredOrders: [],
   filters: initialFilters,
   page: 0,
   offset: 0,
@@ -19,6 +24,10 @@ const initialOrderState = {
   loading: false,
   error: null
 };
+
+//?-----------------------------------------------------------------------------
+//?------------------------------- Create Slice --------------------------------
+//?-----------------------------------------------------------------------------
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -29,6 +38,11 @@ const orderSlice = createSlice({
     standard: initialOrderState ,
     selectedOrderId: null,        
   },
+
+  //TODO -----------------------------------------------------------------------
+  //TODO ------------------------------ Reducers -------------------------------
+  //TODO -----------------------------------------------------------------------
+
   reducers: {
     setSelectedOrderId(state, action) {
       state.selectedOrderId = action.payload;
@@ -53,7 +67,9 @@ const orderSlice = createSlice({
         (state.usdtm.filters.Type === '' || order.type === state.usdtm.filters.Type)
       );
     },
-            
+    setErrorUsdm(state, action) {
+      state.usdtm.error = action.payload;
+    },            
     //TODO ------------------------------ COINM -------------------------------
     setPageCoinm(state, action) {
       state.coinm.page = action.payload;
@@ -74,7 +90,9 @@ const orderSlice = createSlice({
         (state.coinm.filters.Type === '' || order.type === state.coinm.filters.Type)
       );
     },
-
+    setErrorCoinm(state, action) {
+      state.coinm.error = action.payload;
+    },
     //TODO ------------------------------ SPOT -------------------------------
     setPageSpot(state, action) {
       state.spot.page = action.payload;
@@ -95,7 +113,9 @@ const orderSlice = createSlice({
         (state.spot.filters.Type === '' || order.type === state.spot.filters.Type)
       );
     },
-
+    setErrorSpot(state, action) {
+      state.spot.error = action.payload;
+    },
     //TODO ------------------------------ STANDARD -------------------------------
     setPageStandard(state, action) {
       state.standard.page = action.payload;
@@ -116,9 +136,17 @@ const orderSlice = createSlice({
         (state.standard.filters.Type === '' || order.type === state.standard.filters.Type)
       );
     },
+    setErrorStandard(state, action) {
+      state.standard.error = action.payload;
+    },
   },
+
+  //! ----------------------------------------------------------------------------
+  //! ----------------------------- EXTRA REDUCERS -------------------------------
+  //! ----------------------------------------------------------------------------
+
   extraReducers: (builder) => {
-    //! ----------------------------------- USDT-M -------------------------------
+    //! --------------------------------- USDT-M -----------------------------------
     builder
       .addCase(fetchOrdersUsdtm.pending, (state) => {
         state.usdtm.loading = true;
@@ -222,10 +250,10 @@ const orderSlice = createSlice({
 
 export const { 
   setSelectedOrderId,
-  setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm,
-  setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm,
-  setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot,
-  setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard
+  setPageUsdtm, setHasMoreUsdtm, setOffsetUsdtm, setFiltersUsdtm, setErrorUsdm,
+  setPageCoinm, setHasMoreCoinm, setOffsetCoinm, setFiltersCoinm, setErrorCoinm,
+  setPageSpot, setHasMoreSpot, setOffsetSpot, setFiltersSpot, setErrorSpot,
+  setPageStandard, setHasMoreStandard, setOffsetStandard, setFiltersStandard, setErrorStandard
 } = orderSlice.actions;  
 
 export default orderSlice.reducer;
