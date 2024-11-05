@@ -24,21 +24,39 @@ const uploadFile = async (file) => {
 
 export const uploadImages = createAsyncThunk('diary/uploadImages', async (files) => {
   const uploadPromises = files.map(file => uploadFile(file));
-  return await Promise.all(uploadPromises);
+  try {
+    return await Promise.all(uploadPromises);
+  }
+  catch (error) {
+    console.error("Error uploading images:", error.response || error.message);
+    throw error;
+  }  
 });
 
-export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', async ({ skip, limit }) => {
-  const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
-  return response.data;
+export const fetchDiaryEntries = createAsyncThunk('diary/fetchDiaryEntries', async ({ skip, limit }) => {    
+  try{
+    const response = await axios.get(`${BASE_URL}/list`, { params: { skip, limit } });
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error fetching diary entries:", error.response || error.message);
+    throw error;
+  }
 });
 
 export const saveDiaryEntry = createAsyncThunk('diary/saveDiaryEntry', async (entry) => {  
-  if (entry.id && entry.id !== '') {
-    const response = await axios.put(`${BASE_URL}/update/${entry.id}`, entry);
-    return response.data;
-  } else {
-    const response = await axios.post(`${BASE_URL}/insert`, entry);
-    return response.data;
+  try{
+    if (entry.id && entry.id !== '') {
+      const response = await axios.put(`${BASE_URL}/update/${entry.id}`, entry);
+      return response.data;
+    } else {
+      const response = await axios.post(`${BASE_URL}/insert`, entry);
+      return response.data;
+    }
+  }
+  catch (error) {
+    console.error("Error saving diary entry:", error.response || error.message);
+    throw error;
   }
 });
 
