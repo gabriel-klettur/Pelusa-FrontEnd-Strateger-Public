@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAlarms } from '../../../redux/alarm';
 
+import { fetchAlarms } from '../../../redux/alarm';
 import { selectAlarmsData } from '../../../redux/alarm';
 
 const useFetchAlarms = () => {
