@@ -1,8 +1,9 @@
 //Path: strateger-react/src/components/Alarms/components/AlarmTable/AlarmTable.js
 
-//React and Redux
-import React from 'react';
+//Redux
 import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchAlarms } from '../../../../redux/alarm';
 
 // Components
 import Tablita from '../../../common/Tablita';
@@ -59,7 +60,7 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
       <Tablita 
         data={paginatedData} 
         columns={columnsHeaders} 
-        renderRow={renderRow} 
+        renderRow={renderRow}         
       />
       <Pagination 
         page={page} 
@@ -68,7 +69,8 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
         endIndex={page * 20 + paginatedData.length} 
         totalDataLength={totalDataLength}  
         offset={offset}   
-        setPage={setPage}  
+        setPage={setPage} 
+        fetchData={fetchAlarms} 
       />
     </>
   );

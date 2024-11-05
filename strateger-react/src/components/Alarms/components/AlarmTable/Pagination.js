@@ -1,20 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { fetchAlarms } from '../../../../redux/alarm';
 import { useEffect } from 'react';
 
-const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage}) => {
+const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offset, setPage, fetchData}) => {
   const dispatch = useDispatch();
 
-  const handlePreviousPage = () => {
-    dispatch(setPage(Math.max(page - 1, 0)));
-  };
-
-  console.log('----------------------------------------------')
-  console.log('page', page);  
-  console.log('totalDataLength', totalDataLength);
-  console.log('endIndex', endIndex);
-  console.log('hasMore', hasMore);
-  console.log('offset', offset);
+  console.log('Alarms/Pagination: setPage=', setPage);
 
   useEffect(() => {
     if(offset === undefined ){
@@ -24,11 +14,14 @@ const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offs
     }
   }, [offset, page, totalDataLength, hasMore, dispatch, setHasMore]);
   
+  const handlePreviousPage = () => {
+    dispatch(setPage(Math.max(page - 1, 0)));
+  };
 
   const handleNextPage = () => {  
     const nextPage = page + 1;
       if (nextPage * 20 >= totalDataLength && hasMore) {
-        dispatch(fetchAlarms({ limit: 500, offset: offset }));
+        dispatch(fetchData({ limit: 500, offset: offset }));
       }
       dispatch(setPage(nextPage));
   };
