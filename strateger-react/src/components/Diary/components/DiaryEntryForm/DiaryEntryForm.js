@@ -6,7 +6,7 @@ import { uploadImages } from '../../../../redux/diary';
 import DateForm from './DateForm'
 import TextForm from './TextForm';
 import PhotosForm from './PhotosForm';
-import ReferencesForm from './ReferencesForm/ReferencesForm';
+import ReferencesForm from './ReferencesForm/containers/ReferencesFormContainer';
 
 import Ventanita from '../../../common/Ventanita';
 import SubmitButton from './SubmitButton';

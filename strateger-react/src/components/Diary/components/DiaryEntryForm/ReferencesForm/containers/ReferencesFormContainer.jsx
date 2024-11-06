@@ -3,23 +3,37 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Tab } from '@headlessui/react';
-import AlarmItem from './AlarmItem';
-import OrderItem from './OrderItem';
-import StrategyItem from './StrategyItem';
-import DiaryItem from './DiaryItem';
-import PaginationReferencesForm from './PaginationReferencesForm';
-import SelectedIds from './SelectedIds';
+import { TabGroup, TabList, TabPanel, TabPanels, Tab } from '@headlessui/react';
+import AlarmItem from '../components/AlarmItem';
+import OrderItem from '../components/OrderItem';
+import StrategyItem from '../components/StrategyItem';
+import DiaryItem from '../components/DiaryItem';
+import PaginationReferencesForm from '../components/PaginationReferencesForm';
+import SelectedIds from '../components/SelectedIds';
 
-import Ventanita from '../../../../common/Ventanita';
+import Ventanita from '../../../../../common/Ventanita';
 
-import selectAlarms from '../../../../../redux/alarm';
+import { selectAlarms } from '../../../../../../redux/alarm';
+import { selectFilteredByClickAlarms } from '../../../../../../redux/alarm';
+import { selectFilteredByIntervalAlarms } from '../../../../../../redux/alarm';
+import { selectFilteredByIntervalAndTypeAlarms } from '../../../../../../redux/alarm';
 
-const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
-  const orders = useSelector((state) => state.orders.orders) || []; 
-  const alarms = useSelector(selectAlarms) || []; 
-  const strategies = useSelector((state) => state.strategies.items) || []; 
-  const diaryEntries = useSelector((state) => state.diary.items) || []; 
+import { selectOrderUsdtm } from '../../../../../../redux/order';
+import { selectOrderCoinm } from '../../../../../../redux/order';
+import { selectOrderSpot } from '../../../../../../redux/order';
+import { selectOrderStandard } from '../../../../../../redux/order';
+
+
+const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {
+  //!const alarms = useSelector(selectAlarms) || [];
+  //!const orders = useSelector((state) => state.orders.orders) || [];
+  const strategies = useSelector((state) => state.strategies.items) || [];
+  const diaryEntries = useSelector((state) => state.diary.items) || [];
+
+  //console.log("Alarms:", alarms);
+  //console.log("Orders:", orders);
+  console.log("Strategies:", strategies);
+  console.log("Diary Entries:", diaryEntries);
 
   const [currentPage, setCurrentPage] = useState(1);        //ReferencesForm
   const itemsPerPage = 10; 
@@ -32,8 +46,8 @@ const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
   const totalPages = (items) => Math.ceil(items.length / itemsPerPage);
 
   const panelsMap = new Map([
-    ['Alarms', { items: alarms, component: AlarmItem, itemKey: 'alarm' }],
-    ['Orders', { items: orders, component: OrderItem, itemKey: 'order' }],
+    //!['Alarms', { items: alarms, component: AlarmItem, itemKey: 'alarm' }],
+    //!['Orders', { items: orders, component: OrderItem, itemKey: 'order' }],
     ['Strategies', { items: strategies, component: StrategyItem, itemKey: 'strategy' }],
     ['Diary', { items: diaryEntries, component: DiaryItem, itemKey: 'diary' }],
   ]);  
@@ -65,10 +79,10 @@ const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
 
         contenido={
           <>
-            <Tab.Group onChange={() => setCurrentPage(1)}>
+            <TabGroup onChange={() => setCurrentPage(1)}>
               
               {/* ----------------------------------------------------------------- Tabs ------------------------------------------------------------------*/}
-              <Tab.List className="flex bg-african_violet-300 text-blue-300">
+              <TabList className="flex bg-african_violet-300 text-blue-300">
                 {Array.from(panelsMap.keys()).map((label) => (
                   <Tab
                     key={label}
@@ -82,12 +96,12 @@ const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
                     {label}
                   </Tab>
                 ))}
-              </Tab.List>
+              </TabList>
 
               {/* ----------------------------------------------------------------- Panels ------------------------------------------------------------------*/}
-              <Tab.Panels className="">
+              <TabPanels className="">
                 {Array.from(panelsMap.entries()).map(([label, { items, component: Component, itemKey }]) => (
-                  <Tab.Panel key={label} className="bg-african_violet-200 pl-2 pr-2 pb-2">
+                  <TabPanel key={label} className="bg-african_violet-200 pl-2 pr-2 pb-2">
                     {getCurrentItems(items).map((item) => (
                       <Component
                         key={`${itemKey}-${item.id || item.orderId}`}
@@ -102,10 +116,10 @@ const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
                       totalPages={totalPages(items)}
                       setCurrentPage={setCurrentPage}
                     />
-                  </Tab.Panel>
+                  </TabPanel>
                 ))}
-              </Tab.Panels>
-            </Tab.Group>
+              </TabPanels>
+            </TabGroup>
 
             {/* ----------------------------------------------------------------- Selected Reference ------------------------------------------------------------------*/}
             <div className='mt-4'>
@@ -121,4 +135,4 @@ const ReferencesForm = ({ selectedIds, setSelectedIds }) => {
   );
 };
 
-export default ReferencesForm;
+export default ReferencesFormContainer;
