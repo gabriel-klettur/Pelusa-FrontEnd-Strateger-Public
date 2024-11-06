@@ -9,23 +9,22 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
     setExpanded(!expanded);
   };
 
+  console.log("AlarmItem alarm: ", alarm);
+
   return (
     <div className="border-b border-african_violet-300 py-2">
-
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
           <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Time_Alert}]-[{alarm.Temporalidad}]-[{alarm.Order}] </span>
         </div>
         <button
-          type="button" // Asegúrate de que el tipo sea "button"
+          type="button" 
           className="ml-4 bg-african_violet-400 hover:bg-african_violet-700 text-white px-2 py-1 rounded"   
           onClick={() => onAdd("Alarm:"+alarm.id)}
         >
           Agregar
         </button>
       </div>
-
-
       {expanded && (
         <div className="">
           <div><strong>Id:</strong> {alarm.id}</div>

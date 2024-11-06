@@ -9,6 +9,8 @@ const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {
     setExpanded(!expanded);
   };
 
+  console.log("OrderItem order: ", order);
+
   return (
     <div className="border-b border-african_violet-300 py-2">
       <div className="flex justify-between items-center">
@@ -16,7 +18,7 @@ const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {
           <span className={isSelected ? 'font-bold' : ''}>[{order.symbol}]-[{new Date(order.time).toLocaleString()}]-[{order.avgPrice}]</span>
         </div>
         <button
-          type="button" // Asegúrate de que el tipo sea "button"
+          type="button" 
           className="ml-4 bg-african_violet-400 hover:bg-african_violet-700 text-white px-2 py-1 rounded"   
           onClick={() => onAdd("Order:"+order.orderId)}
         >
@@ -25,6 +27,7 @@ const OrderItem = ({ order, onSelect, isSelected, onAdd }) => {
       </div>
       {expanded && (
         <div className="mt-2">
+          <div><strong>Symbol:</strong> {order.symbol}</div>
           <div><strong>Side:</strong> {order.side}</div>
           <div><strong>Position Side:</strong> {order.positionSide}</div>
           <div><strong>Type:</strong> {order.type}</div>

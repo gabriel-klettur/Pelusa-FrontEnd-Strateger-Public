@@ -13,10 +13,7 @@ import SelectedIds from '../components/SelectedIds';
 
 import Ventanita from '../../../../../common/Ventanita';
 
-import { selectAlarms } from '../../../../../../redux/alarm';
-import { selectFilteredByClickAlarms } from '../../../../../../redux/alarm';
-import { selectFilteredByIntervalAlarms } from '../../../../../../redux/alarm';
-import { selectFilteredByIntervalAndTypeAlarms } from '../../../../../../redux/alarm';
+import { selectAlarmsData } from '../../../../../../redux/alarm';
 
 import { selectOrderUsdtm } from '../../../../../../redux/order';
 import { selectOrderCoinm } from '../../../../../../redux/order';
@@ -27,13 +24,16 @@ import { selectOrderStandard } from '../../../../../../redux/order';
 const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {
   //!const alarms = useSelector(selectAlarms) || [];
   //!const orders = useSelector((state) => state.orders.orders) || [];
+
+  const alarmsData = useSelector(selectAlarmsData) || [];
+  const ordersUsdt = useSelector(selectOrderUsdtm) || [];
+  const ordersCoinm = useSelector(selectOrderCoinm) || [];
+  const ordersSpot = useSelector(selectOrderSpot) || [];
+  const ordersStandard = useSelector(selectOrderStandard) || [];
+
+
   const strategies = useSelector((state) => state.strategies.items) || [];
   const diaryEntries = useSelector((state) => state.diary.items) || [];
-
-  //console.log("Alarms:", alarms);
-  //console.log("Orders:", orders);
-  console.log("Strategies:", strategies);
-  console.log("Diary Entries:", diaryEntries);
 
   const [currentPage, setCurrentPage] = useState(1);        //ReferencesForm
   const itemsPerPage = 10; 
@@ -46,8 +46,11 @@ const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {
   const totalPages = (items) => Math.ceil(items.length / itemsPerPage);
 
   const panelsMap = new Map([
-    //!['Alarms', { items: alarms, component: AlarmItem, itemKey: 'alarm' }],
-    //!['Orders', { items: orders, component: OrderItem, itemKey: 'order' }],
+    ['Alarms', { items: alarmsData, component: AlarmItem, itemKey: 'alarm' }],
+    ['Orders(Usdtm)', { items: ordersUsdt, component: OrderItem, itemKey: 'order' }],
+    ['Orders(Coinm)', { items: ordersCoinm, component: OrderItem, itemKey: 'order' }],
+    ['Orders(Spot)', { items: ordersSpot, component: OrderItem, itemKey: 'order' }],
+    ['Orders(Standard)', { items: ordersStandard, component: OrderItem, itemKey: 'order' }],
     ['Strategies', { items: strategies, component: StrategyItem, itemKey: 'strategy' }],
     ['Diary', { items: diaryEntries, component: DiaryItem, itemKey: 'diary' }],
   ]);  
@@ -87,7 +90,7 @@ const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {
                   <Tab
                     key={label}
                     className={({ selected }) =>
-                      `w-full py-2 font-medium text-african_violet-900'
+                      `w-full py-2 font-small text-african_violet-900'
                       ${
                         selected ? 'text-african_violet-900' : 'text-african_violet-500 hover:bg-african_violet-900 hover:text-african_violet-300'
                       }`
