@@ -21,16 +21,12 @@ import { selectOrderSpot } from '../../../../../../redux/order';
 import { selectOrderStandard } from '../../../../../../redux/order';
 
 
-const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {
-  //!const alarms = useSelector(selectAlarms) || [];
-  //!const orders = useSelector((state) => state.orders.orders) || [];
-
+const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {  
   const alarmsData = useSelector(selectAlarmsData) || [];
   const ordersUsdt = useSelector(selectOrderUsdtm) || [];
   const ordersCoinm = useSelector(selectOrderCoinm) || [];
   const ordersSpot = useSelector(selectOrderSpot) || [];
   const ordersStandard = useSelector(selectOrderStandard) || [];
-
 
   const strategies = useSelector((state) => state.strategies.items) || [];
   const diaryEntries = useSelector((state) => state.diary.items) || [];

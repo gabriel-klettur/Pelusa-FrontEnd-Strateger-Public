@@ -7,9 +7,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
 
   const handleToggle = () => {
     setExpanded(!expanded);
-  };
-
-  console.log("AlarmItem alarm: ", alarm);
+  };  
 
   return (
     <div className="border-b border-african_violet-300 py-2">

@@ -12,6 +12,8 @@ const DiaryContainer = () => {
   
   const { editingEntry, entries, handleAddOrUpdateEntry, handleCancelEdit,  handleDeleteEntry, handleEditEntry } = useDiary();
 
+  console.log(entries);
+
   const results = [
       {
         date: '2024-10-01', // Fecha en formato ISO
