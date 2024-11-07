@@ -30,7 +30,7 @@ const Tablita = ({ data, columns, renderRow }) => {
             <tr
               key={index}
               className={`border-b transition-colors duration-200 hover:bg-african_violet-700 cursor-pointer ${
-                selectedRowIndex === index ? 'bg-african_violet-400 text-white' : 'bg-white text-african_violet-400'
+                selectedRowIndex === index ? 'bg-african_violet-400 text-white' : 'bg-white text-african_violet-200'
               }`}
               onClick={() => setSelectedRowIndex(index)}
             >

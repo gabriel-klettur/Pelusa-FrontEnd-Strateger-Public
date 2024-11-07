@@ -43,7 +43,7 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
       ? 'bg-green-600 text-white'
       : filteredByIntervalAlarms.some((a) => a.id === item.id)
         ? 'bg-african_violet-200 text-white'
-        : 'bg-white text-african_violet-400';
+        : 'bg-white text-african_violet-200';
   
     return (
       <AlarmRow
