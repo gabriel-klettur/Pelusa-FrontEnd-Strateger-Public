@@ -16,7 +16,7 @@ const DiaryListContainer = ({entries, onEdit, onDelete}) => {
                 entries.map((entry) => (
                   <div key={`diary-entry-${entry.id}`} className='mb-4'>
                     <Ventanita
-                      titulo={`Diary Entry ${entry.id}`}
+                      titulo={`${entry.titleName}`}
                       contenido={
                         <DiaryEntry
                           key={`diary-entry-${entry.id}`}
