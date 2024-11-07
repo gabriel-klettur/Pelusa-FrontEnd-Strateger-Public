@@ -13,7 +13,7 @@ const DiaryCalendar = ({ results }) => {
       if (result) {
         return (
           <div className="text-xs text-center font-semibold">
-            <span>{result.pnl}</span>
+            <span>({result.textCalendar})</span>
           </div>
         );
       }

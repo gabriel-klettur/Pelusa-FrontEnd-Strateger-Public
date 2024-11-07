@@ -12,30 +12,26 @@ const DiaryContainer = () => {
   
   const { editingEntry, entries, handleAddOrUpdateEntry, handleCancelEdit,  handleDeleteEntry, handleEditEntry } = useDiary();
 
-  console.log(entries);
+  const formattedEntries = entries.map(entry => {
+    const formattedDate = new Date(entry.date).toISOString().split('T')[0];     // Fortmat the date to 'YYYY-MM-DD' removing the time part of the string.
+    return {
+        id: entry.id,
+        date: formattedDate
+    };
+  });
 
-  const results = [
-      {
-        date: '2024-10-01', // Fecha en formato ISO
-        pnl: 200,           // Ganancia o pérdida del día
-      },
-      {
-        date: '2024-10-05',
-        pnl: -50,
-      },
-      {
-        date: '2024-10-12',
-        pnl: 120,
-      },
-      {
-        date: '2024-10-20',
-        pnl: 'Test',
-      },
-      {
-        date: '2024-10-25',
-        pnl: 300,
-      },
-  ];
+  const dataCalendar = Object.values(
+    formattedEntries.reduce((acc, entry) => {
+      // Si la fecha no existe en el acumulador, inicializa el objeto
+      if (!acc[entry.date]) {
+        acc[entry.date] = { date: entry.date, textCalendar: 0 };
+      }
+      // Incrementa el conteo de entradas para esa fecha
+      acc[entry.date].textCalendar += 1;
+      return acc;
+    }, {})
+  );
+  console.log(dataCalendar);
 
   return(
       <div className="flex flex-col bg-african_violet-500">
@@ -44,7 +40,7 @@ const DiaryContainer = () => {
                   <MainChart />                                   {/* CANDLESTICK CHART */}
               </div>
               <div className="col-span-3 p-1">
-                  <DiaryCalendar results={results}/>              {/* CALENDAR */}
+                  <DiaryCalendar results={dataCalendar}/>              {/* CALENDAR */}
               </div>
           </div>
           <div className="grid grid-cols-10">
