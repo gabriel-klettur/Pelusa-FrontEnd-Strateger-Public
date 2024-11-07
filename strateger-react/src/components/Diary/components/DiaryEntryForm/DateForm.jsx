@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/DateForm.js
-
 import Ventanita from "../../../common/Ventanita";
 
 const DateForm = ({ date, handleChange, name }) => {
@@ -8,21 +6,15 @@ const DateForm = ({ date, handleChange, name }) => {
       <Ventanita 
         titulo="Date / Time"
         contenido={
-          <input
-            type="datetime-local"
-            name={name}
-            value={date}
-            onChange={handleChange}
-            className="
-              w-full
-              p-2
-              bg-african_violet-200
-              text-african_violet-800
-              transition duration-300
-              text-white
-              rounded-md          
-            "
-          />  
+          <div className="h-12"> {/* Altura consistente */}
+            <input
+              type="datetime-local"
+              name={name}
+              value={date}
+              onChange={handleChange}
+              className="w-full h-full p-2 bg-african_violet-200 rounded-md"
+            />  
+          </div>
         }
       />
     </>
