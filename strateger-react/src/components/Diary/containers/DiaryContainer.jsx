@@ -12,6 +12,10 @@ const DiaryContainer = () => {
   
   const { editingEntry, entries, handleAddOrUpdateEntry, handleCancelEdit,  handleDeleteEntry, handleEditEntry } = useDiary();
 
+   //TODO. Es necesario ...entries debido a que entries es inmutable y no se puede ordenar directamente.
+   //TODO. ...entries crea un nuevo array con los mismos elementos de entries, pero ahora es mutable.
+  const sortedEntriesByDate = [...entries].sort((a, b) => new Date(b.date) - new Date(a.date));
+
   const formattedEntries = entries.map(entry => {
     const formattedDate = new Date(entry.date).toISOString().split('T')[0];     // Fortmat the date to 'YYYY-MM-DD' removing the time part of the string.
     return {
@@ -31,7 +35,7 @@ const DiaryContainer = () => {
       return acc;
     }, {})
   );
-  console.log(dataCalendar);
+  console.log(entries);
 
   return(
       <div className="flex flex-col bg-african_violet-500">
@@ -40,7 +44,7 @@ const DiaryContainer = () => {
                   <MainChart />                                   {/* CANDLESTICK CHART */}
               </div>
               <div className="col-span-3 p-1">
-                  <DiaryCalendar results={dataCalendar}/>              {/* CALENDAR */}
+                  <DiaryCalendar results={dataCalendar}/>         {/* CALENDAR */}
               </div>
           </div>
           <div className="grid grid-cols-10">
@@ -53,7 +57,7 @@ const DiaryContainer = () => {
               </div>      
               <div className="col-span-6 pt-1 pr-1 pb-1">        {/* COLUMN RIGHT */}
                   <DiaryListContainer 
-                      entries={entries} 
+                      entries={sortedEntriesByDate}
                       onEdit={handleEditEntry} 
                       onDelete={handleDeleteEntry}
                   />         

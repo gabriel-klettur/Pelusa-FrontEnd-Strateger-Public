@@ -4,13 +4,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { uploadImages } from '../../../../redux/diary';
 import DateForm from './DateForm'
-import TextForm from './TextForm';
+import CommentTextarea from './CommentTextarea';
 import PhotosForm from './PhotosForm';
 import ReferencesForm from './ReferencesForm/containers/ReferencesFormContainer';
 
 import Ventanita from '../../../common/Ventanita';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
+import TitleName from './TitleName';
 
 const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -117,7 +118,13 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
             name="date"             
           />    
 
-          <TextForm
+          <TitleName
+            text={formData.titleName}
+            handleChange={handleChange}
+            error={errors.text}
+          />
+
+          <CommentTextarea
             text={formData.text}
             handleChange={handleChange}
             error={errors.text}

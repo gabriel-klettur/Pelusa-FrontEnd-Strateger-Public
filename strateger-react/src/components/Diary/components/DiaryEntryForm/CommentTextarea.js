@@ -2,7 +2,7 @@
 
 import Ventanita from "../../../common/Ventanita";
 
-const TextForm = ({ text, handleChange, error }) => {
+const CommentTextarea = ({ text, handleChange, error }) => {
   return (
     <>     
       <Ventanita
@@ -35,4 +35,4 @@ const TextForm = ({ text, handleChange, error }) => {
   );
 };
 
-export default TextForm;
+export default CommentTextarea;
