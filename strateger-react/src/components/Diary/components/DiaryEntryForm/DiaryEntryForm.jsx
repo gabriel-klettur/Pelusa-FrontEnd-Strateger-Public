@@ -24,7 +24,6 @@ const initialState = {
 };
 
 const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
-
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState(initialState);   
@@ -32,7 +31,6 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
 
   const [errors, setErrors] = useState({});                 
 
-  
   const fileInputRef = useRef(null);                        
 
   // Hook to update the form data when the entry prop changes, 
@@ -96,6 +94,14 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
     }
   };
 
+  const errorRender = (error) => {
+    return (
+      <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
+        {error}
+      </div>
+    );
+  };
+
   return (    
     <Ventanita 
       titulo={
@@ -106,44 +112,43 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
       contenido={
         <form onSubmit={handleSubmit}>               
           
-          {errors.global && (
-            <div className="bg-red-100 text-red-700 p-2 rounded mb-4">
-              {errors.global}
+          {errors.global && errorRender(errors.global)}
+          
+          <div className='flex flex-col gap-4'>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <TitleName
+                text={formData.titleName}
+                handleChange={handleChange}
+                error={errors.text}
+              />
+              <DateForm 
+                date={formData.date} 
+                handleChange={handleChange} 
+                name="date"             
+              />   
             </div>
-          )}
-          
-          <DateForm 
-            date={formData.date} 
-            handleChange={handleChange} 
-            name="date"             
-          />    
 
-          <TitleName
-            text={formData.titleName}
-            handleChange={handleChange}
-            error={errors.text}
-          />
-
-          <CommentTextarea
-            text={formData.text}
-            handleChange={handleChange}
-            error={errors.text}
-          />    
-          
-          <PhotosForm
-            photos={formData.photos}
-            handlePhotoChange={handlePhotoChange}
-            fileInputRef={fileInputRef}
-            setFormData={setFormData}
-          />           
-          <ReferencesForm            
-            setSelectedIds={setSelectedIds}              
-            selectedIds={selectedIds}
-          />
-                      
-          <div className="flex justify-between">
-            <SubmitButton entry={entry} />
-            <ClearButton handleClear={handleClear} />
+            <CommentTextarea
+              text={formData.text}
+              handleChange={handleChange}
+              error={errors.text}
+            />    
+            
+            <PhotosForm
+              photos={formData.photos}
+              handlePhotoChange={handlePhotoChange}
+              fileInputRef={fileInputRef}
+              setFormData={setFormData}
+            />           
+            <ReferencesForm            
+              setSelectedIds={setSelectedIds}              
+              selectedIds={selectedIds}
+            />
+                        
+            <div className="flex justify-between">
+              <SubmitButton entry={entry} />
+              <ClearButton handleClear={handleClear} />
+            </div>
           </div>
 
         </form>
