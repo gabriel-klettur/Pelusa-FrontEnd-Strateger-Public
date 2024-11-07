@@ -9,7 +9,7 @@
  */
 const Ventanita = ({ titulo, contenido }) => {
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mx-auto pr-4">
       <div className="grid grid-rows-[auto,1fr]">
         {/* Sección del Título */}
         <div className="bg-african_violet-300 text-white px-4 py-2 font-semibold text-lg">
@@ -17,7 +17,7 @@ const Ventanita = ({ titulo, contenido }) => {
         </div>
         
         {/* Sección de Contenido */}
-        <div className="bg-african_violet-100 text-african_violet-900 px-6 py-4">
+        <div className="bg-african_violet-100 text-african_violet-900 pl-4 py-4">
           {contenido}
         </div>
       </div>
