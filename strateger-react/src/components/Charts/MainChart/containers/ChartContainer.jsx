@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
@@ -12,7 +12,7 @@ import useSetupChartParameters from '../hooks/useSetupChartParameters';
 import useInitializeChart from '../hooks/useInitializeChart';
 import useInitializeCandlestickSeries from '../hooks/useInitializeCandlestickSeries';
 import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
-import useInitializeStochasticChart from '../hooks/useInitializeStochasticChart';
+import useInitializeStochasticSeries from '../hooks/useInitializeStochasticSeries';
 
 import useSetCandlestickSeriesData from '../hooks/useSetCandlestickSeriesData';
 import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
@@ -33,27 +33,26 @@ const ChartContainer = ( ) => {
     const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);  
     const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
 
-    const chartContainerRef = useRef();
+    //!--------------------------------- Main Chart -------------------------------------
+    const mainChartContainerRef = useRef();
+    const chartRef = useInitializeChart(mainChartContainerRef);   
 
-    const chartRef = useInitializeChart(chartContainerRef);    
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     const {ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
-    const {stochasticChartContainerRef,stochasticKSeriesRef,stochasticDSeriesRef } = useInitializeStochasticChart();
-
-            
+  
     useSetCandlestickSeriesData(data, candlestickSeriesRef);
     useSetEmasSeriesData(data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
-    useSetStochasticSeriesData(data, stochasticKSeriesRef, stochasticDSeriesRef);
-
-
-
 
     useMarkers(candlestickSeriesRef, chartInterval); 
+
+    //!--------------------------------- Secondary Chart ---------------------------------
+    const secondaryChartContainerRef = useRef();
+    const secondChartRef = useInitializeChart(secondaryChartContainerRef);
+
+    const {stochasticKSeriesRef,stochasticDSeriesRef } = useInitializeStochasticSeries(secondChartRef);
+        
+    useSetStochasticSeriesData(data, stochasticKSeriesRef, stochasticDSeriesRef);    
     
-
-
-    
-
     return (
         <div className="relative">
           <LoadingOverlay isLoading={loading} />  
@@ -67,13 +66,13 @@ const ChartContainer = ( ) => {
               style={{ height: showStochastic ? "400px" : "600px" }}
             >
               <CandlestickChartContainer 
-                chartContainerRef={chartContainerRef}                               
+                chartContainerRef={mainChartContainerRef}                               
               />   
             </div>     
             <div 
               style={{ height: showStochastic ? "200px" : "0px" }}
             >
-              <StochasticChartContainer stochasticChartContainerRef={stochasticChartContainerRef} />
+              <StochasticChartContainer stochasticChartContainerRef={secondaryChartContainerRef} />
             </div>               
           </div>
         </div>
