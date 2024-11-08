@@ -22,7 +22,9 @@ import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import IndicatorButton from '../components/buttons/IndicatorButton';
 
 const ChartContainer = ( ) => {
-    const [showStochastic, setShowStochastic] = useState(false);    
+    const [showStochasticSerie, setShowStochasticSerie] = useState(false);    
+    const [showEmasSerie, setShowEmasSerie] = useState(false);
+    const [showCandlestickSerie, setShowCandlestickSerie] = useState(true);
 
     const interval = useSelector(selectTemporalidad);
     const startDate = new Date(useSelector(selectStartDate)).toISOString();
@@ -40,8 +42,8 @@ const ChartContainer = ( ) => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     const {ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
   
-    useSetCandlestickSeriesData(data, candlestickSeriesRef);
-    useSetEmasSeriesData(data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
+    useSetCandlestickSeriesData(showCandlestickSerie, data, candlestickSeriesRef);
+    useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
 
     useMarkers(candlestickSeriesRef, chartInterval); 
 
@@ -50,27 +52,29 @@ const ChartContainer = ( ) => {
     const secondChartRef = useInitializeChart(secondaryChartContainerRef);
 
     const {stochasticKSeriesRef,stochasticDSeriesRef } = useInitializeStochasticSeries(secondChartRef);
-        
-    useSetStochasticSeriesData(data, stochasticKSeriesRef, stochasticDSeriesRef);    
+    
+    useSetStochasticSeriesData(showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);    
     
     return (
         <div className="relative">
           <LoadingOverlay isLoading={loading} />  
 
           <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
-            <IndicatorButton setShow={setShowStochastic} indicatorName='Stochastic'/>            
+            <IndicatorButton setShow={setShowStochasticSerie} indicatorName='Stochastic'/>            
+            <IndicatorButton setShow={setShowEmasSerie} indicatorName='Emas'/>            
+            <IndicatorButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks'/>            
           </div>
           
           <div className="flex flex-col">
             <div 
-              style={{ height: showStochastic ? "400px" : "600px" }}
+              style={{ height: showStochasticSerie ? "400px" : "600px" }}
             >
               <CandlestickChartContainer 
                 chartContainerRef={mainChartContainerRef}                               
-              />   
+              />              
             </div>     
             <div 
-              style={{ height: showStochastic ? "200px" : "0px" }}
+              style={{ height: showStochasticSerie ? "200px" : "0px" }}
             >
               <StochasticChartContainer stochasticChartContainerRef={secondaryChartContainerRef} />
             </div>               

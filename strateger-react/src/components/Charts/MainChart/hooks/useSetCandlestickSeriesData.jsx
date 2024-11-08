@@ -3,15 +3,17 @@ import { useEffect } from 'react';
 import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
 import { setCandlestickSeriesData } from '../components/series/candlestickSeries';
 
-const useSetCandlestickSeriesData = (data, candlestickSeriesRef) => {
+const useSetCandlestickSeriesData = (showCandlestickSerie, data, candlestickSeriesRef) => {
   useEffect(() => {
-    if (data && candlestickSeriesRef.current) {
+    if (showCandlestickSerie && data && candlestickSeriesRef.current) {
       const formattedData = formatChartData(data);
       const sortedData = sortAndRemoveDuplicates(formattedData);
 
       setCandlestickSeriesData(candlestickSeriesRef.current, sortedData);
+    } else if (candlestickSeriesRef.current) {
+      candlestickSeriesRef.current.setData([]);
     }
-  }, [data, candlestickSeriesRef]);
+  }, [data, candlestickSeriesRef, showCandlestickSerie]);
 };
 
 export default useSetCandlestickSeriesData;
