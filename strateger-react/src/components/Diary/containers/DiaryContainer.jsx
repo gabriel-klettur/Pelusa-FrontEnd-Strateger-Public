@@ -8,12 +8,8 @@ import DiaryEntryFormContainer from "./DiaryEntryFormContainer";
 import useDiary from '../hooks/useDiary';
 
 const DiaryContainer = () => {
-
-  
   const { editingEntry, entries, handleAddOrUpdateEntry, handleCancelEdit,  handleDeleteEntry, handleEditEntry } = useDiary();
-
-   //TODO. Es necesario ...entries debido a que entries es inmutable y no se puede ordenar directamente.
-   //TODO. ...entries crea un nuevo array con los mismos elementos de entries, pero ahora es mutable.
+   
   const sortedEntriesByDate = [...entries].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const formattedEntries = entries.map(entry => {

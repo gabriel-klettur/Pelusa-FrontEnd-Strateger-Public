@@ -85,11 +85,12 @@ const ChartContainer = ( ) => {
       stochasticDSeriesRef,
     ]);
 
+    useMarkers(candlestickSeriesRef, chartInterval); //* -----  Hook to set markers on the chart -----
 
     
-    useMarkers(candlestickSeriesRef, chartInterval); //* -----  Hook to set markers on the chart -----
+
     return (
-        <div className="relative bg-african_violet-900">
+        <div className="relative">
           <LoadingOverlay isLoading={loading} />  
 
           <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
@@ -97,10 +98,16 @@ const ChartContainer = ( ) => {
           </div>
           
           <div className="flex flex-col">
-            <CandlestickChartContainer 
-              chartContainerRef={chartContainerRef}               
-            />        
-            <div className={showStochastic ? "block" : "hidden"}>
+            <div 
+              style={{ height: showStochastic ? "400px" : "600px" }}
+            >
+              <CandlestickChartContainer 
+                chartContainerRef={chartContainerRef}                               
+              />   
+            </div>     
+            <div 
+              style={{ height: showStochastic ? "200px" : "0px" }}
+            >
               <StochasticChartContainer stochasticChartContainerRef={stochasticChartContainerRef} />
             </div>               
           </div>
