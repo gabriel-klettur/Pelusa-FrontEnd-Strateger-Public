@@ -14,16 +14,12 @@ import useInitializeCandlestickSeries from '../hooks/useInitializeCandlestickSer
 import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
 import useInitializeStochasticChart from '../hooks/useInitializeStochasticChart';
 
-import { setEmasSeriesData } from '../components/series/emasSeries';
-import { setStochastickSeriesData } from '../components/series/stochastickSeries';
-import { setCandlestickSeriesData } from '../components/series/candlestickSeries';
-
-import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
+import useSetCandlestickSeriesData from '../hooks/useSetCandlestickSeriesData';
+import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
+import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import IndicatorButton from '../components/buttons/IndicatorButton';
-
-
 
 const ChartContainer = ( ) => {
     const [showStochastic, setShowStochastic] = useState(false);    
@@ -44,43 +40,17 @@ const ChartContainer = ( ) => {
     const {ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
     const {stochasticChartContainerRef,stochasticKSeriesRef,stochasticDSeriesRef } = useInitializeStochasticChart();
 
-    // Hook to set series data whenever data is updated
-    useEffect(() => {
-      if (data) {
+            
+    useSetCandlestickSeriesData(data, candlestickSeriesRef);
+    useSetEmasSeriesData(data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
+    useSetStochasticSeriesData(data, stochasticKSeriesRef, stochasticDSeriesRef);
 
-        const formattedData = formatChartData(data);
-        const sortedData = sortAndRemoveDuplicates(formattedData);
 
-        setCandlestickSeriesData(
-          candlestickSeriesRef.current, 
-          sortedData
-        );
 
-        setEmasSeriesData(
-          ema10SeriesRef.current,
-          ema55SeriesRef.current,
-          ema200SeriesRef.current,
-          sortedData
-        );
 
-        setStochastickSeriesData(
-          stochasticKSeriesRef.current,
-          stochasticDSeriesRef.current,
-          sortedData
-        );
+    useMarkers(candlestickSeriesRef, chartInterval); 
+    
 
-      }
-    }, [
-      data,
-      candlestickSeriesRef,
-      ema10SeriesRef,
-      ema55SeriesRef,
-      ema200SeriesRef,
-      stochasticKSeriesRef,
-      stochasticDSeriesRef,
-    ]);
-
-    useMarkers(candlestickSeriesRef, chartInterval); //* -----  Hook to set markers on the chart -----
 
     
 
