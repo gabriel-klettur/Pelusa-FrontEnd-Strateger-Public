@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { initializeChart } from '../config/chartConfig';
+import { initializeChart } from '../config/initializeChart';
 import { initializeStochastickSeries } from '../components/series/stochastickSeries';
 
 const useStochasticChart = () => {

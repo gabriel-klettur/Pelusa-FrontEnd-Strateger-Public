@@ -7,15 +7,18 @@ import { fetchCandlestickChartData } from './candlestickChartThunks';
 const candlestickChartSlice = createSlice({
   name: 'candlestickChart',
   initialState: {
-    data: [],
-    loading: false,
-    error: null,
+    data: [],    
     startDate: null,
     endDate: null,
     interval: '1d',
     alarmMarkers: [], 
     orderMarkers: [], 
     positionMarkers: [],
+    diaryMarkers: [],
+    strategyMarkers: [],
+    backTestingMarkers: [],
+    loading: false,
+    error: null,
   },
   reducers: {
     setCandlestickChartParameters(state, action) {
@@ -33,7 +36,7 @@ const candlestickChartSlice = createSlice({
       state.positionMarkers = action.payload;
     },
     updateChartData(state, action) {      
-      state.data = action.payload;                    // Actualizar los datos del gráfico
+      state.data = action.payload;                  
     },
   },
   extraReducers: (builder) => {

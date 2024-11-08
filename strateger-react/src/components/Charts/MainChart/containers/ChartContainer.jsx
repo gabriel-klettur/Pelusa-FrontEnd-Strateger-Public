@@ -6,10 +6,11 @@ import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../..
 import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
-import useChartData from '../hooks/useChartData';
 import useMarkers from '../hooks/useMarkers';
 import useStochasticChart from '../hooks/useStochasticChart';
 import useCandlestickChart from '../hooks/useCandlestickChart';
+import useFetchChartData from '../hooks/useFetchChartData';
+import useSetupChartParameters from '../hooks/useSetupChartParameters';
 
 import { setEmasSeriesData } from '../components/series/emasSeries';
 import { setStochastickSeriesData } from '../components/series/stochastickSeries';
@@ -20,19 +21,20 @@ import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import IndicatorButton from '../components/buttons/IndicatorButton';
 
+
+
 const ChartContainer = ( ) => {
     const [showStochastic, setShowStochastic] = useState(false);    
 
-    const initialTemporalidad = useSelector(selectTemporalidad);
-    const startDate = useSelector(selectStartDate);
-    const endDate = useSelector(selectCurrentDate);
+    const interval = useSelector(selectTemporalidad);
+    const startDate = new Date(useSelector(selectStartDate)).toISOString();
+    const endDate = new Date(useSelector(selectCurrentDate)).toISOString();
 
-    const { data, loading, chartInterval } = useChartData(
-      initialTemporalidad,
-      new Date(startDate).toISOString(),
-      new Date(endDate).toISOString()
-    );
-    
+    // Hook for fetching chart data and Setting chart parameters
+  
+    const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);  
+    const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
+
       // Hook for Candlestick chart
     const {
       chartContainerRef,
