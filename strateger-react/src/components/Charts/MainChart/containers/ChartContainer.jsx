@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
@@ -7,10 +7,12 @@ import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
 import useMarkers from '../hooks/useMarkers';
-import useStochasticChart from '../hooks/useStochasticChart';
-import useCandlestickChart from '../hooks/useCandlestickChart';
 import useFetchChartData from '../hooks/useFetchChartData';
 import useSetupChartParameters from '../hooks/useSetupChartParameters';
+import useInitializeChart from '../hooks/useInitializeChart';
+import useInitializeCandlestickSeries from '../hooks/useInitializeCandlestickSeries';
+import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
+import useInitializeStochasticChart from '../hooks/useInitializeStochasticChart';
 
 import { setEmasSeriesData } from '../components/series/emasSeries';
 import { setStochastickSeriesData } from '../components/series/stochastickSeries';
@@ -35,26 +37,16 @@ const ChartContainer = ( ) => {
     const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);  
     const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
 
-      // Hook for Candlestick chart
-    const {
-      chartContainerRef,
-      candlestickSeriesRef,
-      ema10SeriesRef,
-      ema55SeriesRef,
-      ema200SeriesRef,
-    } = useCandlestickChart();
+    const chartContainerRef = useRef();
 
-    // Hook for Stochastic chart
-    const {
-      stochasticChartContainerRef,
-      stochasticKSeriesRef,
-      stochasticDSeriesRef,
-    } = useStochasticChart();
-
+    const chartRef = useInitializeChart(chartContainerRef);    
+    const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
+    const {ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
+    const {stochasticChartContainerRef,stochasticKSeriesRef,stochasticDSeriesRef } = useInitializeStochasticChart();
 
     // Hook to set series data whenever data is updated
     useEffect(() => {
-      if (data && candlestickSeriesRef.current) {
+      if (data) {
 
         const formattedData = formatChartData(data);
         const sortedData = sortAndRemoveDuplicates(formattedData);

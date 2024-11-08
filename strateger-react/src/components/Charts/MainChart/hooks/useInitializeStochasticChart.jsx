@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { initializeChart } from '../config/initializeChart';
 import { initializeStochastickSeries } from '../components/series/stochastickSeries';
 
-const useStochasticChart = () => {
+const useInitializeStochasticChart = () => {
   const stochasticChartContainerRef = useRef();
   const stochasticChartRef = useRef();
   const stochasticKSeriesRef = useRef();
@@ -32,4 +32,4 @@ const useStochasticChart = () => {
   };
 };
 
-export default useStochasticChart;
+export default useInitializeStochasticChart;
