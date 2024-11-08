@@ -19,16 +19,16 @@ import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
 import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
-import IndicatorButton from '../components/buttons/IndicatorButton';
+import ItemChartButton from '../components/buttons/ItemChartButton';
 
 const ChartContainer = ( ) => {
     const [showStochasticSerie, setShowStochasticSerie] = useState(false);    
     const [showEmasSerie, setShowEmasSerie] = useState(false);
     const [showCandlestickSerie, setShowCandlestickSerie] = useState(true);
     const [showAlarmsMarkers, setShowAlarmsMarkers] = useState(false);
-    const [showAlarmsSelected, setShowAlarmsSelected] = useState(false);
-    const [showAlarmsFilteredByInterval, setShowAlarmsFilteredByInterval] = useState(false);
-    const [showAlarmsFilteredByIntervalAndType, setShowAlarmsFilteredByIntervalAndType] = useState(false);    
+    const [showAlarmsSelectedMarkers, setShowAlarmsSelectedMarkers] = useState(false);
+    const [showAlarmsFilteredByIntervalMarkers, setShowAlarmsFilteredByIntervalMarkers] = useState(false);
+    const [showAlarmsFilteredByIntervalAndTypeMarkers, setShowAlarmsFilteredByIntervalAndTypeMarkers] = useState(false);    
 
     const interval = useSelector(selectTemporalidad);
     const startDate = new Date(useSelector(selectStartDate)).toISOString();
@@ -49,7 +49,8 @@ const ChartContainer = ( ) => {
     useSetCandlestickSeriesData(showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
 
-    useSetupMarkers(candlestickSeriesRef, chartInterval); 
+    useSetupMarkers(candlestickSeriesRef, chartInterval, 
+                    showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers);
 
     //!--------------------------------- Secondary Chart ---------------------------------
     const secondaryChartContainerRef = useRef();
@@ -64,10 +65,21 @@ const ChartContainer = ( ) => {
           <LoadingOverlay isLoading={loading} />  
 
           <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
-            <IndicatorButton setShow={setShowStochasticSerie} indicatorName='Stochastic'/>            
-            <IndicatorButton setShow={setShowEmasSerie} indicatorName='Emas'/>            
-            <IndicatorButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks'/>            
+            <div className="flex flex-col space-y-1">
+              <div className='flex space-x-1'>
+                <ItemChartButton setShow={setShowStochasticSerie} indicatorName='Stochastic'/>            
+                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Emas'/>            
+                <ItemChartButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks'/>                                                       
+              </div>
+              <div className='flex space-x-1'>                                 
+                <ItemChartButton setShow={setShowAlarmsMarkers} indicatorName='Alarms'/>            
+                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Selected Alarms'/>                        
+                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Alarms Filtered by Interval'/>                        
+                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Alarms Filtered by Interval and Type'/>                        
+              </div>
+            </div>
           </div>
+
           
           <div className="flex flex-col">
             <div 

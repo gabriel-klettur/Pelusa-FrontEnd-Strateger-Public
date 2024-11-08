@@ -1,4 +1,4 @@
-const IndicatorButton = ({ setShow , indicatorName}) => {
+const ItemChartButton = ({ setShow , indicatorName}) => {
     
     return(
         <button
@@ -10,4 +10,4 @@ const IndicatorButton = ({ setShow , indicatorName}) => {
     );
 };
 
-export default IndicatorButton;
+export default ItemChartButton;

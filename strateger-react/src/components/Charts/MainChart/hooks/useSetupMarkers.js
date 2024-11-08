@@ -5,7 +5,7 @@ import useCreateOrderMarkers from './useCreateOrderMarkers';
 import useSetMarkersOnSerie from './useSetMarkersOnSerie';
 
 
-const useSetupMarkers = (candlestickSeriesRef, chartInterval) => {
+const useSetupMarkers = (candlestickSeriesRef, chartInterval, showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers) => {
   
   //!------------------------------------ Create markers for alarms ------------------------------------
   useCreateAlarmMarkers(chartInterval);
@@ -14,7 +14,8 @@ const useSetupMarkers = (candlestickSeriesRef, chartInterval) => {
   useCreateOrderMarkers(chartInterval);
 
   //!------------------------------- Set markers to the candlestick series -------------------------------
-  useSetMarkersOnSerie(candlestickSeriesRef);
+  useSetMarkersOnSerie(candlestickSeriesRef,
+                       showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers);
   
 };
 

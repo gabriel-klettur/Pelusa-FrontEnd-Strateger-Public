@@ -5,20 +5,22 @@ import { useSelector } from 'react-redux';
 import { selectAlarmMarkers} from '../../../../redux/charts';
 import { selectOrderMarkers } from '../../../../redux/charts';
 
-const useSetMarkersOnSerie = (candlestickSeriesRef) => {
+const useSetMarkersOnSerie = (candlestickSeriesRef, 
+                              showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers) => {
 
     const alarmMarkers = useSelector(selectAlarmMarkers);
     const orderMarkers = useSelector(selectOrderMarkers);
 
     useEffect(() => {
-        if (candlestickSeriesRef.current) {
-          const combinedMarkers = [...alarmMarkers, ...orderMarkers]
-            .filter(marker => !isNaN(marker.time)) // Filter out markers with invalid times
-            .sort((a, b) => a.time - b.time);
-    
-          candlestickSeriesRef.current.setMarkers(combinedMarkers);
-        }
-      }, [alarmMarkers, orderMarkers, candlestickSeriesRef]);
+      if (candlestickSeriesRef.current) {
+
+         if(showAlarmsMarkers){            
+          candlestickSeriesRef.current.setMarkers(alarmMarkers);
+         }else{
+          candlestickSeriesRef.current.setMarkers([]);
+         }
+      }
+    }, [alarmMarkers, orderMarkers, candlestickSeriesRef, showAlarmsMarkers]);
 
 }
 
