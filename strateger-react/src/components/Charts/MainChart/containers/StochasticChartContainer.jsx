@@ -1,4 +1,4 @@
-const stochasticChartContainer = ({stochasticChartContainerRef}) => {
+const StochasticChartContainer = ({stochasticChartContainerRef}) => {
 
     return(
         <div
@@ -8,4 +8,4 @@ const stochasticChartContainer = ({stochasticChartContainerRef}) => {
     )
 }
 
-export default stochasticChartContainer;
+export default StochasticChartContainer;
