@@ -6,7 +6,7 @@ import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../..
 import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
-import useMarkers from '../hooks/useMarkers';
+import useSetupMarkers from '../hooks/useSetupMarkers';
 import useFetchChartData from '../hooks/useFetchChartData';
 import useSetupChartParameters from '../hooks/useSetupChartParameters';
 import useInitializeChart from '../hooks/useInitializeChart';
@@ -25,6 +25,10 @@ const ChartContainer = ( ) => {
     const [showStochasticSerie, setShowStochasticSerie] = useState(false);    
     const [showEmasSerie, setShowEmasSerie] = useState(false);
     const [showCandlestickSerie, setShowCandlestickSerie] = useState(true);
+    const [showAlarmsMarkers, setShowAlarmsMarkers] = useState(false);
+    const [showAlarmsSelected, setShowAlarmsSelected] = useState(false);
+    const [showAlarmsFilteredByInterval, setShowAlarmsFilteredByInterval] = useState(false);
+    const [showAlarmsFilteredByIntervalAndType, setShowAlarmsFilteredByIntervalAndType] = useState(false);    
 
     const interval = useSelector(selectTemporalidad);
     const startDate = new Date(useSelector(selectStartDate)).toISOString();
@@ -45,7 +49,7 @@ const ChartContainer = ( ) => {
     useSetCandlestickSeriesData(showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
 
-    useMarkers(candlestickSeriesRef, chartInterval); 
+    useSetupMarkers(candlestickSeriesRef, chartInterval); 
 
     //!--------------------------------- Secondary Chart ---------------------------------
     const secondaryChartContainerRef = useRef();
