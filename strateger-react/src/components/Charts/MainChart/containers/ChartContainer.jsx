@@ -49,6 +49,7 @@ const ChartContainer = ( ) => {
       stochasticDSeriesRef,
     } = useStochasticChart();
 
+
     // Hook to set series data whenever data is updated
     useEffect(() => {
       if (data && candlestickSeriesRef.current) {

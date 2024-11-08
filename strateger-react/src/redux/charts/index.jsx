@@ -8,7 +8,7 @@ import { setCandlestickChartParameters, setAlarmMarkers, setOrderMarkers, setPos
 import { fetchCandlestickChartData } from './candlestickChartThunks';
 
 //Selectors
-import { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectLastPrice, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from './candlestickChartSelectors';
+import { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from './candlestickChartSelectors';
 
 
 //TODO Thunks
@@ -18,7 +18,7 @@ export { fetchCandlestickChartData };
 export { setCandlestickChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData };
 
 //TODO Selectors
-export { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectLastPrice, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers };
+export { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers };
 
 //TODO Slice
 export default candlestickChartReducer;

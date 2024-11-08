@@ -13,10 +13,9 @@ const candlestickChartSlice = createSlice({
     startDate: null,
     endDate: null,
     interval: '1d',
-    currentBTCPrice: null,
-    alarmMarkers: [], // nuevo estado para los marcadores de alarmas
-    orderMarkers: [], // nuevo estado para los marcadores de órdenes
-    positionMarkers: [], // nuevo estado para los marcadores de posiciones
+    alarmMarkers: [], 
+    orderMarkers: [], 
+    positionMarkers: [],
   },
   reducers: {
     setCandlestickChartParameters(state, action) {
@@ -44,8 +43,7 @@ const candlestickChartSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCandlestickChartData.fulfilled, (state, action) => {
-        state.data = action.payload.formattedData;
-        state.currentBTCPrice = action.payload.currentBTCPrice;
+        state.data = action.payload.formattedData;        
         state.loading = false;
       })
       .addCase(fetchCandlestickChartData.rejected, (state, action) => {
