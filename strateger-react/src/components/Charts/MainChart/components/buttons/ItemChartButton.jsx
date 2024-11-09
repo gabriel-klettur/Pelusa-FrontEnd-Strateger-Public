@@ -1,16 +1,10 @@
-import { useState } from 'react';
+// Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
 
-const ItemChartButton = ({ setShow, indicatorName }) => {
-    const [bgColor, setBgColor] = useState('bg-african_violet-500');
-
+const ItemChartButton = ({ setShow, indicatorName, bgColor }) => {
     return (
         <button
             onClick={() => {
-                setShow(previousState => {
-                    const newState = !previousState;
-                    setBgColor(newState ? 'bg-african_violet-300' : 'bg-african_violet-500');
-                    return newState;
-                });
+                setShow(prevState => !prevState);
             }}
             className={`px-1 py-1 text-white rounded rounded-xs ${bgColor}`}
         >
