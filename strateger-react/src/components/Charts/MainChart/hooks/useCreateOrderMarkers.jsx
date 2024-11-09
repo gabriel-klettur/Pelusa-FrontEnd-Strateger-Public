@@ -1,23 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../components/markers/OrdersChart';
-//import { setOrderMarkers } from '../../../../redux/charts';
-import { selectFilteredOrdersUsdtm } from '../../../../redux/order';
+import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../components/markers/Orders';
 
-const useCreateOrderMarkers = (chartInterval) => {
+const useCreateOrderMarkers = (chartInterval, selectOrders, setOrderMarkers) => {
     const dispatch = useDispatch();
 
-    const usdmOrders = useSelector(selectFilteredOrdersUsdtm);  
+    const orders = useSelector(selectOrders);      
 
     useEffect(() => {
-        //let newOrderMarkers = [];
+        let newOrderMarkers = [];
         
-        //newOrderMarkers = mapOrdersToMarkers(usdmOrders, chartInterval);
+        newOrderMarkers = mapOrdersToMarkers(orders, chartInterval);
         
-        //const sortedOrderMarkers = sortAndFilterOrderMarkers(newOrderMarkers).sort((a, b) => a.time - b.time);
-        //dispatch(setOrderMarkers(sortedOrderMarkers));
-    }, [usdmOrders, chartInterval, dispatch]);
-
+        const sortedOrderMarkers = sortAndFilterOrderMarkers(newOrderMarkers).sort((a, b) => a.time - b.time);
+        dispatch(setOrderMarkers(sortedOrderMarkers));
+    }, [orders, chartInterval, dispatch, setOrderMarkers]);
 }
 
 export default useCreateOrderMarkers;

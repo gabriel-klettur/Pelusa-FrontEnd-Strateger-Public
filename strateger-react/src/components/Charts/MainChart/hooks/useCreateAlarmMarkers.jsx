@@ -5,17 +5,16 @@ import { mapAlarmsToMarkers, sortAndFilterMarkers as sortAndFilterAlarmMarkers }
 const useCreateAlarmMarkers = (chartInterval, selectAlarms, setAlarmMarkers) => {
     const dispatch = useDispatch();
 
-    const fullFilteredAlarms = useSelector(selectAlarms);                              //! Selector
+    const alarms = useSelector(selectAlarms);                              //! Selector
 
     useEffect(() => {
         let newAlarmMarkers = [];
         
-        newAlarmMarkers = mapAlarmsToMarkers(fullFilteredAlarms, chartInterval);                                //? Mapeo
+        newAlarmMarkers = mapAlarmsToMarkers(alarms, chartInterval);                                //? Mapeo
         
         const sortedAlarmMarkers = sortAndFilterAlarmMarkers(newAlarmMarkers).sort((a, b) => a.time - b.time);  //? Sort
-        dispatch(setAlarmMarkers(sortedAlarmMarkers));                                                          //! Dispatch
-    }, [ fullFilteredAlarms, chartInterval, dispatch, setAlarmMarkers]);
-
+        dispatch(setAlarmMarkers(sortedAlarmMarkers));                    //! Dispatch
+    }, [ alarms, chartInterval, dispatch, setAlarmMarkers]);
 }
 
 export default useCreateAlarmMarkers;

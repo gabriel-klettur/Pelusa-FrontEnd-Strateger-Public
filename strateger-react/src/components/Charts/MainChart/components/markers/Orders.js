@@ -1,6 +1,13 @@
-// Path: strateger-react/src/components/Charts/CandlestickChart/components/markers/OrdersChart.js
+// Path: src/components/Charts/MainChart/components/markers/Orders.js
 
 export const mapOrdersToMarkers = (orders, interval) => {
+
+  console.log('orders', orders);
+
+  if (!Array.isArray(orders) || orders.length === 0) {
+    return []; 
+  }
+
   return orders.map(order => {
     let color, text, position, shape;
     switch (order.side) {

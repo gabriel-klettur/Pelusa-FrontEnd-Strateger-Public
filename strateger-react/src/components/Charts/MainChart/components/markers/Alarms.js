@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Charts/CandlestickChartChart/components/markers/OrdersChart.js
+// Path: src/components/Charts/MainChart/components/markers/Alarms.js
 
 const getCandleTime = (time, interval) => {
   const date = new Date(time * 1000);
@@ -30,6 +30,9 @@ const getCandleTime = (time, interval) => {
 };
 
 export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
+
+  console.log('selectedAlarms', selectedAlarms);
+
   const groupedAlarms = {};
 
   selectedAlarms.forEach(alarm => {
