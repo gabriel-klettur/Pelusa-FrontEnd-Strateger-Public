@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { format } from 'date-fns'; 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateChartData, setPositionMarkers } from '../../../../redux/charts';
+import { updateChartData} from '../../../../redux/charts';
+//import {setPositionMarkers } from '../../../../redux/charts';
 import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting';
 
-import { mapPositionsToMarkers } from '../../../Charts/MainChart/components/markers/PositionsChart';
+//import { mapPositionsToMarkers } from '../../../Charts/MainChart/components/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 
@@ -29,8 +30,8 @@ const BacktestingResult = () => {
             console.log("Formatted Kline Data:", formattedKlineData);
             dispatch(updateChartData(formattedKlineData));
 
-            const positionMarkers = mapPositionsToMarkers(result.positions);
-            dispatch(setPositionMarkers(positionMarkers));
+            //const positionMarkers = mapPositionsToMarkers(result.positions);
+            //dispatch(setPositionMarkers(positionMarkers));
         }
     }, [status, result, dispatch]);
 

@@ -4,11 +4,13 @@ import useCreateAlarmMarkers from './useCreateAlarmMarkers';
 import useCreateOrderMarkers from './useCreateOrderMarkers';
 import useSetMarkersOnSerie from './useSetMarkersOnSerie';
 
+import { selectFilteredByIntervalAndTypeAlarms } from '../../../../redux/alarm';
+import { setAlarmDefaultMarkers} from '../../../../redux/charts';
 
 const useSetupMarkers = (candlestickSeriesRef, chartInterval, showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers) => {
   
-  //!------------------------------------ Create markers for alarms ------------------------------------
-  useCreateAlarmMarkers(chartInterval);
+  //!------------------------------------ Create markers for alarms ------------------------------------  
+  useCreateAlarmMarkers(chartInterval, selectFilteredByIntervalAndTypeAlarms, setAlarmDefaultMarkers);
 
   //!------------------------------------- Create markers for orders -------------------------------------
   useCreateOrderMarkers(chartInterval);

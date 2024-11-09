@@ -2,23 +2,29 @@
 import candlestickChartReducer from './candlestickChartSlice';
 
 //Actions
-import { setCandlestickChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData } from './candlestickChartSlice';
+import { setCandlestickChartParameters, updateChartData } from './candlestickChartSlice';
+import { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers} from './candlestickChartSlice';
 
 //Thunks
 import { fetchCandlestickChartData } from './candlestickChartThunks';
 
 //Selectors
-import { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers } from './candlestickChartSelectors';
+import { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval } from './candlestickChartSelectors';
+import { selectCandlestickChartLoading, selectCandlestickChartError } from './candlestickChartSelectors';
+import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFilteredByInterval, selectMarkersAlarmFilteredByIntervalAndType } from './candlestickChartSelectors';
 
 
 //TODO Thunks
 export { fetchCandlestickChartData };
 
 //TODO Actions
-export { setCandlestickChartParameters, setAlarmMarkers, setOrderMarkers, setPositionMarkers, updateChartData };
+export { setCandlestickChartParameters, updateChartData };
+export { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers };
 
 //TODO Selectors
-export { selectCandlestickChartData, selectCandlestickChartLoading, selectCandlestickChartError, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectAlarmMarkers, selectOrderMarkers, selectPositionMarkers };
+export { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval };
+export { selectCandlestickChartLoading, selectCandlestickChartError };
+export { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFilteredByInterval, selectMarkersAlarmFilteredByIntervalAndType };
 
 //TODO Slice
 export default candlestickChartReducer;
