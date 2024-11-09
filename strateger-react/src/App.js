@@ -1,27 +1,26 @@
 // Path: strateger-react/src/App.js
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import { loadSlicesInOrder } from './thunks/loadSlices';
 import MainContainer from './containers/MainContainer';
-import LoadingSlices from './components/common/LoadingSlices/LoadingSlices';
+import ToastConfig from './utils/ToastConfig';
 
 const App = () => {
     const dispatch = useDispatch();
-    const [loadingMessage, setLoadingMessage] = useState('Loading...');
-    const [isLoadingVisible, setIsLoadingVisible] = useState(true); // Estado para la visibilidad del div
 
-    //!------------ Load Redux Slices in Order -------------
     useEffect(() => {
-      dispatch(loadSlicesInOrder(setLoadingMessage));
+        dispatch(loadSlicesInOrder()); // Pasamos la función toast para mostrar mensajes
     }, [dispatch]);
-    //!-----------------------------------------------------
 
+    // Contenedor de toast
     return (        
       <>
-        <LoadingSlices isLoadingVisible={isLoadingVisible} loadingMessage={loadingMessage} setIsLoadingVisible={setIsLoadingVisible}/>          
+        <ToastConfig/>
         <MainContainer/>
-      </>             
+      </>
     );
 };
 
