@@ -11,9 +11,16 @@ const alarmMarkersStates = {
   filteredByIntervalAndType: [],  
 };
 
+const orderMarkersStates = {  
+  usdm: [],
+  coinm: [],
+  standard: [],
+  spot: [],
+};
+
 const markersStates = {
   alarm: alarmMarkersStates,
-  orders: [],
+  orders: orderMarkersStates,
 };
 
 const candlestickChartSlice = createSlice({
@@ -28,17 +35,17 @@ const candlestickChartSlice = createSlice({
     error: null,
   },
   reducers: {
+    //!---------------------------- Parameters ----------------------------
     setCandlestickChartParameters(state, action) {
       state.startDate = new Date(action.payload.startDate).toISOString();
       state.endDate = new Date(action.payload.endDate).toISOString();
       state.interval = action.payload.interval;
     },
-    setOrderMarkers(state, action) {
-      state.orderMarkers = action.payload;
-    },
+    //!------------------------------- Data -------------------------------
     updateChartData(state, action) {      
       state.data = action.payload;                  
     },
+    //!------------------------------ Alarms ------------------------------
     setAlarmDefaultMarkers(state, action) {
       state.markers.alarm.default = action.payload;
     },
@@ -50,6 +57,19 @@ const candlestickChartSlice = createSlice({
     },
     setAlarmFilteredByIntervalAndTypeMarkers(state, action) {
       state.markers.alarm.filteredByIntervalAndType = action.payload;
+    },
+    //!------------------------------ Orders ------------------------------
+    setOrderUsdmMarkers(state, action) {
+      state.markers.orders.usdm = action.payload;
+    },
+    setOrderCoinmMarkers(state, action) {
+      state.markers.orders.coinm = action.payload;
+    },
+    setOrderStandardMarkers(state, action) {
+      state.markers.orders.standard = action.payload;
+    },
+    setOrderSpotMarkers(state, action) {
+      state.markers.orders.spot = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -71,7 +91,8 @@ const candlestickChartSlice = createSlice({
 
 export const {  setCandlestickChartParameters, 
                 updateChartData,
-                setAlarmMarkers, setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers
+                setAlarmMarkers, setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers,
+                setOrderMarkers, setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers
 } = candlestickChartSlice.actions;
 
 export default candlestickChartSlice.reducer;
