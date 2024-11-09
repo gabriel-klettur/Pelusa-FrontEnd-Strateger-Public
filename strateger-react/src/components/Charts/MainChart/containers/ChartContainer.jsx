@@ -29,7 +29,13 @@ const ChartContainer = () => {
     const [showAlarmsSelectedMarkers, setShowAlarmsSelectedMarkers] = useState(false);
     const [showAlarmsFilteredByIntervalMarkers, setShowAlarmsFilteredByIntervalMarkers] = useState(false);
     const [showAlarmsFilteredByIntervalAndTypeMarkers, setShowAlarmsFilteredByIntervalAndTypeMarkers] = useState(false);
+    const [showOrdersUsdmMarkers, setShowOrdersUsdmMarkers] = useState(false);
+    const [showOrdersCoinmMarkers, setShowOrdersCoinmMarkers] = useState(false);
+    const [showOrdersSpotMarkers, setShowOrdersSpotMarkers] = useState(false);
+    const [showOrdersStandardMarkers, setShowOrdersStandardMarkers] = useState(false);
 
+
+    //!------------------------------ Parameters ------------------------------!//
     const interval = useSelector(selectTemporalidad);
     const startDate = new Date(useSelector(selectStartDate)).toISOString();
     const endDate = new Date(useSelector(selectCurrentDate)).toISOString();
@@ -37,9 +43,11 @@ const ChartContainer = () => {
     const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);
     const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
 
+    //!------------------------------ Main Chart ------------------------------!//
     const mainChartContainerRef = useRef();
     const chartRef = useInitializeChart(mainChartContainerRef);
 
+    //!------------------------------ Main Chart ------------------------------!//
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
 
@@ -49,6 +57,7 @@ const ChartContainer = () => {
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
                     showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers);
 
+    //!------------------------------ Secondary Chart ------------------------------!//
     const secondaryChartContainerRef = useRef();
     const secondChartRef = useInitializeChart(secondaryChartContainerRef);
 
@@ -72,6 +81,12 @@ const ChartContainer = () => {
                         <ItemChartButton setShow={setShowAlarmsSelectedMarkers} indicatorName='Selected Alarms' bgColor={showAlarmsSelectedMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
                         <ItemChartButton setShow={setShowAlarmsFilteredByIntervalMarkers} indicatorName='Alarms Filtered by Interval' bgColor={showAlarmsFilteredByIntervalMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
                         <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type' bgColor={showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                    </div>
+                    <div className='flex space-x-1'>
+                        <ItemChartButton setShow={''} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={''} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={''} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={''} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
                     </div>
                 </div>
             </div>
