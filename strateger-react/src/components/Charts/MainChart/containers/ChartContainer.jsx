@@ -73,9 +73,9 @@ const ChartContainer = ( ) => {
               </div>
               <div className='flex space-x-1'>                                 
                 <ItemChartButton setShow={setShowAlarmsMarkers} indicatorName='Alarms'/>            
-                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Selected Alarms'/>                        
-                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Alarms Filtered by Interval'/>                        
-                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Alarms Filtered by Interval and Type'/>                        
+                <ItemChartButton setShow={setShowAlarmsSelectedMarkers} indicatorName='Selected Alarms'/>                        
+                <ItemChartButton setShow={setShowAlarmsFilteredByIntervalMarkers} indicatorName='Alarms Filtered by Interval'/>                        
+                <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type'/>                        
               </div>
             </div>
           </div>
