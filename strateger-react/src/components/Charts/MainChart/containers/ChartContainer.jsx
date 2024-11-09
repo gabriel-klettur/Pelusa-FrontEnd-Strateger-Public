@@ -55,7 +55,8 @@ const ChartContainer = () => {
     useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
 
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
-                    showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers);
+                    showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers,
+                    showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersSpotMarkers, showOrdersStandardMarkers);
 
     //!------------------------------ Secondary Chart ------------------------------!//
     const secondaryChartContainerRef = useRef();
@@ -83,10 +84,10 @@ const ChartContainer = () => {
                         <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type' bgColor={showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
                     </div>
                     <div className='flex space-x-1'>
-                        <ItemChartButton setShow={''} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={''} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={''} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={''} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={setShowOrdersUsdmMarkers} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={setShowOrdersCoinmMarkers} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={setShowOrdersSpotMarkers} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                        <ItemChartButton setShow={setShowOrdersStandardMarkers} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
                     </div>
                 </div>
             </div>
