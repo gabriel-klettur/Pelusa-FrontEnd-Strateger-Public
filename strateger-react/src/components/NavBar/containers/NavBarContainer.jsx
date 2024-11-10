@@ -20,6 +20,7 @@ import AccountIcon from '../assets/icons/account.png';
 import PositionIcon from '../assets/icons/position.png';
 import BacktestingIcon from '../assets/icons/backtesting.png';
 import ConfigIcon from '../assets/icons/config.png'; // Example icon for Configuración
+import ConfigComponent from '../../configComponent/ConfigComponent';
 
 const NavBarContainer = () => {
     const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const NavBarContainer = () => {
                             <Backtesting />
                         </TabPanel>
                         <TabPanel>
-                            Configuración
+                            <ConfigComponent />
                         </TabPanel>
                     </TabPanels>
                      <TabList className="flex flex-col h-screen">
