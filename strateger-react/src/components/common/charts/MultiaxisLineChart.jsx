@@ -63,6 +63,20 @@ const getMultiaxisLineData = () => {
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
       yAxisID: 'y1',
     },
+    {
+      label: 'Cantidad de Transacciones (Otro)',
+      data: [300, 400, 250, 300, 200, 500],
+      borderColor: 'rgb(75, 192, 192)',
+      backgroundColor: 'rgba(75, 192, 192, 0.5)',
+      yAxisID: 'y2',
+    },
+    {
+      label: 'Volumen de Transacciones (Otro)',
+      data: [1500, 1400, 1600, 1700, 1800, 1900],
+      borderColor: 'rgb(255, 205, 86)',
+      backgroundColor: 'rgba(255, 205, 86, 0.5)',
+      yAxisID: '3',
+    },
   ];
 
   return { labels, datasets };

@@ -35,26 +35,38 @@ export const options = {
 };
 
 const getTransactionData = () => {
-  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
+  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   const datasets = [
     {
       label: 'Order Open Long',
-      data: [12, 19, 3, 5, 2, 3],
+      data: [12, 19, 3, 5, 2, 3, 10, 13, 15, 22, 30, 45],
       backgroundColor: 'rgb(255, 99, 132)',
       stack: 'Stack 0',
     },
     {
       label: 'Order Close Long',
-      data: [2, 3, 20, 5, 1, 4],
+      data: [2, 3, 20, 5, 1, 4, 15, 22, 30, 45, 60, 70],
       backgroundColor: 'rgb(75, 192, 192)',
       stack: 'Stack 0',
     },
     {
       label: 'Indicator Open Long',
-      data: [3, 10, 13, 15, 22, 30],
+      data: [3, 10, 13, 15, 22, 30, 45, 60, 70, 80, 90, 100],
       backgroundColor: 'rgb(53, 162, 235)',
       stack: 'Stack 1',
     },
+    {
+      label: 'Indicator Close Long',
+      data: [3, 10, 13, 15, 22, 30, 45, 60, 70, 80, 90, 100],
+      backgroundColor: 'orange',
+      stack: 'Stack 1',
+    },
+    {
+      label: 'Indicator Close Long',
+      data: [3, 10, 13, 15, 22, 30, 45, 60, 70, 80, 90, 100],
+      backgroundColor: 'orange',
+      stack: 'Stack 1',
+    }
   ];
 
   return { labels, datasets };

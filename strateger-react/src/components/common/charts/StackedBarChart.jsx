@@ -33,23 +33,28 @@ export const options = {
 
 // Función para obtener los datos del gráfico (ajusta con tus datos reales)
 const getStackedBarData = () => {
-  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio']; // Etiquetas de los meses
+  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   const datasets = [
     {
       label: 'Order Open Long',
-      data: [500, 300, 400, 200, 600, 350], // Reemplaza estos datos con los valores reales de cada mes
+      data: [500, 300, 400, 200, 600, 350, 400, 500, 600, 700, 800, 900], // Datos
       backgroundColor: 'rgb(255, 99, 132)',
     },
     {
       label: 'Order Close Long',
-      data: [200, 100, 150, 250, 100, 400], // Datos reales para otro tipo de transacción
+      data: [200, 100, 150, 250, 100, 400, 300, 200, 100, 50, 25, 10], // Más datos
       backgroundColor: 'rgb(75, 192, 192)',
     },
     {
       label: 'Indicator Open Long',
-      data: [300, 400, 250, 300, 200, 500], // Más datos de ejemplo
+      data: [300, 400, 250, 300, 200, 500, 600, 700, 800, 900, 1000, 1100], // Más datos
       backgroundColor: 'rgb(53, 162, 235)',
+    },
+    {
+      label: 'Indicator Close Long',
+      data: [300, 400, 250, 300, 200, 500, 600, 700, 800, 900, 1000, 1100], // Más datos
+      backgroundColor: 'rgb(255, 205, 86)',
     },
   ];
 

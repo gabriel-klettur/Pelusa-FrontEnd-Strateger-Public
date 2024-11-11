@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 // Datos de ejemplo para el gráfico (ajusta con tus datos reales)
 const getDoughnutChartData = () => {
   return {
-    labels: ['Order Open Long', 'Order Close Long', 'Indicator Open Long', 'Indicator Close Long'],
+    labels: ['BTC', 'ETH', 'USDT', 'WLD'],
     datasets: [
       {
         label: 'Distribución de Transacciones',

@@ -30,26 +30,32 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Evolución de Transacciones en el Tiempo',
+      text: 'Evolución en Dolares de Cantidades de Activos',
     },
   },
 };
 
 // Función para obtener los datos del gráfico (ajusta con tus datos reales)
 const getLineChartData = () => {
-  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio']; // Etiquetas de los meses
+  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   const datasets = [
     {
-      label: 'Transacciones Tipo 1',
-      data: [500, 600, 800, 700, 650, 720], // Reemplaza con valores reales
+      label: 'BTC',
+      data: [500, 600, 800, 700, 650, 720, 750, 800, 900, 1000, 1100, 1200],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: 'Transacciones Tipo 2',
-      data: [400, 300, 500, 450, 600, 550],
+      label: 'ETH',
+      data: [400, 300, 500, 450, 600, 550, 700, 850, 900, 950, 1000, 0],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+    {
+      label: 'USDT',
+      data: [1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100],
+      borderColor: 'rgb(75, 192, 192)',
+      backgroundColor: 'rgba(75, 192, 192, 0.5)',
     },
   ];
 

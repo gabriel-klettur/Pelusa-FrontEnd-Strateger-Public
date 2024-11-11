@@ -17,7 +17,7 @@ export const options = {
   indexAxis: 'y', // Configuración para barras horizontales
   elements: {
     bar: {
-      borderWidth: 2,
+      borderWidth: 4,
     },
   },
   responsive: true,
@@ -27,18 +27,18 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Transacciones por Tipo',
+      text: 'BTC Alarms per Year',
     },
   },
 };
 
 // Función para obtener los datos del gráfico (ajusta con tus datos reales)
-const getHorizontalBarData = () => {
-  const labels = ['Order Open Long', 'Order Close Long', 'Indicator Open Long']; // Etiquetas de ejemplo
+const getHorizontalBarData = (labeltext, labelData, seriesData) => {
+  const labels = labelData; // Etiquetas de ejemplo
   const datasets = [
     {
-      label: 'Cantidad de Transacciones',
-      data: [50, 30, 20], // Reemplaza estos datos con la cantidad real de transacciones por tipo
+      label: labeltext,
+      data: seriesData, 
       borderColor: 'rgb(75, 192, 192)',
       backgroundColor: 'rgba(75, 192, 192, 0.5)',
     },
@@ -48,7 +48,12 @@ const getHorizontalBarData = () => {
 };
 
 const HorizontalBarChart = () => {
-  const data = getHorizontalBarData();
+
+  const labeltext = 'Amout of Alarms';
+  const labelData = ['5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
+  const seriesData = [72, 55, 40, 33, 20, 18, 5, 2];
+
+  const data = getHorizontalBarData(labeltext, labelData, seriesData);
 
   return <Bar options={options} data={data} />;
 };

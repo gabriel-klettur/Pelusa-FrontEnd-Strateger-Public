@@ -16,11 +16,11 @@ ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, 
 // Datos de ejemplo para el gráfico (ajusta con tus datos reales)
 const getRadarChartData = () => {
   return {
-    labels: ['Metric 1', 'Metric 2', 'Metric 3', 'Metric 4', 'Metric 5', 'Metric 6'],
+    labels: ['1m','5m', '15m', '30m', '1h', '4h', '1d', '1w', '1M', '1y'],
     datasets: [
       {
         label: 'Distribución de Métricas',
-        data: [2, 9, 3, 5, 2, 3], // Reemplaza estos valores con datos reales
+        data: [124, 93, 74, 55, 33, 20, 10, 4, 2, 1], // Reemplaza con datos reales
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1,
