@@ -1,8 +1,6 @@
 // Path: src/components/Charts/MainChart/components/markers/Orders.js
 
-export const mapOrdersToMarkers = (orders, interval) => {
-
-  console.log('orders', orders);
+export const mapOrdersToMarkers = (orders, interval) => {  
 
   if (!Array.isArray(orders) || orders.length === 0) {
     return []; 

@@ -31,7 +31,7 @@ const DiaryContainer = () => {
       return acc;
     }, {})
   );
-  console.log(entries);
+
 
   return(
       <div className="flex flex-col bg-african_violet-500">

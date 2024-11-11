@@ -26,8 +26,7 @@ const BacktestingResult = () => {
                 item.low,                      
                 item.close                     
             ]);
-
-            console.log("Formatted Kline Data:", formattedKlineData);
+            
             dispatch(updateChartData(formattedKlineData));
 
             //const positionMarkers = mapPositionsToMarkers(result.positions);

@@ -24,9 +24,7 @@ const AccountChartsContainer = () => {
     const COINAccountGroupedByAsset = {};
     uniqueAssetsCOINMAccount.forEach(asset => {        
         COINAccountGroupedByAsset[asset] = Object.values(balanceCOINMAccount).filter(entry => entry.asset === asset);
-    });
-
-    console.log('balanceSpotAccount', balanceSpotAccount);
+    });    
 
     return (
       <div className="grid grid-cols-3 gap-4">

@@ -50,7 +50,7 @@ const BacktestingForm = () => {
             enable_short: shortEnabled,
         };
         dispatch(runBacktest(backtestData));
-        console.log(backtestData);
+    
     };
 
     const handleReset = () => {

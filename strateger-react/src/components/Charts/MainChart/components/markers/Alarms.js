@@ -31,8 +31,6 @@ const getCandleTime = (time, interval) => {
 
 export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
 
-  console.log('selectedAlarms', selectedAlarms);
-
   const groupedAlarms = {};
 
   selectedAlarms.forEach(alarm => {
