@@ -12,9 +12,11 @@ import { Position } from '../../Positions';
 import { Backtesting } from '../../Backtesting';
 import { Earnings } from '../../Earnings';
 import { News } from '../../News';
+import BattleField from '../../BattleField';
 import ConfigComponent from '../../configComponent/ConfigComponent';
 
 // Import or define your images
+import battleFieldIcon from '../assets/icons/battleField.png';
 import AlarmsIcon from '../assets/icons/alarms.png';
 import OrdersIcon from '../assets/icons/orders.png';
 import StrategyIcon from '../assets/icons/strategy.png';
@@ -22,10 +24,11 @@ import DiaryIcon from '../assets/icons/diary.png';
 import AccountIcon from '../assets/icons/account.png';
 import PositionIcon from '../assets/icons/position.png';
 import BacktestingIcon from '../assets/icons/backtesting.png';
-import ConfigIcon from '../assets/icons/config.png'; // Example icon for Configuración
-import NewsIcon from '../assets/icons/news.png'; // Example icon for News
-import EarningsIcon from '../assets/icons/earnings.png'; // Example icon for Earnings
-
+import ConfigIcon from '../assets/icons/config.png'; 
+import NewsIcon from '../assets/icons/news.png'; 
+import EarningsIcon from '../assets/icons/earnings.png'; 
+import DivisasIcon from '../assets/icons/divisas.png';
+import ReinaIcon from '../assets/icons/reina.png';
 
 const NavBarContainer = () => {
     const dispatch = useDispatch();
@@ -37,6 +40,7 @@ const NavBarContainer = () => {
 
     // Define the tabs and their corresponding icons
     const tabs = [
+        { name: 'Battle Field', icon: battleFieldIcon },
         { name: 'Alarmas', icon: AlarmsIcon },
         { name: 'Órdenes', icon: OrdersIcon },
         { name: 'Estrategias', icon: StrategyIcon },
@@ -46,6 +50,8 @@ const NavBarContainer = () => {
         { name: 'Backtesting', icon: BacktestingIcon },
         { name: 'Earnings', icon: EarningsIcon },
         { name: 'News', icon: NewsIcon },
+        { name: 'Divisas', icon: DivisasIcon },
+        { name: 'Reina', icon: ReinaIcon },
         { name: 'Configuración', icon: ConfigIcon },
     ];
 
@@ -54,6 +60,9 @@ const NavBarContainer = () => {
             <TabGroup selectedIndex={selectedTab} onChange={handleTabChange}>
                 <div className="flex">                   
                     <TabPanels className="w-full h-screen">
+                        <TabPanel>
+                            <BattleField />
+                        </TabPanel>
                         <TabPanel>
                             <Alarms />
                         </TabPanel>
@@ -82,6 +91,16 @@ const NavBarContainer = () => {
                             <News />
                         </TabPanel>
                         <TabPanel>
+                            <>
+                                DIVISAS 
+                            </>
+                        </TabPanel>
+                        <TabPanel>
+                            <>
+                                REINA 
+                            </>
+                        </TabPanel>
+                        <TabPanel>
                             <ConfigComponent />
                         </TabPanel>
                     </TabPanels>
@@ -90,7 +109,7 @@ const NavBarContainer = () => {
                             <Tab
                                 key={index}
                                 className={({ selected }) =>
-                                    `w-full h-24 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
+                                    `w-full h-16 w-14 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
                                     ${
                                         selected
                                         ? 'bg-african_violet-400 text-african_violet-900'
