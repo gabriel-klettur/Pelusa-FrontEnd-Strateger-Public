@@ -128,6 +128,8 @@ const DiaryEntryForm = ({ onSave, entry, onCancelEdit }) => {
               />   
             </div>
 
+            <div className="flex justify-center text-xl text-red-500 font-bold">------ ADD TAGS INPUT HERE-------</div>            
+
             <CommentTextarea
               text={formData.text}
               handleChange={handleChange}
