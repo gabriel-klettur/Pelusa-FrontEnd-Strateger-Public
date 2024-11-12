@@ -7,11 +7,13 @@ import { loadAccountInformation } from './loadSlices';
 import { loadStrategiesInformation } from './loadSlices';
 import { loadDiaryInformation } from './loadSlices';
 import { loadPositionsInformation } from './loadSlices';
+import { loadAlarmsInformation } from './loadSlices';
 
 
 export const loadSlicesInOrder = () => async (dispatch) => {
     try {
       await loadMinimumInformation(dispatch);
+      await loadAlarmsInformation(dispatch);
       await loadChartsInformation(dispatch);
       await loadOrdersInformation(dispatch);
       await loadAccountInformation(dispatch);

@@ -7,6 +7,7 @@ import { fetchCandlestickChartData } from '../redux/charts';
 import { fetchTicker } from '../redux/ticker';
 import { fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard, fetchOrdersUsdtm } from '../redux/order';
 import { createLoadingToast, dismissLoadingToast, handleLoadingError } from './loadSlicesHelpers';
+import { fetchAlarms } from '../redux/alarm';
 
 export const loadMinimumInformation = async (dispatch) => {
   const { toastId, intervalId } = createLoadingToast('Loading minimum information');
@@ -48,6 +49,16 @@ export const loadOrdersInformation = async (dispatch) => {
     handleLoadingError(toastId, intervalId, 'Error loading Orders information', error);
   }
 };
+
+export const loadAlarmsInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Alarms information');
+  try {
+     await dispatch(fetchAlarms({ limit: 500, offset: 0 }));
+    dismissLoadingToast(toastId, intervalId, 'Alarms information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Alarms information', error);
+  }
+}
 
 // Crear las demás funciones para cargar información de cuentas, estrategias, diario y posiciones
 
