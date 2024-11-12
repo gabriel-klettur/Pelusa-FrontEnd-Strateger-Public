@@ -1,8 +1,9 @@
+import VerticalBarChartV2 from '../../common/charts/VerticalBarChartV2';
 
 const AlarmInfoPanel = () => {
     return(
         <div>            
-            INFO
+            <VerticalBarChartV2 />        
         </div>
     )
 }
