@@ -10,6 +10,9 @@ import { Diary } from '../../Diary';
 import { Account } from '../../Account';
 import { Position } from '../../Positions';
 import { Backtesting } from '../../Backtesting';
+import { Earnings } from '../../Earnings';
+import { News } from '../../News';
+import ConfigComponent from '../../configComponent/ConfigComponent';
 
 // Import or define your images
 import AlarmsIcon from '../assets/icons/alarms.png';
@@ -20,7 +23,9 @@ import AccountIcon from '../assets/icons/account.png';
 import PositionIcon from '../assets/icons/position.png';
 import BacktestingIcon from '../assets/icons/backtesting.png';
 import ConfigIcon from '../assets/icons/config.png'; // Example icon for Configuración
-import ConfigComponent from '../../configComponent/ConfigComponent';
+import NewsIcon from '../assets/icons/news.png'; // Example icon for News
+import EarningsIcon from '../assets/icons/earnings.png'; // Example icon for Earnings
+
 
 const NavBarContainer = () => {
     const dispatch = useDispatch();
@@ -39,6 +44,8 @@ const NavBarContainer = () => {
         { name: 'Account', icon: AccountIcon },
         { name: 'Positions', icon: PositionIcon },
         { name: 'Backtesting', icon: BacktestingIcon },
+        { name: 'Earnings', icon: EarningsIcon },
+        { name: 'News', icon: NewsIcon },
         { name: 'Configuración', icon: ConfigIcon },
     ];
 
@@ -69,6 +76,12 @@ const NavBarContainer = () => {
                             <Backtesting />
                         </TabPanel>
                         <TabPanel>
+                            <Earnings />
+                        </TabPanel>
+                        <TabPanel>
+                            <News />
+                        </TabPanel>
+                        <TabPanel>
                             <ConfigComponent />
                         </TabPanel>
                     </TabPanels>
@@ -77,7 +90,7 @@ const NavBarContainer = () => {
                             <Tab
                                 key={index}
                                 className={({ selected }) =>
-                                    `w-full h-full p-4 text-sm font-medium transition-colors duration-200
+                                    `w-full h-24 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
                                     ${
                                         selected
                                         ? 'bg-african_violet-400 text-african_violet-900'
@@ -88,7 +101,7 @@ const NavBarContainer = () => {
                                 <img 
                                     src={tab.icon} 
                                     alt={tab.name} 
-                                    className="h-10 w-10 mx-auto filter invert"
+                                    className="h-8 w-8 mx-auto filter invert"
                                 />
                             </Tab>
                         ))}
