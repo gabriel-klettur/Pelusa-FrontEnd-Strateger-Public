@@ -6,117 +6,91 @@ import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';
 import { fetchCandlestickChartData } from '../redux/charts';
 import { fetchTicker } from '../redux/ticker';
 import { fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard, fetchOrdersUsdtm } from '../redux/order';
-import { toast } from 'react-toastify';
+import { createLoadingToast, dismissLoadingToast, handleLoadingError } from './loadSlicesHelpers';
 
-export const loadSlicesInOrder = () => async (dispatch) => {
-  let toastId;
-  let intervalId;
-
+export const loadMinimumInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading minimum information');
   try {
-    // Carga de información mínima
-    toastId = toast.info('Loading minimum information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading minimum information...', autoClose: false });
-    }, 2000);
-
     await Promise.all([
       dispatch(fetchTicker('ETH-USDT')),
       dispatch(fetchTicker('BTC-USDT'))
     ]);
+    dismissLoadingToast(toastId, intervalId, 'Minimum information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading minimum information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Minimum information loaded');
-
-    // Carga de información de gráficos
-    toastId = toast.info('Loading Charts information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Charts information...', autoClose: false });
-    }, 2000);
-
+export const loadChartsInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Charts information');
+  try {
     await dispatch(fetchCandlestickChartData({
       interval: '1d',
-      startDate: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1000).toISOString(), // 1000 días atrás
+      startDate: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1000).toISOString(),
       endDate: new Date().toISOString()
     }));
+    dismissLoadingToast(toastId, intervalId, 'Charts information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Charts information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Charts information loaded');
-
-    // Carga de información de órdenes
-    toastId = toast.info('Loading Orders information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Orders information...', autoClose: false });
-    }, 2000);
-
+// Repite el mismo patrón para las demás secciones
+export const loadOrdersInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Orders information');
+  try {
     await dispatch(fetchOrdersCoinm({ limit: 500, offset: 0 }));
     await dispatch(fetchOrdersSpot({ limit: 500, offset: 0 }));
     await dispatch(fetchOrdersStandard({ limit: 500, offset: 0 }));
     await dispatch(fetchOrdersUsdtm({ limit: 500, offset: 0 }));
+    dismissLoadingToast(toastId, intervalId, 'Orders information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Orders information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Orders information loaded');
+// Crear las demás funciones para cargar información de cuentas, estrategias, diario y posiciones
 
-    // Carga de información de cuentas
-    toastId = toast.info('Loading Account information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Account information...', autoClose: false });
-    }, 2000);
-
+export const loadAccountInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Account information');
+  try {
     await dispatch(fetchPerpCOINMBalance());
     await dispatch(fetchPerpUSDTMBalance());
     await dispatch(fetchSpotBalance());
     await dispatch(fetchTrackRecordBingXAllAccounts());
+    dismissLoadingToast(toastId, intervalId, 'Account information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Account information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Account information loaded');
-
-    // Carga de estrategias
-    toastId = toast.info('Loading Strategy information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Strategy information...', autoClose: false });
-    }, 2000);
-
+export const loadStrategiesInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Strategy information');
+  try {
     await dispatch(fetchStrategies({ skip: 0, limit: 10 }));
+    dismissLoadingToast(toastId, intervalId, 'Strategy information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Strategy information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Strategy information loaded');
-
-    // Carga de entradas del diario
-    toastId = toast.info('Loading Diary information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Diary information...', autoClose: false });
-    }, 2000);
-
+export const loadDiaryInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Diary information');
+  try {
     await dispatch(fetchDiaryEntries({ skip: 0, limit: 10 }));
+    dismissLoadingToast(toastId, intervalId, 'Diary information loaded');
+  } catch (error) {
+    handleLoadingError(toastId, intervalId, 'Error loading Diary information', error);
+  }
+};
 
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Diary information loaded');
-
-    // Carga de posiciones
-    toastId = toast.info('Loading Positions information', { autoClose: false });
-    intervalId = setInterval(() => {
-      toast.update(toastId, { render: 'Loading Positions information...', autoClose: false });
-    }, 2000);
-
+export const loadPositionsInformation = async (dispatch) => {
+  const { toastId, intervalId } = createLoadingToast('Loading Positions information');
+  try {
     await dispatch(fetchPositionsCoinM());
     await dispatch(fetchPositionsUSDTM());
-
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.success('Positions information loaded');
-
-    // Mensaje final de éxito
-    toast.success('All Redux slices loaded successfully');
+    dismissLoadingToast(toastId, intervalId, 'Positions information loaded');
   } catch (error) {
-    clearInterval(intervalId);
-    toast.dismiss(toastId);
-    toast.error('Error loading slices');
-    console.error('Error loading slices:', error);
+    handleLoadingError(toastId, intervalId, 'Error loading Positions information', error);
   }
 };
