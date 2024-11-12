@@ -1,4 +1,4 @@
-import VerticalBarChartV2 from '../../common/charts/VerticalBarChartV2';
+import AlarmInfoChart from '../../Alarms/components/AlarmInfoPanel/AlarmInfoChart';
 import Ventanita from '../../common/Ventanita';
 
 const LaboratoryCharts = () => {
@@ -8,7 +8,7 @@ const LaboratoryCharts = () => {
                 <Ventanita
                     titulo='For Alarms'
                     contenido={
-                        <VerticalBarChartV2 />
+                        <AlarmInfoChart />
                     }
                 />
             </div>

@@ -8,11 +8,13 @@ const AlarmContainer = () => {
     return (
         <div className="flex flex-col">            
             <div className='grid grid-cols-10'>
-                <div className='col-span-7'>
+                <div className='col-span-6'>
                     <MainChart/>
                 </div>
-                <div className='flex flex-col h-full col-span-3'>
-                    <AlarmInfoPanel/>
+                <div className='flex flex-col h-full col-span-4'>
+                    <div className='h-92'>                        
+                        <AlarmInfoPanel/>
+                    </div>
                     <AlarmFiltersPanelContainer/>                
                 </div>
             </div>
