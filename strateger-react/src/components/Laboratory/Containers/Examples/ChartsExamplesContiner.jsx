@@ -1,22 +1,22 @@
-import Ventanita from "../../common/Ventanita";
-import HorizontalBarChart from "../../common/charts/HorizontalBarChart";
-import VerticalBarChart from "../../common/charts/VerticalBarChart";
-import StackedBarChart from "../../common/charts/StackedBarChart";
-import GroupedBarChart from "../../common/charts/GroupedBarChart";
-import LineChart from "../../common/charts/LineChart";
-import MultiaxisLineChart from "../../common/charts/MultiaxisLineChart";
-import DoughnutChart from "../../common/charts/DoughnutChart";
-import PolarAreaChart from "../../common/charts/PolarAreaChart";
-import RadarChart from "../../common/charts/RadarChart";
-import BubbleChart from "../../common/charts/BubbleChart";
-import MultitypeChart from "../../common/charts/MultitypeChart";
-import ScatterChart from "../../common/charts/ScatterChart";
-import ChartEvents from "../../common/charts/ChartEvents";
-import GetChartRef from "../../common/charts/GetChartRef";
-import GradientChart from "../../common/charts/GradientChart";
-import PieChart from "../../common/charts/PieChart";
+import Ventanita from "../../../common/Ventanita";
+import HorizontalBarChart from "../../Components/charts/HorizontalBarChart";
+import VerticalBarChart from "../../Components/charts/VerticalBarChart";
+import StackedBarChart from "../../Components/charts/StackedBarChart";
+import GroupedBarChart from "../../Components/charts/GroupedBarChart";
+import LineChart from "../../Components/charts/LineChart";
+import MultiaxisLineChart from "../../Components/charts/MultiaxisLineChart";
+import DoughnutChart from "../../Components/charts/DoughnutChart";
+import PolarAreaChart from "../../Components/charts/PolarAreaChart";
+import RadarChart from "../../Components/charts/RadarChart";
+import BubbleChart from "../../Components/charts/BubbleChart";
+import MultitypeChart from "../../Components/charts/MultitypeChart";
+import ScatterChart from "../../Components/charts/ScatterChart";
+import ChartEvents from "../../Components/charts/ChartEvents";
+import GetChartRef from "../../Components/charts/GetChartRef";
+import GradientChart from "../../Components/charts/GradientChart";
+import PieChart from "../../Components/charts/PieChart";
 
-const ChartsExamples = () => {
+const ChartsExamplesContiner = () => {
     return(
         <>
             <div className="grid grid-cols-3 mt-3">
@@ -132,4 +132,4 @@ const ChartsExamples = () => {
 
 }
 
-export default ChartsExamples;
+export default ChartsExamplesContiner;
