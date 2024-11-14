@@ -14,6 +14,7 @@ import { Earnings } from '../../Earnings';
 import { News } from '../../News';
 import BattleField from '../../BattleField';
 import ConfigComponent from '../../configComponent/ConfigComponent';
+import Laboratory from '../../Laboratory';
 
 // Import or define your images
 import battleFieldIcon from '../assets/icons/battleField.png';
@@ -29,6 +30,7 @@ import NewsIcon from '../assets/icons/news.png';
 import EarningsIcon from '../assets/icons/earnings.png'; 
 import DivisasIcon from '../assets/icons/divisas.png';
 import ReinaIcon from '../assets/icons/reina.png';
+import LaboratoryIcon from '../assets/icons/lab.png';
 
 const NavBarContainer = () => {
     const dispatch = useDispatch();
@@ -52,6 +54,7 @@ const NavBarContainer = () => {
         { name: 'News', icon: NewsIcon },
         { name: 'Divisas', icon: DivisasIcon },
         { name: 'Reina', icon: ReinaIcon },
+        { name: 'Laboratorio', icon: LaboratoryIcon },
         { name: 'Configuración', icon: ConfigIcon },
     ];
 
@@ -99,6 +102,9 @@ const NavBarContainer = () => {
                             <>
                                 REINA 
                             </>
+                        </TabPanel>
+                        <TabPanel>
+                            <Laboratory />
                         </TabPanel>
                         <TabPanel>
                             <ConfigComponent />
