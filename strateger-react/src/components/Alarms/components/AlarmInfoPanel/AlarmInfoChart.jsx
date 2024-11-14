@@ -149,21 +149,29 @@ const AlarmInfoChart = () => {
     }
   }, [visibleMonths, alarmsData]);
 
+  const MonthToggleButtons = () => {
+    return (
+      <div className="flex flex-wrap space-x-2 space-y-2 justify-center text-sm rounded-sm">
+        {allLabels.map((month, index) => (
+          <button
+            key={month}
+            onClick={() => toggleMonth(index)}
+            className={`px-2 py-1 rounded-sm text-white ${
+              visibleMonths[index] ? 'bg-african_violet-300' : 'bg-african_violet-500'
+            }`}
+          >
+            {month}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className='rounded-sm bg-african_violet-200 p-2 m-1 shadow-md'>
       {alarmsData && alarmsData.length > 0 ? (
         <>
-          <div className="flex flex-wrap space-x-2 space-y-2 justify-center text-sm rounded-sm"> 
-            {allLabels.map((month, index) => (
-              <button
-                key={month}
-                onClick={() => toggleMonth(index)}
-                className={`px-2 py-1 rounded-sm text-white ${visibleMonths[index] ? 'bg-african_violet-300' : 'bg-african_violet-500'}`}
-              >
-                {month}
-              </button>
-            ))}
-          </div>
+          <MonthToggleButtons />
           <Bar options={options} data={chartData} />
         </>
       ) : (
