@@ -1,4 +1,4 @@
-import ExperimentsArea from "../../Components/ExperimentsArea/ExperimentsArea";
+import ExperimentsArea from '../../Components/ExperimentsArea'
 
 
 const ExperimentsAreaContainer = () => {

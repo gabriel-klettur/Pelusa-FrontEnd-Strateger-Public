@@ -1,7 +1,7 @@
 
 
 import { useState } from "react";
-import ExperimentsArea from "../Components/ExperimentsArea/ExperimentsArea";
+import ExperimentsAreaContainer from "../Containers/Experiments/ExperimentsAreaContainer";
 import ReadyToUseContainer from "./ReadyToUse/ReadyToUseContainer";
 import ExamplesContainer from "./Examples/ExamplesContainer";
 
@@ -60,7 +60,7 @@ const LaboratoryContainer = () => {
             )}
 
             {showInLaboratory && (
-                <ExperimentsArea />
+                <ExperimentsAreaContainer />
             )}
             {showReadyToUse && (
                 <ReadyToUseContainer />
