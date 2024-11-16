@@ -10,7 +10,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Transactions by Month and Interval',
+      text: 'Alarms catched by Month and Interval',
     },
   },
   responsive: true,
