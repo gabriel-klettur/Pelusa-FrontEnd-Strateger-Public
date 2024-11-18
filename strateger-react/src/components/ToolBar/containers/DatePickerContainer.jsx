@@ -60,7 +60,7 @@ const DatePickerContainer = ({setLocalDate, currentInterval, onDateChange, local
             onChange={handleDateChange}
             showTimeSelect
             dateFormat="HH:mm dd-MM-yyyy" 
-            className="px-4 h-12 font-semibold transition-colors duration-300 bg-african_violet-200 hover:bg-african_violet-600 text-white text-center"
+            className="px-4 h-12 font-semibold transition-colors duration-300 bg-african_violet-300 hover:bg-african_violet-600 text-white text-center"
         />   
     )
 }

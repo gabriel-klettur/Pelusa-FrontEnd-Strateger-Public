@@ -23,19 +23,25 @@ const ToolBarContainer = () => {
     }, [startDate]);
    
     return(
-        <div className="flex">
-            <IntervalBarContainer
-                currentInterval={currentInterval}
-                setCurrentInterval={setCurrentInterval}
-                startDate={startDate}
-                endDate={endDate}
-            />      
-            <RelojContainer />
-            <DatePickerContainer
-                setLocalDate={setLocalDate}
-                currentInterval={currentInterval}            
-                localDate={localDate}
-            />      
+        <div className="grid grid-cols-3 gap-4 bg-african_violet-300">
+            <div className="h-full flex justify-center items-center ">
+                <IntervalBarContainer
+                    currentInterval={currentInterval}
+                    setCurrentInterval={setCurrentInterval}
+                    startDate={startDate}
+                    endDate={endDate}
+                />   
+            </div>             
+            <div className="h-full flex justify-center items-center">
+                <DatePickerContainer
+                    setLocalDate={setLocalDate}
+                    currentInterval={currentInterval}            
+                    localDate={localDate}                
+                />      
+            </div>
+            <div className="h-full flex justify-end items-center">
+                <RelojContainer />
+            </div>
         </div>
     )
 }
