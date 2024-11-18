@@ -1,6 +1,6 @@
 //Path: strateger-react/src/components/ToolBar/containers/ToolBarContainer.jsx
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import IntervalBarContainer from './IntervalBarContainer';
