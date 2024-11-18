@@ -110,7 +110,7 @@ const NavBarContainer = () => {
                             <ConfigComponent />
                         </TabPanel>
                     </TabPanels>
-                     <TabList className="flex flex-col h-screen">
+                    <TabList className="flex flex-col h-screen mt-1">
                         {tabs.map((tab, index) => (
                             <Tab
                                 key={index}
