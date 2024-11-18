@@ -41,9 +41,9 @@ const Reloj = ({ direction = 'up' }) => {
   const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
 
   return (
-    <div className="h-full transition-colors duration-300 w-40 bg-african_violet-200 flex justify-center items-center hover:bg-african_violet-600 " >
+    <div className="h-full transition-colors duration-300 w-40 bg-african_violet-300 flex justify-center items-center hover:bg-african_violet-600 " >
       <Popover className="relative">
-        <Popover.Button className="text-lg font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
+        <Popover.Button className="font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
           {formatTime(localTime)}
         </Popover.Button>
         <Popover.Panel className={`absolute z-10 p-4 bg-white border border-african_violet-300 rounded-lg shadow-lg ${popoverPosition}`}>
