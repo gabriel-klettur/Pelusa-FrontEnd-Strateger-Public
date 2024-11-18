@@ -168,7 +168,7 @@ const AlarmInfoChart = () => {
   };
 
   return (
-    <div className='rounded-sm bg-african_violet-200 p-2 m-1 shadow-md'>
+    <div className='bg-african_violet-200 p-2'>
       {alarmsData && alarmsData.length > 0 ? (
         <>
           <MonthToggleButtons />
