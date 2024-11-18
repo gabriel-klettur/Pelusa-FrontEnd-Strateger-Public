@@ -17,20 +17,20 @@ import ConfigComponent from '../../configComponent/ConfigComponent';
 import Laboratory from '../../Laboratory';
 
 // Import or define your images
-import battleFieldIcon from '../assets/icons/battleField.png';
-import AlarmsIcon from '../assets/icons/alarms.png';
-import OrdersIcon from '../assets/icons/orders.png';
-import StrategyIcon from '../assets/icons/strategy.png';
-import DiaryIcon from '../assets/icons/diary.png';
-import AccountIcon from '../assets/icons/account.png';
-import PositionIcon from '../assets/icons/position.png';
-import BacktestingIcon from '../assets/icons/backtesting.png';
-import ConfigIcon from '../assets/icons/config.png'; 
-import NewsIcon from '../assets/icons/news.png'; 
-import EarningsIcon from '../assets/icons/earnings.png'; 
-import DivisasIcon from '../assets/icons/divisas.png';
-import ReinaIcon from '../assets/icons/reina.png';
-import LaboratoryIcon from '../assets/icons/lab.png';
+import battleFieldIcon from '../assets/icons/battleField.svg';
+import AlarmsIcon from '../assets/icons/alarms.svg';
+import OrdersIcon from '../assets/icons/orders.svg';
+import StrategyIcon from '../assets/icons/strategy.svg';
+import DiaryIcon from '../assets/icons/diary.svg';
+import AccountIcon from '../assets/icons/account.svg';
+import PositionIcon from '../assets/icons/positions.svg';
+import BacktestingIcon from '../assets/icons/backtesting.svg';
+import ConfigIcon from '../assets/icons/config.svg'; 
+import NewsIcon from '../assets/icons/news.svg'; 
+import EarningsIcon from '../assets/icons/earnings.svg'; 
+import DivisasIcon from '../assets/icons/divisas.svg';
+import ReinaIcon from '../assets/icons/reina.svg';
+import LaboratoryIcon from '../assets/icons/lab.svg';
 
 const NavBarContainer = () => {
     const dispatch = useDispatch();
@@ -115,7 +115,7 @@ const NavBarContainer = () => {
                             <Tab
                                 key={index}
                                 className={({ selected }) =>
-                                    `w-full h-16 w-14 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
+                                    `w-full h-16 w-16 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
                                     ${
                                         selected
                                         ? 'bg-african_violet-400 text-african_violet-900'
@@ -126,7 +126,7 @@ const NavBarContainer = () => {
                                 <img 
                                     src={tab.icon} 
                                     alt={tab.name} 
-                                    className="h-8 w-8 mx-auto filter invert"
+                                    className="h-8 w-8 mx-auto"
                                 />
                             </Tab>
                         ))}
