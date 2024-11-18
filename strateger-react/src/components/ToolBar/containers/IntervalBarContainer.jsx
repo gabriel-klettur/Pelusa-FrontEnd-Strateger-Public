@@ -6,7 +6,7 @@ import IntervalBar from '../components/IntervalBar';
 
 const IntervalBarContainer = ({currentInterval, setCurrentInterval, startDate, endDate}) => {
     const dispatch = useDispatch();
-    const intervals = ['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M'];
+    const intervals = ['1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w', '1M'];
 
     const handleIntervalChange = (newInterval) => {
         setCurrentInterval(newInterval);
