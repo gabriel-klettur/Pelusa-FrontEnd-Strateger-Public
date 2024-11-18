@@ -11,6 +11,15 @@ export const options = {
     title: {
       display: true,
       text: 'Alarms catched by Month and Interval',
+      color: 'white', 
+    },
+    legend: {
+      labels: {
+        color: 'white', 
+      },
+    },
+    tooltip: {
+      bodyColor: 'white', 
     },
   },
   responsive: true,
@@ -21,9 +30,15 @@ export const options = {
   scales: {
     x: {
       stacked: true,
+      ticks: {
+        color: 'white', // Cambia el color de las etiquetas del eje X a blanco
+      },
     },
     y: {
       stacked: true,
+      ticks: {
+        color: 'white', // Cambia el color de las etiquetas del eje Y a blanco
+      },     
     },
   },
 };
@@ -157,7 +172,7 @@ const AlarmInfoChart = () => {
             key={month}
             onClick={() => toggleMonth(index)}
             className={`px-2 py-1 h-10 flex items-center justify-center rounded-sm text-african_violet-900 ${
-              visibleMonths[index] ? 'bg-african_violet-300' : 'bg-african_violet-500'
+              visibleMonths[index] ? 'bg-african_violet-500' : 'bg-african_violet-300'
             }`}
           >
             {month}
