@@ -23,7 +23,7 @@ const ToolBarContainer = () => {
     }, [startDate]);
    
     return(
-        <div className="grid grid-cols-3 gap-4 bg-african_violet-300">
+        <div className="h-14 grid grid-cols-3 gap-4 bg-african_violet-300">
             <div className="h-full flex justify-center items-center ">
                 <IntervalBarContainer
                     currentInterval={currentInterval}
