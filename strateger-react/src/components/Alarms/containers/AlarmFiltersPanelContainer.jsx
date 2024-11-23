@@ -14,14 +14,17 @@ const AlarmFiltersPanelContainer = () => {
     const selectedTypes = useSelector(selectSelectedTypes);                     // objeto que guarda la temporalidad y los tipos seleccionados en el panel  
   
     return (
-      <div className="h-full flex flex-col">
-        <>
+      <div className="flex space-x-12">
+        <div>
           <IntervalBar            
             selectedTemporalidad={selectedTemporalidad}
             selectedTypes={selectedTypes}          
           />
-        </>
-        <div className="h-full">
+        </div>
+        <div className="p-1 text-african_violet-700">
+          |
+        </div>
+        <div className="">
           <OrderTypePanel
             selectedTemporalidad={selectedTemporalidad}
             selectedTypes={selectedTypes}          

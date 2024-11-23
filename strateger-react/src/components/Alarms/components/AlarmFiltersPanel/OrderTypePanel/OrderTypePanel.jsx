@@ -7,21 +7,24 @@ import TypeFilterTabPanel from './TypeFilterPanel';
 
 const OrderTypePanel = ({ selectedTemporalidad, selectedTypes}) => {
     const Longtypes = [
-        'order open long', 'order close long',   
-        'indicator open long', 'indicator close long'
+        'Order open long', 'Order close long',   
+        'Indicator open long', 'Indicator close long'
     ];
     const Shorttypes = [
-        'order open short', 'order close short', 
-        'indicator open short', 'indicator close short'
+        'Order open short', 'Order close short', 
+        'Indicator open short', 'Indicator close short'
     ];
     return (
         <>
-            <TabGroup className="flex flex-col h-full">
-                <TabList className="flex justify-center space-x-1 bg-african_violet-500 p-1">          
+            <TabGroup className="flex space-x-12">
+                <TabList className="flex space-x-4">
                     <DirectionTabButton direction="Long" />
                     <DirectionTabButton direction="Short" />          
                 </TabList>
-                <TabPanels className="h-full">
+                <div className="p-1 text-african_violet-700">
+                    |
+                </div>
+                <TabPanels className="">
                     <TypeFilterTabPanel 
                         types={Longtypes} 
                         selectedTemporalidad={selectedTemporalidad} 

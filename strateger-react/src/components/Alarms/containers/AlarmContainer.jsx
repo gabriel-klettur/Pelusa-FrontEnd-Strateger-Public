@@ -14,13 +14,11 @@ const AlarmContainer = () => {
                 <div className='flex flex-col h-full col-span-4'>
                     <div className='h-92 mt-1 mr-1 mb-1'>                        
                         <AlarmInfoPanel/>
-                    </div>
-                    <div className='h-full mr-1 mb-1'>
-                        <AlarmFiltersPanelContainer/>                
-                    </div>
+                    </div>                    
                 </div>
             </div>
-            <div className='mr-1'>
+            <div className='mr-1 bg-african_violet-300 rounded-sm'>
+                <AlarmFiltersPanelContainer/> 
                 <AlarmTablesContainer/>            
             </div>
         </div>

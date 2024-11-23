@@ -3,11 +3,11 @@
 const TypeButton = ({ label, selectedTypes, onClick }) => {
   return (
     <button 
-      className={`font-semibold text-sm shadow-m transition-colors duration-200 
+      className={` font-semibold text-base py-1 px-2 hover:bg-african_violet-400 hover:rounded-lg
         ${
           selectedTypes.includes(label) 
-            ? 'w-full bg-african_violet-500 text-white'
-            : 'bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400'
+            ? 'text-african_violet-100 underline decoration-2'
+            : 'text-african_violet-900' 
         } 
       `}
       onClick={() => onClick(label)}

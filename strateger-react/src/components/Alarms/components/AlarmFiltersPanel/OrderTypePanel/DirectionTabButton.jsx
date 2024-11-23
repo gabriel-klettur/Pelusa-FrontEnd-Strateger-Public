@@ -6,12 +6,12 @@ const DirectionTabButton = ({ direction }) => {
   return (
     <Tab
       className={({ selected }) =>
-              `w-full py-2.5 text-sm leading-5 font-medium rounded-lg transition-colors duration-200
+              ` font-semibold text-base py-1 px-2 hover:bg-african_violet-400 hover:rounded-lg
               ${
                 selected
-                  ? 'bg-white shadow text-african_violet-300 border-4 border-african_violet-700'
-                  : 'text-african_violet-300 hover:bg-african_violet-400 hover:text-african_violet-900'
-              } focus:outline-none focus:border-4 focus:border-african_violet-600`
+                  ? 'text-african_violet-100 underline decoration-2'
+                  : 'text-african_violet-900'
+              }`
             }
           >
       {direction}

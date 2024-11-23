@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'], // Configura Roboto como fuente sans-serif
+      },
       colors: {
         african_violet: {
           DEFAULT: '#a393bf',
@@ -18,53 +21,20 @@ module.exports = {
           800: '#dad3e5',
           900: '#ece9f2',
         },
-        african_violet_2: {
-          DEFAULT: '#9882ac',
-          100: '#1e1824',
-          200: '#3d3048',
-          300: '#5b486c',
-          400: '#796090',
-          500: '#9882ac',
-          600: '#ac9bbc',
-          700: '#c1b4cd',
-          800: '#d5cdde',
-          900: '#eae6ee',
+        ecru: {
+          DEFAULT: '#BFB48F',
+          100: '#2A261B', // Tonalidad más oscura
+          200: '#554C37',
+          300: '#807354',
+          400: '#AA9970',
+          500: '#BFB48F', // Color base
+          600: '#D2C6A7',
+          700: '#E5D8BF',
+          800: '#F0E8D6',
+          900: '#F9F4EA', // Tonalidad más clara
         },
-        pomp_and_power: {
-          DEFAULT: '#73648a',
-          100: '#17141c',
-          200: '#2e2838',
-          300: '#463c53',
-          400: '#5d516f',
-          500: '#73648a',
-          600: '#8f82a4',
-          700: '#aba1bb',
-          800: '#c7c0d2',
-          900: '#e3e0e8',
-        },
-        english_violet: {
-          DEFAULT: '#453750',
-          100: '#0e0b10',
-          200: '#1b1520',
-          300: '#29202f',
-          400: '#362b3f',
-          500: '#453750',
-          600: '#6b547c',
-          700: '#9178a3',
-          800: '#b5a5c2',
-          900: '#dad2e0',
-        },
-        night: {
-          DEFAULT: '#0c0910',
-          100: '#020203',
-          200: '#050407',
-          300: '#07060a',
-          400: '#0a070d',
-          500: '#0c0910',
-          600: '#3b2c4e',
-          700: '#6a4f8c',
-          800: '#9a83b9',
-          900: '#cdc1dc',
+        tview_text: {
+          DEFAULT: '#403A43',          
         },
       },
     },

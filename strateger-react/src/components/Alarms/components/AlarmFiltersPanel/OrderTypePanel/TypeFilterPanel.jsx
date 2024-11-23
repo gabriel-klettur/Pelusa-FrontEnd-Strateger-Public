@@ -28,8 +28,8 @@ const TypeFilterPanel = ({ types, selectedTemporalidad, selectedTypes }) => {
 };
 
   return (
-    <TabPanel className="h-full">
-      <div className="h-full grid grid-cols-2">
+    <TabPanel className="">
+      <div className="">
         {types.map(type => (
           <TypeButton
             key={type}
