@@ -2,7 +2,7 @@ import AlarmInfoChart from '../components/AlarmInfoPanel/AlarmInfoChart';
 
 const AlarmInfoPanel = () => {
     return(
-        <div>            
+        <div className='h-full'>
             <AlarmInfoChart />        
         </div>
     )

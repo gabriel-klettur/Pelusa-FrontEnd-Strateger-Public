@@ -7,6 +7,8 @@ import { selectAlarmsData } from '../../../../redux/alarm';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const options = {
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     title: {
       display: true,
@@ -22,7 +24,6 @@ export const options = {
       bodyColor: 'white', 
     },
   },
-  responsive: true,
   interaction: {
     mode: 'index',
     intersect: false,
@@ -183,12 +184,17 @@ const AlarmInfoChart = () => {
   };
 
   return (
-    <div className='bg-african_violet-200 p-2'>
+    <div className='h-full bg-african_violet-200 p-2'>
       {alarmsData && alarmsData.length > 0 ? (
-        <>
+        <div className='h-full'>
           <MonthToggleButtons />
-          <Bar options={options} data={chartData} />
-        </>
+          <div style={{ height: "475px" }}>
+            <Bar               
+              options={options} 
+              data={chartData}                 
+            />
+          </div>
+        </div>
       ) : (
         <p>Loading chart data...</p>
       )}
