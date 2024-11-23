@@ -28,7 +28,7 @@ import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeA
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
 
-const AlarmTablesContainer = () => {    
+const AlarmTablesContainer =({setShowFilterPanel}) => {    
   const loadingAlarms = useSelector(selectAlarmsLoading);
   const errorAlarms = useSelector(selectAlarmsError);  
   const PageAlarm = useSelector(selectAlarmsPage);
@@ -67,10 +67,22 @@ const AlarmTablesContainer = () => {
       <div className="text-sm">
         <TabGroup>
           <TabList className="flex justify-start bg-african_violet-300">
-            <AlarmTab tabName="Alarms"/>
-            <AlarmTab tabName="Selected Alarms"/>
-            <AlarmTab tabName="Filtered by Selected Interval"/>
-            <AlarmTab tabName="Filtered by Selected Interval and Type"/>            
+            <AlarmTab 
+              tabName="Alarms"
+              setShowFilterPanel={setShowFilterPanel}
+            />
+            <AlarmTab 
+              tabName="Selected Alarms"
+              setShowFilterPanel={setShowFilterPanel}
+            />
+            <AlarmTab 
+              tabName="Filtered by Selected Interval"
+              setShowFilterPanel={setShowFilterPanel}
+            />
+            <AlarmTab 
+              tabName="Filtered by Selected Interval and Type"
+              setShowFilterPanel={setShowFilterPanel}
+            />            
           </TabList>
           <TabPanels>
             <TabPanel>

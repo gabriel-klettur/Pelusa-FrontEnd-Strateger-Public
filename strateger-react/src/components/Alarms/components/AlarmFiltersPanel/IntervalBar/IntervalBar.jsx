@@ -16,10 +16,9 @@ const IntervalBar = ({ selectedTemporalidad, selectedTypes}) => {
 
     return (
         <div className="flex">
-            {temporalidades.map((temp) => (
-                <div>
+            {temporalidades.map((temp, index) => (
+                <div key={`${temp}-${index}`}>
                     <IntervalButton
-                        key={temp}
                         temporalidad={temp}
                         selectedTemporalidad={selectedTemporalidad}
                         selectedIntervalAndTypes={selectedTypes}            
@@ -28,7 +27,7 @@ const IntervalBar = ({ selectedTemporalidad, selectedTypes}) => {
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
 
