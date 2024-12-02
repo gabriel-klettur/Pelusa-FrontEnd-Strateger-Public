@@ -41,21 +41,21 @@ const NavBarContainer = () => {
     };
 
     // Define the tabs and their corresponding icons
-    const tabs = [
-        { name: 'Battle Field', icon: battleFieldIcon },
-        { name: 'Alarmas', icon: AlarmsIcon },
-        { name: 'Órdenes', icon: OrdersIcon },
-        { name: 'Estrategias', icon: StrategyIcon },
-        { name: 'Diario', icon: DiaryIcon },
-        { name: 'Account', icon: AccountIcon },
-        { name: 'Positions', icon: PositionIcon },
-        { name: 'Backtesting', icon: BacktestingIcon },
-        { name: 'Earnings', icon: EarningsIcon },
-        { name: 'News', icon: NewsIcon },
-        { name: 'Divisas', icon: DivisasIcon },
-        { name: 'Reina', icon: ReinaIcon },
-        { name: 'Laboratorio', icon: LaboratoryIcon },
-        { name: 'Configuración', icon: ConfigIcon },
+    const tabs = [    
+        { name: 'Alarmas', icon: AlarmsIcon, disabled: false },
+        { name: 'Battle Field', icon: battleFieldIcon, disabled: true },
+        { name: 'Órdenes', icon: OrdersIcon, disabled: true },
+        { name: 'Estrategias', icon: StrategyIcon, disabled: true },
+        { name: 'Diario', icon: DiaryIcon, disabled: true },
+        { name: 'Account', icon: AccountIcon, disabled: true },
+        { name: 'Positions', icon: PositionIcon, disabled: true },
+        { name: 'Backtesting', icon: BacktestingIcon, disabled: true },
+        { name: 'Earnings', icon: EarningsIcon, disabled: true },
+        { name: 'News', icon: NewsIcon, disabled: true },
+        { name: 'Divisas', icon: DivisasIcon, disabled: true },
+        { name: 'Reina', icon: ReinaIcon, disabled: true },
+        { name: 'Laboratorio', icon: LaboratoryIcon, disabled: true },
+        { name: 'Configuración', icon: ConfigIcon, disabled: true },
     ];
 
     return (
@@ -64,10 +64,10 @@ const NavBarContainer = () => {
                 <div className="flex">                   
                     <TabPanels className="w-full h-screen">
                         <TabPanel>
-                            <BattleField />
+                            <Alarms />
                         </TabPanel>
                         <TabPanel>
-                            <Alarms />
+                            <BattleField />
                         </TabPanel>
                         <TabPanel>
                             <Orders />
@@ -115,18 +115,23 @@ const NavBarContainer = () => {
                             <Tab
                                 key={index}
                                 className={({ selected }) =>
-                                    `w-full h-16 w-16 p-2 text-sm font-medium transition-colors duration-200 hover:bg-african_violet-300
+                                    `w-full h-16 w-16 p-2 text-sm font-medium transition-colors duration-200 
                                     ${
-                                        selected
-                                        ? 'bg-african_violet-400 text-african_violet-900'
-                                        : 'bg-african_violet-200 text-african_violet-700 hover:text-african_violet-900'
+                                        tab.disabled
+                                            ? 'cursor-not-allowed bg-gray-500 text-gray-500'
+                                            : `hover:bg-african_violet-300 ${
+                                                selected
+                                                    ? 'bg-african_violet-400 text-african_violet-900'
+                                                    : 'bg-african_violet-200 text-african_violet-700 hover:text-african_violet-900'
+                                            }`
                                     }`
                                 }
+                                disabled={tab.disabled}
                             >
                                 <img 
                                     src={tab.icon} 
                                     alt={tab.name} 
-                                    className="h-8 w-8 mx-auto"
+                                    className={`h-8 w-8 mx-auto ${tab.disabled ? 'opacity-50' : ''}`}
                                 />
                             </Tab>
                         ))}
