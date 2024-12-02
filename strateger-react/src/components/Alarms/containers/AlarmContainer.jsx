@@ -1,16 +1,9 @@
-//Path: src/components/Alarms/containers/AlarmContainer.jsx
 
-
-import { useState } from 'react';
-
-import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
 import AlarmInfoPanel from './AlarmInfoPanel';
 
 const AlarmContainer = () => {
-
-    const [showFilterPanel, setShowFilterPanel] = useState(false);
 
     return (
         <div className="flex flex-col">            
@@ -22,9 +15,8 @@ const AlarmContainer = () => {
                     <AlarmInfoPanel/>                                      
                 </div>
             </div>
-            <div className='mr-1 bg-african_violet-300 rounded-sm'>
-                {showFilterPanel && <AlarmFiltersPanelContainer />}
-                <AlarmTablesContainer setShowFilterPanel={setShowFilterPanel} />           
+            <div className='mr-1 bg-african_violet-300 rounded-sm'>                
+                <AlarmTablesContainer />           
             </div>
         </div>
     );

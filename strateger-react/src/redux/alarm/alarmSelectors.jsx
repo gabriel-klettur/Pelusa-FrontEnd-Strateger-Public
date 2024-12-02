@@ -28,5 +28,11 @@ export const selectFilteredByIntervalAndTypeAlarmsLoading = (state) => state.ala
 export const selectFilteredByIntervalAndTypeAlarmsError = (state) => state.alarms.filteredByIntervalAndTypeAlarms.error;
 export const selectFilteredByIntervalAndTypeAlarmsOffset = (state) => state.alarms.filteredByIntervalAndTypeAlarms.offset;
 
+export const selectFilteredByOptionsAlarms = (state) => state.alarms.filteredByOptions.data;
+export const selectFilteredByOptionsAlarmsPage = (state) => state.alarms.filteredByOptions.page;
+export const selectFilteredByOptionsAlarmsHasMore = (state) => state.alarms.filteredByOptions.hasMore;
+export const selectFilteredByOptionsAlarmsLoading = (state) => state.alarms.filteredByOptions.loading;
+export const selectFilteredByOptionsAlarmsError = (state) => state.alarms.filteredByOptions.error;
+export const selectFilteredByOptionsAlarmsOffset = (state) => state.alarms.filteredByOptions.offset;
 
 export const selectStrategyFilteredAlarms = (state) => state.alarms.strategyFilteredAlarms;

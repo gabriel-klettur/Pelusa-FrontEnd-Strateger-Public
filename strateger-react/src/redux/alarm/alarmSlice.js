@@ -19,6 +19,7 @@ const alarmSlice = createSlice({
     filteredByClickAlarms: initialStates,   
     filteredByIntervalAlarms: initialStates,
     filteredByIntervalAndTypeAlarms: initialStates,
+    filteredByOptions: initialStates,
     strategyFilteredAlarms: [],
   },
   reducers: {
@@ -35,7 +36,9 @@ const alarmSlice = createSlice({
     setPageFilteredByIntervalAndTypeAlarms(state, action) {
       state.filteredByIntervalAndTypeAlarms.page = action.payload;
     },
-
+    setPageFilteredByOptions(state, action) {
+      state.filteredByOptions.page = action.payload;
+    },
     //TODO ------------------------ HasMore setters ------------------------
     setHasMoreAlarms(state, action) {
       state.alarms.hasMore = action.payload;
@@ -49,6 +52,9 @@ const alarmSlice = createSlice({
     setHasMoreFilteredByIntervalAndTypeAlarms(state, action) {
       state.filteredByIntervalAndTypeAlarms.hasMore = action.payload;
     },    
+    setHasMoreFilteredByOptions(state, action) {
+      state.filteredByOptions.hasMore = action.payload;
+    },
 
     //TODO ------------------------ Filtered setters ------------------------
     setFilteredByClickAlarms(state, action) {
@@ -65,6 +71,9 @@ const alarmSlice = createSlice({
     },
     setStrategyFilteredAlarms(state, action) {
       state.strategyFilteredAlarms = action.payload;
+    },
+    setFilteredByOptions(state, action) {
+      state.filteredByOptions.data = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -95,14 +104,17 @@ export const {
   setPageFilteredByClickAlarms,
   setPageFilteredByIntervalAlarms,
   setPageFilteredByIntervalAndTypeAlarms,
+  setPageFilteredByOptions,
   setHasMoreAlarms,
   setHasMoreFilteredByClickAlarms,
   setHasMoreFilteredByIntervalAlarms,
   setHasMoreFilteredByIntervalAndTypeAlarms,
+  setHasMoreFilteredByOptions,
   setFilteredByClickAlarms,
   setFilteredByIntervalAlarms,
   setFilteredByIntervalAndTypeAlarms,  
   setStrategyFilteredAlarms,
+  setFilteredByOptions,
 } = alarmSlice.actions;
 
 

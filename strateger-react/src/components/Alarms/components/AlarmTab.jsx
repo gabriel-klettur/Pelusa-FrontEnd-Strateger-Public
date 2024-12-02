@@ -2,14 +2,8 @@
 
 import { Tab } from '@headlessui/react';
 
-const AlarmTab = ({ tabName, setShowFilterPanel }) => {
+const AlarmTab = ({ tabName }) => {
   const handleClick = () => {
-
-    if(tabName === 'Filtered by Selected Interval' || tabName === 'Filtered by Selected Interval and Type') {    
-      setShowFilterPanel(true); // Cambia el estado para mostrar el panel
-    }else{
-      setShowFilterPanel(false);
-    }
 
   };
 

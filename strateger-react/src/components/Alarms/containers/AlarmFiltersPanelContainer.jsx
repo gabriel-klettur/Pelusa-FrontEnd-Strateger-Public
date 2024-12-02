@@ -1,37 +1,61 @@
-//Path: src/components/Alarms/containers/AlarmFiltersPanelContainer.jsx
+// Path: src/components/Alarms/containers/AlarmFiltersPanelContainer.jsx
 
-import IntervalBar from '../components/AlarmFiltersPanel/IntervalBar/IntervalBar';
-import OrderTypePanel from '../components/AlarmFiltersPanel/OrderTypePanel/OrderTypePanel';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {   
-  selectSelectedTemporalidad, 
-  selectSelectedTypes 
-} from '../../../redux/alarm/filtersPanel';
-  
+import {
+  selectAlarmsData,
+  selectFilteredByOptionsAlarms,
+  setFilteredByOptions,
+} from '../../../redux/alarm';
+
+import FiltersMenu from '../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
+
 const AlarmFiltersPanelContainer = () => {
-    const selectedTemporalidad = useSelector(selectSelectedTemporalidad);       // temporalidad seleccionada en el panel
-    const selectedTypes = useSelector(selectSelectedTypes);                     // objeto que guarda la temporalidad y los tipos seleccionados en el panel  
-  
-    return (
-      <div className="flex space-x-12">
-        <div>
-          <IntervalBar            
-            selectedTemporalidad={selectedTemporalidad}
-            selectedTypes={selectedTypes}          
-          />
-        </div>
-        <div className="p-1 text-african_violet-700">
-          |
-        </div>
-        <div className="">
-          <OrderTypePanel
-            selectedTemporalidad={selectedTemporalidad}
-            selectedTypes={selectedTypes}          
-          />   
-        </div>   
+  const dispatch = useDispatch();
+  const alarms = useSelector(selectAlarmsData);
+  const filteredAlarms = useSelector(selectFilteredByOptionsAlarms);
+
+  const uniqueStrategies = [...new Set(alarms.map((alarm) => alarm.Strategy))];
+  const uniqueTickers = [...new Set(alarms.map((alarm) => alarm.Ticker))];
+
+  const handleApplyFilters = (filters) => {
+    const { intervals, ordersType, strategies, tickers } = filters;
+
+    const newFilteredAlarms = alarms.filter((alarm) => {
+      const matchesInterval = intervals[alarm.Temporalidad] || false;
+      const matchesOrderType = ordersType[alarm.Order] || false;
+      const matchesStrategy = strategies[alarm.Strategy] || false;
+      const matchesTicker = tickers[alarm.Ticker] || false;
+
+      console.log('matchesInterval', matchesInterval);
+      console.log('matchesOrderType', matchesOrderType);
+      console.log('matchesStrategy', matchesStrategy);
+      console.log('matchesTicker', matchesTicker);
+
+      return matchesInterval || matchesOrderType || matchesStrategy || matchesTicker;
+    });
+
+    dispatch(setFilteredByOptions(newFilteredAlarms));
+  };
+
+  const handleClearFilters = () => {
+    dispatch(setFilteredByOptions());
+  };
+
+  console.log('filteredAlarms', filteredAlarms);
+
+  return (
+    <div className="flex space-x-12">
+      <div>
+        <FiltersMenu
+          onApplyFilters={handleApplyFilters}
+          onClear={handleClearFilters}
+          uniqueStrategies={uniqueStrategies}
+          uniqueTickers={uniqueTickers}
+        />
       </div>
-    );
-}
+    </div>
+  );
+};
 
 export default AlarmFiltersPanelContainer;
