@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/Alarms.js
+// Path: src/components/Alarms/Alarms.js
 import React from 'react';
 
 import AlarmsContainer from './containers/AlarmContainer';

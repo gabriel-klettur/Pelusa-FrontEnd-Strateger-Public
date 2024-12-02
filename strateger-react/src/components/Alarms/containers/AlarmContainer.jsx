@@ -1,3 +1,6 @@
+//Path: src/components/Alarms/containers/AlarmContainer.jsx
+
+
 import { useState } from 'react';
 
 import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';

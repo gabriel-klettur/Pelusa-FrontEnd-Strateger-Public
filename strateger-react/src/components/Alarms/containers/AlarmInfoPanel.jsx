@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/containers/AlarmInfoPanel.jsx
+
 import AlarmInfoChart from '../components/AlarmInfoPanel/AlarmInfoChart';
 
 const AlarmInfoPanel = () => {

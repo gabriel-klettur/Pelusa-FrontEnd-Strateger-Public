@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmTable/AlarmTable.js
+//Path: src/components/Alarms/components/AlarmTable/AlarmTable.js
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';

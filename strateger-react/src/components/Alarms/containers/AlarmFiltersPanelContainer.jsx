@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/containers/AlarmFiltersPanelContainer.jsx
+//Path: src/components/Alarms/containers/AlarmFiltersPanelContainer.jsx
 
 import IntervalBar from '../components/AlarmFiltersPanel/IntervalBar/IntervalBar';
 import OrderTypePanel from '../components/AlarmFiltersPanel/OrderTypePanel/OrderTypePanel';

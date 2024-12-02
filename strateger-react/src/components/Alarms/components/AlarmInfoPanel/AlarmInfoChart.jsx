@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/components/AlarmInfoPanel/AlarmInfoChart.jsx
+
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';

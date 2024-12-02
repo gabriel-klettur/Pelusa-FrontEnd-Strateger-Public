@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
+// Path: src/components/Alarms/components/AlarmFiltersPanel/OrderTypePanel/TypeButton.jsx
 
 const TypeButton = ({ label, selectedTypes, onClick }) => {
   return (

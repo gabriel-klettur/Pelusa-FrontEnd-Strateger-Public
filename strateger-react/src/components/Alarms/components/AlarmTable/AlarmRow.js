@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/components/AlarmTable/AlarmRow.js
+
 import React from 'react';
 
 /**

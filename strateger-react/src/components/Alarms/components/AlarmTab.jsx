@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/components/AlarmTab.jsx
+
 import { Tab } from '@headlessui/react';
 
 const AlarmTab = ({ tabName, setShowFilterPanel }) => {

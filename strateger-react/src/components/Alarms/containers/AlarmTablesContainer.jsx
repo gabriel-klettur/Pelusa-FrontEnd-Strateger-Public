@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
+// Path: src/components/Alarms/containers/AlarmTablesContainer.jsx
 
 // React and Redux
 import React from 'react';

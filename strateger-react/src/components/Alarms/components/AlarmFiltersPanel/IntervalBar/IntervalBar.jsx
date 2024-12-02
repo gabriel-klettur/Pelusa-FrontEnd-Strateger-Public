@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/components/AlarmFiltersPanel/IntervalBar/IntervalBar.jsx
+
 import { useDispatch } from "react-redux";
 
 import IntervalButton from "./IntervalButton";

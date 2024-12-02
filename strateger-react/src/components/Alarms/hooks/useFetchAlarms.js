@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/hooks/useFetchAlarms.js
+//Path: src/components/Alarms/hooks/useFetchAlarms.js
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/DirectionTab.js
+//Path: src/components/Alarms/components/AlarmFiltersPanel/OrderTypePanel/DirectionTabButton.jsx
 
 import { Tab } from '@headlessui/react';
 
