@@ -30,45 +30,36 @@ const AlarmFiltersPanelContainer = () => {
     console.log('--------------------------------')
 
     const newFilteredAlarms = alarms.filter((alarm) => {
-      let filtersResults = []; // Lista para almacenar resultados de filtros activos.
+      let filtersResults = []; 
   
       const intervals = Object.keys(filters.intervals).filter(key => filters.intervals[key]);
       const ordersType = Object.keys(filters.ordersType).filter(key => filters.ordersType[key]);
       const strategies = Object.keys(filters.strategies).filter(key => filters.strategies[key]);
       const tickers = Object.keys(filters.tickers).filter(key => filters.tickers[key]);
-  
-      // Evaluar Intervalos
+        
       if (intervals.length > 0) {
           const foundIntervalFilter = intervals.some(interval => alarm.Temporalidad === interval);
           filtersResults.push(foundIntervalFilter);
       }
-  
-      // Evaluar Tipos de Orden
+        
       if (ordersType.length > 0) {
           const foundOrderTypeFilter = ordersType.some(orderType => 
               alarm.Order.replace(/Order/i, '').trim().toLowerCase() === orderType.toLowerCase()
           );
           filtersResults.push(foundOrderTypeFilter);
       }
-  
-      // Evaluar Estrategias
+        
       if (strategies.length > 0) {
           const foundStrategyFilter = strategies.some(strategy => alarm.Strategy === strategy);
           filtersResults.push(foundStrategyFilter);
       }
-  
-      // Evaluar Tickers
+        
       if (tickers.length > 0) {
           const foundTickerFilter = tickers.some(ticker => alarm.Ticker === ticker);
           filtersResults.push(foundTickerFilter);
       }
-  
-      // Calcular el resultado final
-      const totalResult = filtersResults.every(result => result === true);
-  
-      console.log('----------------------------------------------');
-      console.log('filtersResults:', filtersResults);
-      console.log('totalResult:', totalResult);
+        
+      const totalResult = filtersResults.every(result => result === true);      
   
       return totalResult; // Solo incluye la alarma si pasa todos los filtros activos.
     });
