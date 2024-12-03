@@ -3,8 +3,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  selectAlarmsData,
-  selectFilteredByOptionsAlarms,
+  selectAlarmsData,  
   setFilteredByOptions,
 } from '../../../redux/alarm';
 
@@ -12,22 +11,12 @@ import FiltersMenu from '../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu
 
 const AlarmFiltersPanelContainer = () => {
   const dispatch = useDispatch();
-  const alarms = useSelector(selectAlarmsData);
-  const filteredAlarms = useSelector(selectFilteredByOptionsAlarms);
+  const alarms = useSelector(selectAlarmsData);  
 
   const uniqueStrategies = [...new Set(alarms.map((alarm) => alarm.Strategy))];
   const uniqueTickers = [...new Set(alarms.map((alarm) => alarm.Ticker))];
-
-  const handleApplyFilters = (filters) => {
-    const { intervals, ordersType, strategies, tickers } = filters;
-
-    console.log('--------------------------------')
-    console.log('alarms', alarms);
-    console.log('intervals', intervals);
-    console.log('ordersType', ordersType);
-    console.log('strategies', strategies);
-    console.log('tickers', tickers);    
-    console.log('--------------------------------')
+  
+  const handleApplyFilters = (filters) => {    
 
     const newFilteredAlarms = alarms.filter((alarm) => {
       let filtersResults = []; 
@@ -71,7 +60,6 @@ const AlarmFiltersPanelContainer = () => {
     dispatch(setFilteredByOptions());
   };
 
-  console.log('filteredAlarms', filteredAlarms);
 
   return (
     <div className="flex space-x-12">
