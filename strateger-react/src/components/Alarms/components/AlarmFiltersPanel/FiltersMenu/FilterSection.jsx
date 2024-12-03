@@ -7,9 +7,7 @@ const FilterSection = ({ title, items, onChange, gridCols = 2 }) => {
           <div
             key={key}
             className="flex items-center space-x-2 hover:bg-african_violet-200/50 rounded-md p-2 cursor-pointer"
-            onClick={(e) => {
-              e.preventDefault(); // Prevenir comportamientos predeterminados
-              e.stopPropagation(); // Evitar propagación
+            onClick={(e) => {                          
               onChange(key); // Manejar el cambio de estado
             }}
           >
