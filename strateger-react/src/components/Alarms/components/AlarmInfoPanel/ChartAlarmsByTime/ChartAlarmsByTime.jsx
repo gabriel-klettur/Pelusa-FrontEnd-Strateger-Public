@@ -39,7 +39,7 @@ const getRadarChartData = (alarmsByHour) => {
       labels: timeLabels,
       datasets: [
         {
-          label: 'Distribución de Métricas',
+          label: 'Metrics Distribution',
           data: alarmsByHour, 
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',

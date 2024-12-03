@@ -4,7 +4,7 @@ export const radarOptions = {
     plugins: {
       title: {
         display: true,
-        text: 'Distribución de Métricas por Hora', // Título del gráfico
+        text: 'Alarm Distribution by Hour', // Título del gráfico
         color: 'white', // Color del texto del título
         font: {
           size: 18, // Tamaño del texto
