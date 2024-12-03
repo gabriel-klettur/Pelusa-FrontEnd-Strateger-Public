@@ -1,9 +1,15 @@
 
+import { useSelector } from 'react-redux';
+
 import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
 import AlarmInfoPanel from './AlarmInfoPanel';
 
+import { selectAlarmsData } from '../../../redux/alarm';
+
 const AlarmContainer = () => {
+
+    const alarmsData = useSelector(selectAlarmsData);        
 
     return (
         <div className="flex flex-col">            
@@ -12,7 +18,9 @@ const AlarmContainer = () => {
                     <MainChart/>
                 </div>
                 <div className='col-span-3 mt-1 mr-1 mb-1'>
-                    <AlarmInfoPanel/>                                      
+                    <AlarmInfoPanel
+                        alarmsData={alarmsData}                        
+                    />                                      
                 </div>
             </div>
             <div className='mr-1 bg-african_violet-300 rounded-sm'>                
