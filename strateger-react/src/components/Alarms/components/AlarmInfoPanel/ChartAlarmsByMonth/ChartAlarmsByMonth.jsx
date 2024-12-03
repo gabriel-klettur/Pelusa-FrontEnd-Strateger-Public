@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { selectAlarmsData } from '../../../../../redux/alarm';
-import MonthTogglePanel from './MonthTogglePanel';
+import MonthTogglePanel from './components/MonthTogglePanel';
 import { options } from './utils/initChart';
 import useUpdateVisibleMonths from './hooks/useUpdateVisibleMonths';
 import useGenerateChartData from './hooks/useGenerateChartData';
