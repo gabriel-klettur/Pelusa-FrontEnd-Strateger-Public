@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
 
 const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers }) => {
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú está abierto
+  const menuRef = useRef(null); // Ref para identificar el menú
+
   const [intervals, setIntervals] = useState({
     '1m': false,
     '5m': false,
@@ -27,21 +29,45 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   const [tickers, setTickers] = useState({});
 
   useEffect(() => {
-    setStrategies(
+
+    console.log('Variacion en uniqueStrategies o uniqueTickers');
+
+    setStrategies((prevStrategies) =>
       uniqueStrategies.reduce((acc, strategy) => {
-        acc[strategy] = false;
+        acc[strategy] = prevStrategies[strategy] ?? false;
         return acc;
       }, {})
     );
 
-    setTickers(
+    setTickers((prevTickers) =>
       uniqueTickers.reduce((acc, ticker) => {
-        acc[ticker] = false;
+        acc[ticker] = prevTickers[ticker] ?? false;
         return acc;
       }, {})
     );
+
   }, [uniqueStrategies, uniqueTickers]);
 
+
+
+
+  // Manejar clics fuera del menú
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false); // Cerrar el menú si el clic ocurre fuera de él
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
+
+  
   const handleCheckboxChange = (stateUpdater, key) => {
     stateUpdater((prev) => ({
       ...prev,
@@ -56,8 +82,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
       strategies,
       tickers,
     };
-    onApplyFilters(filters);
-    setIsOpen(false); // Cerrar el menú después de aplicar los filtros
+    onApplyFilters(filters);    
   };
 
   const handleClear = () => {
@@ -99,7 +124,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       {/* Botón para abrir/cerrar el menú */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
