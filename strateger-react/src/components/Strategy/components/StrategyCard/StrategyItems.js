@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './StrategyItems.css';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setStrategyFilteredAlarms } from '../../../../redux/alarm/alarmSlice';
+
 
 import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
 
@@ -20,8 +20,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
   const borderColorClass = strategy.isOn ? 'border-green-500 blink-border' : 'border-gray-300';
 
   const handleViewInChart = () => {
-    if (isShowingAlarms) {
-      dispatch(setStrategyFilteredAlarms([]));
+    if (isShowingAlarms) {      
       setIsShowingAlarms(false);
       return;
     }
@@ -98,8 +97,7 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
       strategy.shortCloseIndicator,
       'short'
     );
-
-    dispatch(setStrategyFilteredAlarms(filteredAlarms));
+    
     setIsShowingAlarms(true);
   };
 
