@@ -22,15 +22,17 @@ import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
+    
     //!------------------------------ States Show/Hidden Components ------------------------------!//
     const [chartSettings, setChartSettings] = useState({
         showStochasticSerie: false,
         showEmasSerie: false,
         showCandlestickSerie: true,
+        
         showAlarmsMarkers: true,
         showAlarmsSelectedMarkers: false,
-        showAlarmsFilteredByIntervalMarkers: false,
-        showAlarmsFilteredByIntervalAndTypeMarkers: false,
+        showAlarmsFilteredMarkers: false,
+
         showOrdersUsdmMarkers: false,
         showOrdersCoinmMarkers: false,
         showOrdersSpotMarkers: false,
@@ -64,7 +66,7 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
-        chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredByIntervalMarkers, chartSettings.showAlarmsFilteredByIntervalAndTypeMarkers,
+        chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredMarkers,
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
 
     //!------------------------------ Secondary Chart ------------------------------!//

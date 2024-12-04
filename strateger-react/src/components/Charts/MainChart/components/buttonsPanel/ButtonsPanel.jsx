@@ -73,31 +73,17 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                     <ItemChartButton
                         setShow={() =>
                             updateChartSetting(
-                                "showAlarmsFilteredByIntervalMarkers",
-                                !chartSettings.showAlarmsFilteredByIntervalMarkers
+                                "showAlarmsFilteredMarkers",
+                                !chartSettings.showAlarmsFilteredMarkers
                             )
                         }
-                        indicatorName="Alarms Filtered by Interval"
+                        indicatorName="Filtered Alarms"
                         bgColor={
-                            chartSettings.showAlarmsFilteredByIntervalMarkers
+                            chartSettings.showAlarmsFilteredMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
-                    />
-                    <ItemChartButton
-                        setShow={() =>
-                            updateChartSetting(
-                                "showAlarmsFilteredByIntervalAndTypeMarkers",
-                                !chartSettings.showAlarmsFilteredByIntervalAndTypeMarkers
-                            )
-                        }
-                        indicatorName="Alarms Filtered by Interval and Type"
-                        bgColor={
-                            chartSettings.showAlarmsFilteredByIntervalAndTypeMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                    />
+                    />                   
                 </div>
             )}
 

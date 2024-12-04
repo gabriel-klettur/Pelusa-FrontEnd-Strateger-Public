@@ -5,8 +5,7 @@ export const selectCandlestickChartInterval = state => state.candlestickChart.in
 
 export const selectMarkersAlarmDefault = state => state.candlestickChart.markers.alarm.default;
 export const selectMarkersAlarmSelectedByClick = state => state.candlestickChart.markers.alarm.selectedByClick;
-export const selectMarkersAlarmFilteredByInterval = state => state.candlestickChart.markers.alarm.filteredByInterval;
-export const selectMarkersAlarmFilteredByIntervalAndType = state => state.candlestickChart.markers.alarm.filteredByIntervalAndType;
+export const selectMarkersAlarmFiltered = state => state.candlestickChart.markers.alarm.filtered;
 
 export const selectMarkersOrderUsdm = state => state.candlestickChart.markers.orders.usdm;
 export const selectMarkersOrderCoinm = state => state.candlestickChart.markers.orders.coinm;

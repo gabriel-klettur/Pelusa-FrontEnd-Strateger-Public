@@ -7,8 +7,7 @@ import { fetchCandlestickChartData } from './candlestickChartThunks';
 const alarmMarkersStates = {
   default: [],
   selectedByClick: [],
-  filteredByInterval: [],
-  filteredByIntervalAndType: [],  
+  filtered: [],  
 };
 
 const orderMarkersStates = {  
@@ -52,11 +51,8 @@ const candlestickChartSlice = createSlice({
     setAlarmSelectedByClickMarkers(state, action) {
       state.markers.alarm.selectedByClick = action.payload;
     },
-    setAlarmFilteredByIntervalMarkers(state, action) {
-      state.markers.alarm.filteredByInterval = action.payload;
-    },
-    setAlarmFilteredByIntervalAndTypeMarkers(state, action) {
-      state.markers.alarm.filteredByIntervalAndType = action.payload;
+    setAlarmFilteredMarkers(state, action) {
+      state.markers.alarm.filtered = action.payload;
     },
     //!------------------------------ Orders ------------------------------
     setOrderUsdmMarkers(state, action) {
@@ -91,7 +87,7 @@ const candlestickChartSlice = createSlice({
 
 export const {  setCandlestickChartParameters, 
                 updateChartData,
-                setAlarmMarkers, setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers,
+                setAlarmMarkers, setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredMarkers,
                 setOrderMarkers, setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers
 } = candlestickChartSlice.actions;
 
