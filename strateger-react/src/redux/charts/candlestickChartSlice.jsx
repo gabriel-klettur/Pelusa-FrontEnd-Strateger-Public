@@ -29,7 +29,7 @@ const candlestickChartSlice = createSlice({
     data: [],    
     startDate: null,
     endDate: null,
-    interval: '1d',
+    interval: '5m',
     markers: markersStates,       
     loading: false,
     error: null,
