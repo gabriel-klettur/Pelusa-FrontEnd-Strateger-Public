@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // Definir el estado inicial
-const initialTemporalidad = '1d'; // Define el intervalo inicial como '1d'
+const initialTemporalidad = '5m'; // Define el intervalo inicial como '5m'
 
 // Obtener la fecha actual y formatearla
 const currentDate = new Date();
