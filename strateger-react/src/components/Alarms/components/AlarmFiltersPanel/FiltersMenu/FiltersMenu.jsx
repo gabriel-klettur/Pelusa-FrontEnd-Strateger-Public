@@ -29,8 +29,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   const [tickers, setTickers] = useState({});
 
   useEffect(() => {
-
-    console.log('Variacion en uniqueStrategies o uniqueTickers');
+    
 
     setStrategies((prevStrategies) =>
       uniqueStrategies.reduce((acc, strategy) => {
