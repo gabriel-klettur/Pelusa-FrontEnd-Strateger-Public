@@ -19,7 +19,7 @@ import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
 import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
-import ItemChartButton from '../components/buttons/ItemChartButton';
+import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
 const ChartContainer = () => {
     const [showStochasticSerie, setShowStochasticSerie] = useState(false);
@@ -51,9 +51,9 @@ const ChartContainer = () => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
 
+    //* Hooks
     useSetCandlestickSeriesData(showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
-
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
                     showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers,
                     showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersSpotMarkers, showOrdersStandardMarkers);
@@ -64,32 +64,40 @@ const ChartContainer = () => {
 
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(secondChartRef);
 
+    //* Hooks
     useSetStochasticSeriesData(showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
 
+    //!------------------------------ Render ------------------------------!//
     return (
         <div className="relative">
             <LoadingOverlay isLoading={loading} />
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
-                <div className="flex flex-col space-y-1">
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowStochasticSerie} indicatorName='Stochastic' bgColor={showStochasticSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowEmasSerie} indicatorName='Emas' bgColor={showEmasSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks' bgColor={showCandlestickSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowAlarmsMarkers} indicatorName='Alarms' bgColor={showAlarmsMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsSelectedMarkers} indicatorName='Selected Alarms' bgColor={showAlarmsSelectedMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsFilteredByIntervalMarkers} indicatorName='Alarms Filtered by Interval' bgColor={showAlarmsFilteredByIntervalMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type' bgColor={showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowOrdersUsdmMarkers} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersCoinmMarkers} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersSpotMarkers} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersStandardMarkers} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                </div>
+                
+                <ButtonsPanel
+                    setShowStochasticSerie={setShowStochasticSerie}
+                    setShowEmasSerie={setShowEmasSerie}
+                    setShowCandlestickSerie={setShowCandlestickSerie}
+                    setShowAlarmsMarkers={setShowAlarmsMarkers}
+                    setShowAlarmsSelectedMarkers={setShowAlarmsSelectedMarkers}
+                    setShowAlarmsFilteredByIntervalMarkers={setShowAlarmsFilteredByIntervalMarkers}
+                    setShowAlarmsFilteredByIntervalAndTypeMarkers={setShowAlarmsFilteredByIntervalAndTypeMarkers}
+                    setShowOrdersUsdmMarkers={setShowOrdersUsdmMarkers}
+                    setShowOrdersCoinmMarkers={setShowOrdersCoinmMarkers}
+                    setShowOrdersSpotMarkers={setShowOrdersSpotMarkers}
+                    setShowOrdersStandardMarkers={setShowOrdersStandardMarkers}
+                    showStochasticSerie={showStochasticSerie}
+                    showEmasSerie={showEmasSerie}
+                    showCandlestickSerie={showCandlestickSerie}
+                    showAlarmsMarkers={showAlarmsMarkers}
+                    showAlarmsSelectedMarkers={showAlarmsSelectedMarkers}
+                    showAlarmsFilteredByIntervalMarkers={showAlarmsFilteredByIntervalMarkers}
+                    showAlarmsFilteredByIntervalAndTypeMarkers={showAlarmsFilteredByIntervalAndTypeMarkers}
+                    showOrdersUsdmMarkers={showOrdersUsdmMarkers}
+                    showOrdersCoinmMarkers={showOrdersCoinmMarkers}
+                    showOrdersSpotMarkers={showOrdersSpotMarkers}
+                    showOrdersStandardMarkers={showOrdersStandardMarkers}                    
+                />        
             </div>
 
             <div className="flex flex-col">
