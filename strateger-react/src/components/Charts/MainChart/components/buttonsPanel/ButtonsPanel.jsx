@@ -1,30 +1,82 @@
 import ItemChartButton from "../buttons/ItemChartButton";
 
-const ButtonsPanel = ({ setShowStochasticSerie, setShowEmasSerie, setShowCandlestickSerie, 
-                        setShowAlarmsMarkers, setShowAlarmsSelectedMarkers, setShowAlarmsFilteredByIntervalMarkers, setShowAlarmsFilteredByIntervalAndTypeMarkers,
-                        setShowOrdersUsdmMarkers, setShowOrdersCoinmMarkers, setShowOrdersSpotMarkers, setShowOrdersStandardMarkers, 
-                        showStochasticSerie, showEmasSerie, showCandlestickSerie, 
-                        showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers, 
-                        showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersSpotMarkers, showOrdersStandardMarkers}) => {
+const ButtonsPanel = ({ chartSettings, updateChartSetting}) => {
 
     return(
         <div className="flex flex-col space-y-1">
+
             <div className='flex space-x-1'>
-                <ItemChartButton setShow={setShowStochasticSerie} indicatorName='Stochastic' bgColor={showStochasticSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowEmasSerie} indicatorName='Emas' bgColor={showEmasSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks' bgColor={showCandlestickSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton  
+                    setShow={() =>
+                        updateChartSetting('showStochasticSerie', !chartSettings.showStochasticSerie)
+                    }
+                    indicatorName='Stochastic' 
+                    bgColor={chartSettings.showStochasticSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton                     
+                    setShow={() =>
+                        updateChartSetting('showEmasSerie', !chartSettings.showEmasSerie)
+                    }
+                    indicatorName='Emas' 
+                    bgColor={chartSettings.showEmasSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showCandlestickSerie', !chartSettings.showCandlestickSerie)
+                    }                                    
+                    indicatorName='Candlesticks'
+                    bgColor={chartSettings.showCandlestickSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+            </div>
+
+            <div className='flex space-x-1'>
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showAlarmsMarkers', !chartSettings.showAlarmsMarkers)
+                    }                                      
+                    indicatorName='Alarms' 
+                    bgColor={chartSettings.showAlarmsMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showAlarmsSelectedMarkers', !chartSettings.showAlarmsSelectedMarkers)
+                    }                      
+                    indicatorName='Selected Alarms' 
+                    bgColor={chartSettings.showAlarmsSelectedMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showAlarmsFilteredByIntervalMarkers', !chartSettings.showAlarmsFilteredByIntervalMarkers)
+                    }                      
+                    indicatorName='Alarms Filtered by Interval' 
+                    bgColor={chartSettings.showAlarmsFilteredByIntervalMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showAlarmsFilteredByIntervalAndTypeMarkers', !chartSettings.showAlarmsFilteredByIntervalAndTypeMarkers)
+                    }                      
+                    indicatorName='Alarms Filtered by Interval and Type' 
+                    bgColor={chartSettings.showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
             </div>
             <div className='flex space-x-1'>
-                <ItemChartButton setShow={setShowAlarmsMarkers} indicatorName='Alarms' bgColor={showAlarmsMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowAlarmsSelectedMarkers} indicatorName='Selected Alarms' bgColor={showAlarmsSelectedMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowAlarmsFilteredByIntervalMarkers} indicatorName='Alarms Filtered by Interval' bgColor={showAlarmsFilteredByIntervalMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type' bgColor={showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-            </div>
-            <div className='flex space-x-1'>
-                <ItemChartButton setShow={setShowOrdersUsdmMarkers} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowOrdersCoinmMarkers} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowOrdersSpotMarkers} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                <ItemChartButton setShow={setShowOrdersStandardMarkers} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showOrdersUsdmMarkers', !chartSettings.showOrdersUsdmMarkers)
+                    }                                       
+                    indicatorName='Usdm Orders' 
+                    bgColor={chartSettings.showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showOrdersCoinmMarkers', !chartSettings.showOrdersCoinmMarkers)
+                    }                       
+                    indicatorName='Coinm Orders' 
+                    bgColor={chartSettings.showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showOrdersSpotMarkers', !chartSettings.showOrdersSpotMarkers)
+                    }                       
+                    indicatorName='Spot Orders' 
+                    bgColor={chartSettings.showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
+                <ItemChartButton 
+                    setShow={() =>
+                        updateChartSetting('showOrdersStandardMarkers', !chartSettings.showOrdersStandardMarkers)
+                    }                       
+                    indicatorName='Standard Orders' 
+                    bgColor={chartSettings.showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
             </div>
         </div>
     )
