@@ -1,6 +1,6 @@
 import ItemChartButton from "../buttons/ItemChartButton";
 
-const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, updateShowButtonsPanel }) => {
+const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, updateShowButtonsPanel, alarmMarkersSettings, updateAlarmMarkerSetting }) => {
     return (
         <div className="flex flex-col space-y-1">
             {/* Sección: Charts Buttons */}
@@ -47,39 +47,41 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                 <div className="flex space-x-1">
                     <ItemChartButton
                         setShow={() =>
-                            updateChartSetting("showAlarmsMarkers", !chartSettings.showAlarmsMarkers)
+                            updateAlarmMarkerSetting(
+                                "showAlarmsMarkers", 
+                                !alarmMarkersSettings.showAlarmsMarkers)
                         }
                         indicatorName="Alarms"
                         bgColor={
-                            chartSettings.showAlarmsMarkers
+                            alarmMarkersSettings.showAlarmsMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
                     />
                     <ItemChartButton
                         setShow={() =>
-                            updateChartSetting(
+                            updateAlarmMarkerSetting(
                                 "showAlarmsSelectedMarkers",
-                                !chartSettings.showAlarmsSelectedMarkers
+                                !alarmMarkersSettings.showAlarmsSelectedMarkers
                             )
                         }
                         indicatorName="Selected Alarms"
                         bgColor={
-                            chartSettings.showAlarmsSelectedMarkers
+                            alarmMarkersSettings.showAlarmsSelectedMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
                     />
                     <ItemChartButton
                         setShow={() =>
-                            updateChartSetting(
+                            updateAlarmMarkerSetting(
                                 "showAlarmsFilteredMarkers",
-                                !chartSettings.showAlarmsFilteredMarkers
+                                !alarmMarkersSettings.showAlarmsFilteredMarkers
                             )
                         }
                         indicatorName="Filtered Alarms"
                         bgColor={
-                            chartSettings.showAlarmsFilteredMarkers
+                            alarmMarkersSettings.showAlarmsFilteredMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }

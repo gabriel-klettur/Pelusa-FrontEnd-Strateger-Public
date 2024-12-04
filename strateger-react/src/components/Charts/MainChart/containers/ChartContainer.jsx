@@ -27,16 +27,18 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     const [chartSettings, setChartSettings] = useState({
         showStochasticSerie: false,
         showEmasSerie: false,
-        showCandlestickSerie: true,
-        
-        showAlarmsMarkers: true,
-        showAlarmsSelectedMarkers: false,
-        showAlarmsFilteredMarkers: false,
+        showCandlestickSerie: true,        
 
         showOrdersUsdmMarkers: false,
         showOrdersCoinmMarkers: false,
         showOrdersSpotMarkers: false,
         showOrdersStandardMarkers: false,
+    });
+
+    const [alarmMarkersSettings, setAlarmMarkerSettings] = useState({
+        showAlarmsMarkers: true,
+        showAlarmsSelectedMarkers: false,
+        showAlarmsFilteredMarkers: false,
     });
 
     const updateChartSetting = (key, value) => {
@@ -45,6 +47,21 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
             [key]: value,
         }));        
     };
+
+    const updateAlarmMarkerSetting = (key) => {
+        setAlarmMarkerSettings((prevSettings) => {
+            const isCurrentlyTrue = prevSettings[key]; // Verifica si el botón ya está en true
+    
+            // Si está en true, desactivamos todos; si está en false, activamos solo ese botón
+            const updatedSettings = Object.keys(prevSettings).reduce((acc, currentKey) => {
+                acc[currentKey] = currentKey === key ? !isCurrentlyTrue : false;
+                return acc;
+            }, {});
+    
+            return updatedSettings;
+        });
+    };
+    
 
     //!------------------------------ Parameters ------------------------------!//
     const interval = useSelector(selectTemporalidad);
@@ -66,7 +83,7 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
-        chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredMarkers,
+        alarmMarkersSettings.showAlarmsMarkers, alarmMarkersSettings.showAlarmsSelectedMarkers, alarmMarkersSettings.showAlarmsFilteredMarkers,
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
 
     //!------------------------------ Secondary Chart ------------------------------!//
@@ -89,6 +106,8 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
                     updateChartSetting={updateChartSetting} 
                     showButtonsPanel={showButtonsPanel}
                     updateShowButtonsPanel={updateShowButtonsPanel}
+                    alarmMarkersSettings={alarmMarkersSettings}
+                    updateAlarmMarkerSetting={updateAlarmMarkerSetting}
                 />        
             </div>
 
