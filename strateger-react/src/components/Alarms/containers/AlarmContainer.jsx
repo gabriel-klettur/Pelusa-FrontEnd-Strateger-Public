@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
-import AlarmInfoPanel from './AlarmInfoPanel';
+import AlarmInfoPanel from './AlarmInfoPanelContainer';
 
 import { selectAlarmsData } from '../../../redux/alarm';
 

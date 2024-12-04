@@ -3,9 +3,7 @@
 //import ChartAlarmsByMonth from '../components/AlarmInfoPanel/ChartAlarmsByMonth/ChartAlarmsByMonth';
 import ChartAlarmsByTime from '../components/AlarmInfoPanel/ChartAlarmsByTime/ChartAlarmsByTime';
 
-const AlarmInfoPanel = ({alarmsData}) => {
-
-    console.log('alarmsData en AlarmInfoPanel:',alarmsData);
+const AlarmInfoPanel = ({alarmsData}) => {    
 
     const alarmsByHour = alarmsData.reduce((acc, alarm) => {
         if (alarm.Time_Alert) {
