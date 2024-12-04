@@ -21,7 +21,7 @@ import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
-const ChartContainer = () => {
+const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     //!------------------------------ States Show/Hidden Components ------------------------------!//
     const [chartSettings, setChartSettings] = useState({
         showStochasticSerie: false,
@@ -41,8 +41,7 @@ const ChartContainer = () => {
         setChartSettings((prevSettings) => ({
             ...prevSettings,
             [key]: value,
-        }));
-        console.log('chartSettings', chartSettings);
+        }));        
     };
 
     //!------------------------------ Parameters ------------------------------!//
@@ -86,6 +85,8 @@ const ChartContainer = () => {
                 <ButtonsPanel
                     chartSettings={chartSettings}
                     updateChartSetting={updateChartSetting} 
+                    showButtonsPanel={showButtonsPanel}
+                    updateShowButtonsPanel={updateShowButtonsPanel}
                 />        
             </div>
 

@@ -1,10 +1,13 @@
 
 import ChartContainer from './containers/ChartContainer';
 
-const MainChart = () => {  
+const MainChart = ({ showButtonsPanel, updateShowButtonsPanel }) => {
   return (
     <>
-      <ChartContainer />
+      <ChartContainer
+        showButtonsPanel={showButtonsPanel}
+        updateShowButtonsPanel={updateShowButtonsPanel}
+      />
     </>
   );
 };
