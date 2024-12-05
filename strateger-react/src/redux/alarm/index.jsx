@@ -6,9 +6,9 @@ import { fetchAlarms } from './alarmThunks';
 
 // Selectors
 import { selectStrategyFilteredAlarms } from './alarmSelectors';
-import { selectAlarms, selectAlarmsData, selectAlarmsLoading, selectAlarmsPage, selectAlarmsOffset, selectAlarmsHasMore, selectAlarmsError } from './alarmSelectors';
-import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore, selectFilteredByClickAlarmsOffset } from './alarmSelectors';
-import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsError, selectFilteredByOptionsAlarmsLoading, selectFilteredByOptionsAlarmsHasMore, selectFilteredByOptionsAlarmsOffset } from './alarmSelectors';
+import { selectAlarms, selectAlarmsData, selectAlarmsLoading, selectAlarmsPage, selectAlarmsOffset, selectAlarmsHasMore, selectAlarmsError, selectAlarmsDataLength } from './alarmSelectors';
+import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore, selectFilteredByClickAlarmsOffset, selectFilteredByClickAlarmsLength } from './alarmSelectors';
+import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsError, selectFilteredByOptionsAlarmsLoading, selectFilteredByOptionsAlarmsHasMore, selectFilteredByOptionsAlarmsOffset, selectFilteredByOptionsAlarmsLength } from './alarmSelectors';
 
 //Actions 
 import { setPageAlarms, setPageFilteredByClickAlarms, setFilteredByClickAlarms } from './alarmSlice';
@@ -20,9 +20,9 @@ export { fetchAlarms }
 
 //TODO Selectors
 export { selectStrategyFilteredAlarms } 
-export { selectAlarms, selectAlarmsData, selectAlarmsLoading, selectAlarmsPage, selectAlarmsOffset, selectAlarmsHasMore, selectAlarmsError }
-export { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore, selectFilteredByClickAlarmsOffset }
-export { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsError, selectFilteredByOptionsAlarmsLoading, selectFilteredByOptionsAlarmsHasMore, selectFilteredByOptionsAlarmsOffset }
+export { selectAlarms, selectAlarmsData, selectAlarmsLoading, selectAlarmsPage, selectAlarmsOffset, selectAlarmsHasMore, selectAlarmsError, selectAlarmsDataLength }
+export { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsError, selectFilteredByClickAlarmsLoading, selectFilteredByClickAlarmsHasMore, selectFilteredByClickAlarmsOffset, selectFilteredByClickAlarmsLength }
+export { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsError, selectFilteredByOptionsAlarmsLoading, selectFilteredByOptionsAlarmsHasMore, selectFilteredByOptionsAlarmsOffset, selectFilteredByOptionsAlarmsLength }
 
 //TODO Actions
 export { setPageAlarms, setPageFilteredByClickAlarms, setFilteredByClickAlarms }

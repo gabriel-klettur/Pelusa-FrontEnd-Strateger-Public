@@ -7,6 +7,7 @@ const initialStates = {
   data: [],
   loading: false,
   error: null,
+  length: 0,
   page: 0,
   offset: 0,
   hasMore: true,
@@ -45,9 +46,11 @@ const alarmSlice = createSlice({
     setFilteredByClickAlarms(state, action) {
       const sortedAlarms = action.payload.sort((a, b) => b.id - a.id);
       state.filteredByClickAlarms.data = sortedAlarms;
+      state.filteredByClickAlarms.length = sortedAlarms.length;
     },
     setFilteredByOptions(state, action) {
       state.filteredByOptions.data = action.payload;
+      state.filteredByOptions.length = action.payload.length;
     },
   },
   extraReducers: (builder) => {
@@ -63,6 +66,7 @@ const alarmSlice = createSlice({
         }        
         const newAlarms = action.payload.sort((a, b) => b.id - a.id);
         state.alarms.data = [...state.alarms.data, ...newAlarms];
+        state.alarms.length = state.alarms.data.length;
         state.alarms.loading = false;
         state.alarms.offset += 500;
       })

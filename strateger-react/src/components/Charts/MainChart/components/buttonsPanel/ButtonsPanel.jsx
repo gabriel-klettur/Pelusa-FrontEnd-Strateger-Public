@@ -2,12 +2,17 @@
 
 import ItemChartButton from "../buttons/ItemChartButton";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton } from '../../../../../redux/interaction';
+import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../../../redux/alarm";
 
 const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings }) => {
 
     const dispatch = useDispatch();
+
+    const alarmsDataLength = useSelector(selectAlarmsDataLength);
+    const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
+    const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
 
     return (
         <div className="flex flex-col space-y-1">
@@ -53,42 +58,45 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
 
             {/* Sección: Alarms Buttons */}
             {showButtonsPanel.showAlarmsButtonsPanel && (
-                <div className="flex space-x-1">
-                    <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("alarms"))
-                        }
-                        indicatorName="Alarms"                        
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                    />
-                    <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("selected"))
-                        }
-                        indicatorName="Selected Alarms"                        
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsSelectedMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                    />
-                    <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("filtered"))
-                        }
-                        indicatorName="Filtered Alarms"                        
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsFilteredMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                    />                   
-                </div>
-            )}
+    <div className="flex space-x-1">
+        <ItemChartButton
+            setShow={() =>
+                dispatch(setToggleChartAlarmButtons("alarms"))
+            }
+            indicatorName={`Alarms (${alarmsDataLength})`}
+            bgColor={
+                alarmMarkersSettings.showAlarmsMarkers
+                    ? "bg-african_violet-300"
+                    : "bg-african_violet-500"
+            }
+            disabled={alarmsDataLength === 0} // Desactiva si no hay alarmas
+        />
+        <ItemChartButton
+            setShow={() =>
+                dispatch(setToggleChartAlarmButtons("selected"))
+            }
+            indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
+            bgColor={
+                alarmMarkersSettings.showAlarmsSelectedMarkers
+                    ? "bg-african_violet-300"
+                    : "bg-african_violet-500"
+            }
+            disabled={filteredByClickAlarmsLength === 0} // Desactiva si no hay seleccionadas
+        />
+        <ItemChartButton
+            setShow={() =>
+                dispatch(setToggleChartAlarmButtons("filtered"))
+            }
+            indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
+            bgColor={
+                alarmMarkersSettings.showAlarmsFilteredMarkers
+                    ? "bg-african_violet-300"
+                    : "bg-african_violet-500"
+            }
+            disabled={filteredByOptionsAlarmsLength === 0} // Desactiva si no hay filtradas
+        />
+    </div>
+)}
 
             {/* Sección: Orders Buttons */}
             {showButtonsPanel.showOrdersButtonsPanel && (
