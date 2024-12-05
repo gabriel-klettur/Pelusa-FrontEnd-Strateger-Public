@@ -16,6 +16,12 @@ const initialState = {
             selectedAlarmsButton: false,
             filteredAlarmsButton: false,
         },
+        OrderButtons:{
+            ordersUsdmButton: false,
+            ordersCoinmButton: false,
+            ordersSpotButton: false,
+            ordersStandardButton: false,
+        }
     },
   },
   Alarms: {
@@ -47,10 +53,16 @@ const interactionSlice = createSlice({
       // Activa solo el botón seleccionado
       state.Chart.ButtonsPanel.AlarmButtons[buttonReduxId] = true;
     },
+    setToggleOrderButton(state, action) {
+      const { buttonReduxId } = action.payload;
+      // Alterna el estado del botón especificado
+      state.Chart.ButtonsPanel.OrderButtons[buttonReduxId] = !state.Chart.ButtonsPanel.OrderButtons[buttonReduxId];
+    },
+    
   },
 
 });
 
-export const { setToggleChartAlarmButtons, setToggleAlarmTab } = interactionSlice.actions;
+export const { setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } = interactionSlice.actions;
 
 export default interactionSlice.reducer;

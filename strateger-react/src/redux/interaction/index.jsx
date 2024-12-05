@@ -1,12 +1,24 @@
+//*MAIN
 import interactionReducer from './interactionSlice';
 
-import { setToggleChartAlarmButtons, setToggleAlarmTab } from './interactionSlice';
+//TODO ACTIONS
+import { setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } from './interactionSlice';
 
+//SELECTORS
+
+import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton } from './interactionSelectors';
+import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from './interactionSelectors';
+import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from './interactionSelectors';
 import { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab } from './interactionSelectors';
 
+//TODO ACTIONS
+export { setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
 
-export { setToggleChartAlarmButtons, setToggleAlarmTab };
-
+//SELECTORS
+export { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton };
+export { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton };
+export { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton };
 export { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab };
 
+//*MAIN
 export default interactionReducer;
