@@ -1,15 +1,19 @@
 //Path: src/components/Alarms/components/AlarmTab.jsx
 
 import { Tab } from '@headlessui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToggleAlarmTab, selectAlarmTab } from '../../../redux/interaction';
 
-const AlarmTab = ({ tabName }) => {
+const AlarmTab = ({ tabName, tabReduxId }) => {
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-
+    dispatch(setToggleAlarmTab({ tabReduxId }));
   };
 
   return (
     <Tab
-      onClick={handleClick} // Manejo del clic
+      onClick={handleClick}
       className={({ selected }) =>
         `px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${
           selected
@@ -24,3 +28,4 @@ const AlarmTab = ({ tabName }) => {
 };
 
 export default AlarmTab;
+

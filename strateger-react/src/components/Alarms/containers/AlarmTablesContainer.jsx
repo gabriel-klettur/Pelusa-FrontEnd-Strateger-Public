@@ -58,13 +58,16 @@ const AlarmTablesContainer =() => {
           <div className="flex justify-between bg-african_violet-300">
             <TabList className="flex justify-start bg-african_violet-300">
               <AlarmTab 
-                tabName="Alarms"              
+                tabName="Alarms"   
+                tabReduxId="alarmTab"          
               />
               <AlarmTab 
                 tabName="Selected Alarms"              
+                tabReduxId="selectedAlarmTab"
               />
               <AlarmTab 
-                tabName="Filtered"              
+                tabName="Filtered"           
+                tabReduxId="filteredAlarmTab"   
               />           
             </TabList>
 
