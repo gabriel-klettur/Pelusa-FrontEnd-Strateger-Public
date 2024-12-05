@@ -4,6 +4,7 @@ import interactionReducer from './interactionSlice';
 //TODO ACTIONS
 import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } from './interactionSlice';
 import { setActiveTab, setActiveButton } from './interactionSlice';
+import { setActiveRadarDataset } from './interactionSlice';
 
 //SELECTORS
 
@@ -15,6 +16,7 @@ import { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab } from '
 //TODO ACTIONS
 export { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
 export { setActiveTab, setActiveButton };
+export {setActiveRadarDataset};
 
 //SELECTORS
 export { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton };

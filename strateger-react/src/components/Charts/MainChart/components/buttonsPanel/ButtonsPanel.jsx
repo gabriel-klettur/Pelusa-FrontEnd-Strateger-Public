@@ -1,21 +1,33 @@
-//Path: src/components/Charts/MainChart/components/buttons
+//Path: src/components/Charts/MainChart/components/buttons/ButtonsPanel.jsx
 
 import ItemChartButton from "../buttons/ItemChartButton";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton } from '../../../../../redux/interaction';
-import { setActiveButton } from '../../../../../redux/interaction';
-import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../../../redux/alarm";
+import {
+    setToggleChartMainButtons,
+    setToggleOrderButton,
+    setActiveButton,
+    setActiveRadarDataset,
+} from '../../../../../redux/interaction';
+
+import {
+    selectAlarmsDataLength,
+    selectFilteredByClickAlarmsLength,
+    selectFilteredByOptionsAlarmsLength,
+} from "../../../../../redux/alarm";
 
 const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings }) => {
-
     const dispatch = useDispatch();
     const activeButtons = useSelector((state) => state.interaction.Chart.ButtonsPanel.AlarmButtons);
-
 
     const alarmsDataLength = useSelector(selectAlarmsDataLength);
     const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
     const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
+
+    const handleAlarmButtonClick = (buttonReduxId) => {
+        dispatch(setActiveButton({ buttonReduxId })); // Sincroniza el estado del botón
+        dispatch(setActiveRadarDataset(buttonReduxId)); // Cambia el dataset del radar chart
+    };
 
     return (
         <div className="flex flex-col space-y-1">
@@ -23,10 +35,8 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
             {showButtonsPanel.showChartsButtonsPanel && (
                 <div className="flex space-x-1">
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartMainButtons("stochasticButton"))
-                        }
-                        indicatorName="Stochastic"                        
+                        setShow={() => dispatch(setToggleChartMainButtons("stochasticButton"))}
+                        indicatorName="Stochastic"
                         bgColor={
                             chartSettings.showStochasticSerie
                                 ? "bg-african_violet-300"
@@ -34,10 +44,8 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         }
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartMainButtons("emasButton"))
-                        }
-                        indicatorName="Emas"                        
+                        setShow={() => dispatch(setToggleChartMainButtons("emasButton"))}
+                        indicatorName="Emas"
                         bgColor={
                             chartSettings.showEmasSerie
                                 ? "bg-african_violet-300"
@@ -45,9 +53,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         }
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartMainButtons("candleStickButton"))
-                        }
+                        setShow={() => dispatch(setToggleChartMainButtons("candleStickButton"))}
                         indicatorName="Candlesticks"
                         buttonReduxId="candleStickButton"
                         bgColor={
@@ -63,21 +69,25 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
             {showButtonsPanel.showAlarmsButtonsPanel && (
                 <div className="flex space-x-1">
                     <ItemChartButton
-                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'alarms' }))}
+                        setShow={() => handleAlarmButtonClick("alarms")}
                         indicatorName={`Alarms (${alarmsDataLength})`}
-                        bgColor={activeButtons.alarms ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        bgColor={activeButtons.alarms ? "bg-african_violet-300" : "bg-african_violet-500"}
                         disabled={alarmsDataLength === 0}
                     />
                     <ItemChartButton
-                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'selected' }))}
+                        setShow={() => handleAlarmButtonClick("selected")}
                         indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
-                        bgColor={activeButtons.selected ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        bgColor={
+                            activeButtons.selected ? "bg-african_violet-300" : "bg-african_violet-500"
+                        }
                         disabled={filteredByClickAlarmsLength === 0}
                     />
                     <ItemChartButton
-                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'filtered' }))}
+                        setShow={() => handleAlarmButtonClick("filtered")}
                         indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
-                        bgColor={activeButtons.filtered ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        bgColor={
+                            activeButtons.filtered ? "bg-african_violet-300" : "bg-african_violet-500"
+                        }
                         disabled={filteredByOptionsAlarmsLength === 0}
                     />
                 </div>
@@ -87,9 +97,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
             {showButtonsPanel.showOrdersButtonsPanel && (
                 <div className="flex space-x-1">
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleOrderButton("showOrdersUsdmMarkers"))
-                        }
+                        setShow={() => dispatch(setToggleOrderButton("showOrdersUsdmMarkers"))}
                         indicatorName="Usdm Orders"
                         bgColor={
                             chartSettings.showOrdersUsdmMarkers
@@ -98,9 +106,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         }
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleOrderButton("showOrdersCoinmMarkers"))
-                        }
+                        setShow={() => dispatch(setToggleOrderButton("showOrdersCoinmMarkers"))}
                         indicatorName="Coinm Orders"
                         bgColor={
                             chartSettings.showOrdersCoinmMarkers
@@ -109,9 +115,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         }
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleOrderButton("showOrdersSpotMarkers"))
-                        }
+                        setShow={() => dispatch(setToggleOrderButton("showOrdersSpotMarkers"))}
                         indicatorName="Spot Orders"
                         bgColor={
                             chartSettings.showOrdersSpotMarkers
@@ -120,9 +124,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         }
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleOrderButton("showOrdersStandardMarkers"))
-                        }
+                        setShow={() => dispatch(setToggleOrderButton("showOrdersStandardMarkers"))}
                         indicatorName="Standard Orders"
                         bgColor={
                             chartSettings.showOrdersStandardMarkers

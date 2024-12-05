@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setActiveTab } from '../../../../../redux/interaction';
+import { setActiveRadarDataset } from '../../../../../redux/interaction';
 
 import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
@@ -89,6 +90,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
     };
     onApplyFilters(filters);    
     dispatch(setActiveTab({ tabReduxId: 'filtered' }));
+    dispatch(setActiveRadarDataset('filtered'))
 
   };
 

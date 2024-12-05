@@ -21,6 +21,9 @@ const alarmSlice = createSlice({
     filteredByOptions: initialStates,    
   },
   reducers: {
+    setActiveRadarDataset(state, action) {
+      state.activeRadarDataset = action.payload;
+    },
     //TODO ------------------------ Page setters ------------------------
     setPageAlarms(state, action) {
       state.alarms.page = action.payload;

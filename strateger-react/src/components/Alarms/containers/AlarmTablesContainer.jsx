@@ -23,6 +23,7 @@ import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFil
 import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
 import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
 import { setActiveTab } from '../../../redux/interaction';
+import { setActiveRadarDataset } from '../../../redux/interaction';
 
 //Redux Actions
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from '../../../redux/alarm';
@@ -63,8 +64,13 @@ const AlarmTablesContainer =() => {
       <LoadingOverlay isLoading={loadingAlarms} />
       
       <div className="text-sm">
-        <TabGroup selectedIndex={Object.values(activeTabs).indexOf(true)}>
-
+        <TabGroup
+          selectedIndex={Object.values(activeTabs).indexOf(true)}
+          onChange={(index) => {
+            const tabMapping = ['alarms', 'selected', 'filtered'];
+            dispatch(setActiveRadarDataset(tabMapping[index]));
+          }}
+        >
           <div className="flex justify-between bg-african_violet-300">
           <TabList className="flex justify-start bg-african_violet-300">
             <AlarmTab

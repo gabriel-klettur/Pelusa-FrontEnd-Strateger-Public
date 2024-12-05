@@ -31,12 +31,18 @@ const initialState = {
       filtered: false,
     },
   },
+  activeRadarDataset: 'alarms', // Valores posibles: 'alarms', 'selected', 'filtered'
 };
 
 const interactionSlice = createSlice({
   name: 'interaction',
   initialState,
-  reducers: {    
+  reducers: {  
+
+    //TODO ------------ Radar Dataset ------------//
+    setActiveRadarDataset(state, action) {
+      state.activeRadarDataset = action.payload;
+    },  
     //TODO ------------ Chart Buttons ------------//
 
     setToggleChartMainButtons(state, action){
@@ -130,6 +136,6 @@ const interactionSlice = createSlice({
 
 });
 
-export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab, setActiveTab, setActiveButton } = interactionSlice.actions;
+export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab, setActiveTab, setActiveButton, setActiveRadarDataset } = interactionSlice.actions;
 
 export default interactionSlice.reducer;
