@@ -4,11 +4,14 @@ import ItemChartButton from "../buttons/ItemChartButton";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton } from '../../../../../redux/interaction';
+import { setActiveButton } from '../../../../../redux/interaction';
 import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../../../redux/alarm";
 
 const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings }) => {
 
     const dispatch = useDispatch();
+    const activeButtons = useSelector((state) => state.interaction.Chart.ButtonsPanel.AlarmButtons);
+
 
     const alarmsDataLength = useSelector(selectAlarmsDataLength);
     const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
@@ -60,40 +63,22 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
             {showButtonsPanel.showAlarmsButtonsPanel && (
                 <div className="flex space-x-1">
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("alarms"))
-                        }
+                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'alarms' }))}
                         indicatorName={`Alarms (${alarmsDataLength})`}
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                        disabled={alarmsDataLength === 0} // Desactiva si no hay alarmas
+                        bgColor={activeButtons.alarms ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        disabled={alarmsDataLength === 0}
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("selected"))
-                        }
+                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'selected' }))}
                         indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsSelectedMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                        disabled={filteredByClickAlarmsLength === 0} // Desactiva si no hay seleccionadas
+                        bgColor={activeButtons.selected ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        disabled={filteredByClickAlarmsLength === 0}
                     />
                     <ItemChartButton
-                        setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("filtered"))
-                        }
+                        setShow={() => dispatch(setActiveButton({ buttonReduxId: 'filtered' }))}
                         indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
-                        bgColor={
-                            alarmMarkersSettings.showAlarmsFilteredMarkers
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                        disabled={filteredByOptionsAlarmsLength === 0} // Desactiva si no hay filtradas
+                        bgColor={activeButtons.filtered ? 'bg-african_violet-300' : 'bg-african_violet-500'}
+                        disabled={filteredByOptionsAlarmsLength === 0}
                     />
                 </div>
             )}

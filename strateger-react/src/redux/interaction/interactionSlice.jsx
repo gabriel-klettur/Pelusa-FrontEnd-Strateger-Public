@@ -83,12 +83,53 @@ const interactionSlice = createSlice({
       });
       //! Activa solo el tab seleccionado
       state.Alarms.Tabs[tabReduxId] = true;
-  },
-    
+    },
+
+    //! ---------------- Syncronize Chart Buttons with Alarm Tabs ---------------- //
+    setActiveTab(state, action) {
+      console.log('setActiveButton payload:', action.payload);
+      console.log('State before update:', state);
+      const { tabReduxId } = action.payload;
+
+      // Desactiva todos los tabs
+      Object.keys(state.Alarms.Tabs).forEach((key) => {
+        state.Alarms.Tabs[key] = false;
+      });
+
+      // Activa el tab seleccionado
+      state.Alarms.Tabs[tabReduxId] = true;
+
+      // Sincroniza el botón correspondiente
+      Object.keys(state.Chart.ButtonsPanel.AlarmButtons).forEach((key) => {
+        state.Chart.ButtonsPanel.AlarmButtons[key] = false;
+      });
+      state.Chart.ButtonsPanel.AlarmButtons[tabReduxId] = true;
+    },
+
+    //! ---------------- Syncronize Alarm Tabs with Chart Buttons ---------------- //
+    setActiveButton(state, action) {
+      console.log('setActiveTab payload:', action.payload);
+      console.log('State before update:', state)
+      const { buttonReduxId } = action.payload;
+
+      // Desactiva todos los botones
+      Object.keys(state.Chart.ButtonsPanel.AlarmButtons).forEach((key) => {
+        state.Chart.ButtonsPanel.AlarmButtons[key] = false;
+      });
+
+      // Activa el botón seleccionado
+      state.Chart.ButtonsPanel.AlarmButtons[buttonReduxId] = true;
+
+      // Sincroniza el tab correspondiente
+      Object.keys(state.Alarms.Tabs).forEach((key) => {
+        state.Alarms.Tabs[key] = false;
+      });
+      state.Alarms.Tabs[buttonReduxId] = true;
+    },    
   },
 
 });
 
-export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab } = interactionSlice.actions;
+export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab, setActiveTab, setActiveButton } = interactionSlice.actions;
 
 export default interactionSlice.reducer;

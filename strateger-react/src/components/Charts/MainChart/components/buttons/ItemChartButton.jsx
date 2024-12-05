@@ -1,13 +1,22 @@
 // Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
 
-const ItemChartButton = ({ setShow, indicatorName, bgColor, disabled }) => {
+const ItemChartButton = ({ setShow, indicatorName, bgColor, onClick, disabled }) => {
+  const handleClick = () => {
+    if (!disabled) { // Asegúrate de que el botón no esté deshabilitado antes de ejecutar
+      setShow(); 
+      if (onClick) {
+        onClick(); // Sincroniza con el tab correspondiente
+      }
+    }
+  };
+
   return (
     <button
-      onClick={disabled ? undefined : setShow} // No ejecuta la acción si está deshabilitado
+      onClick={handleClick}
       className={`px-1 py-1 text-white rounded rounded-xs ${bgColor} ${
-        disabled ? "opacity-50 cursor-not-allowed" : ""
+        disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
       }`}
-      disabled={disabled} // Propiedad nativa para deshabilitar el botón
+      disabled={disabled}
     >
       {indicatorName}
     </button>
@@ -15,4 +24,3 @@ const ItemChartButton = ({ setShow, indicatorName, bgColor, disabled }) => {
 };
 
 export default ItemChartButton;
-

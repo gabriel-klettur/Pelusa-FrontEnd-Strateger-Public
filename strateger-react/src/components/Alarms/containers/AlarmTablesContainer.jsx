@@ -2,7 +2,7 @@
 
 // React and Redux
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
 import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
@@ -22,12 +22,17 @@ import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsP
 import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
 import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
 import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
+import { setActiveTab } from '../../../redux/interaction';
 
 //Redux Actions
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from '../../../redux/alarm';
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByOptions} from '../../../redux/alarm';
 
-const AlarmTablesContainer =() => {    
+const AlarmTablesContainer =() => { 
+  
+  const dispatch = useDispatch();
+  const activeTabs = useSelector((state) => state.interaction.Alarms.Tabs);
+
   const loadingAlarms = useSelector(selectAlarmsLoading);
   const errorAlarms = useSelector(selectAlarmsError);  
   const PageAlarm = useSelector(selectAlarmsPage);
@@ -58,24 +63,30 @@ const AlarmTablesContainer =() => {
       <LoadingOverlay isLoading={loadingAlarms} />
       
       <div className="text-sm">
-        <TabGroup>
+        <TabGroup selectedIndex={Object.values(activeTabs).indexOf(true)}>
 
           <div className="flex justify-between bg-african_violet-300">
           <TabList className="flex justify-start bg-african_violet-300">
             <AlarmTab
               tabName={`Alarms (${alarmsDataLength})`}
               tabReduxId="alarms"
-              disabled={alarmsDataLength === 0} // Deshabilita si no hay alarmas
+              disabled={alarmsDataLength === 0}
+              selected={activeTabs.alarms}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'alarms' }))}
             />
             <AlarmTab
               tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}
               tabReduxId="selected"
-              disabled={filteredByClickAlarmsLength === 0} // Deshabilita si no hay seleccionadas
+              disabled={filteredByClickAlarmsLength === 0}
+              selected={activeTabs.selected}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'selected' }))}
             />
             <AlarmTab
               tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}
               tabReduxId="filtered"
-              disabled={filteredByOptionsAlarmsLength === 0} // Deshabilita si no hay filtradas
+              disabled={filteredByOptionsAlarmsLength === 0}
+              selected={activeTabs.filtered}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'filtered' }))}
             />
           </TabList>
 

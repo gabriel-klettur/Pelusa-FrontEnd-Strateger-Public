@@ -1,7 +1,7 @@
 // Path: src/components/Alarms/components/AlarmTab.jsx
 import { Tab } from '@headlessui/react';
 
-const AlarmTab = ({ tabName, disabled }) => {
+const AlarmTab = ({ tabName, disabled, onClick }) => {
   return (
     <Tab
       className={({ selected }) =>
@@ -12,6 +12,7 @@ const AlarmTab = ({ tabName, disabled }) => {
         } ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`
       }
       disabled={disabled} // Propiedad nativa de Headless UI para deshabilitar el Tab
+      onClick={onClick} // Maneja el evento de clic
     >
       {tabName}
     </Tab>
