@@ -1,3 +1,5 @@
+//Path: src/components/Charts/MainChart/components/buttons
+
 import ItemChartButton from "../buttons/ItemChartButton";
 
 const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, updateShowButtonsPanel, alarmMarkersSettings, updateAlarmMarkerSetting }) => {
@@ -11,6 +13,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                             updateChartSetting("showStochasticSerie", !chartSettings.showStochasticSerie)
                         }
                         indicatorName="Stochastic"
+                        buttonReduxId="stochasticButton"
                         bgColor={
                             chartSettings.showStochasticSerie
                                 ? "bg-african_violet-300"
@@ -22,6 +25,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                             updateChartSetting("showEmasSerie", !chartSettings.showEmasSerie)
                         }
                         indicatorName="Emas"
+                        buttonReduxId="emasButton"
                         bgColor={
                             chartSettings.showEmasSerie
                                 ? "bg-african_violet-300"
@@ -33,6 +37,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                             updateChartSetting("showCandlestickSerie", !chartSettings.showCandlestickSerie)
                         }
                         indicatorName="Candlesticks"
+                        buttonReduxId="candleStickButton"
                         bgColor={
                             chartSettings.showCandlestickSerie
                                 ? "bg-african_violet-300"
@@ -52,6 +57,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                                 !alarmMarkersSettings.showAlarmsMarkers)
                         }
                         indicatorName="Alarms"
+                        buttonReduxId="alarmsButton"
                         bgColor={
                             alarmMarkersSettings.showAlarmsMarkers
                                 ? "bg-african_violet-300"
@@ -66,6 +72,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                             )
                         }
                         indicatorName="Selected Alarms"
+                        buttonReduxId="selectedAlarmsButton"
                         bgColor={
                             alarmMarkersSettings.showAlarmsSelectedMarkers
                                 ? "bg-african_violet-300"
@@ -80,6 +87,7 @@ const ButtonsPanel = ({ chartSettings, updateChartSetting, showButtonsPanel, upd
                             )
                         }
                         indicatorName="Filtered Alarms"
+                        buttonReduxId="filteredAlarmsButton"
                         bgColor={
                             alarmMarkersSettings.showAlarmsFilteredMarkers
                                 ? "bg-african_violet-300"
