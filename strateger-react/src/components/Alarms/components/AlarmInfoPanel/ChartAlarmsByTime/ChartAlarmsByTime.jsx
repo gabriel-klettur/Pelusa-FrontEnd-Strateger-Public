@@ -13,8 +13,9 @@ import { radarOptions } from './utils/configChart';
   
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
   
-const getRadarChartData = (alarmsByHour) => {
+const getRadarChartData = (alarmsByHour, alarmsByHourFilteredByClick, alarmsByHourFilteredByOptions) => {
   
+
 
     const timeLabels = ['00:00-01:00', '01:00-02:00', '02:00-03:00', '03:00-04:00', 
                         '04:00-05:00', '05:00-06:00', '06:00-07:00', '07:00-08:00',
@@ -29,22 +30,22 @@ const getRadarChartData = (alarmsByHour) => {
         {
           label: 'All Alarms',
           data: alarmsByHour, 
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 205, 86, 0.4)',
+          borderColor: 'rgba(255, 205, 86, 1)',
           borderWidth: 1,
         },
         {
           label: 'Selected Alarms',
-          data: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23], 
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          data: alarmsByHourFilteredByClick, 
+          backgroundColor: 'rgba(75, 192, 192, 0.4)',
+          borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
         },
         {
           label: 'Filtered',
-          data: alarmsByHour, 
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          data: alarmsByHourFilteredByOptions, 
+          backgroundColor: 'rgba(54, 162, 235, 0.4)',
+          borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1,
         },
       ],
@@ -52,9 +53,9 @@ const getRadarChartData = (alarmsByHour) => {
 };
 
 
-const ChartAlarmsByTime = ({alarmsByHour}) => {    
+const ChartAlarmsByTime = ({alarmsByHour, alarmsByHourFilteredByClick, alarmsByHourFilteredByOptions}) => {
 
-    const data = getRadarChartData(alarmsByHour);
+    const data = getRadarChartData(alarmsByHour, alarmsByHourFilteredByClick, alarmsByHourFilteredByOptions);
     return <Radar data={data} options={radarOptions}/>;
 }
 

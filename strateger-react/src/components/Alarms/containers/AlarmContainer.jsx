@@ -6,7 +6,7 @@ import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
 import AlarmInfoPanel from './AlarmInfoPanelContainer';
 
-import { selectAlarmsData } from '../../../redux/alarm';
+import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from '../../../redux/alarm';
 
 const AlarmContainer = () => {
 
@@ -23,7 +23,10 @@ const AlarmContainer = () => {
         }));
     }
 
-    const alarmsData = useSelector(selectAlarmsData);        
+    const alarmsData = useSelector(selectAlarmsData);
+    const filteredByClickAlarmsData = useSelector(selectFilteredByClickAlarms);     
+    const filteredByOptionsAlarmsData = useSelector(selectFilteredByOptionsAlarms);
+    
 
     return (
         <div className="flex flex-col">            
@@ -36,7 +39,9 @@ const AlarmContainer = () => {
                 </div>
                 <div className='col-span-3 mt-1 mr-1 mb-1'>
                     <AlarmInfoPanel
-                        alarmsData={alarmsData}                        
+                        alarmsData={alarmsData}      
+                        filteredByClickAlarmsData={filteredByClickAlarmsData}
+                        filteredByOptionsAlarmsData={filteredByOptionsAlarmsData}                  
                     />                                      
                 </div>
             </div>
