@@ -1,13 +1,8 @@
 // Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
-import { useDispatch } from 'react-redux';
-import { setToggleChartAlarmButtons } from '../../../../../redux/interaction';
 
-const ItemChartButton = ({ setShow, indicatorName, bgColor, buttonReduxId }) => {
-  const dispatch = useDispatch();
-
+const ItemChartButton = ({ setShow, indicatorName, bgColor }) => {
   const handleClick = () => {
-    setShow(); 
-    dispatch(setToggleChartAlarmButtons({ buttonReduxId }));
+    setShow();     
   };
 
   return (

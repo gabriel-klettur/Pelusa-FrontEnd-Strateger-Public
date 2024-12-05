@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
@@ -21,47 +21,30 @@ import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
+import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton} from '../../../../redux/interaction';
+import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from '../../../../redux/interaction';
+import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from '../../../../redux/interaction';
+
+
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     
-    //!------------------------------ States Show/Hidden Components ------------------------------!//
-    const [chartSettings, setChartSettings] = useState({
-        showStochasticSerie: false,
-        showEmasSerie: false,
-        showCandlestickSerie: true,        
-
-        showOrdersUsdmMarkers: false,
-        showOrdersCoinmMarkers: false,
-        showOrdersSpotMarkers: false,
-        showOrdersStandardMarkers: false,
-    });
-
-    const [alarmMarkersSettings, setAlarmMarkerSettings] = useState({
-        showAlarmsMarkers: true,
-        showAlarmsSelectedMarkers: false,
-        showAlarmsFilteredMarkers: false,
-    });
-
-    const updateChartSetting = (key, value) => {
-        setChartSettings((prevSettings) => ({
-            ...prevSettings,
-            [key]: value,
-        }));        
+    //!------------------------------ States Show/Hidden Components ------------------------------!//    
+    const chartSettings = {
+        showStochasticSerie: useSelector(selectChartStochasticButton),
+        showEmasSerie: useSelector(selectChartEmasButton),
+        showCandlestickSerie: useSelector(selectChartCandleStickButton),
+        
+        showOrdersUsdmMarkers: useSelector(selectOrdersUsdtmButton),
+        showOrdersCoinmMarkers: useSelector(selectOrdersCoinmButton),
+        showOrdersSpotMarkers: useSelector(selectOrdersSpotButton),
+        showOrdersStandardMarkers: useSelector(selectOrdersStandardButton),
     };
 
-    const updateAlarmMarkerSetting = (key) => {
-        setAlarmMarkerSettings((prevSettings) => {
-            const isCurrentlyTrue = prevSettings[key]; // Verifica si el botón ya está en true
-    
-            // Si está en true, desactivamos todos; si está en false, activamos solo ese botón
-            const updatedSettings = Object.keys(prevSettings).reduce((acc, currentKey) => {
-                acc[currentKey] = currentKey === key ? !isCurrentlyTrue : false;
-                return acc;
-            }, {});
-    
-            return updatedSettings;
-        });
+    const alarmMarkersSettings = {
+        showAlarmsMarkers: useSelector(selectAlarmButtons),
+        showAlarmsSelectedMarkers: useSelector(selectSelectedAlarmsButton),
+        showAlarmsFilteredMarkers: useSelector(selectFilteredAlarmsButton),
     };
-    
 
     //!------------------------------ Parameters ------------------------------!//
     const interval = useSelector(selectTemporalidad);
@@ -82,6 +65,7 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     //* Hooks
     useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
     useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
+
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
         alarmMarkersSettings.showAlarmsMarkers, alarmMarkersSettings.showAlarmsSelectedMarkers, alarmMarkersSettings.showAlarmsFilteredMarkers,
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
@@ -102,12 +86,10 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
                 <ButtonsPanel
-                    chartSettings={chartSettings}
-                    updateChartSetting={updateChartSetting} 
+                    chartSettings={chartSettings}                    
                     showButtonsPanel={showButtonsPanel}
                     updateShowButtonsPanel={updateShowButtonsPanel}
-                    alarmMarkersSettings={alarmMarkersSettings}
-                    updateAlarmMarkerSetting={updateAlarmMarkerSetting}
+                    alarmMarkersSettings={alarmMarkersSettings}                    
                 />        
             </div>
 

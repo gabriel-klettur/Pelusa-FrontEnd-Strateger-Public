@@ -14,10 +14,17 @@ import { selectFilteredOrdersUsdtm, selectFilteredOrdersCoinm, selectFilteredOrd
 import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from '../../../../redux/charts';
 import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers } from '../../../../redux/charts';
 
-const useSetupMarkers = (candlestickSeriesRef, chartInterval, 
-                        showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredMarkers,
-                        showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersStandardMarkers, showOrdersSpotMarkers) => {
-
+const useSetupMarkers = (
+  candlestickSeriesRef, 
+  chartInterval, 
+  showAlarmsMarkers, 
+  showAlarmsSelectedMarkers, 
+  showAlarmsFilteredMarkers,
+  showOrdersUsdmMarkers, 
+  showOrdersCoinmMarkers, 
+  showOrdersStandardMarkers, 
+  showOrdersSpotMarkers
+) => {
   //!------------------------------------ Create markers for alarms ------------------------------------  
 
   const alarmDefaultMarkers = useSelector(selectMarkersAlarmDefault);    
@@ -40,15 +47,31 @@ const useSetupMarkers = (candlestickSeriesRef, chartInterval,
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersSpot, setOrderStandardMarkers);
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersStandard, setOrderSpotMarkers);
   
-  //!------------------------------- Set markers to the candlestick series -------------------------------
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsMarkers, alarmDefaultMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsSelectedMarkers, alarmSelectedByClickMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsFilteredMarkers, alarmFiltered);
+  //!------------------------------- Combine markers -------------------------------
+  const combinedMarkers = [];
 
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersUsdmMarkers, orderUsdmMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersCoinmMarkers, orderCoinmMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersStandardMarkers, orderStandardMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersSpotMarkers, orderSpotMarkers);      
+// Solo un conjunto de marcadores será seleccionado
+if (showAlarmsMarkers) {
+  combinedMarkers.push(...alarmDefaultMarkers);
+} else if (showAlarmsSelectedMarkers) {
+  combinedMarkers.push(...alarmSelectedByClickMarkers);
+} else if (showAlarmsFilteredMarkers) {
+  combinedMarkers.push(...alarmFiltered);
+} else if (showOrdersUsdmMarkers) {
+  combinedMarkers.push(...orderUsdmMarkers);
+} else if (showOrdersCoinmMarkers) {
+  combinedMarkers.push(...orderCoinmMarkers);
+} else if (showOrdersStandardMarkers) {
+  combinedMarkers.push(...orderStandardMarkers);
+} else if (showOrdersSpotMarkers) {
+  combinedMarkers.push(...orderSpotMarkers);
+} else {
+  // Si ninguno de los marcadores está activado, asegura que el array esté vacío
+  combinedMarkers.length = 0;
+}
+
+  //!------------------------------- Set markers to the candlestick series -------------------------------
+  useSetMarkersOnSerie(candlestickSeriesRef, combinedMarkers);   
 };
 
 export default useSetupMarkers;

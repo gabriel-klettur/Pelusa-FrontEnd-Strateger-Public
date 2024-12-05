@@ -1,18 +1,11 @@
 import { useEffect } from 'react';
 
-
-const useSetMarkersOnSerie = (candlestickSeriesRef, showAlarmMarkers, alarmMarkers) => {
-
-    useEffect(() => {
-      if (candlestickSeriesRef.current) {
-
-         if(showAlarmMarkers){            
-          candlestickSeriesRef.current.setMarkers(alarmMarkers);
-         }else{
-          candlestickSeriesRef.current.setMarkers([]);
-         }
-      }
-    }, [alarmMarkers, candlestickSeriesRef, showAlarmMarkers]);
-}
+const useSetMarkersOnSerie = (candlestickSeriesRef, combinedMarkers) => {
+  useEffect(() => {
+    if (candlestickSeriesRef.current) {
+      candlestickSeriesRef.current.setMarkers(combinedMarkers || []); // Aplica todos los marcadores combinados
+    }
+  }, [combinedMarkers, candlestickSeriesRef]);
+};
 
 export default useSetMarkersOnSerie;

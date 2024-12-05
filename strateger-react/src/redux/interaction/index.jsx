@@ -2,7 +2,7 @@
 import interactionReducer from './interactionSlice';
 
 //TODO ACTIONS
-import { setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } from './interactionSlice';
+import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } from './interactionSlice';
 
 //SELECTORS
 
@@ -12,7 +12,7 @@ import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButto
 import { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab } from './interactionSelectors';
 
 //TODO ACTIONS
-export { setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
+export { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
 
 //SELECTORS
 export { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton };
