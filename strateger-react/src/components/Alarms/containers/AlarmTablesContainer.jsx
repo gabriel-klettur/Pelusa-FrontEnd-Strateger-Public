@@ -21,6 +21,7 @@ import useFetchAlarms from '../hooks/useFetchAlarms';
 import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
 import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
 import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
+import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
 
 //Redux Actions
 import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from '../../../redux/alarm';
@@ -42,6 +43,10 @@ const AlarmTablesContainer =() => {
   const pageFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsPage);
   const hasMoreFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsHasMore);
 
+  const alarmsDataLength = useSelector(selectAlarmsDataLength);
+  const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
+  const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
+
   useFetchAlarms();                         // Hook para obtener las alarmas desde la API
 
   if (errorAlarms) {
@@ -58,15 +63,15 @@ const AlarmTablesContainer =() => {
           <div className="flex justify-between bg-african_violet-300">
             <TabList className="flex justify-start bg-african_violet-300">
               <AlarmTab 
-                tabName="Alarms"   
+                tabName={`Alarms (${alarmsDataLength})`}
                 tabReduxId="alarms"          
               />
               <AlarmTab 
-                tabName="Selected Alarms"              
+                tabName={`Filtered by Click (${filteredByClickAlarmsLength})`} 
                 tabReduxId="selected"
               />
               <AlarmTab 
-                tabName="Filtered"           
+                tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}
                 tabReduxId="filtered"   
               />           
             </TabList>
