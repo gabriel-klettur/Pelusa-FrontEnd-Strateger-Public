@@ -29,20 +29,7 @@ export { setPageAlarms, setPageFilteredByClickAlarms, setFilteredByClickAlarms }
 export { setHasMoreAlarms, setHasMoreFilteredByClickAlarms }
 export { setFilteredByOptions , setPageFilteredByOptions, setHasMoreFilteredByOptions }
 
-
-
-
-
 //----------------------------------------------------
-
-
-
-
-
-
-
-
-
 
 //TODO Slice
 export default alarmReducer;
