@@ -1,8 +1,8 @@
 //Path: src/components/Alarms/components/AlarmTab.jsx
 
 import { Tab } from '@headlessui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setToggleAlarmTab, selectAlarmTab } from '../../../redux/interaction';
+import { useDispatch } from 'react-redux';
+import { setToggleAlarmTab } from '../../../redux/interaction';
 
 const AlarmTab = ({ tabName, tabReduxId }) => {
   const dispatch = useDispatch();

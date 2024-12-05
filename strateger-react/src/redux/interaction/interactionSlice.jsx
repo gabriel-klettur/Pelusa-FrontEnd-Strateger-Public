@@ -12,9 +12,9 @@ const initialState = {
             candleStickButton: true,
         },
         AlarmButtons:{
-            alarmsButton: true,
-            selectedAlarmsButton: false,
-            filteredAlarmsButton: false,
+            alarms: true,
+            selected: false,
+            filtered: false,
         },
         OrderButtons:{
             ordersUsdmButton: false,
@@ -25,9 +25,11 @@ const initialState = {
     },
   },
   Alarms: {
-    alarmTab: true,
-    selectedAlarmTab: false,
-    filteredAlarmTab: false,
+    Tabs:{
+      alarms: true,
+      selected: false,
+      filtered: false,
+    },
   },
 };
 
@@ -76,11 +78,11 @@ const interactionSlice = createSlice({
     setToggleAlarmTab(state, action) {
       const { tabReduxId } = action.payload;
       //! Desactiva todos los tabs
-      Object.keys(state.Alarms).forEach((key) => {
-        state.Alarms[key] = false;
+      Object.keys(state.Alarms.Tabs).forEach((key) => {
+        state.Alarms.Tabs[key] = false;
       });
       //! Activa solo el tab seleccionado
-      state.Alarms[tabReduxId] = true;
+      state.Alarms.Tabs[tabReduxId] = true;
   },
     
   },

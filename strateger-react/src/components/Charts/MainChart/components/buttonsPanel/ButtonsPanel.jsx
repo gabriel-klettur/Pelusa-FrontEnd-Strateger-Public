@@ -56,7 +56,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                 <div className="flex space-x-1">
                     <ItemChartButton
                         setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("alarmsButton"))
+                            dispatch(setToggleChartAlarmButtons("alarms"))
                         }
                         indicatorName="Alarms"                        
                         bgColor={
@@ -67,7 +67,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                     />
                     <ItemChartButton
                         setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("selectedAlarmsButton"))
+                            dispatch(setToggleChartAlarmButtons("selected"))
                         }
                         indicatorName="Selected Alarms"                        
                         bgColor={
@@ -78,7 +78,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                     />
                     <ItemChartButton
                         setShow={() =>
-                            dispatch(setToggleChartAlarmButtons("filteredAlarmsButton"))
+                            dispatch(setToggleChartAlarmButtons("filtered"))
                         }
                         indicatorName="Filtered Alarms"                        
                         bgColor={
