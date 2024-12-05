@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setActiveTab } from '../../../../../redux/interaction';
+
 import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
 
+
 const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú está abierto
   const menuRef = useRef(null); // Ref para identificar el menú
 
@@ -82,6 +88,8 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
       tickers,
     };
     onApplyFilters(filters);    
+    dispatch(setActiveTab({ tabReduxId: 'filtered' }));
+
   };
 
   const handleClear = () => {
