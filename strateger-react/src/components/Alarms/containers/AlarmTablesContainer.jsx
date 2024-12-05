@@ -61,20 +61,23 @@ const AlarmTablesContainer =() => {
         <TabGroup>
 
           <div className="flex justify-between bg-african_violet-300">
-            <TabList className="flex justify-start bg-african_violet-300">
-              <AlarmTab 
-                tabName={`Alarms (${alarmsDataLength})`}
-                tabReduxId="alarms"          
-              />
-              <AlarmTab 
-                tabName={`Filtered by Click (${filteredByClickAlarmsLength})`} 
-                tabReduxId="selected"
-              />
-              <AlarmTab 
-                tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}
-                tabReduxId="filtered"   
-              />           
-            </TabList>
+          <TabList className="flex justify-start bg-african_violet-300">
+            <AlarmTab
+              tabName={`Alarms (${alarmsDataLength})`}
+              tabReduxId="alarms"
+              disabled={alarmsDataLength === 0} // Deshabilita si no hay alarmas
+            />
+            <AlarmTab
+              tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}
+              tabReduxId="selected"
+              disabled={filteredByClickAlarmsLength === 0} // Deshabilita si no hay seleccionadas
+            />
+            <AlarmTab
+              tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}
+              tabReduxId="filtered"
+              disabled={filteredByOptionsAlarmsLength === 0} // Deshabilita si no hay filtradas
+            />
+          </TabList>
 
             <AlarmFiltersPanelContainer />
           </div>

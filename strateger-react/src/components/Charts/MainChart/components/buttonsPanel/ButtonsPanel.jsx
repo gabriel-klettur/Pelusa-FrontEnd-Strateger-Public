@@ -58,45 +58,45 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
 
             {/* Sección: Alarms Buttons */}
             {showButtonsPanel.showAlarmsButtonsPanel && (
-    <div className="flex space-x-1">
-        <ItemChartButton
-            setShow={() =>
-                dispatch(setToggleChartAlarmButtons("alarms"))
-            }
-            indicatorName={`Alarms (${alarmsDataLength})`}
-            bgColor={
-                alarmMarkersSettings.showAlarmsMarkers
-                    ? "bg-african_violet-300"
-                    : "bg-african_violet-500"
-            }
-            disabled={alarmsDataLength === 0} // Desactiva si no hay alarmas
-        />
-        <ItemChartButton
-            setShow={() =>
-                dispatch(setToggleChartAlarmButtons("selected"))
-            }
-            indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
-            bgColor={
-                alarmMarkersSettings.showAlarmsSelectedMarkers
-                    ? "bg-african_violet-300"
-                    : "bg-african_violet-500"
-            }
-            disabled={filteredByClickAlarmsLength === 0} // Desactiva si no hay seleccionadas
-        />
-        <ItemChartButton
-            setShow={() =>
-                dispatch(setToggleChartAlarmButtons("filtered"))
-            }
-            indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
-            bgColor={
-                alarmMarkersSettings.showAlarmsFilteredMarkers
-                    ? "bg-african_violet-300"
-                    : "bg-african_violet-500"
-            }
-            disabled={filteredByOptionsAlarmsLength === 0} // Desactiva si no hay filtradas
-        />
-    </div>
-)}
+                <div className="flex space-x-1">
+                    <ItemChartButton
+                        setShow={() =>
+                            dispatch(setToggleChartAlarmButtons("alarms"))
+                        }
+                        indicatorName={`Alarms (${alarmsDataLength})`}
+                        bgColor={
+                            alarmMarkersSettings.showAlarmsMarkers
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                        disabled={alarmsDataLength === 0} // Desactiva si no hay alarmas
+                    />
+                    <ItemChartButton
+                        setShow={() =>
+                            dispatch(setToggleChartAlarmButtons("selected"))
+                        }
+                        indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
+                        bgColor={
+                            alarmMarkersSettings.showAlarmsSelectedMarkers
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                        disabled={filteredByClickAlarmsLength === 0} // Desactiva si no hay seleccionadas
+                    />
+                    <ItemChartButton
+                        setShow={() =>
+                            dispatch(setToggleChartAlarmButtons("filtered"))
+                        }
+                        indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
+                        bgColor={
+                            alarmMarkersSettings.showAlarmsFilteredMarkers
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                        disabled={filteredByOptionsAlarmsLength === 0} // Desactiva si no hay filtradas
+                    />
+                </div>
+            )}
 
             {/* Sección: Orders Buttons */}
             {showButtonsPanel.showOrdersButtonsPanel && (
