@@ -49,8 +49,9 @@ const alarmSlice = createSlice({
       state.filteredByClickAlarms.length = sortedAlarms.length;
     },
     setFilteredByOptions(state, action) {
-      state.filteredByOptions.data = action.payload;
-      state.filteredByOptions.length = action.payload.length;
+      const data = action.payload || []; // Asegúrate de que sea al menos un array vacío
+      state.filteredByOptions.data = data;
+      state.filteredByOptions.length = data.length;
     },
   },
   extraReducers: (builder) => {

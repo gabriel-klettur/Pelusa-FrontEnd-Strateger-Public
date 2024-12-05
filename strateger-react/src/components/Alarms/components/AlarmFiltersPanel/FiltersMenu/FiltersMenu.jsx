@@ -127,7 +127,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
     );
 
     onClear();
-    setIsOpen(false); // Cerrar el menú después de limpiar
+    
   };
 
   return (
