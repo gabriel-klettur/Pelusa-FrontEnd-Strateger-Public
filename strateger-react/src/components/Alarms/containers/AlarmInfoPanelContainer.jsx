@@ -2,7 +2,10 @@
 
 //import ChartAlarmsByMonth from '../components/AlarmInfoPanel/ChartAlarmsByMonth/ChartAlarmsByMonth';
 import ChartAlarmsByTime from '../components/AlarmInfoPanel/ChartAlarmsByTime/ChartAlarmsByTime';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import AlarmTab from '../components/AlarmTab';
+import ChartAlarmsByMonth from '../components/AlarmInfoPanel/ChartAlarmsByMonth/ChartAlarmsByMonth';
+import GeneralStatistics from '../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics';
 
 const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
 
@@ -36,12 +39,35 @@ const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOption
 
     return(
         <div className='h-full bg-african_violet-200 p-2'>
-            {/*<ChartAlarmsByMonth />                                */}
-            <ChartAlarmsByTime 
-                alarmsByHour={alarmsByHourArray}
-                alarmsByHourFilteredByClick={alarmsByHourFilteredByClickArray}
-                alarmsByHourFilteredByOptions={alarmsByHourFilteredByOptionsArray}
-            />
+            {/*<ChartAlarmsByMonth />                                */}            
+            <TabGroup>
+                <TabList className="flex justify-center w-full ">
+                    <AlarmTab
+                        tabName="Alarm By Time"                        
+                    />                    
+                    <AlarmTab
+                        tabName="General Statistics"                        
+                    />
+                    <AlarmTab
+                        tabName="Alarm By Month"                        
+                    />
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <ChartAlarmsByTime 
+                            alarmsByHour={alarmsByHourArray}
+                            alarmsByHourFilteredByClick={alarmsByHourFilteredByClickArray}
+                            alarmsByHourFilteredByOptions={alarmsByHourFilteredByOptionsArray}
+                        />                                               
+                    </TabPanel>
+                    <TabPanel>
+                        <GeneralStatistics/>
+                    </TabPanel>
+                    <TabPanel>
+                        <ChartAlarmsByMonth/>
+                    </TabPanel>
+                </TabPanels>
+            </TabGroup>
     
 
         </div>

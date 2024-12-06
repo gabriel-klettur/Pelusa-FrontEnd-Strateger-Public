@@ -71,7 +71,16 @@ const ChartAlarmsByTime = ({ alarmsByHour, alarmsByHourFilteredByClick, alarmsBy
     };
   };
 
-  return <Radar data={getRadarChartData()} options={radarOptions} />;
+  return (
+    <div className="h-full w-full flex justify-center items-center">
+      <div style={{ height: "475px" }} className='w-full mt-8'>
+        <Radar 
+          data={getRadarChartData()} 
+          options={radarOptions}          
+        />
+      </div>
+    </div>
+  );
 };
 
 export default ChartAlarmsByTime;

@@ -70,22 +70,19 @@ const AlarmTablesContainer =() => {
           <div className="flex justify-between bg-african_violet-300">
           <TabList className="flex justify-start bg-african_violet-300">
             <AlarmTab
-              tabName={`Alarms (${alarmsDataLength})`}
-              tabReduxId="alarms"
+              tabName={`Alarms (${alarmsDataLength})`}              
               disabled={alarmsDataLength === 0}
               selected={activeTabs.alarms}
               onClick={() => dispatch(setActiveTab({ tabReduxId: 'alarms' }))}
             />
             <AlarmTab
-              tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}
-              tabReduxId="selected"
+              tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}              
               disabled={filteredByClickAlarmsLength === 0}
               selected={activeTabs.selected}
               onClick={() => dispatch(setActiveTab({ tabReduxId: 'selected' }))}
             />
             <AlarmTab
-              tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}
-              tabReduxId="filtered"
+              tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}              
               disabled={filteredByOptionsAlarmsLength === 0}
               selected={activeTabs.filtered}
               onClick={() => dispatch(setActiveTab({ tabReduxId: 'filtered' }))}

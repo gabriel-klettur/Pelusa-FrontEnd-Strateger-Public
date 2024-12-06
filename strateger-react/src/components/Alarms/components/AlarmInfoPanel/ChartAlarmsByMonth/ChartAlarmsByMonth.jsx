@@ -27,7 +27,7 @@ const ChartAlarmsByMonth = () => {
   useGenerateChartData({alarmsData, visibleMonths, setChartData, allLabels});  
 
   return (
-    <div className='h-full'>
+    <div className='h-full mt-2'>
       {alarmsData && alarmsData.length > 0 ? (
         <div className='h-full'>
           
@@ -37,7 +37,7 @@ const ChartAlarmsByMonth = () => {
             setVisibleMonths={setVisibleMonths}
           />
 
-          <div style={{ height: "475px" }}>
+          <div style={{ height: "440px" }}>
             <Bar               
               options={options} 
               data={chartData}                 
