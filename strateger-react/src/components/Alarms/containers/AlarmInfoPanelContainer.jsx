@@ -2,6 +2,7 @@
 
 //import ChartAlarmsByMonth from '../components/AlarmInfoPanel/ChartAlarmsByMonth/ChartAlarmsByMonth';
 import ChartAlarmsByTime from '../components/AlarmInfoPanel/ChartAlarmsByTime/ChartAlarmsByTime';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
 const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
 
@@ -41,6 +42,8 @@ const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOption
                 alarmsByHourFilteredByClick={alarmsByHourFilteredByClickArray}
                 alarmsByHourFilteredByOptions={alarmsByHourFilteredByOptionsArray}
             />
+    
+
         </div>
     )
 }

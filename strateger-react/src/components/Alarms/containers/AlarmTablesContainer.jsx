@@ -10,7 +10,6 @@ import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 // Components
 import AlarmTab from '../components/AlarmTab';
 import AlarmTable from '../components/AlarmTable/AlarmTable';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 import ErrorMessage from '../../common/ErrorMessage';
 import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 
@@ -18,7 +17,7 @@ import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 import useFetchAlarms from '../hooks/useFetchAlarms';  
 
 //Redux Selectors
-import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
+import { selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
 import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
 import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
 import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
@@ -34,7 +33,6 @@ const AlarmTablesContainer =() => {
   const dispatch = useDispatch();
   const activeTabs = useSelector((state) => state.interaction.Alarms.Tabs);
 
-  const loadingAlarms = useSelector(selectAlarmsLoading);
   const errorAlarms = useSelector(selectAlarmsError);  
   const PageAlarm = useSelector(selectAlarmsPage);
   const HasMoreAlarm = useSelector(selectAlarmsHasMore);
@@ -53,16 +51,14 @@ const AlarmTablesContainer =() => {
   const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
   const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
 
-  useFetchAlarms();                         // Hook para obtener las alarmas desde la API
+  useFetchAlarms(1000);                         // Hook para obtener las alarmas desde la API
 
   if (errorAlarms) {
     return <ErrorMessage message={errorAlarms}/>;
   }  
 
   return (
-    <div className="relative">
-      <LoadingOverlay isLoading={loadingAlarms} />
-      
+    <div className="relative">            
       <div className="text-sm">
         <TabGroup
           selectedIndex={Object.values(activeTabs).indexOf(true)}

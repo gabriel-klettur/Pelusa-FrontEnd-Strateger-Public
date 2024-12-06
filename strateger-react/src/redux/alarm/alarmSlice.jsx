@@ -60,24 +60,34 @@ const alarmSlice = createSlice({
   extraReducers: (builder) => {
     //! ------------------------ fetchAlarms ------------------------
     builder
-      .addCase(fetchAlarms.pending, (state) => {
-        state.alarms.loading = true;
-        state.alarms.error = null;
-      })
-      .addCase(fetchAlarms.fulfilled, (state, action) => {
-        if (action.payload.length < 500) {
-          state.alarms.hasMore = false;
-        }        
-        const newAlarms = action.payload.sort((a, b) => b.id - a.id);
-        state.alarms.data = [...state.alarms.data, ...newAlarms];
-        state.alarms.length = state.alarms.data.length;
-        state.alarms.loading = false;
-        state.alarms.offset += 500;
-      })
-      .addCase(fetchAlarms.rejected, (state, action) => {
-        state.alarms.loading = false;
-        state.alarms.error = action.error.message;
-      });
+    .addCase(fetchAlarms.pending, (state) => {
+      state.alarms.loading = true;
+      state.alarms.error = null;
+    })
+    .addCase(fetchAlarms.fulfilled, (state, action) => {
+      if (action.payload.length < 500) {
+        state.alarms.hasMore = false;
+      }
+
+      // Combinar datos existentes con nuevos datos
+      const combinedData = [...state.alarms.data, ...action.payload];
+
+      // Eliminar duplicados usando Set
+      const uniqueData = Array.from(
+        new Set(combinedData.map((alarm) => alarm.id)) // Crear un Set con IDs únicos
+      ).map((id) => combinedData.find((alarm) => alarm.id === id)); // Mapear IDs únicos a objetos completos
+
+      // Actualizar el estado con datos únicos y ordenados
+      const sortedAlarms = uniqueData.sort((a, b) => b.id - a.id);
+      state.alarms.data = sortedAlarms;
+      state.alarms.length = sortedAlarms.length;
+      state.alarms.loading = false;
+      state.alarms.offset += action.payload.length; // Incrementar el offset con el tamaño de los datos recibidos
+    })
+    .addCase(fetchAlarms.rejected, (state, action) => {
+      state.alarms.loading = false;
+      state.alarms.error = action.error.message;
+    });
   },
 });
 
