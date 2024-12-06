@@ -1,4 +1,4 @@
-// Path: strateger-react/src/components/Alarms/ToolAlarmBar/TemporalidadButton.js
+// Path: src/components/Alarms/components/AlarmFiltersPanel/IntervalBar/IntervalButton.jsx
 
 import React from 'react';
 

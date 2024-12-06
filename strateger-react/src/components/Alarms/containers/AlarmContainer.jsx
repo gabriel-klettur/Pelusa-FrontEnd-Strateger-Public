@@ -1,27 +1,52 @@
-import { useState } from 'react';
 
-import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
-import AlarmInfoPanel from './AlarmInfoPanel';
+import AlarmInfoPanel from './AlarmInfoPanelContainer';
+
+import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from '../../../redux/alarm';
 
 const AlarmContainer = () => {
 
-    const [showFilterPanel, setShowFilterPanel] = useState(false);
+    const [showButtonsPanel, setShowButtonsPanel] = useState({
+        showChartsButtonsPanel: true,
+        showAlarmsButtonsPanel: true,
+        showOrdersButtonsPanel: false,
+    });
+
+    const updateShowButtonsPanel = (key, value) => {
+        setShowButtonsPanel((prevSettings) => ({
+            ...prevSettings,
+            [key]: value,
+        }));
+    }
+
+    const alarmsData = useSelector(selectAlarmsData);
+    const filteredByClickAlarmsData = useSelector(selectFilteredByClickAlarms);     
+    const filteredByOptionsAlarmsData = useSelector(selectFilteredByOptionsAlarms);
+    
 
     return (
         <div className="flex flex-col">            
             <div className='grid grid-cols-10'>
                 <div className='col-span-7'>
-                    <MainChart/>
+                    <MainChart
+                        showButtonsPanel={showButtonsPanel}
+                        updateShowButtonsPanel={updateShowButtonsPanel}
+                    />
                 </div>
                 <div className='col-span-3 mt-1 mr-1 mb-1'>
-                    <AlarmInfoPanel/>                                      
+                    <AlarmInfoPanel
+                        alarmsData={alarmsData}      
+                        filteredByClickAlarmsData={filteredByClickAlarmsData}
+                        filteredByOptionsAlarmsData={filteredByOptionsAlarmsData}                  
+                    />                                      
                 </div>
             </div>
-            <div className='mr-1 bg-african_violet-300 rounded-sm'>
-                {showFilterPanel && <AlarmFiltersPanelContainer />}
-                <AlarmTablesContainer setShowFilterPanel={setShowFilterPanel} />           
+            <div className='mr-1 bg-african_violet-300 rounded-sm'>                
+                <AlarmTablesContainer />           
             </div>
         </div>
     );

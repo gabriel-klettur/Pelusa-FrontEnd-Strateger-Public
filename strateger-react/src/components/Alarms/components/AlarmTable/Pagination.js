@@ -1,3 +1,5 @@
+//Path: src/components/Alarms/components/AlarmTable/Pagination.js
+
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 

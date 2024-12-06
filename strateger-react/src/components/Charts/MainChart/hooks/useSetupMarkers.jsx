@@ -6,29 +6,34 @@ import useCreateAlarmMarkers from './useCreateAlarmMarkers';
 import useCreateOrderMarkers from './useCreateOrderMarkers';
 import useSetMarkersOnSerie from './useSetMarkersOnSerie';
 
-import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByIntervalAlarms, selectFilteredByIntervalAndTypeAlarms } from '../../../../redux/alarm';
-import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFilteredByInterval, selectMarkersAlarmFilteredByIntervalAndType} from '../../../../redux/charts';
-import { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredByIntervalMarkers, setAlarmFilteredByIntervalAndTypeMarkers} from '../../../../redux/charts';
+import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms } from '../../../../redux/alarm';
+import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFiltered } from '../../../../redux/charts';
+import { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredMarkers } from '../../../../redux/charts';
 
 import { selectFilteredOrdersUsdtm, selectFilteredOrdersCoinm, selectFilteredOrdersSpot, selectFilteredOrdersStandard} from '../../../../redux/order';
 import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from '../../../../redux/charts';
 import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers } from '../../../../redux/charts';
 
-const useSetupMarkers = (candlestickSeriesRef, chartInterval, 
-                        showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers,
-                        showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersStandardMarkers, showOrdersSpotMarkers) => {
-
+const useSetupMarkers = (
+  candlestickSeriesRef, 
+  chartInterval, 
+  showAlarmsMarkers, 
+  showAlarmsSelectedMarkers, 
+  showAlarmsFilteredMarkers,
+  showOrdersUsdmMarkers, 
+  showOrdersCoinmMarkers, 
+  showOrdersStandardMarkers, 
+  showOrdersSpotMarkers
+) => {
   //!------------------------------------ Create markers for alarms ------------------------------------  
 
   const alarmDefaultMarkers = useSelector(selectMarkersAlarmDefault);    
   const alarmSelectedByClickMarkers = useSelector(selectMarkersAlarmSelectedByClick);
-  const alarmFilteredByIntervalMarkers = useSelector(selectMarkersAlarmFilteredByInterval);
-  const alarmFilteredByIntervalAndTypeMarkers = useSelector(selectMarkersAlarmFilteredByIntervalAndType);
+  const alarmFiltered = useSelector(selectMarkersAlarmFiltered);
 
   useCreateAlarmMarkers(chartInterval, selectAlarmsData, setAlarmDefaultMarkers);
   useCreateAlarmMarkers(chartInterval, selectFilteredByClickAlarms, setAlarmSelectedByClickMarkers);
-  useCreateAlarmMarkers(chartInterval, selectFilteredByIntervalAlarms, setAlarmFilteredByIntervalMarkers);
-  useCreateAlarmMarkers(chartInterval, selectFilteredByIntervalAndTypeAlarms, setAlarmFilteredByIntervalAndTypeMarkers);
+  useCreateAlarmMarkers(chartInterval, selectFilteredByOptionsAlarms, setAlarmFilteredMarkers);  
 
   //!------------------------------------- Create markers for orders -------------------------------------
 
@@ -42,16 +47,31 @@ const useSetupMarkers = (candlestickSeriesRef, chartInterval,
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersSpot, setOrderStandardMarkers);
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersStandard, setOrderSpotMarkers);
   
-  //!------------------------------- Set markers to the candlestick series -------------------------------
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsMarkers, alarmDefaultMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsSelectedMarkers, alarmSelectedByClickMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsFilteredByIntervalMarkers, alarmFilteredByIntervalMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showAlarmsFilteredByIntervalAndTypeMarkers, alarmFilteredByIntervalAndTypeMarkers);
+  //!------------------------------- Combine markers -------------------------------
+  const combinedMarkers = [];
 
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersUsdmMarkers, orderUsdmMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersCoinmMarkers, orderCoinmMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersStandardMarkers, orderStandardMarkers);
-  useSetMarkersOnSerie(candlestickSeriesRef, showOrdersSpotMarkers, orderSpotMarkers);      
+// Solo un conjunto de marcadores será seleccionado
+if (showAlarmsMarkers) {
+  combinedMarkers.push(...alarmDefaultMarkers);
+} else if (showAlarmsSelectedMarkers) {
+  combinedMarkers.push(...alarmSelectedByClickMarkers);
+} else if (showAlarmsFilteredMarkers) {
+  combinedMarkers.push(...alarmFiltered);
+} else if (showOrdersUsdmMarkers) {
+  combinedMarkers.push(...orderUsdmMarkers);
+} else if (showOrdersCoinmMarkers) {
+  combinedMarkers.push(...orderCoinmMarkers);
+} else if (showOrdersStandardMarkers) {
+  combinedMarkers.push(...orderStandardMarkers);
+} else if (showOrdersSpotMarkers) {
+  combinedMarkers.push(...orderSpotMarkers);
+} else {
+  // Si ninguno de los marcadores está activado, asegura que el array esté vacío
+  combinedMarkers.length = 0;
+}
+
+  //!------------------------------- Set markers to the candlestick series -------------------------------
+  useSetMarkersOnSerie(candlestickSeriesRef, combinedMarkers);   
 };
 
 export default useSetupMarkers;

@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmToolPanel/TypeTabPanel.js
+//Path: src/components/Alarms/components/AlarmFiltersPanel/OrderTypePanel/TypeFilterPanel.jsx
 
 import TypeButton from './TypeButton';
 import { TabPanel } from '@headlessui/react';

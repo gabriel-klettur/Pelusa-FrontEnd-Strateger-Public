@@ -26,7 +26,7 @@ export const loadChartsInformation = async (dispatch) => {
   const { toastId, intervalId } = createLoadingToast('Loading Charts information');
   try {
     await dispatch(fetchCandlestickChartData({
-      interval: '1d',
+      interval: '5m',
       startDate: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1000).toISOString(),
       endDate: new Date().toISOString()
     }));

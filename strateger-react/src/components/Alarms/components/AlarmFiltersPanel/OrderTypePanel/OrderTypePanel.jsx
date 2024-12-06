@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmFiltersPanel/DirectionFiltersPanel/OrderTypePanel.jsx
+//Path: src/components/Alarms/components/AlarmFiltersPanel/OrderTypePanel/OrderTypePanel.jsx
 
 import { TabGroup, TabList, TabPanels } from '@headlessui/react';
 

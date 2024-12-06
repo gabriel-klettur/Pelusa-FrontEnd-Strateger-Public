@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmTable/AlarmTable.js
+//Path: src/components/Alarms/components/AlarmTable/AlarmTable.js
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,14 +13,13 @@ import Pagination from './Pagination';
 // Hooks and functions
 import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
 
-import {  selectFilteredByClickAlarms, selectFilteredByIntervalAlarms } from '../../../../redux/alarm';
+import {  selectFilteredByClickAlarms } from '../../../../redux/alarm';
 
 
 const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
 
   const dispatch = useDispatch();
 
-  const filteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
   const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
 
   const totalDataLength = data.length;
@@ -40,10 +39,8 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
 
   const renderRow = (item, index) => {    
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
-      ? 'bg-green-600 text-white'
-      : filteredByIntervalAlarms.some((a) => a.id === item.id)
-        ? 'bg-african_violet-200 text-white'
-        : 'bg-white text-african_violet-200';
+      ? 'bg-green-600 text-white'        
+      : 'bg-white text-african_violet-200';
   
     return (
       <AlarmRow

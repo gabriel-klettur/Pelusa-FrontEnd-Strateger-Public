@@ -1,4 +1,5 @@
-// useFilterAlarmsByInterval.js
+// Path: src/components/Alarms/hooks/useFilterAlarmsByInterval.js
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

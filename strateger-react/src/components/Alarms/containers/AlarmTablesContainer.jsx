@@ -1,8 +1,8 @@
-// Path: strateger-react/src/components/Alarms/containers/AlarmContainer.js
+// Path: src/components/Alarms/containers/AlarmTablesContainer.jsx
 
 // React and Redux
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Headless UI
 import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
@@ -10,80 +10,88 @@ import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 // Components
 import AlarmTab from '../components/AlarmTab';
 import AlarmTable from '../components/AlarmTable/AlarmTable';
-import LoadingOverlay from '../../common/LoadingOverlay/LoadingOverlay';
 import ErrorMessage from '../../common/ErrorMessage';
+import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 
 // Hooks
 import useFetchAlarms from '../hooks/useFetchAlarms';  
-import useFilterAlarmsByIntervalAndType from '../hooks/useFilterAlarmsByIntervalAndType';
-import useFilterAlarmsByInterval from '../hooks/useFilterAlarmsByInterval';
 
 //Redux Selectors
-import { selectAlarmsLoading, selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
+import { selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
 import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
-import { selectFilteredByIntervalAlarms, selectFilteredByIntervalAlarmsPage, selectFilteredByIntervalAlarmsHasMore } from '../../../redux/alarm';
-import { selectFilteredByIntervalAndTypeAlarms, selectFilteredByIntervalAndTypeAlarmsPage, selectFilteredByIntervalAndTypeAlarmsHasMore } from '../../../redux/alarm';
+import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
+import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
+import { setActiveTab } from '../../../redux/interaction';
+import { setActiveRadarDataset } from '../../../redux/interaction';
 
 //Redux Actions
-import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByIntervalAlarms, setPageFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
-import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByIntervalAlarms, setHasMoreFilteredByIntervalAndTypeAlarms} from '../../../redux/alarm';
+import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from '../../../redux/alarm';
+import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByOptions} from '../../../redux/alarm';
 
-const AlarmTablesContainer =({setShowFilterPanel}) => {    
-  const loadingAlarms = useSelector(selectAlarmsLoading);
+const AlarmTablesContainer =() => { 
+  
+  const dispatch = useDispatch();
+  const activeTabs = useSelector((state) => state.interaction.Alarms.Tabs);
+
   const errorAlarms = useSelector(selectAlarmsError);  
   const PageAlarm = useSelector(selectAlarmsPage);
   const HasMoreAlarm = useSelector(selectAlarmsHasMore);
   const dataAlarms = useSelector(selectAlarmsData);
   const offsetAlarms = useSelector(selectAlarmsOffset);
   
-
   const dataFilteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
   const pageFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsPage);
-
   const hasMoreFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsHasMore);
 
-  const dataFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarms);
-  const pageFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsPage);
-  
-  const hasMoreFilteredByIntervalAlarms = useSelector(selectFilteredByIntervalAlarmsHasMore);
+  const dataFilteredByOptions = useSelector(selectFilteredByOptionsAlarms);
+  const pageFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsPage);
+  const hasMoreFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsHasMore);
 
-  const dataFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarms);
-  const pageFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsPage);
-  
-  const hasMoreFilteredByIntervalAndTypeAlarms = useSelector(selectFilteredByIntervalAndTypeAlarmsHasMore);
+  const alarmsDataLength = useSelector(selectAlarmsDataLength);
+  const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
+  const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
 
-
-  useFetchAlarms();                         // Hook para obtener las alarmas desde la API
-  useFilterAlarmsByInterval();              // Hook para filtrar alarmas por intervalo
-  useFilterAlarmsByIntervalAndType();       // Hook para filtrar alarmas por intervalo y tipo
+  useFetchAlarms(1000);                         // Hook para obtener las alarmas desde la API
 
   if (errorAlarms) {
     return <ErrorMessage message={errorAlarms}/>;
   }  
 
   return (
-    <div className="relative">
-      <LoadingOverlay isLoading={loadingAlarms} />
+    <div className="relative">            
       <div className="text-sm">
-        <TabGroup>
+        <TabGroup
+          selectedIndex={Object.values(activeTabs).indexOf(true)}
+          onChange={(index) => {
+            const tabMapping = ['alarms', 'selected', 'filtered'];
+            dispatch(setActiveRadarDataset(tabMapping[index]));
+          }}
+        >
+          <div className="flex justify-between bg-african_violet-300">
           <TabList className="flex justify-start bg-african_violet-300">
-            <AlarmTab 
-              tabName="Alarms"
-              setShowFilterPanel={setShowFilterPanel}
+            <AlarmTab
+              tabName={`Alarms (${alarmsDataLength})`}              
+              disabled={alarmsDataLength === 0}
+              selected={activeTabs.alarms}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'alarms' }))}
             />
-            <AlarmTab 
-              tabName="Selected Alarms"
-              setShowFilterPanel={setShowFilterPanel}
+            <AlarmTab
+              tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}              
+              disabled={filteredByClickAlarmsLength === 0}
+              selected={activeTabs.selected}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'selected' }))}
             />
-            <AlarmTab 
-              tabName="Filtered by Selected Interval"
-              setShowFilterPanel={setShowFilterPanel}
+            <AlarmTab
+              tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}              
+              disabled={filteredByOptionsAlarmsLength === 0}
+              selected={activeTabs.filtered}
+              onClick={() => dispatch(setActiveTab({ tabReduxId: 'filtered' }))}
             />
-            <AlarmTab 
-              tabName="Filtered by Selected Interval and Type"
-              setShowFilterPanel={setShowFilterPanel}
-            />            
           </TabList>
+
+            <AlarmFiltersPanelContainer />
+          </div>
+
           <TabPanels>
             <TabPanel>
               <AlarmTable                
@@ -106,24 +114,15 @@ const AlarmTablesContainer =({setShowFilterPanel}) => {
             </TabPanel>
             <TabPanel>
               <AlarmTable                
-                data={dataFilteredByIntervalAlarms}                                                
-                page={pageFilteredByIntervalAlarms}
-                hasMore={hasMoreFilteredByIntervalAlarms}                                             
-                setHasMore={setHasMoreFilteredByIntervalAlarms}
-                setPage={setPageFilteredByIntervalAlarms}                                      
-              />
-            </TabPanel>
-            <TabPanel>
-              <AlarmTable                
-                data={dataFilteredByIntervalAndTypeAlarms}                                                
-                page={pageFilteredByIntervalAndTypeAlarms}
-                hasMore={hasMoreFilteredByIntervalAndTypeAlarms}                                                                                             
-                setHasMore={setHasMoreFilteredByIntervalAndTypeAlarms}
-                setPage={setPageFilteredByIntervalAndTypeAlarms}                                      
+                data={dataFilteredByOptions}                                                
+                page={pageFilteredByOptions}
+                hasMore={hasMoreFilteredByOptions}                                             
+                setHasMore={setHasMoreFilteredByOptions}
+                setPage={setPageFilteredByOptions}                                      
               />
             </TabPanel>
           </TabPanels>
-        </TabGroup>        
+        </TabGroup>      
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
@@ -19,21 +19,32 @@ import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
 import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
-import ItemChartButton from '../components/buttons/ItemChartButton';
+import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
-const ChartContainer = () => {
-    const [showStochasticSerie, setShowStochasticSerie] = useState(false);
-    const [showEmasSerie, setShowEmasSerie] = useState(false);
-    const [showCandlestickSerie, setShowCandlestickSerie] = useState(true);
-    const [showAlarmsMarkers, setShowAlarmsMarkers] = useState(false);
-    const [showAlarmsSelectedMarkers, setShowAlarmsSelectedMarkers] = useState(false);
-    const [showAlarmsFilteredByIntervalMarkers, setShowAlarmsFilteredByIntervalMarkers] = useState(false);
-    const [showAlarmsFilteredByIntervalAndTypeMarkers, setShowAlarmsFilteredByIntervalAndTypeMarkers] = useState(false);
-    const [showOrdersUsdmMarkers, setShowOrdersUsdmMarkers] = useState(false);
-    const [showOrdersCoinmMarkers, setShowOrdersCoinmMarkers] = useState(false);
-    const [showOrdersSpotMarkers, setShowOrdersSpotMarkers] = useState(false);
-    const [showOrdersStandardMarkers, setShowOrdersStandardMarkers] = useState(false);
+import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton} from '../../../../redux/interaction';
+import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from '../../../../redux/interaction';
+import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from '../../../../redux/interaction';
 
+
+const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
+    
+    //!------------------------------ States Show/Hidden Components ------------------------------!//    
+    const chartSettings = {
+        showStochasticSerie: useSelector(selectChartStochasticButton),
+        showEmasSerie: useSelector(selectChartEmasButton),
+        showCandlestickSerie: useSelector(selectChartCandleStickButton),
+        
+        showOrdersUsdmMarkers: useSelector(selectOrdersUsdtmButton),
+        showOrdersCoinmMarkers: useSelector(selectOrdersCoinmButton),
+        showOrdersSpotMarkers: useSelector(selectOrdersSpotButton),
+        showOrdersStandardMarkers: useSelector(selectOrdersStandardButton),
+    };
+
+    const alarmMarkersSettings = {
+        showAlarmsMarkers: useSelector(selectAlarmButtons),
+        showAlarmsSelectedMarkers: useSelector(selectSelectedAlarmsButton),
+        showAlarmsFilteredMarkers: useSelector(selectFilteredAlarmsButton),
+    };
 
     //!------------------------------ Parameters ------------------------------!//
     const interval = useSelector(selectTemporalidad);
@@ -51,12 +62,13 @@ const ChartContainer = () => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
 
-    useSetCandlestickSeriesData(showCandlestickSerie, data, candlestickSeriesRef);
-    useSetEmasSeriesData(showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
+    //* Hooks
+    useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
+    useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
 
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
-                    showAlarmsMarkers, showAlarmsSelectedMarkers, showAlarmsFilteredByIntervalMarkers, showAlarmsFilteredByIntervalAndTypeMarkers,
-                    showOrdersUsdmMarkers, showOrdersCoinmMarkers, showOrdersSpotMarkers, showOrdersStandardMarkers);
+        alarmMarkersSettings.showAlarmsMarkers, alarmMarkersSettings.showAlarmsSelectedMarkers, alarmMarkersSettings.showAlarmsFilteredMarkers,
+        chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
 
     //!------------------------------ Secondary Chart ------------------------------!//
     const secondaryChartContainerRef = useRef();
@@ -64,39 +76,28 @@ const ChartContainer = () => {
 
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(secondChartRef);
 
-    useSetStochasticSeriesData(showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
+    //* Hooks
+    useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
 
+    //!------------------------------ Render ------------------------------!//
     return (
         <div className="relative">
             <LoadingOverlay isLoading={loading} />
 
-            <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">
-                <div className="flex flex-col space-y-1">
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowStochasticSerie} indicatorName='Stochastic' bgColor={showStochasticSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowEmasSerie} indicatorName='Emas' bgColor={showEmasSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowCandlestickSerie} indicatorName='Candlesticks' bgColor={showCandlestickSerie ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowAlarmsMarkers} indicatorName='Alarms' bgColor={showAlarmsMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsSelectedMarkers} indicatorName='Selected Alarms' bgColor={showAlarmsSelectedMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsFilteredByIntervalMarkers} indicatorName='Alarms Filtered by Interval' bgColor={showAlarmsFilteredByIntervalMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowAlarmsFilteredByIntervalAndTypeMarkers} indicatorName='Alarms Filtered by Interval and Type' bgColor={showAlarmsFilteredByIntervalAndTypeMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                    <div className='flex space-x-1'>
-                        <ItemChartButton setShow={setShowOrdersUsdmMarkers} indicatorName='Usdm Orders' bgColor={showOrdersUsdmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersCoinmMarkers} indicatorName='Coinm Orders' bgColor={showOrdersCoinmMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersSpotMarkers} indicatorName='Spot Orders' bgColor={showOrdersSpotMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                        <ItemChartButton setShow={setShowOrdersStandardMarkers} indicatorName='Standard Orders' bgColor={showOrdersStandardMarkers ? 'bg-african_violet-300' : 'bg-african_violet-500'} />
-                    </div>
-                </div>
+            <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
+                <ButtonsPanel
+                    chartSettings={chartSettings}                    
+                    showButtonsPanel={showButtonsPanel}
+                    updateShowButtonsPanel={updateShowButtonsPanel}
+                    alarmMarkersSettings={alarmMarkersSettings}                    
+                />        
             </div>
 
             <div className="flex flex-col">
-                <div style={{ height: showStochasticSerie ? "400px" : "600px" }}>
+                <div style={{ height: chartSettings.showStochasticSerie ? "400px" : "600px" }}>
                     <CandlestickChartContainer chartContainerRef={mainChartContainerRef} />
                 </div>
-                <div style={{ height: showStochasticSerie ? "200px" : "0px" }}>
+                <div style={{ height: chartSettings.showStochasticSerie ? "200px" : "0px" }}>
                     <StochasticChartContainer stochasticChartContainerRef={secondaryChartContainerRef} />
                 </div>
             </div>
