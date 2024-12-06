@@ -17,7 +17,7 @@ const allLabels = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-const ChartAlarmsByMonth = () => {
+const AlarmsGraphByMonth = () => {
   
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });  
   const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
@@ -51,4 +51,4 @@ const ChartAlarmsByMonth = () => {
   );
 };
 
-export default ChartAlarmsByMonth;
+export default AlarmsGraphByMonth;
