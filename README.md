@@ -1,7 +1,7 @@
 # 📘 **Pelusa FrontEnd Strateger Public**
 
 ## 📚 **Table of Contents**
-1. [General Overview](#1-general-overview)
+1. [General Overview](#1--general-overview)
 2. [Project Features](#2-project-features)
 3. [Project Structure](#3-project-structure)
 4. [Technologies Used](#4-technologies-used)
