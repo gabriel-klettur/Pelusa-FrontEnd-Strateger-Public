@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import './StrategyItems.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 
@@ -10,8 +10,7 @@ import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ven
 
 import { selectAlarmsData } from '../../../../redux/alarm';
 
-const StrategyItem = ({ strategy, onEdit, onDelete }) => {
-  const dispatch = useDispatch();
+const StrategyItem = ({ strategy, onEdit, onDelete }) => {  
   const allAlarms = useSelector(selectAlarmsData);
   const [isShowingAlarms, setIsShowingAlarms] = useState(false);
   const [isShowingOrders, setIsShowingOrders] = useState(false);
