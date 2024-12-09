@@ -11,8 +11,8 @@ const AlarmTab = ({ tabName, disabled, onClick }) => {
             : "bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400"
         } ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`
       }
-      disabled={disabled} // Propiedad nativa de Headless UI para deshabilitar el Tab
-      onClick={onClick} // Maneja el evento de clic
+      disabled={disabled} 
+      onClick={onClick}  
     >
       {tabName}
     </Tab>
