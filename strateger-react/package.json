@@ -2,6 +2,7 @@
   "name": "strateger-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/pelusa-trader",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@headlessui/react": "^2.0.4",
@@ -14,12 +15,8 @@
     "@react-financial-charts/tooltip": "^2.0.0",
     "@react-financial-charts/utils": "^2.0.1",
     "@redux-devtools/extension": "^3.3.0",
-    "@reduxjs/toolkit": "^2.2.5",
     "@svgr/webpack": "^5.5.0",
-    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.2",
-    "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
     "babel-preset-react-app": "^10.0.1",
@@ -45,7 +42,6 @@
     "highcharts-react-official": "^3.2.1",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "lightweight-charts": "^4.1.5",
@@ -89,7 +85,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "jest --watchAll"
   },
   "eslintConfig": {
     "extends": [
@@ -111,8 +107,15 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/react": "^16.0.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@reduxjs/toolkit": "^2.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "axios": "^1.7.9",
+    "babel-jest": "^29.7.0",
     "jest": "^27.5.1",
+    "msw": "^2.6.8",
     "path": "^0.12.7",
     "redux-mock-store": "^1.5.4",
     "tailwindcss": "^3.4.3",
@@ -144,7 +147,7 @@
       "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
+      "[/\\\\]node_modules[/\\\\](?!(axios)/).+\\.(js|jsx|mjs|cjs|ts|tsx)$",
       "^.+\\.module\\.(css|sass|scss)$"
     ],
     "modulePaths": [],
