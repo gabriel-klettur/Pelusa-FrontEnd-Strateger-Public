@@ -1,7 +1,7 @@
 // strateger-react/config.js
 const config = {
-    //apiURL: 'http://51.21.128.53:80'    // Instancia AWS
-    apiURL: 'http://localhost:80'              // IcelandHome
+    //apiURL: 'https://api.beelzebot.com:8000'    // Instancia AWS
+    apiURL: 'http://localhost:8000'              // IcelandHome
   };
   
   export default config;
