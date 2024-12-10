@@ -29,24 +29,30 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
     { label: 'ID', key: 'id' },
     { label: 'Ticker', key: 'Ticker' },
     { label: 'T', key: 'Temporalidad' },
-    { label: 'Entry Price', key: 'Entry_Price_Alert' },
-    { label: 'Exit Price', key: 'Exit_Price_Alert' },
+    { label: 'Price', key: 'Price_Alert' },
     { label: 'Time', key: 'Time_Alert' },
     { label: 'Type', key: 'Order' },
-    { label: 'Estrategia', key: 'Strategy' },
+    { label: 'Strategy', key: 'Strategy' },
   ];
 
 
-  const renderRow = (item, index) => {    
+  //! IT should  be refactored to a separate function in separete file
+  const renderRow = (item, index) => { 
+    
+    console.log('item:', item, ' index:', index);
+
+
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
       ? 'bg-green-600 text-white'        
       : 'bg-white text-african_violet-200';
   
     return (
+      //! CHECK! AlarmRow in the fase of refactoring!
       <AlarmRow
         key={index}
         alarm={item}
         rowClassName={rowClassName} 
+        columnsHeaders={columnsHeaders}
         handleSelectAlarm={(alarm) => handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch)}
       />
     );

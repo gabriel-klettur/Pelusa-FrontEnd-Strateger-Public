@@ -51,7 +51,7 @@ const AlarmTablesContainer =() => {
   const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
   const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
 
-  useFetchAlarms(1000);                         // Hook para obtener las alarmas desde la API
+  useFetchAlarms(100000);                         // Hook para obtener las alarmas desde la API
 
   if (errorAlarms) {
     return <ErrorMessage message={errorAlarms}/>;
