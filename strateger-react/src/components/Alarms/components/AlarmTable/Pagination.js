@@ -37,7 +37,7 @@ const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offs
         onClick={handlePreviousPage}
         disabled={page === 0}
       >
-        Anterior
+        Previous
       </button>
       <button
         className={`px-5 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
@@ -48,7 +48,7 @@ const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offs
         onClick={handleNextPage}
         disabled={!hasMore && endIndex >= totalDataLength}
       >
-        Siguiente
+        Next
       </button>
     </div>
   );
