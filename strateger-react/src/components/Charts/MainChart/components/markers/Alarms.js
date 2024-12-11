@@ -37,7 +37,7 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
     const alarmTime = Math.floor(new Date(alarm.Time_Alert).getTime() / 1000);
     const candleTime = getCandleTime(alarmTime, interval);
     
-    const key = `${candleTime}_${alarm.Order}_${alarm.Temporalidad}`;
+    const key = `${candleTime}_${alarm.Order}_${alarm.Interval}`;
 
     if (!groupedAlarms[key]) {
       groupedAlarms[key] = [];
@@ -66,41 +66,17 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
         shape = 'arrowDown';
         break;
       case 'order open short':
-        color = 'red';
+        color = 'orange';
         text = 'Entry Short';
         position = 'aboveBar';
         shape = 'arrowDown';
         break;
       case 'order close short':
-        color = 'green';
+        color = 'purple';
         text = 'Close Short';
-        position = 'aboveBar';
-        shape = 'circle';
-        break;
-      case 'indicator open long':
-        color = 'blue';
-        text = 'Indicator Open Long';
         position = 'belowBar';
         shape = 'arrowUp';
-        break;
-      case 'indicator close long':
-        color = 'orange';
-        text = 'Indicator Close Long';
-        position = 'aboveBar';
-        shape = 'arrowDown';
-        break;
-      case 'indicator open short':
-        color = 'orange';
-        text = 'Indicator Open Short';
-        position = 'aboveBar';
-        shape = 'square';
-        break;
-      case 'indicator close short':
-        color = 'blue';
-        text = 'Indicator Close Short';
-        position = 'aboveBar';
-        shape = 'arrowUp';
-        break;
+        break;      
       default:
         color = 'black';
         text = '?????';
@@ -108,7 +84,7 @@ export const mapAlarmsToMarkers = (selectedAlarms, interval) => {
         shape = 'arrowDown';
     }
 
-    text += ` (${alarm.Temporalidad}) x ${alarms.length}`;
+    text += ` (${alarm.Interval}) x ${alarms.length} - ${alarm.Strategy}`;
 
     markers.push({
       time: parseInt(key.split('_')[0]), // Convertir candleTime de string a número
