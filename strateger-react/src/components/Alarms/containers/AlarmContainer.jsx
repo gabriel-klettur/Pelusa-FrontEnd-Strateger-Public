@@ -1,3 +1,4 @@
+//Path: strateger-react/src/components/Alarms/containers/AlarmContainer.jsx
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
