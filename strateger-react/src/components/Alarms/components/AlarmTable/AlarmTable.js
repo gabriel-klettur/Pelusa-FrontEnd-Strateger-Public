@@ -28,7 +28,7 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
   const columnsHeaders = [
     { label: 'ID', key: 'id' },
     { label: 'Ticker', key: 'Ticker' },
-    { label: 'T', key: 'Temporalidad' },
+    { label: 'Interval', key: 'Interval' },
     { label: 'Price', key: 'Price_Alert' },
     { label: 'Time', key: 'Time_Alert' },
     { label: 'Type', key: 'Order' },

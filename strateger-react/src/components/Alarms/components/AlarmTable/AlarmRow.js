@@ -16,7 +16,7 @@ const AlarmRow = ({ alarm, rowClassName, handleSelectAlarm }) => {
   const alarmValues = [
     alarm.id,
     alarm.Ticker,
-    alarm.Temporalidad,
+    alarm.Interval,
     alarm.Price_Alert,
     alarm.Time_Alert,
     alarm.Order,
