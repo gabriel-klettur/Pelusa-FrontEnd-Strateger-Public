@@ -11,8 +11,9 @@ const AlarmTab = ({ tabName, disabled, onClick }) => {
             : "bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400"
         } ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`
       }
-      disabled={disabled} 
-      onClick={onClick}  
+      disabled={disabled}
+      aria-disabled={disabled}
+      onClick={onClick}
     >
       {tabName}
     </Tab>
