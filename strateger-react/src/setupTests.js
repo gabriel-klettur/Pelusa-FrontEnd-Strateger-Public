@@ -4,8 +4,10 @@
 // Currently, it is commented out while developing unit tests for React components.
 // Later, when API tests are implemented, this code will be enabled.
 
+import '@testing-library/jest-dom'; //! Provides custom jest matchers for Jest. These matchers are provided additional methods to make assertions in tests (On the state of the DOM elements). 
+
 /*
-import '@testing-library/jest-dom';
+
 
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
