@@ -1,6 +1,0 @@
-Como podria organizar como un profesional el componente 'Strategy'? 
-Deberia tener un archivo index.js?
-Que archivos deberian ser nombrados? 
-Deberia organizarlo mucho mejor en carpetas? 
-Puedes revisar el codigo y decirme como modularizar y reestructurar el componente como un profesional?
-Muestrame todos los archivos con las nuevas modificaciones y comprueba que no se han omitido funcionalidades anteriores.
