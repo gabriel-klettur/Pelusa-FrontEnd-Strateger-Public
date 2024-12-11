@@ -1,8 +1,7 @@
-// strateger-react/config.js
 const config = {
-    //apiURL: 'https://api.beelzebot.com:8000'    // Instancia AWS
-    apiURL: 'http://localhost:8000'              // IcelandHome
-  };
-  
-  export default config;
-  
+  apiURL: process.env.REACT_APP_MODE_DEVELOPING === 'true'
+    ? 'http://127.0.0.1:8000'
+    : 'https://api.beelzebot.com'
+};
+
+export default config;
