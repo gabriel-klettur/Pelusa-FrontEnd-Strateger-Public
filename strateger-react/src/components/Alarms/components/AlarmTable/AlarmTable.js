@@ -37,10 +37,7 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
 
 
   //! IT should  be refactored to a separate function in separete file
-  const renderRow = (item, index) => { 
-    
-    console.log('item:', item, ' index:', index);
-
+  const renderRow = (item, index) => {     
 
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
       ? 'bg-green-600 text-white'        

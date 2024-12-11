@@ -16,6 +16,12 @@ const AlarmFiltersPanelContainer = () => {
   const uniqueStrategies = [...new Set(alarms.map((alarm) => alarm.Strategy))];
   const uniqueTickers = [...new Set(alarms.map((alarm) => alarm.Ticker))];
   
+
+  //!------------------------------------------------------//
+  //!----------------------- HANDLERS ----------------------//
+  //!------------------------------------------------------//
+
+  // Apply filters to the alarms data and return the filtered alarms
   const handleApplyFilters = (filters) => {    
 
     const newFilteredAlarms = alarms.filter((alarm) => {
@@ -50,16 +56,20 @@ const AlarmFiltersPanelContainer = () => {
         
       const totalResult = filtersResults.every(result => result === true);      
   
-      return totalResult; // Solo incluye la alarma si pasa todos los filtros activos.
+      return totalResult; 
     });
 
-    dispatch(setFilteredByOptions(newFilteredAlarms));
+    dispatch(setFilteredByOptions(newFilteredAlarms));  // Set the filtered alarms in the redux store
   };
 
   const handleClearFilters = () => {
     dispatch(setFilteredByOptions());
   };
 
+
+  //!-------------------------------------------------------//
+  //!----------------------- RENDER ------------------------//
+  //!-------------------------------------------------------//
 
   return (
     <div className="flex space-x-12">
