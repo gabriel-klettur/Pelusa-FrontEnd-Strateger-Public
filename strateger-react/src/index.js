@@ -12,6 +12,20 @@ import reportWebVitals from './reportWebVitals';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
+//! ------------------------ Eviroment Detection --------------------
+if (process.env.REACT_APP_MODE_DEVELOPING?.toLowerCase() === 'true') {
+  console.log(
+    '%cCompiled successfully in Development mode!',
+    'color: green; font-weight: bold; font-size: 16px;'
+  );
+} else {
+  console.log(
+    '%cCompiled successfully in Production mode!',
+    'color: blue; font-weight: bold; font-size: 16px;'
+  );
+}
+
+
 root.render(
   <Provider store={store}>
     <App />
