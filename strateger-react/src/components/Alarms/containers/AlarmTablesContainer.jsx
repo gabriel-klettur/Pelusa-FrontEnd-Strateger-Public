@@ -29,36 +29,31 @@ import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} 
 import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByOptions} from '../../../redux/alarm';
 
 const AlarmTablesContainer =() => { 
-  
   const dispatch = useDispatch();
   const activeTabs = useSelector((state) => state.interaction.Alarms.Tabs);
-
   const errorAlarms = useSelector(selectAlarmsError);  
   const PageAlarm = useSelector(selectAlarmsPage);
   const HasMoreAlarm = useSelector(selectAlarmsHasMore);
   const dataAlarms = useSelector(selectAlarmsData);
   const offsetAlarms = useSelector(selectAlarmsOffset);
-  
   const dataFilteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
   const pageFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsPage);
   const hasMoreFilteredByClickAlarms = useSelector(selectFilteredByClickAlarmsHasMore);
-
   const dataFilteredByOptions = useSelector(selectFilteredByOptionsAlarms);
   const pageFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsPage);
   const hasMoreFilteredByOptions = useSelector(selectFilteredByOptionsAlarmsHasMore);
-
   const alarmsDataLength = useSelector(selectAlarmsDataLength);
   const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
   const filteredByOptionsAlarmsLength = useSelector(selectFilteredByOptionsAlarmsLength);
 
-  useFetchAlarms(100000);                         // Hook para obtener las alarmas desde la API
+  useFetchAlarms(100000);
 
   if (errorAlarms) {
-    return <ErrorMessage message={errorAlarms}/>;
+    return <ErrorMessage message={errorAlarms} data-testid="error-message" />;
   }  
 
   return (
-    <div className="relative">            
+    <div className="relative" data-testid="alarm-tables-container">            
       <div className="text-sm">
         <TabGroup
           selectedIndex={Object.values(activeTabs).indexOf(true)}
@@ -68,32 +63,32 @@ const AlarmTablesContainer =() => {
           }}
         >
           <div className="flex justify-between bg-african_violet-300">
-          <TabList className="flex justify-start bg-african_violet-300">
-            <AlarmTab
-              tabName={`Alarms (${alarmsDataLength})`}              
-              disabled={alarmsDataLength === 0}
-              selected={activeTabs.alarms}
-              onClick={() => dispatch(setActiveTab({ tabReduxId: 'alarms' }))}
-            />
-            <AlarmTab
-              tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}              
-              disabled={filteredByClickAlarmsLength === 0}
-              selected={activeTabs.selected}
-              onClick={() => dispatch(setActiveTab({ tabReduxId: 'selected' }))}
-            />
-            <AlarmTab
-              tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}              
-              disabled={filteredByOptionsAlarmsLength === 0}
-              selected={activeTabs.filtered}
-              onClick={() => dispatch(setActiveTab({ tabReduxId: 'filtered' }))}
-            />
-          </TabList>
+            <TabList className="flex justify-start bg-african_violet-300" data-testid="tab-list">
+              <AlarmTab
+                tabName={`Alarms (${alarmsDataLength})`}              
+                disabled={alarmsDataLength === 0}
+                selected={activeTabs.alarms}
+                onClick={() => dispatch(setActiveTab({ tabReduxId: 'alarms' }))}
+              />
+              <AlarmTab
+                tabName={`Filtered by Click (${filteredByClickAlarmsLength})`}              
+                disabled={filteredByClickAlarmsLength === 0}
+                selected={activeTabs.selected}
+                onClick={() => dispatch(setActiveTab({ tabReduxId: 'selected' }))}
+              />
+              <AlarmTab
+                tabName={`Filtered by Options (${filteredByOptionsAlarmsLength})`}              
+                disabled={filteredByOptionsAlarmsLength === 0}
+                selected={activeTabs.filtered}
+                onClick={() => dispatch(setActiveTab({ tabReduxId: 'filtered' }))}
+              />
+            </TabList>
 
-            <AlarmFiltersPanelContainer />
+            <AlarmFiltersPanelContainer data-testid="alarm-filters-panel" />
           </div>
 
-          <TabPanels>
-            <TabPanel>
+          <TabPanels data-testid="tab-panels">
+            <TabPanel data-testid="tab-panel-alarms">
               <AlarmTable                
                 data={dataAlarms}   
                 page={PageAlarm}
@@ -103,18 +98,18 @@ const AlarmTablesContainer =() => {
                 setPage={setPageAlarms}                                      
               />
             </TabPanel>
-            <TabPanel>
+            <TabPanel data-testid="tab-panel-click">
               <AlarmTable                
-                data={dataFilteredByClickAlarms}                                                
+                data={dataFilteredByClickAlarms}                                                 
                 page={pageFilteredByClickAlarms}
                 hasMore={hasMoreFilteredByClickAlarms}                                             
                 setHasMore={setHasMoreFilteredByClickAlarms}
                 setPage={setPageFilteredByClickAlarms}                                      
               />
             </TabPanel>
-            <TabPanel>
+            <TabPanel data-testid="tab-panel-filtered">
               <AlarmTable                
-                data={dataFilteredByOptions}                                                
+                data={dataFilteredByOptions}                                                 
                 page={pageFilteredByOptions}
                 hasMore={hasMoreFilteredByOptions}                                             
                 setHasMore={setHasMoreFilteredByOptions}
