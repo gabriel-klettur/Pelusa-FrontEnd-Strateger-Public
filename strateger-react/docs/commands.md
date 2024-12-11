@@ -16,6 +16,16 @@ npm test
 
 ### Run coverage tests
 ```bash 
-npm run coverage
+npm test -- --coverage
 ```
 
+### Run coverage tests for a specific file
+```bash
+npx jest --coverage --collectCoverageFrom="src/components/Alarms/**/*.{js,jsx}"
+```
+
+### Open report of coverage tests
+```bash
+open folder in  'coverage/lcov-report/'
+open file 'index.html'
+```
