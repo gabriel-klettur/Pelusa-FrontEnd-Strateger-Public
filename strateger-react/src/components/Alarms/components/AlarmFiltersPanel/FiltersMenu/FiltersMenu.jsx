@@ -8,10 +8,23 @@ import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
 
 
+
+
+/**
+ * TODO - FiltersMenu component renders a filter menu with various filter options such as intervals, order types, strategies, and tickers.
+ * TODO - It allows users to apply or clear filters and handles the state of the filters.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.onApplyFilters - Callback function to apply the selected filters.
+ * @param {Function} props.onClear - Callback function to clear the selected filters.
+ * @param {Array<string>} props.uniqueStrategies - Array of unique strategy names.
+ * @param {Array<string>} props.uniqueTickers - Array of unique ticker names.
+ */
 const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers }) => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú está abierto
-  const menuRef = useRef(null); // Ref para identificar el menú
+  const [isOpen, setIsOpen] = useState(false);  // State to handle whether the menu is open or not
+  const menuRef = useRef(null);                 // Ref to reference the menu DOM element
 
   const [intervals, setIntervals] = useState({
     '1m': false,
@@ -24,20 +37,21 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
     W: false,
     M: false,
   });
-
   const [ordersType, setOrderType] = useState({
     'Open Long': false,
     'Open Short': false,
     'Close Long': false,
     'Close Short': false,
   });
-
   const [strategies, setStrategies] = useState({});
   const [tickers, setTickers] = useState({});
 
-  useEffect(() => {
-    
 
+  //!------------------------------------------------------//
+  //!----------------------- HOOKS ------------------------//
+  //!------------------------------------------------------//
+  // Update the strategies and tickers state when the uniqueStrategies and uniqueTickers props change
+  useEffect(() => {  
     setStrategies((prevStrategies) =>
       uniqueStrategies.reduce((acc, strategy) => {
         acc[strategy] = prevStrategies[strategy] ?? false;
@@ -55,9 +69,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   }, [uniqueStrategies, uniqueTickers]);
 
 
-
-
-  // Manejar clics fuera del menú
+  // Handle click outside the menu to close it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -71,7 +83,9 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
     };
   }, []);
 
-
+  //!------------------------------------------------------//
+  //!----------------------- FUNCTIONS --------------------//
+  //!------------------------------------------------------//
 
   
   const handleCheckboxChange = (stateUpdater, key) => {
@@ -91,7 +105,6 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
     onApplyFilters(filters);    
     dispatch(setActiveTab({ tabReduxId: 'filtered' }));
     dispatch(setActiveRadarDataset('filtered'))
-
   };
 
   const handleClear = () => {
@@ -128,13 +141,16 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
       }, {})
     );
 
-    onClear();
-    
+    onClear();    
   };
+
+  //!------------------------------------------------------//
+  //!----------------------- RENDER -----------------------//
+  //!------------------------------------------------------//
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* Botón para abrir/cerrar el menú */}
+      {/* --------------------------------- Filter Button to open the menu ---------------------------------*/}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className="px-4 py-2 flex items-center space-x-2 text-white rounded-sm hover:bg-african_violet-400"
@@ -147,7 +163,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
         <span>Filters</span>
       </button>
 
-      {/* Contenido del menú */}
+      {/* --------------------------------------- Content of the menu ---------------------------------------*/}
       {isOpen && (
         <div className="absolute right-0 w-[600px] bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50">
           <FilterSection
@@ -177,6 +193,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
             onChange={(key) => handleCheckboxChange(setTickers, key)}
             gridCols={2}
           />
+          {/* ----------------------------------- Apply and Clear buttons ---------------------------------*/}
           <div className="flex justify-between mt-4">
             <button
               onClick={handleApply}
