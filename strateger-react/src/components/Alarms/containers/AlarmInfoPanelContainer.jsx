@@ -1,13 +1,14 @@
 //Path: src/components/Alarms/containers/AlarmInfoPanel.jsx
 
 //import ChartAlarmsByMonth from '../components/AlarmInfoPanel/ChartAlarmsByMonth/ChartAlarmsByMonth';
-import ChartAlarmsByTime from '../components/AlarmInfoPanel/AlarmsGraphByTime/ChartAlarmsByTime';
+
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import AlarmTab from '../components/AlarmTab';
 import ChartAlarmsByMonth from '../components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth';
+import ChartAlarmsByTime from '../components/AlarmInfoPanel/AlarmsGraphByTime/ChartAlarmsByTime';
 import GeneralStatistics from '../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics';
 
-const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
+const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
 
     const alarmsByHour = alarmsData.reduce((acc, alarm) => {
         if (alarm.Time_Alert) {
@@ -74,4 +75,4 @@ const AlarmInfoPanel = ({alarmsData, filteredByClickAlarmsData, filteredByOption
     )
 }
 
-export default AlarmInfoPanel;
+export default AlarmInfoPanelContainer;
