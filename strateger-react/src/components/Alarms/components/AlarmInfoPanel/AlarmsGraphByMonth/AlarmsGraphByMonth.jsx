@@ -1,4 +1,4 @@
-//Path: src/components/Alarms/components/AlarmInfoPanel/AlarmInfoChart.jsx
+//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth.jsx
 
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
