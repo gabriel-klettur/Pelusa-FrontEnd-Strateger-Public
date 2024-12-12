@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Alarms/__tests__/components/AlarmTable/AlarmTable.test.jsx
+
 // Importaciones necesarias
 import { render, screen, fireEvent } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
