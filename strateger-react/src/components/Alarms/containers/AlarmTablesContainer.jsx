@@ -48,8 +48,14 @@ const AlarmTablesContainer =() => {
 
   useFetchAlarms(100000);
 
+  const ErrorMessage = ({ message }) => (
+    <div className="error-message" data-testid="error-message">
+      {message}
+    </div>
+  );
+
   if (errorAlarms) {
-    return <ErrorMessage message={errorAlarms} data-testid="error-message" />;
+    return <ErrorMessage message={errorAlarms} />;
   }  
 
   return (
