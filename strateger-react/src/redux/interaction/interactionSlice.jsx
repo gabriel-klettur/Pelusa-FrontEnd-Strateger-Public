@@ -51,8 +51,7 @@ const interactionSlice = createSlice({
     },
 
     setToggleChartAlarmButtons(state, action) {
-      const buttonReduxId = action.payload;
-      console.log('buttonReduxId', buttonReduxId);
+      const buttonReduxId = action.payload;      
     
       // Si el botón ya está activo, desactívalo
       if (state.Chart.ButtonsPanel.AlarmButtons[buttonReduxId]) {
@@ -92,9 +91,7 @@ const interactionSlice = createSlice({
     },
 
     //! ---------------- Syncronize Chart Buttons with Alarm Tabs ---------------- //
-    setActiveTab(state, action) {
-      console.log('setActiveButton payload:', action.payload);
-      console.log('State before update:', state);
+    setActiveTab(state, action) {  
       const { tabReduxId } = action.payload;
 
       // Desactiva todos los tabs
@@ -113,9 +110,7 @@ const interactionSlice = createSlice({
     },
 
     //! ---------------- Syncronize Alarm Tabs with Chart Buttons ---------------- //
-    setActiveButton(state, action) {
-      console.log('setActiveTab payload:', action.payload);
-      console.log('State before update:', state)
+    setActiveButton(state, action) {      
       const { buttonReduxId } = action.payload;
 
       // Desactiva todos los botones
