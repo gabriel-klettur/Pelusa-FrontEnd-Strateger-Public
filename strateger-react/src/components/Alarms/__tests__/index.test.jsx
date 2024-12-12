@@ -1,5 +1,5 @@
 // Importar los módulos desde el index.js
-import { Alarms, AlarmTable, AlarmFiltersPanelContainer } from '../../../components/Alarms/index';
+import { Alarms, AlarmTable, AlarmFiltersPanelContainer } from '../index';
 
 describe('Alarms index.js exports', () => {
   
