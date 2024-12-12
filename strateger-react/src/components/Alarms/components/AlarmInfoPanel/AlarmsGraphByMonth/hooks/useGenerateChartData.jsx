@@ -20,10 +20,12 @@ const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, allLabel
               'M': Array(12).fill(0),
             };
           
-            alarmsData.forEach(alarm => {
+            alarmsData.forEach(alarm => {  
+              if (!alarm || !alarm.Time_Alert || !alarm.Interval) return; // Validación de alarmas inválidas
+              
               const month = new Date(alarm.Time_Alert).getMonth();
               const interval = alarm.Interval;
-          
+            
               if (intervalCounts[interval]) {
                 intervalCounts[interval][month] += 1;
               }
