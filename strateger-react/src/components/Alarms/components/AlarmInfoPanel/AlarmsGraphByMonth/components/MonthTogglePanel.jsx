@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/components/MonthTogglePanel.jsx
+
 import MonthToggleButton from "./MonthToggleButton";
 
 const MonthTogglePanel = ({allLabels, visibleMonths, setVisibleMonths}) => {
@@ -8,15 +10,13 @@ const MonthTogglePanel = ({allLabels, visibleMonths, setVisibleMonths}) => {
         setVisibleMonths(newVisibleMonths);
     };
 
-    return (
-        <div className="grid grid-cols-6 gap-2 justify-center text-sm rounded-sm">
-        
+    return (        
+        <div data-testid="month-toggle-panel-container">
             <MonthToggleButton 
                 allLabels={allLabels} 
                 visibleMonths={visibleMonths} 
                 toggleMonth={toggleMonth} 
-            />
-
+            />        
         </div>
     );    
 }

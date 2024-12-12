@@ -13,8 +13,7 @@ import useGenerateChartData from './hooks/useGenerateChartData';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const allLabels = [
-  'Januar', 'February', 'March', 'Abril', 'May', 'Jun', 
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
 const AlarmsGraphByMonth = () => {
@@ -27,25 +26,27 @@ const AlarmsGraphByMonth = () => {
   useGenerateChartData({alarmsData, visibleMonths, setChartData, allLabels});  
 
   return (
-    <div className='h-full mt-2'>
+    <div className='h-full mt-2' data-testid='alarms-graph-by-month-container'>
       {alarmsData && alarmsData.length > 0 ? (
-        <div className='h-full'>
+        <div className='h-full' data-testid='alarms-graph-content'>
           
           <MonthTogglePanel 
             allLabels={allLabels}             
             visibleMonths={visibleMonths}
             setVisibleMonths={setVisibleMonths}
+            data-testid='month-toggle-panel-container'
           />
 
-          <div style={{ height: "440px" }}>
+          <div style={{ height: "440px" }} data-testid='bar-chart-container'>
             <Bar               
               options={options} 
-              data={chartData}                 
+              data={chartData}  
+              aria-label='bar-chart'               
             />
           </div>
         </div>
       ) : (
-        <p>Loading chart data...</p>
+        <p data-testid='loading-message'>Loading chart data...</p>
       )}
     </div>
   );
