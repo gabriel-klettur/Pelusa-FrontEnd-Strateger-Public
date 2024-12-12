@@ -1,4 +1,4 @@
-// Path: src/components/Alarms/Alarms.js
+// Path: src/components/Alarms/Alarms.jsx
 import React from 'react';
 
 import AlarmsContainer from './containers/AlarmContainer';
