@@ -30,7 +30,7 @@ const AlarmContainer = () => {
     
 
     return (
-        <div className="flex flex-col">            
+        <div className="flex flex-col" data-testid="alarms-container">            
             <div className='grid grid-cols-10'>
                 <div className='col-span-7'>
                     <MainChart
