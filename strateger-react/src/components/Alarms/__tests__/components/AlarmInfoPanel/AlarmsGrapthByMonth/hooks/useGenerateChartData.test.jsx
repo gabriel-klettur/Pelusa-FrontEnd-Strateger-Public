@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import useGenerateChartData from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/hooks/useGenerateChartData';
+import useGenerateChartData from '../../../../../components/AlarmInfoPanel/AlarmsGraphByMonth/hooks/useGenerateChartData';
 
 describe('useGenerateChartData', () => {
   it('should not call setChartData when alarmsData is empty', () => {
