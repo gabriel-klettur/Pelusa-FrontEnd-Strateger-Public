@@ -29,3 +29,8 @@ npx jest --coverage --collectCoverageFrom="src/components/Alarms/**/*.{js,jsx}"
 open folder in  'coverage/lcov-report/'
 open file 'index.html'
 ```
+
+### Clear cache of jest
+```bash
+npx jest --clearCache
+```
