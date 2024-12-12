@@ -149,7 +149,7 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   //!------------------------------------------------------//
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative" ref={menuRef} data-testid="filters-menu">
       {/* --------------------------------- Filter Button to open the menu ---------------------------------*/}
       <button
         onClick={() => setIsOpen((prev) => !prev)}

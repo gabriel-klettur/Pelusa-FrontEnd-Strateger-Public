@@ -73,7 +73,7 @@ const AlarmFiltersPanelContainer = () => {
 
   return (
     <div className="flex space-x-12">
-      <div>
+      <div data-testid="alarm-filters-panel-container">
         <FiltersMenu
           onApplyFilters={handleApplyFilters}
           onClear={handleClearFilters}
