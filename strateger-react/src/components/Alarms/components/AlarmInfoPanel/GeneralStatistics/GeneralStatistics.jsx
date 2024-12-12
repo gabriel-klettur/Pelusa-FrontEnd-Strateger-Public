@@ -54,7 +54,7 @@ const GeneralStatistics = () => {
     }, {});
 
     return (
-        <div className="h-[535px] w-full p-4 overflow-y-auto custom-scrollbar bg-african_violet-200 text-african_violet-800">            
+        <div className="h-[535px] w-full p-4 overflow-y-auto custom-scrollbar bg-african_violet-200 text-african_violet-800" data-testid="general-statistics">            
             <div className="text-lg font-medium text-center mb-6 flex justify-center items-center space-x-4">
                 <p>Total Alarms: {dataAlarms.length}</p>
                 <p className="text-sm text-gray-400">(Today: {todayAlarmsCount})</p>
