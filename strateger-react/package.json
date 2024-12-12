@@ -115,6 +115,7 @@
     "axios": "^1.7.9",
     "babel-jest": "^29.7.0",
     "jest": "^27.5.1",
+    "jest-canvas-mock": "^2.5.2",
     "msw": "^2.6.8",
     "path": "^0.12.7",
     "redux-mock-store": "^1.5.4",
