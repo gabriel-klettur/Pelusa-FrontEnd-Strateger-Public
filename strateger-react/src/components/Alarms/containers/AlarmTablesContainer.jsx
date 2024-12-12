@@ -10,7 +10,6 @@ import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 // Components
 import AlarmTab from '../components/AlarmTab';
 import AlarmTable from '../components/AlarmTable/AlarmTable';
-import ErrorMessage from '../../common/ErrorMessage';
 import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 
 // Hooks
