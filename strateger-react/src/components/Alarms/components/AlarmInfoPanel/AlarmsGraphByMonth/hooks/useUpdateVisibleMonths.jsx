@@ -44,7 +44,7 @@ const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, allLabels}) => {
 
         alarmsData.forEach(alarm => {
             const month = new Date(alarm.Time_Alert).getMonth();
-            const interval = alarm.Temporalidad;
+            const interval = alarm.Interval;
 
             if (intervalCounts[interval]) {
             intervalCounts[interval][month] += 1;

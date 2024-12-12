@@ -13,7 +13,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
     <div className="border-b border-african_violet-300 py-2">
       <div className="flex justify-between items-center">
         <div className="cursor-pointer" onClick={handleToggle}>
-          <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Time_Alert}]-[{alarm.Temporalidad}]-[{alarm.Order}] </span>
+          <span className={isSelected ? 'font-bold' : ''}>[{alarm.id}]-[{alarm.Time_Alert}]-[{alarm.Interval}]-[{alarm.Order}] </span>
         </div>
         <button
           type="button" 
@@ -26,7 +26,7 @@ const AlarmItem = ({ alarm, onSelect, isSelected, onAdd }) => {
       {expanded && (
         <div className="">
           <div><strong>Id:</strong> {alarm.id}</div>
-          <div><strong>Temporalidad:</strong> {alarm.Temporalidad}</div>
+          <div><strong>Temporalidad:</strong> {alarm.Interval}</div>
           <div><strong>Quantity:</strong> {alarm.Quantity}</div>
           <div><strong>Entry Price Alert:</strong> {alarm.Entry_Price_Alert}</div>
           <div><strong>Exit Price Alert:</strong> {alarm.Exit_Price_Alert}</div>

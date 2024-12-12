@@ -46,15 +46,15 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
         const relevantAlarms = alarmsInRange.filter((alarm) => {
           const matchesStrategyName = alarm.Strategy === strategy.alarmName;
           const matchesEntryOrder =
-            alarm.Temporalidad === entryOrder &&
+            alarm.Interval === entryOrder &&
             (alarm.Order === `order open ${orderType}` || alarm.Order === `indicator open ${orderType}`);
           const matchesCloseOrder =
-            alarm.Temporalidad === closeOrder &&
+            alarm.Interval === closeOrder &&
             (alarm.Order === `order close ${orderType}` || alarm.Order === `indicator close ${orderType}`);
           const matchesEntryIndicator =
-            alarm.Temporalidad === entryIndicator && alarm.Order === `indicator open ${orderType}`;
+            alarm.Interval === entryIndicator && alarm.Order === `indicator open ${orderType}`;
           const matchesCloseIndicator =
-            alarm.Temporalidad === closeIndicator && alarm.Order === `indicator close ${orderType}`;
+            alarm.Interval === closeIndicator && alarm.Order === `indicator close ${orderType}`;
 
           return matchesStrategyName && (matchesEntryOrder || matchesCloseOrder || matchesEntryIndicator || matchesCloseIndicator);
         });
@@ -64,10 +64,10 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
     };
 
     const openLongAlarms = allAlarms.filter(
-      (alarm) => alarm.Temporalidad === strategy.longEntryIndicator && alarm.Order === 'indicator open long'
+      (alarm) => alarm.Interval === strategy.longEntryIndicator && alarm.Order === 'indicator open long'
     );
     const closeLongAlarms = allAlarms.filter(
-      (alarm) => alarm.Temporalidad === strategy.longCloseIndicator && alarm.Order === 'indicator close long'
+      (alarm) => alarm.Interval === strategy.longCloseIndicator && alarm.Order === 'indicator close long'
     );
 
     filterAlarmsByIndicatorsAndOrders(
@@ -81,10 +81,10 @@ const StrategyItem = ({ strategy, onEdit, onDelete }) => {
     );
 
     const openShortAlarms = allAlarms.filter(
-      (alarm) => alarm.Temporalidad === strategy.shortEntryIndicator && alarm.Order === 'indicator open short'
+      (alarm) => alarm.Interval === strategy.shortEntryIndicator && alarm.Order === 'indicator open short'
     );
     const closeShortAlarms = allAlarms.filter(
-      (alarm) => alarm.Temporalidad === strategy.shortCloseIndicator && alarm.Order === 'indicator close short'
+      (alarm) => alarm.Interval === strategy.shortCloseIndicator && alarm.Order === 'indicator close short'
     );
 
     filterAlarmsByIndicatorsAndOrders(

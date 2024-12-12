@@ -48,7 +48,7 @@ const useFilterAlarmsByIntervalAndType = () => {
 
             const types = selectedTypes[interval] || [];
             const filteredAlarms = alarms.filter(alarm => 
-                (alarm.Temporalidad === interval) &&
+                (alarm.Interval === interval) &&
                 (types.includes(alarm.Order))
             );
             allAlarms.push(...filteredAlarms);

@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics.jsx
+
 import { useSelector } from "react-redux";
 import { selectAlarmsData } from "../../../../../redux/alarm";
 
@@ -22,10 +24,10 @@ const GeneralStatistics = () => {
     }, {});
 
     // Contar diferentes Temporalidades y cuántas hay de cada una
-    const temporalidadCount = dataAlarms.reduce((acc, alarm) => {
-        acc[alarm.Temporalidad] = (acc[alarm.Temporalidad] || 0) + 1;
+    const intervalCount = dataAlarms.reduce((acc, alarm) => {
+        acc[alarm.Interval] = (acc[alarm.Interval] || 0) + 1;
         return acc;
-    }, {});
+    }, {});    
 
     // Contar alarmas por hora
     const hourCount = dataAlarms.reduce((acc, alarm) => {
@@ -64,22 +66,22 @@ const GeneralStatistics = () => {
                     <h2 className="text-lg font-semibold mb-2">Tickers:</h2>
                     <div className="space-y-1">
                         {Object.entries(tickerCount).map(([ticker, count]) => (
-                            <div key={ticker} className="flex justify-between">
-                                <span className="font-medium">{ticker}:</span>
-                                <span>{count}</span>
-                            </div>
+                        <div key={ticker} className="flex justify-between">
+                            <span className="font-medium">{ticker}:</span>
+                            <span>{count}</span>
+                        </div>
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <h2 className="text-lg font-semibold mb-2">Temporalities:</h2>
-                    <div className="space-y-1">
-                        {Object.entries(temporalidadCount).map(([temporalidad, count]) => (
-                            <div key={temporalidad} className="flex justify-between">
-                                <span className="font-medium">{temporalidad}:</span>
+                    <h2 className="text-lg font-semibold mb-2">Intervals:</h2>
+                    <div className="space-y-1" data-testid="GeneralStatistics-intervals-list">
+                        {Object.entries(intervalCount).map(([interval, count]) => (                       
+                            <div key={interval} className="flex justify-between">
+                                <span className="font-medium">{interval}:</span>
                                 <span>{count}</span>
-                            </div>
+                            </div>                            
                         ))}
                     </div>
                 </div>

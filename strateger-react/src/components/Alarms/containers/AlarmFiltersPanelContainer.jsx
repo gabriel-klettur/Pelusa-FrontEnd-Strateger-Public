@@ -33,7 +33,7 @@ const AlarmFiltersPanelContainer = () => {
       const tickers = Object.keys(filters.tickers).filter(key => filters.tickers[key]);
         
       if (intervals.length > 0) {
-          const foundIntervalFilter = intervals.some(interval => alarm.Temporalidad === interval);
+          const foundIntervalFilter = intervals.some(interval => alarm.Interval === interval);
           filtersResults.push(foundIntervalFilter);
       }
         

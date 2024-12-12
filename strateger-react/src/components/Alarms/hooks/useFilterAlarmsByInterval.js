@@ -15,7 +15,7 @@ const useFilterAlarmsByInterval = () => {
 
     useEffect(() => {          
         if (selectedTemporalidad) {
-            const filteredAlarms = alarms.filter(alarm => (alarm.Temporalidad === selectedTemporalidad));            
+            const filteredAlarms = alarms.filter(alarm => (alarm.Interval === selectedTemporalidad));            
             dispatch(setFilteredByIntervalAlarms(filteredAlarms));     
         } else {
             dispatch(setFilteredByIntervalAlarms([]));
