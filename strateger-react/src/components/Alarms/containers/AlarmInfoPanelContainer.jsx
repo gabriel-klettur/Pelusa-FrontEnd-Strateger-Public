@@ -22,7 +22,7 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
             <TabGroup data-testid="alarm-info-tab-group">
                 <TabList className="flex justify-center w-full " data-testid="alarm-info-tab-list">
                     <AlarmTab
-                        tabName="Alarm By Time"  
+                        tabName="Alarms By Time"  
                         data-testid="alarm-tab-alarm-by-time"                      
                     />                    
                     <AlarmTab
@@ -30,7 +30,7 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
                         data-testid="alarm-tab-general-statistics"                     
                     />
                     <AlarmTab
-                        tabName="Alarm By Month" 
+                        tabName="Alarms By Month" 
                         data-testid="alarm-tab-alarm-by-month"                      
                     />
                 </TabList>

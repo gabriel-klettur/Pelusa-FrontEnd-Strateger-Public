@@ -38,7 +38,7 @@ describe('AlarmInfoPanel', () => {
         expect(containerElement).toBeInTheDocument();
 
         // ✅ Verificar que los 3 tabs están presentes
-        const tabNames = ['Alarm By Time', 'General Statistics', 'Alarm By Month'];
+        const tabNames = ['Alarms By Time', 'General Statistics', 'Alarms By Month'];
         tabNames.forEach((tabName) => {
         const tabElement = screen.getByTestId(`alarm-tab-${tabName}`);
         expect(tabElement).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('AlarmInfoPanel', () => {
         );
     
         // ✅ Verificar que los 3 tabs están presentes
-        const tabNames = ['Alarm By Time', 'General Statistics', 'Alarm By Month'];
+        const tabNames = ['Alarms By Time', 'General Statistics', 'Alarms By Month'];
         tabNames.forEach((tabName) => {
           const tabElement = screen.getByTestId(`alarm-tab-${tabName}`);
           expect(tabElement).toBeInTheDocument();
