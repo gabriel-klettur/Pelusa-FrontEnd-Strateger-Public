@@ -10,7 +10,7 @@ describe('useGenerateChartData', () => {
         alarmsData: [], 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
-        allLabels: [] 
+        monthsLabels: [] 
       })
     );
 
@@ -30,21 +30,21 @@ describe('useGenerateChartData', () => {
     ];
     
     const visibleMonths = Array(12).fill(true);
-    const allLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
       useGenerateChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 
-        allLabels 
+        monthsLabels 
       })
     );
 
     expect(setChartData).toHaveBeenCalledTimes(1);
     
     const expectedChartData = {
-      labels: allLabels,
+      labels: monthsLabels,
       datasets: expect.arrayContaining([
         expect.objectContaining({
           label: '5m',
@@ -76,7 +76,7 @@ describe('useGenerateChartData', () => {
         alarmsData: null, 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
-        allLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
+        monthsLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
       })
     );
 
@@ -91,7 +91,7 @@ describe('useGenerateChartData', () => {
         alarmsData: undefined, 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
-        allLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
+        monthsLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
       })
     );
 
@@ -109,14 +109,14 @@ describe('useGenerateChartData', () => {
     ];
     
     const visibleMonths = [true, false, true, false, false, false, false, false, false, false, false, true]; // Solo Enero, Marzo y Diciembre son visibles
-    const allLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
       useGenerateChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 
-        allLabels 
+        monthsLabels 
       })
     );
 
@@ -160,19 +160,19 @@ describe('useGenerateChartData', () => {
     ];
     
     const visibleMonths = Array(12).fill(true); // Todos los meses visibles
-    const allLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
       useGenerateChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 
-        allLabels 
+        monthsLabels 
       })
     );
 
     const expectedChartData = {
-      labels: allLabels, // Deben ser los 12 meses
+      labels: monthsLabels, // Deben ser los 12 meses
       datasets: expect.arrayContaining([
         expect.objectContaining({
           label: '5m',

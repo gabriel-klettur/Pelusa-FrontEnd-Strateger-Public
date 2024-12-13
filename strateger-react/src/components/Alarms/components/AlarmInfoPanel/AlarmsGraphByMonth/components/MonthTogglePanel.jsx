@@ -2,7 +2,7 @@
 
 import MonthToggleButton from "./MonthToggleButton";
 
-const MonthTogglePanel = ({allLabels, visibleMonths, setVisibleMonths}) => {
+const MonthTogglePanel = ({monthsLabels, visibleMonths, setVisibleMonths}) => {
 
     const toggleMonth = (index) => {
         const newVisibleMonths = [...visibleMonths];
@@ -13,7 +13,7 @@ const MonthTogglePanel = ({allLabels, visibleMonths, setVisibleMonths}) => {
     return (        
         <div data-testid="month-toggle-panel-container">
             <MonthToggleButton 
-                allLabels={allLabels} 
+                monthsLabels={monthsLabels} 
                 visibleMonths={visibleMonths} 
                 toggleMonth={toggleMonth} 
             />        

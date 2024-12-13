@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, allLabels}) => {
+const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, monthsLabels}) => {
 
     
         
@@ -17,7 +17,7 @@ const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, allLabels}) => {
 
         const organizeIntervalCountsByMonth = (intervalCounts) => {
             const organizedData = Array(12).fill(null).map((_, index) => ({
-                month: allLabels[index],
+                month: monthsLabels[index],
             }));
             
             Object.keys(intervalCounts).forEach(interval => {
@@ -56,7 +56,7 @@ const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, allLabels}) => {
 
         setVisibleMonths(monthsWithAlarms);
         }
-    }, [alarmsData, setVisibleMonths, allLabels]);
+    }, [alarmsData, setVisibleMonths, monthsLabels]);
 }
 
 export default useUpdateVisibleMonths;

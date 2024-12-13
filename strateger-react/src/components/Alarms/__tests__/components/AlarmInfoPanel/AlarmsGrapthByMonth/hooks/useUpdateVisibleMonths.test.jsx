@@ -9,7 +9,7 @@ describe('useUpdateVisibleMonths', () => {
       useUpdateVisibleMonths({ 
         alarmsData: [], 
         setVisibleMonths, 
-        allLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
+        monthsLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
       })
     );
 
@@ -25,13 +25,13 @@ describe('useUpdateVisibleMonths', () => {
       { Time_Alert: '2024-12-25T12:00:00Z', Interval: '1h' }, // Diciembre
     ];
 
-    const allLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     renderHook(() => 
       useUpdateVisibleMonths({ 
         alarmsData, 
         setVisibleMonths, 
-        allLabels 
+        monthsLabels 
       })
     );
 
@@ -58,7 +58,7 @@ describe('useUpdateVisibleMonths', () => {
       useUpdateVisibleMonths({ 
         alarmsData: null, 
         setVisibleMonths, 
-        allLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
+        monthsLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
       })
     );
 
@@ -72,7 +72,7 @@ describe('useUpdateVisibleMonths', () => {
       useUpdateVisibleMonths({ 
         alarmsData: undefined, 
         setVisibleMonths, 
-        allLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
+        monthsLabels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'] 
       })
     );
 

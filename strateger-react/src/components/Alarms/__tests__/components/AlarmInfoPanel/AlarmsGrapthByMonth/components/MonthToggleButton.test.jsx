@@ -15,7 +15,7 @@ describe('MonthToggleButton - Tests esenciales', () => {
   it('Debe renderizarse correctamente sin errores', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />
@@ -25,10 +25,10 @@ describe('MonthToggleButton - Tests esenciales', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('Debe renderizar un botón por cada mes en allLabels', () => {
+  it('Debe renderizar un botón por cada mes en monthsLabels', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />
@@ -42,7 +42,7 @@ describe('MonthToggleButton - Tests esenciales', () => {
   it('Cada botón debe mostrar el nombre correcto del mes', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />
@@ -58,7 +58,7 @@ describe('MonthToggleButton - Tests esenciales', () => {
   it('Debe llamar a la función toggleMonth con el índice correcto al hacer clic en un botón', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />
@@ -76,7 +76,7 @@ describe('MonthToggleButton - Tests esenciales', () => {
   it('El botón debe tener la clase bg-african_violet-500 si el mes está visible (visibleMonths[index] === true)', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />
@@ -93,7 +93,7 @@ describe('MonthToggleButton - Tests esenciales', () => {
   it('El botón debe tener la clase bg-african_violet-300 si el mes NO está visible (visibleMonths[index] === false)', () => {
     render(
       <MonthToggleButton 
-        allLabels={mockLabels} 
+        monthsLabels={mockLabels} 
         toggleMonth={mockToggleMonth} 
         visibleMonths={mockVisibleMonths} 
       />

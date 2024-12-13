@@ -1,8 +1,8 @@
-const MonthToggleButton = ({allLabels, toggleMonth, visibleMonths}) => {
+const MonthToggleButton = ({monthsLabels, toggleMonth, visibleMonths}) => {
     return(        
         <div className="grid grid-cols-6 gap-1 justify-center text-sm rounded-sm"
             data-testid="month-toggle-button-container">
-            {allLabels.map((month, index) => (
+            {monthsLabels.map((month, index) => (
                 <button
                     key={month}
                     onClick={() => toggleMonth(index)}

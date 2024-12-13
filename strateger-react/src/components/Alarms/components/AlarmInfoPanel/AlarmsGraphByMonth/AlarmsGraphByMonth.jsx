@@ -10,7 +10,7 @@ import useGenerateChartData from './hooks/useGenerateChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const allLabels = [
+const monthsLabels = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
@@ -19,8 +19,11 @@ const AlarmsGraphByMonth = ({alarmsData}) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });  
   const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
 
-  useUpdateVisibleMonths({alarmsData, setVisibleMonths, allLabels});    
-  useGenerateChartData({alarmsData, visibleMonths, setChartData, allLabels});  
+  // setVisibleMonths to show avaible the months with data from alarmsData
+  useUpdateVisibleMonths({alarmsData, setVisibleMonths, monthsLabels});    
+
+  // setChartData based on visible months with alarmsData
+  useGenerateChartData({alarmsData, visibleMonths, setChartData, monthsLabels});  
 
   return (
     <div className='h-full mt-2' data-testid='alarms-graph-by-month-container'>
@@ -28,7 +31,7 @@ const AlarmsGraphByMonth = ({alarmsData}) => {
         <div className='h-full' data-testid='alarms-graph-content'>
           
           <MonthTogglePanel 
-            allLabels={allLabels}             
+            monthsLabels={monthsLabels}             
             visibleMonths={visibleMonths}
             setVisibleMonths={setVisibleMonths}
             data-testid='month-toggle-panel-container'

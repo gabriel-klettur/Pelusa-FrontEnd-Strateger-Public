@@ -7,7 +7,7 @@ import MonthTogglePanel from '../../../../../../Alarms/components/AlarmInfoPanel
 describe('MonthTogglePanel - Tests', () => {
 
   // **1. Datos de ejemplo (fakeData)**
-  const allLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const monthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   let visibleMonths;
   let setVisibleMonths;
 
@@ -20,7 +20,7 @@ describe('MonthTogglePanel - Tests', () => {
   it('Debe renderizarse correctamente sin errores', () => {
     render(
       <MonthTogglePanel 
-        allLabels={allLabels} 
+        monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
         setVisibleMonths={setVisibleMonths} 
       />
@@ -34,7 +34,7 @@ describe('MonthTogglePanel - Tests', () => {
   it('Debe renderizar el componente MonthToggleButton dentro de MonthTogglePanel', () => {
     render(
       <MonthTogglePanel 
-        allLabels={allLabels} 
+        monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
         setVisibleMonths={setVisibleMonths} 
       />
@@ -49,7 +49,7 @@ describe('MonthTogglePanel - Tests', () => {
   it('Debe llamar a setVisibleMonths con el estado correcto al hacer clic en un botón de mes', () => {
     render(
       <MonthTogglePanel 
-        allLabels={allLabels} 
+        monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
         setVisibleMonths={setVisibleMonths} 
       />
@@ -68,7 +68,7 @@ describe('MonthTogglePanel - Tests', () => {
   it('Debe alternar el estado visible del mes correspondiente al hacer clic', () => {
     render(
       <MonthTogglePanel 
-        allLabels={allLabels} 
+        monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
         setVisibleMonths={setVisibleMonths} 
       />
@@ -85,10 +85,10 @@ describe('MonthTogglePanel - Tests', () => {
   });
 
   // **3. Props y estado**
-  it('Debe pasar correctamente las props allLabels, visibleMonths y toggleMonth al componente MonthToggleButton', () => {
+  it('Debe pasar correctamente las props monthsLabels, visibleMonths y toggleMonth al componente MonthToggleButton', () => {
     render(
       <MonthTogglePanel 
-        allLabels={allLabels} 
+        monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
         setVisibleMonths={setVisibleMonths} 
       />

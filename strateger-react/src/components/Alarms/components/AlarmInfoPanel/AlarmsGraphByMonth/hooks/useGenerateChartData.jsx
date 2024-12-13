@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 
 import { getColorForInterval } from '../utils/initChart';
 
-const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, allLabels}) => {
+const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, monthsLabels}) => {
 
     useEffect(() => {
 
         const createBarChartElements = (visibleMonths, alarmsData) => {
-            const labels = allLabels.filter((_, index) => visibleMonths[index]);
+            const labels = monthsLabels.filter((_, index) => visibleMonths[index]);
           
             const intervalCounts = {
               '5m': Array(12).fill(0),
@@ -45,7 +45,7 @@ const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, allLabel
           const newChartData = createBarChartElements(visibleMonths, alarmsData);
           setChartData(newChartData);
         }
-    }, [alarmsData, allLabels, setChartData, visibleMonths]);
+    }, [alarmsData, monthsLabels, setChartData, visibleMonths]);
 }
 
 export default useGenerateChartData;
