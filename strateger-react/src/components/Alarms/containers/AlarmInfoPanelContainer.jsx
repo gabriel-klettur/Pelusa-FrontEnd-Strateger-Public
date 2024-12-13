@@ -8,36 +8,14 @@ import ChartAlarmsByMonth from '../components/AlarmInfoPanel/AlarmsGraphByMonth/
 import ChartAlarmsByTime from '../components/AlarmInfoPanel/AlarmsGraphByTime/ChartAlarmsByTime';
 import GeneralStatistics from '../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics';
 
+import getHourlyAlarmCounts from '../utils/getHourlyAlarmCounts';
+
 const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
 
-    const alarmsByHour = alarmsData.reduce((acc, alarm) => {
-        if (alarm.Time_Alert) {
-          const hour = new Date(alarm.Time_Alert).getHours();   // Extract the hour from Time_Alert
-          acc[hour] = (acc[hour] || 0) + 1;                     // Incrementa el contador para esa hora
-        }
-        return acc;
-    }, {});        
-    const alarmsByHourArray = Object.values(alarmsByHour);
-
-    const alarmsByHourFilteredByClick = filteredByClickAlarmsData.reduce((acc, alarm) => {
-        if (alarm.Time_Alert) {
-          const hour = new Date(alarm.Time_Alert).getHours(); // Extrae la hora de Time_Alert
-          acc[hour] = (acc[hour] || 0) + 1; // Incrementa el contador para esa hora
-        }
-        return acc;
-    }, {});
-    const alarmsByHourFilteredByClickArray = Object.values(alarmsByHourFilteredByClick);
-
-    const alarmsByHourFilteredByOptions = filteredByOptionsAlarmsData.reduce((acc, alarm) => {
-        if (alarm.Time_Alert) {
-          const hour = new Date(alarm.Time_Alert).getHours(); // Extrae la hora de Time_Alert
-          acc[hour] = (acc[hour] || 0) + 1; // Incrementa el contador para esa hora
-        }
-        return acc;
-    }, {});
-    const alarmsByHourFilteredByOptionsArray = Object.values(alarmsByHourFilteredByOptions);
+    const alarmsByHourArray = getHourlyAlarmCounts(alarmsData);
+    const alarmsByHourFilteredByClickArray = getHourlyAlarmCounts(filteredByClickAlarmsData);
+    const alarmsByHourFilteredByOptionsArray = getHourlyAlarmCounts(filteredByOptionsAlarmsData);
     
-
     return(
         <div className='h-full bg-african_violet-200 p-2' data-testid="alarm-info-panel-container">
             {/*<ChartAlarmsByMonth />                                */}            
