@@ -1,8 +1,8 @@
-// Path: strateger-react/src/components/Alarms/__tests__/components/AlarmInfoPanel/AlarmsGraphByMonth/components/MonthTogglePanel.test.jsx
+// Path: strateger-react/src/components/Alarms/__tests__/components/AlarmInfoPanel/AlarmsBarChart/components/MonthTogglePanel.test.jsx
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import MonthTogglePanel from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/components/MonthTogglePanel';
+import MonthTogglePanel from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsBarChart/components/MonthTogglePanel';
 
 describe('MonthTogglePanel - Tests', () => {
 

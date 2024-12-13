@@ -1,4 +1,4 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth.jsx
+//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart.jsx
 
 import { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
@@ -14,7 +14,7 @@ const monthsLabels = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
-const AlarmsGraphByMonth = ({alarmsData}) => {
+const AlarmsBarChart = ({alarmsData}) => {
   
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });  
   const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
@@ -52,4 +52,4 @@ const AlarmsGraphByMonth = ({alarmsData}) => {
   );
 };
 
-export default AlarmsGraphByMonth;
+export default AlarmsBarChart;

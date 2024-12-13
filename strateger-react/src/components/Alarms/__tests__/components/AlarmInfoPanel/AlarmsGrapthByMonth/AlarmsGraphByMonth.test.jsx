@@ -3,7 +3,7 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import AlarmsGraphByMonth from '../../../../../Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth';
+import AlarmsBarChart from '../../../../../Alarms/components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart';
 
 
 const mockStore = configureStore([]);
@@ -60,14 +60,14 @@ const testStateWithData = {
     },
 };
       
-describe('AlarmsGraphByMonth', () => {
+describe('AlarmsBarChart', () => {
 
   it('should render the container for alarms graph by month', () => {
     const store = mockStore(initialState);
     
     render(
       <Provider store={store}>
-        <AlarmsGraphByMonth />
+        <AlarmsBarChart />
       </Provider>
     );
 
@@ -80,7 +80,7 @@ describe('AlarmsGraphByMonth', () => {
     
     render(
       <Provider store={store}>
-        <AlarmsGraphByMonth />
+        <AlarmsBarChart />
       </Provider>
     );
 

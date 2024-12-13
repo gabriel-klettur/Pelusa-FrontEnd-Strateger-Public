@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import AlarmInfoPanelContainer from '../../containers/AlarmInfoPanelContainer';
 
 // Mock de los subcomponentes para controlar la salida de los componentes
-jest.mock('../../components/AlarmInfoPanel/AlarmsGraphByTime/ChartAlarmsByTime', () => () => <div data-testid="alarms-graph-container"></div>);
+jest.mock('../../components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart', () => () => <div data-testid="alarms-graph-container"></div>);
 jest.mock('../../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics', () => () => <div data-testid="general-statistics"></div>);
-jest.mock('../../components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth', () => () => <div data-testid="alarms-graph-by-month-container"></div>);
+jest.mock('../../components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart', () => () => <div data-testid="alarms-graph-by-month-container"></div>);
 jest.mock('../../components/AlarmTab', () => ({ tabName }) => <button data-testid={`alarm-tab-${tabName}`}>{tabName}</button>);
 
 describe('AlarmInfoPanel', () => {

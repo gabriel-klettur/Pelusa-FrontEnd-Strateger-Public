@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import MonthToggleButton from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/components/MonthToggleButton';
+import MonthToggleButton from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsBarChart/components/MonthToggleButton';
 
 describe('MonthToggleButton - Tests esenciales', () => {
   

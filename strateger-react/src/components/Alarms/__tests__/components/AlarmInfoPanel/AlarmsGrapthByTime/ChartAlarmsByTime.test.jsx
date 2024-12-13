@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import AlarmsGraphByTime from '../../../../components/AlarmInfoPanel/AlarmsGraphByTime/ChartAlarmsByTime';
+import AlarmsRadarChart from '../../../../components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart';
 
 // 🔥 Mockear react-chartjs-2
 jest.mock('react-chartjs-2', () => ({
@@ -11,7 +11,7 @@ jest.mock('react-chartjs-2', () => ({
 
 const mockStore = configureStore([]);
 
-describe('AlarmsGraphByTime', () => {
+describe('AlarmsRadarChart', () => {
   let store;
 
   beforeEach(() => {
@@ -22,10 +22,10 @@ describe('AlarmsGraphByTime', () => {
     });
   });
 
-  it('should render AlarmsGraphByTime correctly', () => {
+  it('should render AlarmsRadarChart correctly', () => {
     render(
       <Provider store={store}>
-        <AlarmsGraphByTime 
+        <AlarmsRadarChart 
           alarmsByHour={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]} 
           alarmsByHourFilteredByClick={[]} 
           alarmsByHourFilteredByOptions={[]} 

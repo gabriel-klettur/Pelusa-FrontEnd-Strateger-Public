@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import useUpdateVisibleMonths from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/hooks/useUpdateVisibleMonths';
+import useUpdateVisibleMonths from '../../../../../../Alarms/components/AlarmInfoPanel/AlarmsBarChart/hooks/useUpdateVisibleMonths';
 
 describe('useUpdateVisibleMonths', () => {
   it('should not call setVisibleMonths if alarmsData is empty', () => {

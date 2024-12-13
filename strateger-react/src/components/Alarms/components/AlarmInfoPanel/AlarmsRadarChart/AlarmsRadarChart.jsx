@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const AlarmsGraphByTime = ({ alarmsByHour, alarmsByHourFilteredByClick, alarmsByHourFilteredByOptions }) => {
+const AlarmsRadarChart = ({ alarmsByHour, alarmsByHourFilteredByClick, alarmsByHourFilteredByOptions }) => {
   const activeDataset = useSelector((state) => state.interaction.activeRadarDataset);
 
   const getRadarChartData = () => {
@@ -62,4 +62,4 @@ const AlarmsGraphByTime = ({ alarmsByHour, alarmsByHourFilteredByClick, alarmsBy
   );
 };
 
-export default AlarmsGraphByTime;
+export default AlarmsRadarChart;
