@@ -23,11 +23,9 @@ const AlarmsMainView = () => {
     });
 
     //TODO - Get the alarms data from the store
-    const { alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData } = useSelector((state) => ({
-        alarmsData: selectAlarmsData(state),
-        filteredByClickAlarmsData: selectFilteredByClickAlarms(state),
-        filteredByOptionsAlarmsData: selectFilteredByOptionsAlarms(state),
-    }));
+    const alarmsData = useSelector(selectAlarmsData);
+    const filteredByClickAlarmsData = useSelector(selectFilteredByClickAlarms);
+    const filteredByOptionsAlarmsData = useSelector(selectFilteredByOptionsAlarms);
 
     return (
         <div className="flex flex-col" data-testid="alarms-container">            
