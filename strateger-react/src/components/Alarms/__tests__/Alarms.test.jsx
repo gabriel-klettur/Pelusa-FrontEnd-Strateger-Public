@@ -3,8 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Alarms from '../Alarms';
 
-//  Mock del componente AlarmsContainer
-jest.mock('../containers/AlarmContainer', () => () => <div data-testid="alarms-container"></div>);
+//  Mock del componente AlarmsMainView
+jest.mock('../containers/AlarmsMainView', () => () => <div data-testid="alarms-container"></div>);
 
 describe('Alarms component', () => {
   it('should render the Alarms component and its child AlarmsContainer', () => {

@@ -1,12 +1,11 @@
 // Path: src/components/Alarms/Alarms.jsx
-import React from 'react';
 
-import AlarmsContainer from './containers/AlarmContainer';
+import AlarmsMainView from './containers/AlarmsMainView';
 
 const Alarms = () => {  
   return (
     <div data-testid="alarms-component">     
-      <AlarmsContainer />
+      <AlarmsMainView />
     </div>
   );
 };

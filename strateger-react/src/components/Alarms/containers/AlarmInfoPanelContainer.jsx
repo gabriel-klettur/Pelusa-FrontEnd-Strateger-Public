@@ -12,8 +12,8 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
 
     const alarmsByHour = alarmsData.reduce((acc, alarm) => {
         if (alarm.Time_Alert) {
-          const hour = new Date(alarm.Time_Alert).getHours(); // Extrae la hora de Time_Alert
-          acc[hour] = (acc[hour] || 0) + 1; // Incrementa el contador para esa hora
+          const hour = new Date(alarm.Time_Alert).getHours();   // Extract the hour from Time_Alert
+          acc[hour] = (acc[hour] || 0) + 1;                     // Incrementa el contador para esa hora
         }
         return acc;
     }, {});        

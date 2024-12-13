@@ -1,33 +1,33 @@
 //Path: strateger-react/src/components/Alarms/containers/AlarmContainer.jsx
 
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+//! Components
 import MainChart from '../../Charts/MainChart/MainChart';
 import AlarmTablesContainer from "./AlarmTablesContainer";
 import AlarmInfoPanel from './AlarmInfoPanelContainer';
 
+//! Hooks
+import { useShowButtonsPanel } from '../hooks/useShowButtonsPanel';
+
+//! Redux Selectors
 import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from '../../../redux/alarm';
 
-const AlarmContainer = () => {
+const AlarmsMainView = () => {
 
-    const [showButtonsPanel, setShowButtonsPanel] = useState({
+    //TODO - Handle the visibility of the buttons panel
+    const { showButtonsPanel, updateShowButtonsPanel } = useShowButtonsPanel({
         showChartsButtonsPanel: true,
         showAlarmsButtonsPanel: true,
         showOrdersButtonsPanel: false,
     });
 
-    const updateShowButtonsPanel = (key, value) => {
-        setShowButtonsPanel((prevSettings) => ({
-            ...prevSettings,
-            [key]: value,
-        }));
-    }
-
-    const alarmsData = useSelector(selectAlarmsData);
-    const filteredByClickAlarmsData = useSelector(selectFilteredByClickAlarms);     
-    const filteredByOptionsAlarmsData = useSelector(selectFilteredByOptionsAlarms);
-    
+    //TODO - Get the alarms data from the store
+    const { alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData } = useSelector((state) => ({
+        alarmsData: selectAlarmsData(state),
+        filteredByClickAlarmsData: selectFilteredByClickAlarms(state),
+        filteredByOptionsAlarmsData: selectFilteredByOptionsAlarms(state),
+    }));
 
     return (
         <div className="flex flex-col" data-testid="alarms-container">            
@@ -53,4 +53,4 @@ const AlarmContainer = () => {
     );
 };
 
-export default AlarmContainer;
+export default AlarmsMainView;
