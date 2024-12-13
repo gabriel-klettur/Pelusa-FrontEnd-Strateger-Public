@@ -1,10 +1,8 @@
 //Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsGraphByMonth/AlarmsGraphByMonth.jsx
 
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { selectAlarmsData } from '../../../../../redux/alarm';
 import MonthTogglePanel from './components/MonthTogglePanel';
 import { options } from './utils/initChart';
 import useUpdateVisibleMonths from './hooks/useUpdateVisibleMonths';
@@ -16,11 +14,10 @@ const allLabels = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
-const AlarmsGraphByMonth = () => {
+const AlarmsGraphByMonth = ({alarmsData}) => {
   
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });  
   const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
-  const alarmsData = useSelector(selectAlarmsData);
 
   useUpdateVisibleMonths({alarmsData, setVisibleMonths, allLabels});    
   useGenerateChartData({alarmsData, visibleMonths, setChartData, allLabels});  

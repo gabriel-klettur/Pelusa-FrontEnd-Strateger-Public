@@ -47,7 +47,10 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
                         <GeneralStatistics data-testid="general-statistics"/>
                     </TabPanel>
                     <TabPanel data-testid="alarm-info-tab-panel-alarm-by-month">
-                        <ChartAlarmsByMonth data-testid="chart-alarms-by-month"/>
+                        <ChartAlarmsByMonth 
+                            alarmsData={alarmsData}
+                            data-testid="chart-alarms-by-month"
+                        />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>
