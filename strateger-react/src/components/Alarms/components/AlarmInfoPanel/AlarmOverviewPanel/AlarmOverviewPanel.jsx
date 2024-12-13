@@ -1,9 +1,9 @@
-//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics.jsx
+//Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel.jsx
 
 import { useSelector } from "react-redux";
 import { selectAlarmsData } from "../../../../../redux/alarm";
 
-const GeneralStatistics = () => {
+const AlarmOverviewPanel = () => {
     const dataAlarms = useSelector(selectAlarmsData);
 
     // Contar alarmas capturadas hoy
@@ -76,7 +76,7 @@ const GeneralStatistics = () => {
 
                 <div>
                     <h2 className="text-lg font-semibold mb-2">Intervals:</h2>
-                    <div className="space-y-1" data-testid="GeneralStatistics-intervals-list">
+                    <div className="space-y-1" data-testid="AlarmOverviewPanel-intervals-list">
                         {Object.entries(intervalCount).map(([interval, count]) => (                       
                             <div key={interval} className="flex justify-between">
                                 <span className="font-medium">{interval}:</span>
@@ -130,4 +130,4 @@ const GeneralStatistics = () => {
     );
 };
 
-export default GeneralStatistics;
+export default AlarmOverviewPanel;

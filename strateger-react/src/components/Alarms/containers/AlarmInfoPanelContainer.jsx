@@ -4,7 +4,7 @@ import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import AlarmTab from '../components/AlarmTab';
 import AlarmsBarChart from '../components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart';
 import AlarmsRadarChat from '../components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart';
-import GeneralStatistics from '../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics';
+import AlarmOverviewPanel from '../components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel';
 
 import getHourlyAlarmCounts from '../utils/getHourlyAlarmCounts';
 
@@ -24,7 +24,7 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
                         data-testid="alarm-tab-alarm-by-time"                      
                     />                    
                     <AlarmTab
-                        tabName="General Statistics" 
+                        tabName="Overview" 
                         data-testid="alarm-tab-general-statistics"                     
                     />
                     <AlarmTab
@@ -42,7 +42,7 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
                         />                                               
                     </TabPanel>
                     <TabPanel data-testid="alarm-info-tab-panel-general-statistics">
-                        <GeneralStatistics data-testid="general-statistics"/>
+                        <AlarmOverviewPanel data-testid="general-statistics"/>
                     </TabPanel>
                     <TabPanel data-testid="alarm-info-tab-panel-alarm-by-month">
                         <AlarmsBarChart 

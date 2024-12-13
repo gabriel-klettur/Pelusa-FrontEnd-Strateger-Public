@@ -6,7 +6,7 @@ import AlarmInfoPanelContainer from '../../containers/AlarmInfoPanelContainer';
 
 // Mock de los subcomponentes para controlar la salida de los componentes
 jest.mock('../../components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart', () => () => <div data-testid="alarms-graph-container"></div>);
-jest.mock('../../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics', () => () => <div data-testid="general-statistics"></div>);
+jest.mock('../../components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel', () => () => <div data-testid="general-statistics"></div>);
 jest.mock('../../components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart', () => () => <div data-testid="alarms-graph-by-month-container"></div>);
 jest.mock('../../components/AlarmTab', () => ({ tabName }) => <button data-testid={`alarm-tab-${tabName}`}>{tabName}</button>);
 
@@ -38,7 +38,7 @@ describe('AlarmInfoPanel', () => {
         expect(containerElement).toBeInTheDocument();
 
         // ✅ Verificar que los 3 tabs están presentes
-        const tabNames = ['Alarms By Time', 'General Statistics', 'Alarms By Month'];
+        const tabNames = ['Alarms By Time', 'Overview', 'Alarms By Month'];
         tabNames.forEach((tabName) => {
         const tabElement = screen.getByTestId(`alarm-tab-${tabName}`);
         expect(tabElement).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('AlarmInfoPanel', () => {
         );
     
         // ✅ Verificar que los 3 tabs están presentes
-        const tabNames = ['Alarms By Time', 'General Statistics', 'Alarms By Month'];
+        const tabNames = ['Alarms By Time', 'Overview', 'Alarms By Month'];
         tabNames.forEach((tabName) => {
           const tabElement = screen.getByTestId(`alarm-tab-${tabName}`);
           expect(tabElement).toBeInTheDocument();

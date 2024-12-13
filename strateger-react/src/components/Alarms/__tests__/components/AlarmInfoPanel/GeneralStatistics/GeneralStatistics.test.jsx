@@ -1,11 +1,11 @@
 
-//Path: strateger-react/src/components/Alarms/__tests__/components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics.test.jsx
+//Path: strateger-react/src/components/Alarms/__tests__/components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel.test.jsx
 
 // Importaciones necesarias
 import { render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import GeneralStatistics from '../../../../components/AlarmInfoPanel/GeneralStatistics/GeneralStatistics';
+import AlarmOverviewPanel from '../../../../components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel';
 import alarmReducer from '../../../../../../redux/alarm/alarmSlice';
 
 // **1. Estado inicial**
@@ -74,12 +74,12 @@ const storeWithTestState = configureStore({
 
 
 // **5. Ejemplo Completo de Tests**
-describe('GeneralStatistics - Renderización (UI)', () => {
+describe('AlarmOverviewPanel - Renderización (UI)', () => {
   
-  it('debe renderizar correctamente el componente GeneralStatistics', () => {
+  it('debe renderizar correctamente el componente AlarmOverviewPanel', () => {
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
 
@@ -97,7 +97,7 @@ describe('GeneralStatistics - Renderización (UI)', () => {
   it('debe mostrar las listas de tickers', () => {
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
 
@@ -110,12 +110,12 @@ describe('GeneralStatistics - Renderización (UI)', () => {
   it('debe mostrar las listas de Intervalos', () => {    
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
     
     // Buscar dentro del contenedor específico
-    const intervalsList = screen.getByTestId('GeneralStatistics-intervals-list');
+    const intervalsList = screen.getByTestId('AlarmOverviewPanel-intervals-list');
     expect(intervalsList).toBeInTheDocument();    
 
     // Limitar las búsquedas a este contenedor
@@ -131,7 +131,7 @@ describe('GeneralStatistics - Renderización (UI)', () => {
   it('debe renderizar los contenedores de las 4 horas menos y más activas', () => {
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
 
@@ -143,7 +143,7 @@ describe('GeneralStatistics - Renderización (UI)', () => {
   it('debe renderizar los contenedores de Orders', () => {
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
 
@@ -157,7 +157,7 @@ describe('GeneralStatistics - Renderización (UI)', () => {
   it('debe mostrar la cantidad correcta de alarmas totales y del día actual', () => {
     render(
       <Provider store={storeWithTestState}>
-        <GeneralStatistics />
+        <AlarmOverviewPanel />
       </Provider>
     );
 
