@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { getColorForInterval } from '../utils/initChart';
+import { getColorForInterval } from '../configChart';
 
 const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, monthsLabels}) => {
 
