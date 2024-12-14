@@ -6,7 +6,7 @@ import { Bar } from 'react-chartjs-2';
 import MonthTogglePanel from './components/MonthTogglePanel';
 import { options, monthsLabels } from './configChart';
 import useUpdateVisibleMonths from './hooks/useUpdateVisibleMonths';
-import useGenerateChartData from './hooks/useGenerateChartData';
+import useGenerateChartData from './hooks/useGenerateBarChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

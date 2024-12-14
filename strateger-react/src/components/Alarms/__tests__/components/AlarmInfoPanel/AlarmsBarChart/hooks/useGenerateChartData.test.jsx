@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react';
-import useGenerateChartData from '../../../../../components/AlarmInfoPanel/AlarmsBarChart/hooks/useGenerateChartData';
+import useGenerateBarChartData from '../../../../../components/AlarmInfoPanel/AlarmsBarChart/hooks/useGenerateBarChartData';
 
-describe('useGenerateChartData', () => {
+describe('useGenerateBarChartData', () => {
   it('should not call setChartData when alarmsData is empty', () => {
     const setChartData = jest.fn();
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData: [], 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
@@ -33,7 +33,7 @@ describe('useGenerateChartData', () => {
     const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 
@@ -72,7 +72,7 @@ describe('useGenerateChartData', () => {
     const setChartData = jest.fn();
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData: null, 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
@@ -87,7 +87,7 @@ describe('useGenerateChartData', () => {
     const setChartData = jest.fn();
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData: undefined, 
         visibleMonths: Array(12).fill(true), 
         setChartData, 
@@ -112,7 +112,7 @@ describe('useGenerateChartData', () => {
     const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 
@@ -163,7 +163,7 @@ describe('useGenerateChartData', () => {
     const monthsLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     
     renderHook(() => 
-      useGenerateChartData({ 
+      useGenerateBarChartData({ 
         alarmsData, 
         visibleMonths, 
         setChartData, 

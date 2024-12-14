@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { getColorForInterval } from '../configChart';
 
-const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, monthsLabels}) => {
+const useGenerateBarChartData = ({alarmsData, visibleMonths, setChartData, monthsLabels}) => {
 
     useEffect(() => {
 
@@ -48,4 +48,4 @@ const useGenerateChartData = ({alarmsData, visibleMonths, setChartData, monthsLa
     }, [alarmsData, monthsLabels, setChartData, visibleMonths]);
 }
 
-export default useGenerateChartData;
+export default useGenerateBarChartData;
