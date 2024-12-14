@@ -4,7 +4,7 @@ const MonthToggleButton = ({monthsLabels, toggleMonth, visibleMonths}) => {
             data-testid="month-toggle-button-container">
             {monthsLabels.map((month, index) => (
                 <button
-                    key={month}
+                    key={index}
                     onClick={() => toggleMonth(index)}
                     data-testid={`month-button-${index}`}
                     className={`px-2 py-1 h-10 flex items-center justify-center rounded-sm text-african_violet-900 hover:bg-african_violet-400
