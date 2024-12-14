@@ -1,11 +1,11 @@
   // useEffect para actualizar visibleMonths solo cuando alarmsData cambia
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, monthsLabels}) => {
+const useUpdateVisibleMonths = ({alarmsData, monthsLabels}) => {
 
-    
-        
+    const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
+         
     const detectMonthsWithAlarms = (organizedDataByMonth) => {
         return organizedDataByMonth.map(monthData => 
             Object.keys(monthData).some(key => key !== 'month' && monthData[key] > 0)
@@ -57,6 +57,8 @@ const useUpdateVisibleMonths = ({alarmsData, setVisibleMonths, monthsLabels}) =>
         setVisibleMonths(monthsWithAlarms);
         }
     }, [alarmsData, setVisibleMonths, monthsLabels]);
+
+    return {visibleMonths, setVisibleMonths};
 }
 
 export default useUpdateVisibleMonths;

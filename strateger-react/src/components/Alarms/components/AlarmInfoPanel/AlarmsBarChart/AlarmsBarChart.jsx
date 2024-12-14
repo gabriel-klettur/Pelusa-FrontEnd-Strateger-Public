@@ -10,15 +10,11 @@ import useGenerateChartData from './hooks/useGenerateBarChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-
-
 const AlarmsBarChart = ({alarmsData}) => {
   
-
-  const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
-
+  
   // setVisibleMonths to show avaible the months with data from alarmsData
-  useUpdateVisibleMonths({alarmsData, setVisibleMonths, monthsLabels});    
+  const {visibleMonths, setVisibleMonths} = useUpdateVisibleMonths({alarmsData, monthsLabels});    
 
   // setChartData based on visible months with alarmsData
   const chartData = useGenerateChartData({alarmsData, visibleMonths, monthsLabels});  
