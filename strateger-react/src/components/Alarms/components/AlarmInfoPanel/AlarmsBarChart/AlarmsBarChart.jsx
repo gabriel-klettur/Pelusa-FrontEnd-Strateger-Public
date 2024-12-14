@@ -4,15 +4,13 @@ import { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import MonthTogglePanel from './components/MonthTogglePanel';
-import { options } from './configChart';
+import { options, monthsLabels } from './configChart';
 import useUpdateVisibleMonths from './hooks/useUpdateVisibleMonths';
 import useGenerateChartData from './hooks/useGenerateChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const monthsLabels = [
-  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-];
+
 
 const AlarmsBarChart = ({alarmsData}) => {
   

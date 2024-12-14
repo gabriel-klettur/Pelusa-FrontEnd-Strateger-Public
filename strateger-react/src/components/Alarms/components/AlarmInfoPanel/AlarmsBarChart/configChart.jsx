@@ -50,3 +50,7 @@ export const getColorForInterval = (interval) => {
     
     return colors[interval] || 'gray';
 };
+
+export const monthsLabels = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+];
