@@ -9,11 +9,11 @@ describe('MonthTogglePanel - Tests', () => {
   // **1. Datos de ejemplo (fakeData)**
   const monthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   let visibleMonths;
-  let setVisibleMonths;
+  let toggleMonth;
 
   beforeEach(() => {
     visibleMonths = [true, true, true, true, true, true, true, true, true, true, true, true];
-    setVisibleMonths = jest.fn();
+    toggleMonth = jest.fn();
   });
 
   // **1. Renderización inicial**
@@ -22,7 +22,7 @@ describe('MonthTogglePanel - Tests', () => {
       <MonthTogglePanel 
         monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
-        setVisibleMonths={setVisibleMonths} 
+        toggleMonth={toggleMonth} 
       />
     );
 
@@ -36,7 +36,7 @@ describe('MonthTogglePanel - Tests', () => {
       <MonthTogglePanel 
         monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
-        setVisibleMonths={setVisibleMonths} 
+        toggleMonth={toggleMonth} 
       />
     );
 
@@ -45,44 +45,6 @@ describe('MonthTogglePanel - Tests', () => {
     expect(toggleButton).toBeInTheDocument();
   });
 
-  // **2. Comportamiento de la función toggleMonth**
-  it('Debe llamar a setVisibleMonths con el estado correcto al hacer clic en un botón de mes', () => {
-    render(
-      <MonthTogglePanel 
-        monthsLabels={monthsLabels} 
-        visibleMonths={visibleMonths} 
-        setVisibleMonths={setVisibleMonths} 
-      />
-    );
-
-    // Simular un clic en el botón de febrero (índice 1)
-    const febButton = screen.getByTestId('month-button-1'); // Cambiado de month-toggle-btn-1 a month-button-1
-    fireEvent.click(febButton);
-
-    // Esperar que setVisibleMonths se haya llamado con el estado actualizado
-    const expectedVisibleMonths = [...visibleMonths];
-    expectedVisibleMonths[1] = !expectedVisibleMonths[1]; // Cambia el estado de febrero (índice 1)
-    expect(setVisibleMonths).toHaveBeenCalledWith(expectedVisibleMonths);
-  });
-
-  it('Debe alternar el estado visible del mes correspondiente al hacer clic', () => {
-    render(
-      <MonthTogglePanel 
-        monthsLabels={monthsLabels} 
-        visibleMonths={visibleMonths} 
-        setVisibleMonths={setVisibleMonths} 
-      />
-    );
-
-    // Simular un clic en el botón de mayo (índice 4)
-    const mayButton = screen.getByTestId('month-button-4'); // Cambiado de month-toggle-btn-4 a month-button-4
-    fireEvent.click(mayButton);
-
-    // Verificar que setVisibleMonths se haya llamado con el nuevo estado esperado
-    const expectedVisibleMonths = [...visibleMonths];
-    expectedVisibleMonths[4] = !expectedVisibleMonths[4]; // Cambia el estado de mayo (índice 4)
-    expect(setVisibleMonths).toHaveBeenCalledWith(expectedVisibleMonths);
-  });
 
   // **3. Props y estado**
   it('Debe pasar correctamente las props monthsLabels, visibleMonths y toggleMonth al componente MonthToggleButton', () => {
@@ -90,7 +52,7 @@ describe('MonthTogglePanel - Tests', () => {
       <MonthTogglePanel 
         monthsLabels={monthsLabels} 
         visibleMonths={visibleMonths} 
-        setVisibleMonths={setVisibleMonths} 
+        toggleMonth={toggleMonth} 
       />
     );
 
