@@ -12,6 +12,7 @@ import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleSt
 import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from './interactionSelectors';
 import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from './interactionSelectors';
 import { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab } from './interactionSelectors';
+import { selectActiveRadarDataset } from './interactionSelectors';
 
 //TODO ACTIONS
 export { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
@@ -23,6 +24,7 @@ export { selectChartStochasticButton, selectChartEmasButton, selectChartCandleSt
 export { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton };
 export { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton };
 export { selectAlarmTab, selectSelectedAlarmTab, selectFilteredAlarmTab };
+export { selectActiveRadarDataset };
 
 //*MAIN
 export default interactionReducer;

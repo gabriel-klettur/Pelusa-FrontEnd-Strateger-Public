@@ -16,3 +16,5 @@ export const selectOrdersStandardButton = (state) => state.interaction.Chart.But
 export const selectAlarmTab = (state) => state.interaction.Alarms.Tabs.alarms;
 export const selectSelectedAlarmTab = (state) => state.interaction.Alarms.Tabs.selected;
 export const selectFilteredAlarmTab = (state) => state.interaction.Alarms.Tabs.filtered;
+
+export const selectActiveRadarDataset = (state) => state.interaction.activeRadarDataset;

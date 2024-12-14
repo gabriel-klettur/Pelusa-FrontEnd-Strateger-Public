@@ -15,18 +15,20 @@ const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filtere
     const alarmsByHourFilteredByOptionsArray = getHourlyAlarmCounts(filteredByOptionsAlarmsData);
     
     return(
-        <div className='h-full bg-african_violet-200 p-2' data-testid="alarm-info-panel-container">
-            {/*<AlarmsBarChart />                                */}            
+        <div className='h-full bg-african_violet-200 p-2' data-testid="alarm-info-panel-container">            
             <TabGroup data-testid="alarm-info-tab-group">
                 <TabList className="flex justify-center w-full " data-testid="alarm-info-tab-list">
-                    <AlarmTab
+                    {/* Tab for Radar Chart */}
+                    <AlarmTab   
                         tabName="Alarms By Time"  
                         data-testid="alarm-tab-alarm-by-time"                      
-                    />                    
+                    />          
+                    {/* Tab for Overview Panel */}          
                     <AlarmTab
                         tabName="Overview" 
                         data-testid="alarm-tab-general-statistics"                     
                     />
+                    {/* Tab for Bar Chart */}
                     <AlarmTab
                         tabName="Alarms By Month" 
                         data-testid="alarm-tab-alarm-by-month"                      
