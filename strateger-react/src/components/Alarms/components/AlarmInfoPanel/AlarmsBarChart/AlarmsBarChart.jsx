@@ -14,14 +14,14 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const AlarmsBarChart = ({alarmsData}) => {
   
-  const [chartData, setChartData] = useState({ labels: [], datasets: [] });  
+
   const [visibleMonths, setVisibleMonths] = useState(Array(12).fill(false));
 
   // setVisibleMonths to show avaible the months with data from alarmsData
   useUpdateVisibleMonths({alarmsData, setVisibleMonths, monthsLabels});    
 
   // setChartData based on visible months with alarmsData
-  useGenerateChartData({alarmsData, visibleMonths, setChartData, monthsLabels});  
+  const chartData = useGenerateChartData({alarmsData, visibleMonths, monthsLabels});  
 
   return (
     <div className='h-full mt-2' data-testid='alarms-graph-by-month-container'>
