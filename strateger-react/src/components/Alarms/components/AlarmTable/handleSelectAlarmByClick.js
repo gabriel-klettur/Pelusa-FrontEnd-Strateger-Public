@@ -6,8 +6,8 @@
   /**
    * Handles the selection of an alarm by click.
    * 
-   * @param {Object} alarm -  Es el objeto de alarma que se ha clicado
-   * @param {Array} selectedAlarmsByClicks - Array que contiene todas las alarmas que han sido seleccionadas mediante click
+   * @param {Object} alarm -  The object that represents the alarm that was clicked.
+   * @param {Array} selectedAlarmsByClicks - Array that contains the alarms that were selected by click.
    * @param {Function} dispatch - The dispatch function from Redux.
    * @returns {void}
    */

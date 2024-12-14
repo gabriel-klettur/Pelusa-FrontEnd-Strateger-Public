@@ -7,8 +7,8 @@ import { fetchAlarms } from '../../../../redux/alarm';
 
 // Components
 import Tablita from '../../../common/Tablita';
-import AlarmRow from './AlarmRow';
-import Pagination from './Pagination';
+import AlarmRow from './components/AlarmRow';
+import Pagination from './components/Pagination';
 
 // Hooks and functions
 import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
