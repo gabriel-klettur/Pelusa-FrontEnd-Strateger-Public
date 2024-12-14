@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setActiveTab } from '../../../../../redux/interaction';
@@ -8,6 +8,9 @@ import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
 
 import useClickOutside from './hooks/useClickOutside';
+import { initializeState } from './helpers';
+import useSyncStrategiesAndTickers from './hooks/useSyncStrategiesAndTickers';
+
 
 
 /**
@@ -26,7 +29,6 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   const [isOpen, setIsOpen] = useState(false);  // State to handle whether the menu is open or not
   const menuRef = useRef(null);                 // Ref to reference the menu DOM element
 
-  const initializeState = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: false }), {});
 
   const [intervals, setIntervals] = useState(initializeState(['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M']));
   const [ordersType, setOrderType] = useState(initializeState(['Open Long', 'Open Short', 'Close Long', 'Close Short']));
@@ -36,24 +38,9 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   //!------------------------------------------------------//
   //!----------------------- HOOKS ------------------------//
   //!------------------------------------------------------//
-  // Update the strategies and tickers state when the uniqueStrategies and uniqueTickers props change
-  useEffect(() => {  
-    setStrategies((prevStrategies) =>
-      uniqueStrategies.reduce((acc, strategy) => {
-        acc[strategy] = prevStrategies[strategy] ?? false;
-        return acc;
-      }, {})
-    );
 
-    setTickers((prevTickers) =>
-      uniqueTickers.reduce((acc, ticker) => {
-        acc[ticker] = prevTickers[ticker] ?? false;
-        return acc;
-      }, {})
-    );
-
-  }, [uniqueStrategies, uniqueTickers]);
-
+  // Sync the strategies and tickers state with the uniqueStrategies and uniqueTickers props
+  useSyncStrategiesAndTickers(uniqueStrategies, uniqueTickers, setStrategies, setTickers);
 
   // Handle click outside of the menu to close it
   useClickOutside(menuRef, () => setIsOpen(false));
