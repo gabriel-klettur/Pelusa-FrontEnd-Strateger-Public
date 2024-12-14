@@ -7,7 +7,7 @@ import { setActiveRadarDataset } from '../../../../../redux/interaction';
 import FilterIcon from '../../../assets/filter_icon.svg';
 import FilterSection from './FilterSection';
 
-
+import useClickOutside from './hooks/useClickOutside';
 
 
 /**
@@ -26,26 +26,12 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   const [isOpen, setIsOpen] = useState(false);  // State to handle whether the menu is open or not
   const menuRef = useRef(null);                 // Ref to reference the menu DOM element
 
-  const [intervals, setIntervals] = useState({
-    '1m': false,
-    '5m': false,
-    '15m': false,
-    '30m': false,
-    '1h': false,
-    '4h': false,
-    D: false,
-    W: false,
-    M: false,
-  });
-  const [ordersType, setOrderType] = useState({
-    'Open Long': false,
-    'Open Short': false,
-    'Close Long': false,
-    'Close Short': false,
-  });
+  const initializeState = (keys) => keys.reduce((acc, key) => ({ ...acc, [key]: false }), {});
+
+  const [intervals, setIntervals] = useState(initializeState(['1m', '5m', '15m', '30m', '1h', '4h', 'D', 'W', 'M']));
+  const [ordersType, setOrderType] = useState(initializeState(['Open Long', 'Open Short', 'Close Long', 'Close Short']));
   const [strategies, setStrategies] = useState({});
   const [tickers, setTickers] = useState({});
-
 
   //!------------------------------------------------------//
   //!----------------------- HOOKS ------------------------//
@@ -69,19 +55,8 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   }, [uniqueStrategies, uniqueTickers]);
 
 
-  // Handle click outside the menu to close it
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false); // Cerrar el menú si el clic ocurre fuera de él
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // Handle click outside of the menu to close it
+  useClickOutside(menuRef, () => setIsOpen(false));
 
   //!------------------------------------------------------//
   //!----------------------- FUNCTIONS --------------------//
@@ -108,45 +83,43 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   };
 
   const handleClear = () => {
-    setIntervals({
-      '1m': false,
-      '5m': false,
-      '15m': false,
-      '30m': false,
-      '1h': false,
-      '4h': false,
-      D: false,
-      W: false,
-      M: false,
-    });
-
-    setOrderType({
-      'Open Long': false,
-      'Open Short': false,
-      'Close Long': false,
-      'Close Short': false,
-    });
-
-    setStrategies(
-      uniqueStrategies.reduce((acc, strategy) => {
-        acc[strategy] = false;
-        return acc;
-      }, {})
-    );
-
-    setTickers(
-      uniqueTickers.reduce((acc, ticker) => {
-        acc[ticker] = false;
-        return acc;
-      }, {})
-    );
-
-    onClear();    
+    setIntervals(initializeState(Object.keys(intervals)));
+    setOrderType(initializeState(Object.keys(ordersType)));
+    setStrategies(initializeState(Object.keys(strategies)));
+    setTickers(initializeState(Object.keys(tickers)));
+    onClear();
   };
 
   //!------------------------------------------------------//
   //!----------------------- RENDER -----------------------//
   //!------------------------------------------------------//
+
+  const filterSectionsConfig = [
+    {
+      title: 'Intervals',
+      items: intervals,
+      stateUpdater: setIntervals,
+      gridCols: 3,
+    },
+    {
+      title: 'Order Types',
+      items: ordersType,
+      stateUpdater: setOrderType,
+      gridCols: 2,
+    },
+    {
+      title: 'Strategies',
+      items: strategies,
+      stateUpdater: setStrategies,
+      gridCols: 2,
+    },
+    {
+      title: 'Tickers',
+      items: tickers,
+      stateUpdater: setTickers,
+      gridCols: 2,
+    },
+  ];
 
   return (
     <div className="relative" ref={menuRef} data-testid="filters-menu">
@@ -166,33 +139,19 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
       {/* --------------------------------------- Content of the menu ---------------------------------------*/}
       {isOpen && (
         <div className="absolute right-0 w-[600px] bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50">
-          <FilterSection
-            title="Intervals"
-            items={intervals}
-            onChange={(key) => handleCheckboxChange(setIntervals, key)}
-            gridCols={3}
-          />
-          <hr />
-          <FilterSection
-            title="Order Types"
-            items={ordersType}
-            onChange={(key) => handleCheckboxChange(setOrderType, key)}
-            gridCols={2}
-          />
-          <hr />
-          <FilterSection
-            title="Strategies"
-            items={strategies}
-            onChange={(key) => handleCheckboxChange(setStrategies, key)}
-            gridCols={2}
-          />
-          <hr />
-          <FilterSection
-            title="Tickers"
-            items={tickers}
-            onChange={(key) => handleCheckboxChange(setTickers, key)}
-            gridCols={2}
-          />
+
+          {filterSectionsConfig.map((section) => (
+            <div key={section.title}>
+              <FilterSection                
+                title={section.title}
+                items={section.items}
+                onChange={(key) => handleCheckboxChange(section.stateUpdater, key)}
+                gridCols={section.gridCols}
+              />
+              <hr />          
+            </div>
+          ))}                      
+          
           {/* ----------------------------------- Apply and Clear buttons ---------------------------------*/}
           <div className="flex justify-between mt-4">
             <button
