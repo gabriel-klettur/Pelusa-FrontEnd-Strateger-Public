@@ -2,18 +2,20 @@
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-
 import { fetchAlarms } from '../../../../redux/alarm';
+import {  selectFilteredByClickAlarms } from '../../../../redux/alarm';
 
 // Components
 import Tablita from '../../../common/Tablita';
 import AlarmRow from './components/AlarmRow';
 import Pagination from './components/Pagination';
+import { columnsHeaders } from './configTable';
 
 // Hooks and functions
 import handleSelectAlarm from './handleSelectAlarm'; 
+import usePagination from './hooks/usePagination';
 
-import {  selectFilteredByClickAlarms } from '../../../../redux/alarm';
+
 
 
 const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
@@ -21,30 +23,18 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
   const dispatch = useDispatch();
 
   const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
+  
+  
+  const { totalDataLength, paginatedData } = usePagination(data, page);
 
-  const totalDataLength = data.length;
-  const paginatedData = data.slice(page * 20, (page * 20) + 20);
-
-  const columnsHeaders = [
-    { label: 'ID', key: 'id' },
-    { label: 'Ticker', key: 'Ticker' },
-    { label: 'Interval', key: 'Interval' },
-    { label: 'Price', key: 'Price_Alert' },
-    { label: 'Time', key: 'Time_Alert' },
-    { label: 'Type', key: 'Order' },
-    { label: 'Strategy', key: 'Strategy' },
-  ];
-
-
-  //! IT should  be refactored to a separate function in separete file
+  
   const renderRow = (item, index) => {     
 
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
       ? 'bg-green-600 text-white'        
       : 'bg-white text-african_violet-200';
   
-    return (
-      //! CHECK! AlarmRow in the fase of refactoring!
+    return (      
       <AlarmRow
         key={index}
         alarm={item}
