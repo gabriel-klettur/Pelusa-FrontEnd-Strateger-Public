@@ -1,4 +1,4 @@
-import handleSelectAlarmByClick from '../../../../Alarms/components/AlarmTable/handleSelectAlarmByClick';
+import handleSelectAlarm from '../../../../Alarms/components/AlarmTable/handleSelectAlarm';
 import { setFilteredByClickAlarms } from '../../../../../redux/alarm/alarmSlice';
 
 // 🔥 Simular la acción de Redux
@@ -6,7 +6,7 @@ jest.mock('../../../../../redux/alarm/alarmSlice', () => ({
   setFilteredByClickAlarms: jest.fn()
 }));
 
-describe('handleSelectAlarmByClick', () => {
+describe('handleSelectAlarm', () => {
   let dispatch;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('handleSelectAlarmByClick', () => {
     const alarm = { id: 1, name: 'Test Alarm' };
     const selectedAlarmsByClicks = []; // 🔥 El array está vacío al principio
     
-    handleSelectAlarmByClick(alarm, selectedAlarmsByClicks, dispatch);
+    handleSelectAlarm(alarm, selectedAlarmsByClicks, dispatch);
     
     // Verificar que setFilteredByClickAlarms fue llamado con el array que contiene la nueva alarma
     expect(dispatch).toHaveBeenCalledWith(setFilteredByClickAlarms([{ id: 1, name: 'Test Alarm' }]));
@@ -28,7 +28,7 @@ describe('handleSelectAlarmByClick', () => {
     const alarm = { id: 1, name: 'Test Alarm' };
     const selectedAlarmsByClicks = [{ id: 1, name: 'Test Alarm' }, { id: 2, name: 'Another Alarm' }]; // 🔥 El array ya contiene la alarma
     
-    handleSelectAlarmByClick(alarm, selectedAlarmsByClicks, dispatch);
+    handleSelectAlarm(alarm, selectedAlarmsByClicks, dispatch);
     
     // Verificar que setFilteredByClickAlarms fue llamado con el array que no contiene la alarma eliminada
     expect(dispatch).toHaveBeenCalledWith(setFilteredByClickAlarms([{ id: 2, name: 'Another Alarm' }]));
@@ -38,7 +38,7 @@ describe('handleSelectAlarmByClick', () => {
     const alarm = { id: 1, name: 'Test Alarm' };
     const selectedAlarmsByClicks = []; // 🔥 Array vacío
     
-    handleSelectAlarmByClick(alarm, selectedAlarmsByClicks, dispatch);
+    handleSelectAlarm(alarm, selectedAlarmsByClicks, dispatch);
     
     // Verificar que setFilteredByClickAlarms fue llamado con un array que contiene la alarma seleccionada
     expect(dispatch).toHaveBeenCalledWith(setFilteredByClickAlarms([{ id: 1, name: 'Test Alarm' }]));
@@ -48,7 +48,7 @@ describe('handleSelectAlarmByClick', () => {
     const alarm = { id: 1, name: 'Test Alarm' };
     const selectedAlarmsByClicks = [{ id: 1, name: 'Test Alarm' }, { id: 2, name: 'Another Alarm' }]; // 🚀 La alarma ya está en la lista
     
-    handleSelectAlarmByClick(alarm, selectedAlarmsByClicks, dispatch);
+    handleSelectAlarm(alarm, selectedAlarmsByClicks, dispatch);
     
     // Verificar que setFilteredByClickAlarms fue llamado con un array que ya no contiene la alarma seleccionada
     expect(dispatch).toHaveBeenCalledWith(setFilteredByClickAlarms([{ id: 2, name: 'Another Alarm' }]));

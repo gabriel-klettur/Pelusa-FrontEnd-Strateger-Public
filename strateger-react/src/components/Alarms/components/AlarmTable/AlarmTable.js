@@ -11,7 +11,7 @@ import AlarmRow from './components/AlarmRow';
 import Pagination from './components/Pagination';
 
 // Hooks and functions
-import handleSelectAlarmByClick from './handleSelectAlarmByClick'; 
+import handleSelectAlarm from './handleSelectAlarm'; 
 
 import {  selectFilteredByClickAlarms } from '../../../../redux/alarm';
 
@@ -50,7 +50,7 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
         alarm={item}
         rowClassName={rowClassName} 
         columnsHeaders={columnsHeaders}
-        handleSelectAlarm={(alarm) => handleSelectAlarmByClick(alarm, filteredByClickAlarms, dispatch)}
+        handleSelectAlarm={(alarm) => handleSelectAlarm(alarm, filteredByClickAlarms, dispatch)}
       />
     );
   };  

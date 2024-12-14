@@ -11,7 +11,7 @@
    * @param {Function} dispatch - The dispatch function from Redux.
    * @returns {void}
    */
-  const handleSelectAlarmByClick = (alarm, selectedAlarmsByClicks, dispatch) => {
+  const handleSelectAlarm = (alarm, selectedAlarmsByClicks, dispatch) => {
     
     let newSelectedAlarms;    
     const isSelected = selectedAlarmsByClicks.some((a) => a.id === alarm.id);
@@ -23,4 +23,4 @@
     dispatch(setFilteredByClickAlarms(newSelectedAlarms));   
   };
 
-  export default handleSelectAlarmByClick;
+  export default handleSelectAlarm;
