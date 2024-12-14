@@ -1,6 +1,5 @@
 //Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart.jsx
 
-import { useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import MonthTogglePanel from './components/MonthTogglePanel';
@@ -11,10 +10,9 @@ import useGenerateChartData from './hooks/useGenerateBarChartData';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AlarmsBarChart = ({alarmsData}) => {
-  
-  
+   
   // setVisibleMonths to show avaible the months with data from alarmsData
-  const {visibleMonths, setVisibleMonths} = useUpdateVisibleMonths({alarmsData, monthsLabels});    
+  const {visibleMonths, toggleMonth} = useUpdateVisibleMonths({alarmsData, monthsLabels});    
 
   // setChartData based on visible months with alarmsData
   const chartData = useGenerateChartData({alarmsData, visibleMonths, monthsLabels});  
@@ -27,7 +25,7 @@ const AlarmsBarChart = ({alarmsData}) => {
           <MonthTogglePanel 
             monthsLabels={monthsLabels}             
             visibleMonths={visibleMonths}
-            setVisibleMonths={setVisibleMonths}
+            toggleMonth={toggleMonth}
             data-testid='month-toggle-panel-container'
           />
 

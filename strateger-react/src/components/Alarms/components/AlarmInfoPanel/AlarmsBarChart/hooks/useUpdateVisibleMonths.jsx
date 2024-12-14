@@ -11,8 +11,13 @@ const useUpdateVisibleMonths = ({alarmsData, monthsLabels}) => {
             Object.keys(monthData).some(key => key !== 'month' && monthData[key] > 0)
         );
     };
-        
 
+    const toggleMonth = (index) => {
+        const newVisibleMonths = [...visibleMonths];
+        newVisibleMonths[index] = !newVisibleMonths[index];
+        setVisibleMonths(newVisibleMonths);
+    };
+        
     useEffect(() => {
 
         const organizeIntervalCountsByMonth = (intervalCounts) => {
@@ -58,7 +63,7 @@ const useUpdateVisibleMonths = ({alarmsData, monthsLabels}) => {
         }
     }, [alarmsData, setVisibleMonths, monthsLabels]);
 
-    return {visibleMonths, setVisibleMonths};
+    return {visibleMonths, toggleMonth};
 }
 
 export default useUpdateVisibleMonths;
