@@ -62,8 +62,11 @@ body {
 
 /* ---------------------------------- Custom Components ------------------------------- */
 @layer components {
+
+  /*! ------------------- Tabs ------------------- */
+
   .tab {
-    @apply px-4 py-2 font-semibold transition-colors duration-200 shadow-md;
+    @apply px-4 py-2 text-african_violet-900 font-semibold transition-colors duration-200 shadow-md;
   }
   .tab-active {
     @apply bg-african_violet-500 text-african_violet-900;
@@ -74,6 +77,24 @@ body {
 
   .tab-disable{
     @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+
+  /*! ------------------- Button ------------------- */
+
+  .btn {
+    @apply px-4 py-2
+  }
+
+  .btn-apply {
+    @apply bg-green-500 text-african_violet-900 rounded-lg hover:bg-green-600;
+  }
+
+  .btn-cancel {
+    @apply bg-red-500 text-african_violet-900 rounded-lg hover:bg-red-600;
+  }
+
+  .checkbox {
+    @apply w-5 h-5 rounded border flex justify-center items-center cursor-pointer;
   }
 }
 

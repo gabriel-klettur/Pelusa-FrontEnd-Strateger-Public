@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { setActiveTab } from '../../../../../redux/interaction';
 import { setActiveRadarDataset } from '../../../../../redux/interaction';
 
-import FilterIcon from '../../../assets/filter_icon.svg';
-import FilterSection from './FilterSection';
 
 import useClickOutside from './hooks/useClickOutside';
 import { initializeState } from './helpers';
 import useSyncStrategiesAndTickers from './hooks/useSyncStrategiesAndTickers';
+import FiltersButton from './FiltersButton';
+import FiltersPanel from './FiltersPanel';
 
 
 
@@ -111,50 +111,11 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   return (
     <div className="relative" ref={menuRef} data-testid="filters-menu">
       {/* --------------------------------- Filter Button to open the menu ---------------------------------*/}
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="px-4 py-2 flex items-center space-x-2 text-white rounded-sm hover:bg-african_violet-400"
-      >
-        <img
-          src={FilterIcon}
-          alt="filter icon"
-          className="w-6 h-6 text-african_violet-200"
-        />
-        <span>Filters</span>
-      </button>
+      <FiltersButton  setIsOpen={setIsOpen} />
 
       {/* --------------------------------------- Content of the menu ---------------------------------------*/}
       {isOpen && (
-        <div className="absolute right-0 w-[600px] bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50">
-
-          {filterSectionsConfig.map((section) => (
-            <div key={section.title}>
-              <FilterSection                
-                title={section.title}
-                items={section.items}
-                onChange={(key) => handleCheckboxChange(section.stateUpdater, key)}
-                gridCols={section.gridCols}
-              />
-              <hr />          
-            </div>
-          ))}                      
-          
-          {/* ----------------------------------- Apply and Clear buttons ---------------------------------*/}
-          <div className="flex justify-between mt-4">
-            <button
-              onClick={handleApply}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-            >
-              Apply
-            </button>
-            <button
-              onClick={handleClear}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-            >
-              Clear
-            </button>
-          </div>
-        </div>
+          <FiltersPanel filterSectionsConfig={filterSectionsConfig} handleCheckboxChange={handleCheckboxChange} handleApply={handleApply} handleClear={handleClear} />
       )}
     </div>
   );
