@@ -1,5 +1,5 @@
 import Ventanita from "../../../common/Ventanita";
-import config from "../../../../config";
+import { config } from "../../../../config";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";

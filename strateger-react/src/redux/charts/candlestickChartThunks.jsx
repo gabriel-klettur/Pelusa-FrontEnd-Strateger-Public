@@ -1,7 +1,7 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../../config';
+import { config } from '../../config';
 import { addMinutes, addHours, subMinutes, subHours } from 'date-fns';
 
 

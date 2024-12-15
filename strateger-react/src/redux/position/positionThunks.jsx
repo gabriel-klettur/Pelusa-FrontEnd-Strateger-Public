@@ -1,7 +1,7 @@
 // Async thunks for fetching positions
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import config from '../../config';
+import { config } from '../../config';
 
 export const fetchPositionsCoinM = createAsyncThunk(
     'positions/fetchPositionsCoinM',
