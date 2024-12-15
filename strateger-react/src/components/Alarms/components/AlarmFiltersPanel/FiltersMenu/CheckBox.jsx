@@ -1,14 +1,14 @@
 import CheckIcon from '../../../assets/check_icon.svg';
 
-const FiltersCheckBox = ({ isChecked, onClick }) => {
+const CheckBox = ({ isChecked, callback }) => {
   return (
     <div
       className={`checkbox ${
-        isChecked ? 'bg-blue-500' : 'bg-white'
+        isChecked ? 'checkbox-checked' : 'checkbox-unchecked'
       } `}
       onClick={(e) => {
-        e.stopPropagation();    // Evitar propagación del evento
-        onClick();              // Ejecutar el callback de cambio
+        e.stopPropagation();    // avoid propagation of the event
+        callback();              
       }}
     >
       {isChecked && (
@@ -22,4 +22,4 @@ const FiltersCheckBox = ({ isChecked, onClick }) => {
   );
 };
 
-export default FiltersCheckBox;
+export default CheckBox;

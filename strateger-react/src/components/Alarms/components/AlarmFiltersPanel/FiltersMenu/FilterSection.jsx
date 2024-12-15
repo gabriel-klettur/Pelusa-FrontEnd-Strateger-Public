@@ -1,4 +1,4 @@
-import FiltersCheckBox from './FiltersCheckBox';
+import CheckBox from './CheckBox';
 
 const FilterSection = ({ title, items, onChange, gridCols = 2 }) => {
   return (
@@ -9,12 +9,11 @@ const FilterSection = ({ title, items, onChange, gridCols = 2 }) => {
           <div
             key={key}
             className="flex items-center space-x-2 hover:bg-african_violet-200/50 rounded-sm p-2 cursor-pointer"
-            onClick={() => onChange(key)} // Manejar el cambio de estado
-          >
-            {/* Checkbox personalizado modularizado */}
-            <FiltersCheckBox
-              isChecked={items[key]} // Pasar estado actual del checkbox
-              onClick={() => onChange(key)} // Callback para cambiar el estado
+            onClick={() => onChange(key)} 
+          >            
+            <CheckBox
+              isChecked={items[key]} 
+              onClick={() => onChange(key)} 
             />
             <span className="text-african_violet-900">
               {key}

@@ -93,8 +93,18 @@ body {
     @apply bg-red-500 text-african_violet-900 rounded-lg hover:bg-red-600;
   }
 
+  /*! ------------------- Checkbox ------------------- */
+
   .checkbox {
     @apply w-5 h-5 rounded border flex justify-center items-center cursor-pointer;
+  }
+
+  .checkbox-checked {
+    @apply bg-blue-500
+  }
+
+  .checkbox-unchecked {
+    @apply bg-african_violet-900
   }
 }
 
