@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import AlarmTab from '../../../Alarms/components/AlarmTab';
 import { Tab } from '@headlessui/react';
+import "../../../../styles/global.css";
 
 describe('AlarmTab - Initial Rendering', () => {
   test('Should render with the correct tab name', () => {
@@ -33,7 +34,7 @@ describe('AlarmTab - Interactive States', () => {
 
     const tab = screen.getByText('Selected Tab');
     fireEvent.click(tab); // Simulates selection
-    expect(tab).toHaveClass('bg-african_violet-500');
+    expect(tab).toHaveClass('tab-active');
   });
 
   test('Should respond to clicks', () => {
@@ -62,7 +63,7 @@ describe('AlarmTab - Disabled States', () => {
     );
 
     const tab = screen.getByText('Disabled Tab');
-    expect(tab).toHaveClass('opacity-50 cursor-not-allowed pointer-events-none');
+    expect(tab).toHaveClass('tab-disable');
     expect(tab).toHaveAttribute('aria-disabled', 'true');
   });
 

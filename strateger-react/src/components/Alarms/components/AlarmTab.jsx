@@ -5,11 +5,11 @@ const AlarmTab = ({ tabName, disabled, onClick }) => {
   return (
     <Tab
       className={({ selected }) =>
-        `px-4 py-2 font-semibold transition-colors duration-200 shadow-md ${
+        `tab ${
           selected
-            ? "bg-african_violet-500 text-white"
-            : "bg-african_violet-300 text-african_violet-900 hover:bg-african_violet-400"
-        } ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`
+            ? "tab-active"
+            : "tab-inactive"
+        } ${disabled ? "tab-disable" : ""}`
       }
       disabled={disabled}
       aria-disabled={disabled}
