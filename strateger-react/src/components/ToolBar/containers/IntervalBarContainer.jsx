@@ -1,7 +1,7 @@
 //Path: strateger-react/src/components/ToolBar/containers/IntervalBarContainer.jsx
 
 import { useDispatch } from 'react-redux';
-import { setCandlestickChartParameters } from '../../../redux/charts';
+import { setCandlestickChartParameters } from 'reduxStore/charts';
 import IntervalBar from '../components/IntervalBar';
 
 const IntervalBarContainer = ({currentInterval, setCurrentInterval, startDate, endDate}) => {

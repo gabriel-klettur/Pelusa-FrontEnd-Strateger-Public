@@ -5,7 +5,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import AlarmTable from '../../../components/AlarmTable/AlarmTable';
-import alarmReducer, { setFilteredByClickAlarms } from '../../../../../redux/alarm/alarmSlice';
+import alarmReducer, { setFilteredByClickAlarms } from 'reduxStore/alarm/alarmSlice';
 import { jest } from '@jest/globals';
 
 // Estado inicial para Redux

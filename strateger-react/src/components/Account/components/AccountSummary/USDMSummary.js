@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@headlessui/react';
 import Ventanita from '../../../common/Ventanita';
 
-import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from '../../../../redux/account';
+import { fetchPerpUSDTMBalance, selectPerpUSDTM, updateTotalBalanceInUSD } from 'reduxStore/account';
 
 import Tarjetitas from '../../../common/Tarjetitas';
 

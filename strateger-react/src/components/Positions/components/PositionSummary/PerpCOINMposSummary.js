@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPositionsCoinM } from '../../../../redux/position';
+import { fetchPositionsCoinM } from 'reduxStore/position';
 
 const PerpCOINMposSummary = () => {
   const dispatch = useDispatch();

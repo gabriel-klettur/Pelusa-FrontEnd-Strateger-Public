@@ -17,23 +17,23 @@ import useFetchOrdersSpot from '../hooks/useFetchOrdersSpot';
 import useFetchOrdersStandard from '../hooks/useFetchOrdersStandard';
 
 // Thunks
-import { fetchOrdersUsdtm, selectSelectedTab } from '../../../redux/order';
-import { fetchOrdersCoinm } from '../../../redux/order';
-import { fetchOrdersSpot } from '../../../redux/order';
-import { fetchOrdersStandard } from '../../../redux/order';
+import { fetchOrdersUsdtm, selectSelectedTab } from 'reduxStore/order';
+import { fetchOrdersCoinm } from 'reduxStore/order';
+import { fetchOrdersSpot } from 'reduxStore/order';
+import { fetchOrdersStandard } from 'reduxStore/order';
 
 //Redux Selectors
-import { selectFilteredOrdersUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from '../../../redux/order';
-import { selectFilteredOrdersCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from '../../../redux/order';
-import { selectFilteredOrdersSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot } from '../../../redux/order';
-import { selectFilteredOrdersStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from '../../../redux/order';
+import { selectFilteredOrdersUsdtm, selectErrorUsdtm, selectPageUsdtm, selectHasMoreUsdtm, selectOffsetUsdtm } from 'reduxStore/order';
+import { selectFilteredOrdersCoinm, selectErrorCoinm, selectPageCoinm, selectHasMoreCoinm, selectOffsetCoinm } from 'reduxStore/order';
+import { selectFilteredOrdersSpot, selectErrorSpot, selectPageSpot, selectHasMoreSpot, selectOffsetSpot } from 'reduxStore/order';
+import { selectFilteredOrdersStandard, selectErrorStandard, selectPageStandard, selectHasMoreStandard, selectOffsetStandard } from 'reduxStore/order';
 
 //Redux Actions
 import {setSelectedTab,
         setPageUsdtm, setHasMoreUsdtm, 
         setPageCoinm, setHasMoreCoinm,
         setPageSpot, setHasMoreSpot,
-        setPageStandard, setHasMoreStandard, }  from '../../../redux/order';
+        setPageStandard, setHasMoreStandard, }  from 'reduxStore/order';
 
 const OrderTablesContainer = () => { 
     const dispatch = useDispatch();

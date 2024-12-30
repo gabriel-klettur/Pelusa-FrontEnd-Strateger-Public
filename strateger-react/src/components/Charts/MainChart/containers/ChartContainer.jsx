@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectTemporalidad, selectStartDate, selectCurrentDate } from '../../../../redux/toolBar';
+import { selectTemporalidad, selectStartDate, selectCurrentDate } from 'reduxStore/toolBar';
 
 import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
@@ -21,9 +21,9 @@ import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
-import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton} from '../../../../redux/interaction';
-import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from '../../../../redux/interaction';
-import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from '../../../../redux/interaction';
+import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton} from 'reduxStore/interaction';
+import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from 'reduxStore/interaction';
+import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from 'reduxStore/interaction';
 
 
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {

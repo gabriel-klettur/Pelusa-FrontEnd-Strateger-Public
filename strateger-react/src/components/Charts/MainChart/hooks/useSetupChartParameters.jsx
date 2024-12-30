@@ -5,7 +5,7 @@ import {
   setCandlestickChartParameters, 
   selectCandlestickChartStartDate, 
   selectCandlestickChartEndDate 
-} from '../../../../redux/charts';
+} from 'reduxStore/charts';
 
 const useSetupChartParameters = (initialInterval, initialStartDate, initialEndDate) => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 // Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel.jsx
 
 import { useSelector } from "react-redux";
-import { selectAlarmsData } from "../../../../../redux/alarm";
+import { selectAlarmsData } from "reduxStore/alarm";
 
 //!----------------------------- Utility functions for data processing ------------------------------------
 const countAlarmsToday = (dataAlarms) => {

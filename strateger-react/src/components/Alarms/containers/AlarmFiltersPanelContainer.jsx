@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAlarmsData,  
   setFilteredByOptions,
-} from '../../../redux/alarm';
+} from 'reduxStore/alarm';
 
 import FiltersMenu from '../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
 

@@ -2,8 +2,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrdersUsdtm } from '../../../redux/order';
-import { selectOrderUsdtm, setErrorUsdm } from '../../../redux/order';
+import { fetchOrdersUsdtm } from 'reduxStore/order';
+import { selectOrderUsdtm, setErrorUsdm } from 'reduxStore/order';
 
 const useFetchOrdersUsdtm= () => {
     const dispatch = useDispatch();

@@ -319,6 +319,11 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(modules.webpackAliases || {}),
+
+        //! ---------------------------------------------------------------
+        //! --------------------------- Aliases ---------------------------
+        //! ---------------------------------------------------------------
+        reduxStore: path.resolve(paths.appSrc, 'redux/'),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).

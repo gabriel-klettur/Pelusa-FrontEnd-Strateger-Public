@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import IntervalBarContainer from './IntervalBarContainer';
 import RelojContainer from './RelojContainer';
 
-import { selectTemporalidad, selectCurrentDate, selectStartDate } from '../../../redux/toolBar';
+import { selectTemporalidad, selectCurrentDate, selectStartDate } from 'reduxStore/toolBar';
 
 const ToolBarContainer = () => {
 

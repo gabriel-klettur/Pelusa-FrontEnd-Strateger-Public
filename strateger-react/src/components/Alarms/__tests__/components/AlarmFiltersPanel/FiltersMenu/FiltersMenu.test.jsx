@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import FiltersMenu from '../../../../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
 import { Provider } from 'react-redux';
-import interactionReducer from '../../../../../../redux/interaction/interactionSlice';
+import interactionReducer from 'reduxStore/interaction/interactionSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 const initialState = {

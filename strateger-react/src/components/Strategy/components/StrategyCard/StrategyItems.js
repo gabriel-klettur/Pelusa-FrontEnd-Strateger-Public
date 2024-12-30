@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 import Ventanita from '../../../common/Ventanita'; // Asegúrate de importar Ventanita
 
-import { selectAlarmsData } from '../../../../redux/alarm';
+import { selectAlarmsData } from 'reduxStore/alarm';
 
 const StrategyItem = ({ strategy, onEdit, onDelete }) => {  
   const allAlarms = useSelector(selectAlarmsData);

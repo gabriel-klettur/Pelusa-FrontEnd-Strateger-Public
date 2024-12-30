@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrdersStandard } from '../../../redux/order';
-import { selectOrderStandard, setErrorStandard } from '../../../redux/order';
+import { fetchOrdersStandard } from 'reduxStore/order';
+import { selectOrderStandard, setErrorStandard } from 'reduxStore/order';
 
 const useFetchOrdersStandard = () => {
     const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import AlarmFiltersPanelContainer from '../../containers/AlarmFiltersPanelContainer';
-import alarmReducer, { setFilteredByOptions} from '../../../../redux/alarm/alarmSlice';
+import alarmReducer, { setFilteredByOptions} from 'reduxStore/alarm/alarmSlice';
 
 // Estado inicial para Redux
 const initialState = {

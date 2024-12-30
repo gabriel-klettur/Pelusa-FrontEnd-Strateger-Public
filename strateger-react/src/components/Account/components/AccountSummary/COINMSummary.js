@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from '@headlessui/react';
 
-import { fetchPerpCOINMBalance, selectPerpCOINM } from '../../../../redux/account';
+import { fetchPerpCOINMBalance, selectPerpCOINM } from 'reduxStore/account';
 
 import Tarjetitas from '../../../common/Tarjetitas';
-import { fetchTicker } from '../../../../redux/ticker';
+import { fetchTicker } from 'reduxStore/ticker';
 
 import Ventanita from '../../../common/Ventanita';
 

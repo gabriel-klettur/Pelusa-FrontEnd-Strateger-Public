@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {fetchTrackRecordBingXAllAccounts, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../redux/account';
+import {fetchTrackRecordBingXAllAccounts, selectTrackRecordAccountsData, selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from 'reduxStore/account';
 import AccountTable from "../components/AccountInformation/AccountTable";
 
 const AccountInformationContainer = () => {

@@ -6,7 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import AlarmOverviewPanel from '../../../../components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel';
-import alarmReducer from '../../../../../../redux/alarm/alarmSlice';
+import alarmReducer from 'reduxStore/alarm/alarmSlice';
 
 // **1. Estado inicial**
 const initialState = {

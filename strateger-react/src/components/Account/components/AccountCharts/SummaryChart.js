@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { ChartComponent } from '../../../Charts/LinealChart/TradingViewLineal';
-import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../../redux/account';
-import { selectTicker } from '../../../../redux/ticker';
+import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from 'reduxStore/account';
+import { selectTicker } from 'reduxStore/ticker';
 import Legend from '../../../Charts/LinealChart/Legend';
 
 import Ventanita from '../../../common/Ventanita';

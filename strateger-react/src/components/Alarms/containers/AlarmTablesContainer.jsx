@@ -16,16 +16,16 @@ import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
 import useFetchAlarms from '../hooks/useFetchAlarms';  
 
 //Redux Selectors
-import { selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from '../../../redux/alarm';
-import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from '../../../redux/alarm';
-import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from '../../../redux/alarm';
-import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "../../../redux/alarm";
-import { setActiveTab } from '../../../redux/interaction';
-import { setActiveRadarDataset } from '../../../redux/interaction';
+import { selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from 'reduxStore/alarm';
+import { selectFilteredByClickAlarms, selectFilteredByClickAlarmsPage, selectFilteredByClickAlarmsHasMore } from 'reduxStore/alarm';
+import { selectFilteredByOptionsAlarms, selectFilteredByOptionsAlarmsPage, selectFilteredByOptionsAlarmsHasMore } from 'reduxStore/alarm';
+import { selectAlarmsDataLength, selectFilteredByClickAlarmsLength, selectFilteredByOptionsAlarmsLength } from "reduxStore/alarm";
+import { setActiveTab } from 'reduxStore/interaction';
+import { setActiveRadarDataset } from 'reduxStore/interaction';
 
 //Redux Actions
-import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from '../../../redux/alarm';
-import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByOptions} from '../../../redux/alarm';
+import { setPageAlarms, setPageFilteredByClickAlarms, setPageFilteredByOptions} from 'reduxStore/alarm';
+import { setHasMoreAlarms, setHasMoreFilteredByClickAlarms, setHasMoreFilteredByOptions} from 'reduxStore/alarm';
 
 const AlarmTablesContainer =() => { 
   const dispatch = useDispatch();

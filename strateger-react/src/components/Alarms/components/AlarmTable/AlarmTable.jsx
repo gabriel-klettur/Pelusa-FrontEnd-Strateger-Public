@@ -2,8 +2,8 @@
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAlarms } from '../../../../redux/alarm';
-import {  selectFilteredByClickAlarms } from '../../../../redux/alarm';
+import { fetchAlarms } from 'reduxStore/alarm';
+import {  selectFilteredByClickAlarms } from 'reduxStore/alarm';
 
 // Components
 import Tablita from '../../../common/Tablita';

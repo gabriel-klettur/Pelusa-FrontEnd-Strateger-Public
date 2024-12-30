@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { format } from 'date-fns'; 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateChartData} from '../../../../redux/charts';
-//import {setPositionMarkers } from '../../../../redux/charts';
-import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from '../../../../redux/backtesting';
+import { updateChartData} from 'reduxStore/charts';
+//import {setPositionMarkers } from 'reduxStore/charts';
+import { selectBacktestingResult, selectBacktestingStatus, selectBacktestingError } from 'reduxStore/backtesting';
 
 //import { mapPositionsToMarkers } from '../../../Charts/MainChart/components/markers/PositionsChart';
 import CollapsibleSection from './CollapsibleSection';

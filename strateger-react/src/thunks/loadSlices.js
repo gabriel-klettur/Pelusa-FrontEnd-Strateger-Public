@@ -1,13 +1,13 @@
 // Path: src/thunks/loadSlices.js
-import { fetchStrategies } from '../redux/strategy';
-import { fetchDiaryEntries } from '../redux/diary';
-import { fetchPerpCOINMBalance, fetchPerpUSDTMBalance, fetchSpotBalance, fetchTrackRecordBingXAllAccounts } from '../redux/account';
-import { fetchPositionsCoinM, fetchPositionsUSDTM } from '../redux/position';
-import { fetchCandlestickChartData } from '../redux/charts';
-import { fetchTicker } from '../redux/ticker';
-import { fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard, fetchOrdersUsdtm } from '../redux/order';
+import { fetchStrategies } from 'reduxStore/strategy';
+import { fetchDiaryEntries } from 'reduxStore/diary';
+import { fetchPerpCOINMBalance, fetchPerpUSDTMBalance, fetchSpotBalance, fetchTrackRecordBingXAllAccounts } from 'reduxStore/account';
+import { fetchPositionsCoinM, fetchPositionsUSDTM } from 'reduxStore/position';
+import { fetchCandlestickChartData } from 'reduxStore/charts';
+import { fetchTicker } from 'reduxStore/ticker';
+import { fetchOrdersCoinm, fetchOrdersSpot, fetchOrdersStandard, fetchOrdersUsdtm } from 'reduxStore/order';
 import { createLoadingToast, dismissLoadingToast, handleLoadingError } from './loadSlicesHelpers';
-import { fetchAlarms } from '../redux/alarm';
+import { fetchAlarms } from 'reduxStore/alarm';
 
 export const loadMinimumInformation = async (dispatch) => {
   const { toastId, intervalId } = createLoadingToast('Loading minimum information');

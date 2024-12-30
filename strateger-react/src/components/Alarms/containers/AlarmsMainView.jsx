@@ -11,7 +11,7 @@ import AlarmInfoPanel from './AlarmInfoPanelContainer';
 import { useShowButtonsPanel } from '../hooks/useShowButtonsPanel';
 
 //! Redux Selectors
-import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from '../../../redux/alarm';
+import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from 'reduxStore/alarm';
 
 const AlarmsMainView = () => {
 

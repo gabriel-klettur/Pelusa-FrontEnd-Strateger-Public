@@ -9,7 +9,7 @@ import { ChartComponent } from '../../Charts/LinealChart/TradingViewLineal';
 import Legend from '../../Charts/LinealChart/Legend';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from '../../../redux/account';
+import { selectCoinMTimeData, selectUSDTMTimeData, selectSpotTimeData } from 'reduxStore/account';
 
 import Ventanita from '../../common/Ventanita';
 

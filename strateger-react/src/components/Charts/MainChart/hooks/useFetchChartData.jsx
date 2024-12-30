@@ -6,7 +6,7 @@ import {
   selectCandlestickChartData, 
   selectCandlestickChartLoading, 
   selectCandlestickChartInterval 
-} from '../../../../redux/charts';
+} from 'reduxStore/charts';
 
 const useFetchChartData = (chartStartDate, chartEndDate) => {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setActiveTab } from '../../../../../redux/interaction';
-import { setActiveRadarDataset } from '../../../../../redux/interaction';
+import { setActiveTab } from 'reduxStore/interaction';
+import { setActiveRadarDataset } from 'reduxStore/interaction';
 
 
 import useClickOutside from './hooks/useClickOutside';

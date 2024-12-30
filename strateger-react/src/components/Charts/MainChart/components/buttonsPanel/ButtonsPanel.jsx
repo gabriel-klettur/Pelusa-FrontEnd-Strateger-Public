@@ -8,13 +8,13 @@ import {
     setToggleOrderButton,
     setActiveButton,
     setActiveRadarDataset,
-} from '../../../../../redux/interaction';
+} from 'reduxStore/interaction';
 
 import {
     selectAlarmsDataLength,
     selectFilteredByClickAlarmsLength,
     selectFilteredByOptionsAlarmsLength,
-} from "../../../../../redux/alarm";
+} from "reduxStore/alarm";
 
 const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings }) => {
     const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  setFiltersUsdtm, setFiltersCoinm, setFiltersSpot, setFiltersStandard,  
           selectFiltersCoinm, selectFiltersSpot, selectFiltersStandard, selectFiltersUsdtm, 
-          selectSelectedTab } from '../../../../redux/order';
+          selectSelectedTab } from 'reduxStore/order';
 import FilterButton from './FilterButton';
 
 const sides = ['BUY', 'SELL'];

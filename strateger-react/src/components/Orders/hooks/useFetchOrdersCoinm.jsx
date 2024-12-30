@@ -2,8 +2,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchOrdersCoinm } from '../../../redux/order';
-import { selectOrderCoinm, setErrorCoinm } from '../../../redux/order';
+import { fetchOrdersCoinm } from 'reduxStore/order';
+import { selectOrderCoinm, setErrorCoinm } from 'reduxStore/order';
 
 const useFetchOrdersCoinm = () => {
     const dispatch = useDispatch();

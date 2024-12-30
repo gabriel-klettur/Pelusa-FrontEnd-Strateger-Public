@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchAlarms } from '../../../redux/alarm';
-import { selectAlarmsData } from '../../../redux/alarm';
+import { fetchAlarms } from 'reduxStore/alarm';
+import { selectAlarmsData } from 'reduxStore/alarm';
 
 const useFetchAlarms = (pollingInterval = null) => {
     const dispatch = useDispatch();

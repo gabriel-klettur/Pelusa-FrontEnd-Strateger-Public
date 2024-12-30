@@ -13,12 +13,12 @@ import SelectedIds from '../components/SelectedIds';
 
 import Ventanita from '../../../../../common/Ventanita';
 
-import { selectAlarmsData } from '../../../../../../redux/alarm';
+import { selectAlarmsData } from 'reduxStore/alarm';
 
-import { selectOrderUsdtm } from '../../../../../../redux/order';
-import { selectOrderCoinm } from '../../../../../../redux/order';
-import { selectOrderSpot } from '../../../../../../redux/order';
-import { selectOrderStandard } from '../../../../../../redux/order';
+import { selectOrderUsdtm } from 'reduxStore/order';
+import { selectOrderCoinm } from 'reduxStore/order';
+import { selectOrderSpot } from 'reduxStore/order';
+import { selectOrderStandard } from 'reduxStore/order';
 
 
 const ReferencesFormContainer = ({ selectedIds, setSelectedIds }) => {  

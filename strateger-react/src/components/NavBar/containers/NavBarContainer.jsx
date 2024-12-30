@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 
-import { setSelectedTab, selectSelectedTab } from '../../../redux/tab/tabSlice';
+import { setSelectedTab, selectSelectedTab } from 'reduxStore/tab/tabSlice';
 import Alarms from '../../Alarms/Alarms';
 import Orders from '../../Orders/Orders';
 import { StrategyCard } from '../../Strategy';

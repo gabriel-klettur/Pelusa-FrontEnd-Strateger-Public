@@ -6,13 +6,13 @@ import useCreateAlarmMarkers from './useCreateAlarmMarkers';
 import useCreateOrderMarkers from './useCreateOrderMarkers';
 import useSetMarkersOnSerie from './useSetMarkersOnSerie';
 
-import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms } from '../../../../redux/alarm';
-import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFiltered } from '../../../../redux/charts';
-import { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredMarkers } from '../../../../redux/charts';
+import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms } from 'reduxStore/alarm';
+import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFiltered } from 'reduxStore/charts';
+import { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFilteredMarkers } from 'reduxStore/charts';
 
-import { selectFilteredOrdersUsdtm, selectFilteredOrdersCoinm, selectFilteredOrdersSpot, selectFilteredOrdersStandard} from '../../../../redux/order';
-import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from '../../../../redux/charts';
-import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers } from '../../../../redux/charts';
+import { selectFilteredOrdersUsdtm, selectFilteredOrdersCoinm, selectFilteredOrdersSpot, selectFilteredOrdersStandard} from 'reduxStore/order';
+import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from 'reduxStore/charts';
+import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers } from 'reduxStore/charts';
 
 const useSetupMarkers = (
   candlestickSeriesRef, 

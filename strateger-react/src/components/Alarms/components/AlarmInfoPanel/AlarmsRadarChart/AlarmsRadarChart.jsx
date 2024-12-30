@@ -12,7 +12,7 @@ import { radarOptions } from './configChart';
 import { useSelector } from 'react-redux';
 
 import useGenerateRadarChartData from './hooks/useGenerateRadarChartData';
-import { selectActiveRadarDataset } from '../../../../../redux/interaction';
+import { selectActiveRadarDataset } from 'reduxStore/interaction';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { uploadImages } from '../../../../redux/diary';
+import { uploadImages } from 'reduxStore/diary';
 import DateForm from './DateForm'
 import CommentTextarea from './CommentTextarea';
 import PhotosForm from './PhotosForm';

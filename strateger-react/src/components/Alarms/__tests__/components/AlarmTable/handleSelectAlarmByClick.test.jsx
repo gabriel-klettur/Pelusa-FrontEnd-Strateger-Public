@@ -1,8 +1,8 @@
 import handleSelectAlarm from '../../../../Alarms/components/AlarmTable/handleSelectAlarm';
-import { setFilteredByClickAlarms } from '../../../../../redux/alarm/alarmSlice';
+import { setFilteredByClickAlarms } from 'reduxStore/alarm/alarmSlice';
 
 // 🔥 Simular la acción de Redux
-jest.mock('../../../../../redux/alarm/alarmSlice', () => ({
+jest.mock('reduxStore/alarm/alarmSlice', () => ({
   setFilteredByClickAlarms: jest.fn()
 }));
 
