@@ -115,7 +115,7 @@ const NavBarContainer = () => {
                             <Tab
                                 key={index}
                                 className={({ selected }) =>
-                                    `w-full h-16 w-16 p-2 text-sm font-medium transition-colors duration-200 
+                                    `w-full h-16 p-2 text-sm font-medium transition-colors duration-200 
                                     ${
                                         tab.disabled
                                             ? 'cursor-not-allowed bg-gray-500 text-gray-500'
