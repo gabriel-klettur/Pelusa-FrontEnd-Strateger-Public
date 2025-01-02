@@ -44,8 +44,8 @@ const storeWithTestState = configureStore({
 });
 
 
-// Mock del componente FiltersMenu
-jest.mock('Alarms/components/FiltersMenu/FiltersMenu', () => ({
+// Mock del componente AlarmFiltersMenu
+jest.mock('Alarms/components/AlarmFiltersMenu/AlarmFiltersMenu', () => ({
     onApplyFilters,
     onClear,
     uniqueStrategies,
@@ -115,7 +115,7 @@ jest.mock('Alarms/components/FiltersMenu/FiltersMenu', () => ({
   ));
 
 describe('AlarmFiltersPanelContainer', () => {
-  it('should render the AlarmFiltersPanelContainer component and its child FiltersMenu', () => {
+  it('should render the AlarmFiltersPanelContainer component and its child AlarmFiltersMenu', () => {
     // Renderizar el componente con el store
     render(
       <Provider store={storeWithTestState}>
@@ -127,12 +127,12 @@ describe('AlarmFiltersPanelContainer', () => {
     const containerElement = screen.getByTestId('alarm-filters-panel-container');
     expect(containerElement).toBeInTheDocument();
 
-    //  Comprobar que se ha renderizado el componente hijo FiltersMenu
-    const filtersMenu = screen.getByTestId('filters-menu');
-    expect(filtersMenu).toBeInTheDocument();
+    //  Comprobar que se ha renderizado el componente hijo AlarmFiltersMenu
+    const AlarmFiltersMenu = screen.getByTestId('filters-menu');
+    expect(AlarmFiltersMenu).toBeInTheDocument();
   });
 
-  it('should call handleApplyFilters when FiltersMenu applies filters', () => {
+  it('should call handleApplyFilters when AlarmFiltersMenu applies filters', () => {
     // Mock de dispatch para controlar cuando se llama la acción setFilteredByOptions
     const mockDispatch = jest.fn();
     storeWithTestState.dispatch = mockDispatch;
@@ -154,7 +154,7 @@ describe('AlarmFiltersPanelContainer', () => {
     ]));
   });
 
-  it('should call handleClearFilters when FiltersMenu clears filters', () => {
+  it('should call handleClearFilters when AlarmFiltersMenu clears filters', () => {
     // Mock de dispatch para controlar cuando se llama la acción setFilteredByOptions
     const mockDispatch = jest.fn();
     storeWithTestState.dispatch = mockDispatch;
@@ -206,12 +206,12 @@ describe('AlarmFiltersPanelContainer', () => {
     const containerElement = screen.getByTestId('alarm-filters-panel-container');
     expect(containerElement).toBeInTheDocument();
   
-    // Verificar que FiltersMenu también se renderiza sin problemas
-    const filtersMenu = screen.getByTestId('filters-menu');
-    expect(filtersMenu).toBeInTheDocument();
+    // Verificar que AlarmFiltersMenu también se renderiza sin problemas
+    const AlarmFiltersMenu = screen.getByTestId('filters-menu');
+    expect(AlarmFiltersMenu).toBeInTheDocument();
   
     // Comprobar que no se produce un error al trabajar con datos vacíos
-    expect(filtersMenu).toBeTruthy();
+    expect(AlarmFiltersMenu).toBeTruthy();
   });
     
   it('should generate unique strategies and tickers from alarms data', () => {
@@ -221,14 +221,14 @@ describe('AlarmFiltersPanelContainer', () => {
       </Provider>
     );
   
-    // Verificar que las estrategias únicas se pasan correctamente a FiltersMenu
+    // Verificar que las estrategias únicas se pasan correctamente a AlarmFiltersMenu
     const uniqueStrategies = ['Strategy1', 'Strategy2'];
     uniqueStrategies.forEach((strategy) => {
       const strategyElement = screen.getByTestId(`strategy-${strategy}`);
       expect(strategyElement).toBeInTheDocument();
     });
   
-    // Verificar que los tickers únicos se pasan correctamente a FiltersMenu
+    // Verificar que los tickers únicos se pasan correctamente a AlarmFiltersMenu
     const uniqueTickers = ['BTCUSDT', 'ETHUSDT'];
     uniqueTickers.forEach((ticker) => {
       const tickerElement = screen.getByTestId(`ticker-${ticker}`);

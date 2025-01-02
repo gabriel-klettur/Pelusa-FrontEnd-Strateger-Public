@@ -5,15 +5,15 @@ import { setActiveTab } from 'reduxStore/interaction';
 import { setActiveRadarDataset } from 'reduxStore/interaction';
 
 
-import useClickOutside from 'Alarms/components/FiltersMenu/hooks/useClickOutside';
-import { initializeState } from 'Alarms/components/FiltersMenu/helpers';
-import useSyncStrategiesAndTickers from 'Alarms/components/FiltersMenu/hooks/useSyncStrategiesAndTickers';
-import FiltersButton from 'Alarms/components/FiltersMenu/FiltersButton';
-import FiltersPanel from 'Alarms/components/FiltersMenu/FiltersPanel';
+import useClickOutside from 'Alarms/components/AlarmFiltersMenu/hooks/useClickOutside';
+import { initializeState } from 'Alarms/components/AlarmFiltersMenu/helpers';
+import useSyncStrategiesAndTickers from 'Alarms/components/AlarmFiltersMenu/hooks/useSyncStrategiesAndTickers';
+import FiltersButton from 'Alarms/components/AlarmFiltersMenu/FiltersButton';
+import FiltersPanel from 'Alarms/components/AlarmFiltersMenu/FiltersPanel';
 
 
 /**
- * TODO - FiltersMenu component renders a filter menu with various filter options such as intervals, order types, strategies, and tickers.
+ * TODO - AlarmFiltersMenu component renders a filter menu with various filter options such as intervals, order types, strategies, and tickers.
  * TODO - It allows users to apply or clear filters and handles the state of the filters.
  *
  * @component
@@ -23,7 +23,7 @@ import FiltersPanel from 'Alarms/components/FiltersMenu/FiltersPanel';
  * @param {Array<string>} props.uniqueStrategies - Array of unique strategy names.
  * @param {Array<string>} props.uniqueTickers - Array of unique ticker names.
  */
-const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers }) => {
+const AlarmAlarmFiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);  // State to handle whether the menu is open or not
   const menuRef = useRef(null);                 // Ref to reference the menu DOM element
@@ -120,4 +120,4 @@ const FiltersMenu = ({ onApplyFilters, onClear, uniqueStrategies, uniqueTickers 
   );
 };
 
-export default FiltersMenu;
+export default AlarmAlarmFiltersMenu;

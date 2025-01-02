@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import FiltersMenu from 'Alarms/components/FiltersMenu/FiltersMenu';
+import AlarmFiltersMenu from 'Alarms/components/AlarmFiltersMenu/AlarmFiltersMenu';
 import { Provider } from 'react-redux';
 import interactionReducer from 'reduxStore/interaction/interactionSlice';
 import { configureStore } from '@reduxjs/toolkit';
@@ -44,11 +44,11 @@ const store = configureStore({
     preloadedState: initialState,
 });
 
-describe('FiltersMenu - Initial Rendering', () => {
+describe('AlarmFiltersMenu - Initial Rendering', () => {
     test('Should render the filters button and filter icon', () => {
         render(
             <Provider store={store}>
-            <FiltersMenu
+            <AlarmFiltersMenu
                 onApplyFilters={jest.fn()}
                 onClear={jest.fn()}
                 uniqueStrategies={['Strategy 1', 'Strategy 2']}
@@ -67,11 +67,11 @@ describe('FiltersMenu - Initial Rendering', () => {
     });
 });
 
-describe('FiltersMenu - Menu Open and Close', () => {  
+describe('AlarmFiltersMenu - Menu Open and Close', () => {  
     test('Should display the menu when clicking the filters button', () => {
         render(
             <Provider store={store}>
-            <FiltersMenu onApplyFilters={jest.fn()} onClear={jest.fn()} uniqueStrategies={[]} uniqueTickers={[]} />
+            <AlarmFiltersMenu onApplyFilters={jest.fn()} onClear={jest.fn()} uniqueStrategies={[]} uniqueTickers={[]} />
             </Provider>
         );
 
@@ -89,7 +89,7 @@ describe('FiltersMenu - Menu Open and Close', () => {
     test('Should close the menu when clicking outside the menu', () => {
         render(
             <Provider store={store}>
-            <FiltersMenu onApplyFilters={jest.fn()} onClear={jest.fn()} uniqueStrategies={[]} uniqueTickers={[]} />
+            <AlarmFiltersMenu onApplyFilters={jest.fn()} onClear={jest.fn()} uniqueStrategies={[]} uniqueTickers={[]} />
             </Provider>
         );
 
@@ -108,11 +108,11 @@ describe('FiltersMenu - Menu Open and Close', () => {
     });  
 });
 
-describe('FiltersMenu - Checkbox State Changes', () => {    
+describe('AlarmFiltersMenu - Checkbox State Changes', () => {    
     test('Should toggle the state of the "Intervals" section checkboxes when clicked', () => {
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={jest.fn()} 
                     onClear={jest.fn()} 
                     uniqueStrategies={[]} 
@@ -145,7 +145,7 @@ describe('FiltersMenu - Checkbox State Changes', () => {
     test('Should toggle the state of the "Order Types" section checkboxes when clicked', () => {
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={jest.fn()} 
                     onClear={jest.fn()} 
                     uniqueStrategies={[]} 
@@ -178,7 +178,7 @@ describe('FiltersMenu - Checkbox State Changes', () => {
     test('Should toggle the state of the "Strategies" section checkboxes when clicked', () => {
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={jest.fn()} 
                     onClear={jest.fn()} 
                     uniqueStrategies={['Scalping', 'Swing']} 
@@ -211,7 +211,7 @@ describe('FiltersMenu - Checkbox State Changes', () => {
     test('Should toggle the state of the "Tickers" section checkboxes when clicked', () => {
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={jest.fn()} 
                     onClear={jest.fn()} 
                     uniqueStrategies={[]} 
@@ -248,7 +248,7 @@ describe('Apply and Clear Buttons', () => {
 
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={onApplyFiltersMock} 
                     onClear={jest.fn()} 
                     uniqueStrategies={['Scalping', 'Swing']} 
@@ -306,7 +306,7 @@ describe('Apply and Clear Buttons', () => {
 
         render(
             <Provider store={store}>
-                <FiltersMenu 
+                <AlarmFiltersMenu 
                     onApplyFilters={jest.fn()} 
                     onClear={onClearMock} 
                     uniqueStrategies={['Scalping', 'Swing']} 

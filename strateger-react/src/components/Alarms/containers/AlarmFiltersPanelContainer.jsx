@@ -7,7 +7,7 @@ import {
   setFilteredByOptions,
 } from 'reduxStore/alarm';
 
-import FiltersMenu from 'Alarms/components/FiltersMenu/FiltersMenu';
+import AlarmFiltersMenu from 'Alarms/components/AlarmFiltersMenu/AlarmFiltersMenu';
 
 const AlarmFiltersPanelContainer = () => {
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const AlarmFiltersPanelContainer = () => {
   return (
     <div className="flex space-x-12">
       <div data-testid="alarm-filters-panel-container">
-        <FiltersMenu
+        <AlarmFiltersMenu
           onApplyFilters={handleApplyFilters}
           onClear={handleClearFilters}
           uniqueStrategies={uniqueStrategies}
