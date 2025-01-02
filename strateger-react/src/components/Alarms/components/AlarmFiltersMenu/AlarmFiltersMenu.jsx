@@ -5,11 +5,14 @@ import { setActiveTab } from 'reduxStore/interaction';
 import { setActiveRadarDataset } from 'reduxStore/interaction';
 
 
+//!------------------------ HOOKS ------------------------------//
 import useClickOutside from 'Alarms/components/AlarmFiltersMenu/hooks/useClickOutside';
-import { initializeState } from 'Alarms/components/AlarmFiltersMenu/helpers';
 import useSyncStrategiesAndTickers from 'Alarms/components/AlarmFiltersMenu/hooks/useSyncStrategiesAndTickers';
-import FiltersButton from 'Alarms/components/AlarmFiltersMenu/FiltersButton';
-import FiltersPanel from 'Alarms/components/AlarmFiltersMenu/FiltersPanel';
+
+//!------------------------ COMPONENTS ------------------------------//
+import { initializeState } from 'Alarms/components/AlarmFiltersMenu/components/helpers';
+import FiltersButton from 'Alarms/components/AlarmFiltersMenu/components/FiltersButton';
+import FiltersPanel from 'Alarms/components/AlarmFiltersMenu/components/FiltersPanel';
 
 
 /**
