@@ -1,6 +1,6 @@
 // Path: src/components/Alarms/Alarms.jsx
 
-import AlarmsMainView from './containers/AlarmsMainView';
+import AlarmsMainView from 'Alarms/containers/AlarmsMainView';
 
 const Alarms = () => {  
   return (

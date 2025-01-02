@@ -2,10 +2,11 @@
 
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import MonthTogglePanel from './components/MonthTogglePanel';
-import { options, monthsLabels } from './configChart';
-import useUpdateVisibleMonths from './hooks/useUpdateVisibleMonths';
-import useGenerateChartData from './hooks/useGenerateBarChartData';
+
+import MonthTogglePanel from 'Alarms/components/AlarmInfoPanel/AlarmsBarChart/components/MonthTogglePanel';
+import { options, monthsLabels } from 'Alarms/components/AlarmInfoPanel/AlarmsBarChart/configChart';
+import useUpdateVisibleMonths from 'Alarms/components/AlarmInfoPanel/AlarmsBarChart/hooks/useUpdateVisibleMonths';
+import useGenerateChartData from 'Alarms/components/AlarmInfoPanel/AlarmsBarChart/hooks/useGenerateBarChartData';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

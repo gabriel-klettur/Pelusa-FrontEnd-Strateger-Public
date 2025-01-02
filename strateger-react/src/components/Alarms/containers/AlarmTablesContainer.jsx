@@ -8,12 +8,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 
 // Components
-import AlarmTab from '../components/AlarmTab';
-import AlarmTable from '../components/AlarmTable/AlarmTable';
-import  AlarmFiltersPanelContainer  from './AlarmFiltersPanelContainer';
+import AlarmTab from 'Alarms/components/AlarmTab';
+import AlarmTable from 'Alarms/components/AlarmTable/AlarmTable';
+import  AlarmFiltersPanelContainer  from 'Alarms/containers/AlarmFiltersPanelContainer';
 
 // Hooks
-import useFetchAlarms from '../hooks/useFetchAlarms';  
+import useFetchAlarms from 'Alarms/hooks/useFetchAlarms';  
 
 //Redux Selectors
 import { selectAlarmsError, selectAlarmsData, selectAlarmsPage, selectAlarmsHasMore, selectAlarmsOffset} from 'reduxStore/alarm';

@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 
 //! Components
 import MainChart from '../../Charts/MainChart/MainChart';
-import AlarmTablesContainer from "./AlarmTablesContainer";
-import AlarmInfoPanel from './AlarmInfoPanelContainer';
+import AlarmTablesContainer from "Alarms/containers/AlarmTablesContainer";
+import AlarmInfoPanel from 'Alarms/containers/AlarmInfoPanelContainer';
 
 //! Hooks
-import { useShowButtonsPanel } from '../hooks/useShowButtonsPanel';
+import { useShowButtonsPanel } from 'Alarms/hooks/useShowButtonsPanel';
 
 //! Redux Selectors
 import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsAlarms} from 'reduxStore/alarm';

@@ -7,7 +7,7 @@ import {
   setFilteredByOptions,
 } from 'reduxStore/alarm';
 
-import FiltersMenu from '../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
+import FiltersMenu from 'Alarms/components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
 
 const AlarmFiltersPanelContainer = () => {
   const dispatch = useDispatch();

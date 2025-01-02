@@ -1,12 +1,12 @@
 //Path: src/components/Alarms/containers/AlarmInfoPanel.jsx
 
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import AlarmTab from '../components/AlarmTab';
-import AlarmsBarChart from '../components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart';
-import AlarmsRadarChat from '../components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart';
-import AlarmOverviewPanel from '../components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel';
+import AlarmTab from 'Alarms/components/AlarmTab';
+import AlarmsBarChart from 'Alarms/components/AlarmInfoPanel/AlarmsBarChart/AlarmsBarChart';
+import AlarmsRadarChat from 'Alarms/components/AlarmInfoPanel/AlarmsRadarChart/AlarmsRadarChart';
+import AlarmOverviewPanel from 'Alarms/components/AlarmInfoPanel/AlarmOverviewPanel/AlarmOverviewPanel';
 
-import getHourlyAlarmCounts from '../utils/getHourlyAlarmCounts';
+import getHourlyAlarmCounts from 'Alarms/utils/getHourlyAlarmCounts';
 
 const AlarmInfoPanelContainer = ({alarmsData, filteredByClickAlarmsData, filteredByOptionsAlarmsData}) => {    
 

@@ -155,10 +155,8 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-      "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",
-      "^components/(.*)$": "<rootDir>/src/components/$1",
-      "^alarms/(.*)$": "<rootDir>/src/components/alarms/$1",
-      "^utils/(.*)$": "<rootDir>/src/utils/$1"
+      "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",      
+      "^Alarms/(.*)$": "<rootDir>/src/components/alarms/$1"      
     },
     "moduleFileExtensions": [
       "web.js",

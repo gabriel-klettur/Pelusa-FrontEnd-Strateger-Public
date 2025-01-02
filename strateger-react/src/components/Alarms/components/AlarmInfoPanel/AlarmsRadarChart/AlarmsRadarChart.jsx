@@ -11,7 +11,7 @@ import { Radar } from 'react-chartjs-2';
 import { radarOptions } from './configChart';
 import { useSelector } from 'react-redux';
 
-import useGenerateRadarChartData from './hooks/useGenerateRadarChartData';
+import useGenerateRadarChartData from 'Alarms/components/AlarmInfoPanel/AlarmsRadarChart/hooks/useGenerateRadarChartData';
 import { selectActiveRadarDataset } from 'reduxStore/interaction';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);

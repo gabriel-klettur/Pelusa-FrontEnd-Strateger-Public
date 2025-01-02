@@ -1,6 +1,6 @@
 //Path: strateger-react/src/components/Alarms/components/AlarmInfoPanel/AlarmsBarChart/components/MonthTogglePanel.jsx
 
-import MonthToggleButton from "./MonthToggleButton";
+import MonthToggleButton from "Alarms/components/AlarmInfoPanel/AlarmsBarChart/components/MonthToggleButton";
 
 const MonthTogglePanel = ({monthsLabels, visibleMonths, toggleMonth}) => {
 

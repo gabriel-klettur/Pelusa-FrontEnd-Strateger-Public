@@ -1,4 +1,4 @@
-import CheckIcon from '../../../assets/check_icon.svg';
+import CheckIcon from 'Alarms/assets/check_icon.svg';
 
 const CheckBox = ({ isChecked, callback }) => {
   return (

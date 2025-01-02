@@ -7,13 +7,13 @@ import {  selectFilteredByClickAlarms } from 'reduxStore/alarm';
 
 // Components
 import Tablita from '../../../common/Tablita';
-import AlarmRow from './components/AlarmRow';
-import Pagination from './components/Pagination';
-import { columnsHeaders } from './configTable';
+import AlarmRow from 'Alarms/components/AlarmTable/components/AlarmRow';
+import Pagination from 'Alarms/components/AlarmTable/components/Pagination';
+import { columnsHeaders } from 'Alarms/components/AlarmTable/configTable';
 
 // Hooks and functions
-import handleSelectAlarm from './handleSelectAlarm'; 
-import usePagination from './hooks/usePagination';
+import handleSelectAlarm from 'Alarms/components/AlarmTable/handleSelectAlarm'; 
+import usePagination from 'Alarms/components/AlarmTable/hooks/usePagination';
 
 
 
