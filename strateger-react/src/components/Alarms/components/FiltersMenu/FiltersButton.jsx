@@ -1,4 +1,4 @@
-import FilterIcon from '../../../assets/filter_icon.svg';
+import FilterIcon from 'Alarms/assets/filter_icon.svg';
 
 const FiltersButton = ({setIsOpen}) => {
     return(

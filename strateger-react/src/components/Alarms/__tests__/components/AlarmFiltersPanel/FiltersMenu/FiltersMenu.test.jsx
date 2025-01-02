@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import FiltersMenu from '../../../../components/AlarmFiltersPanel/FiltersMenu/FiltersMenu';
+import FiltersMenu from 'Alarms/components/FiltersMenu/FiltersMenu';
 import { Provider } from 'react-redux';
 import interactionReducer from 'reduxStore/interaction/interactionSlice';
 import { configureStore } from '@reduxjs/toolkit';
