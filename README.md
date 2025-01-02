@@ -43,7 +43,7 @@ Pelusa FrontEnd Strateger Public is a React-based frontend for the Pelusa Trader
 ---
 
 
-## 📁 **3. Project Structure**
+## 📁 **3. Minimun Project Structure**
 The project follows a modular file structure to ensure scalability, maintainability, and clarity.
 ```bash
 📦 strateger-react/ 
