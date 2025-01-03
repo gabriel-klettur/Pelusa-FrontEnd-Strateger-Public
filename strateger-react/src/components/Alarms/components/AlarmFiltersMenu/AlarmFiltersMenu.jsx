@@ -10,7 +10,7 @@ import useClickOutside from 'Alarms/components/AlarmFiltersMenu/hooks/useClickOu
 import useSyncStrategiesAndTickers from 'Alarms/components/AlarmFiltersMenu/hooks/useSyncStrategiesAndTickers';
 
 //!------------------------ COMPONENTS ------------------------------//
-import { initializeState } from 'Alarms/components/AlarmFiltersMenu/components/helpers';
+import { initializeState } from 'Alarms/components/AlarmFiltersMenu/utils/helpers';
 import FiltersButton from 'Alarms/components/AlarmFiltersMenu/components/FiltersButton';
 import FiltersPanel from 'Alarms/components/AlarmFiltersMenu/components/FiltersPanel';
 
