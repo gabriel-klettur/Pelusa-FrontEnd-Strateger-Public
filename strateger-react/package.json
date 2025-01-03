@@ -156,7 +156,8 @@
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
       "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",      
-      "^Alarms/(.*)$": "<rootDir>/src/components/alarms/$1"      
+      "^Alarms/(.*)$": "<rootDir>/src/components/alarms/$1",
+      "^assets/(.*)$": "<rootDir>/src/assets/$1"
     },
     "moduleFileExtensions": [
       "web.js",

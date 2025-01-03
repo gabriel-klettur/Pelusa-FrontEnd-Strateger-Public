@@ -325,6 +325,7 @@ module.exports = function (webpackEnv) {
         //! ---------------------------------------------------------------
         reduxStore: path.resolve(paths.appSrc, 'redux/'),        
         Alarms: path.resolve(paths.appSrc, 'components/Alarms/'),
+        assets: path.resolve(paths.appSrc, 'assets/'),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).
