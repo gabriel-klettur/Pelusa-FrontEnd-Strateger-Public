@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { loadSlicesInOrder } from './thunks/loadSlicesInOrder';
+import { loadSlicesInOrder } from './dataLoaders/loadSlicesInOrder';
 import MainContainer from './containers/MainContainer';
 import ToastConfig from './utils/ToastConfig';
 
