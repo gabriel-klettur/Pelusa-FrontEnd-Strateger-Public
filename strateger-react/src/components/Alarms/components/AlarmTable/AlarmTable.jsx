@@ -1,7 +1,7 @@
 //Path: src/components/Alarms/components/AlarmTable/AlarmTable.js
 
 //Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchAlarms } from 'reduxStore/alarm';
 import {  selectFilteredByClickAlarms } from 'reduxStore/alarm';
 
@@ -12,38 +12,34 @@ import Pagination from 'Alarms/components/AlarmTable/components/Pagination';
 import { columnsHeaders } from 'Alarms/components/AlarmTable/configTable';
 
 // Hooks and functions
-import handleSelectAlarm from 'Alarms/components/AlarmTable/handleSelectAlarm'; 
+import useHandleSelectAlarm from 'Alarms/components/AlarmTable/hooks/useHandleSelectAlarm'; 
 import usePagination from 'Alarms/components/AlarmTable/hooks/usePagination';
 
 
 
-
 const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
-
-  const dispatch = useDispatch();
-
-  const filteredByClickAlarms  = useSelector(selectFilteredByClickAlarms);
+  const filteredByClickAlarms = useSelector(selectFilteredByClickAlarms);
   
-  
+  // Use the custom hook
+  const handleSelectAlarm = useHandleSelectAlarm(filteredByClickAlarms);
+
   const { totalDataLength, paginatedData } = usePagination(data, page);
 
-  
-  const renderRow = (item, index) => {     
-
+  const renderRow = (item, index) => {
     const rowClassName = filteredByClickAlarms.some((a) => a.id === item.id)
-      ? 'bg-green-600 text-white'        
+      ? 'bg-green-600 text-white'
       : 'bg-white text-african_violet-200';
-  
-    return (      
+
+    return (
       <AlarmRow
         key={index}
         alarm={item}
-        rowClassName={rowClassName} 
+        rowClassName={rowClassName}
         columnsHeaders={columnsHeaders}
-        handleSelectAlarm={(alarm) => handleSelectAlarm(alarm, filteredByClickAlarms, dispatch)}
+        handleSelectAlarm={(alarm) => handleSelectAlarm(alarm)}
       />
     );
-  };  
+  };
 
   return (
     <>
