@@ -1,12 +1,29 @@
 // Path: strateger-react/src/App.js
+
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { loadSlicesInOrder } from './dataLoaders/loadSlicesInOrder';
 import MainContainer from './containers/MainContainer';
 import ToastConfig from './utils/ToastConfig';
+
+
+import Alarms from './components/Alarms/Alarms';
+import Orders from './components/Orders/Orders';
+import { StrategyCard } from './components/Strategy';
+import { Diary } from './components/Diary';
+import { Account } from './components/Account';
+import { Position } from './components/Positions';
+import { Backtesting } from './components/Backtesting';
+import { Earnings } from './components/Earnings';
+import { News } from './components/News';
+import BattleField from './components/BattleField';
+import ConfigComponent from './components/configComponent/ConfigComponent';
+import Laboratory from './components/Laboratory';
+
 
 const App = () => {
     const dispatch = useDispatch();
@@ -17,10 +34,27 @@ const App = () => {
 
     // Contenedor de toast
     return (        
-      <>
-        <ToastConfig/>
-        <MainContainer/>
-      </>
+      <Router>
+        <>
+          <ToastConfig />
+          <Routes>            
+            <Route path="/pelusa-trader" element={<MainContainer />}>              
+              <Route path="alarms" element={<Alarms />} />
+              <Route path="battlefield" element={<BattleField />} />
+              <Route path="orders" element={<Orders />} /> 
+              <Route path="strategy" element={<StrategyCard />} />
+              <Route path="diary" element={<Diary />} />
+              <Route path="account" element={<Account />} />
+              <Route path="positions" element={<Position />} />
+              <Route path="backtesting" element={<Backtesting />} />
+              <Route path="earnings" element={<Earnings />} />
+              <Route path="news" element={<News />} />
+              <Route path="config" element={<ConfigComponent />} />
+              <Route path="laboratory" element={<Laboratory />} />                          
+            </Route>
+          </Routes>
+        </>
+      </Router>
     );
 };
 

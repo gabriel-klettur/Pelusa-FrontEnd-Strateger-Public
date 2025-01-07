@@ -63,6 +63,7 @@
     "react-redux": "^9.1.2",
     "react-refresh": "^0.11.0",
     "react-rnd": "^10.4.13",
+    "react-router-dom": "^7.1.1",
     "react-toastify": "^10.0.6",
     "recharts": "^2.12.7",
     "redux": "^5.0.1",
@@ -155,7 +156,7 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
-      "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",      
+      "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",
       "^Alarms/(.*)$": "<rootDir>/src/components/alarms/$1",
       "^assets/(.*)$": "<rootDir>/src/assets/$1"
     },
