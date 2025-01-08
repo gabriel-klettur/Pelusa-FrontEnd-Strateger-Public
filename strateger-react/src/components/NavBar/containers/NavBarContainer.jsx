@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { Tab, TabGroup, TabList } from '@headlessui/react';
 
 import { setSelectedTab, selectSelectedTab } from 'reduxStore/tab/tabSlice';
 
