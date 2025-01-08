@@ -153,7 +153,8 @@
       "^.+\\.module\\.(css|sass|scss)$"
     ],
     "modulePaths": [],
-    "moduleNameMapper": {
+    "moduleNameMapper": {      
+      "^react-router-dom$": "<rootDir>/node_modules/react-router-dom",
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
       "^reduxStore/(.*)$": "<rootDir>/src/redux/$1",

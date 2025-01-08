@@ -1,9 +1,10 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Tab, TabGroup, TabList } from '@headlessui/react';
-
 import { setSelectedTab, selectSelectedTab } from 'reduxStore/tab/tabSlice';
+
+// Import the NavBar component
+import NavBar from '../components/NavBar';
 
 // Import or define your images
 import battleFieldIcon from '../assets/icons/battleField.svg';
@@ -52,36 +53,14 @@ const NavBarContainer = () => {
     };
 
     return (
-        <TabGroup vertical selectedIndex={selectedTab} onChange={handleTabChange}>
-          <div className="flex">
-            <TabList className="w-12 h-screen mt-1">
-              {tabs.map((tab, index) => (
-                <Tab
-                  key={index}
-                  className={({ selected }) =>
-                    `w-full h-16 p-2 text-sm font-medium transition-colors duration-200 ${
-                      tab.disabled
-                        ? 'cursor-not-allowed bg-gray-500 text-gray-500'
-                        : `hover:bg-african_violet-300 ${
-                            selected
-                              ? 'bg-african_violet-400 text-african_violet-900'
-                              : 'bg-african_violet-200 text-african_violet-700 hover:text-african_violet-900'
-                          }`
-                    }`
-                  }
-                  disabled={tab.disabled}
-                >
-                  <img
-                    src={tab.icon}
-                    alt={tab.name}
-                    className={`h-8 w-8 mx-auto ${tab.disabled ? 'opacity-50' : ''}`}
-                  />
-                </Tab>
-              ))}
-            </TabList>
-          </div>
-        </TabGroup>
-      );
+      <>
+        <NavBar
+            selectedTab={selectedTab}
+            handleTabChange={handleTabChange}
+            tabs={tabs}
+        />  
+      </>
+    );
 };
 
 export default NavBarContainer;
