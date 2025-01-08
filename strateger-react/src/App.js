@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate  } from 'react-router-dom';
 
 import { loadSlicesInOrder } from './dataLoaders/loadSlicesInOrder';
 import MainContainer from './containers/MainContainer';
@@ -36,8 +36,9 @@ const App = () => {
     return (        
       <Router>
         <>
-          <ToastConfig />
+          <ToastConfig />          
           <Routes>            
+            <Route path="/pelusa-trader" element={<Navigate to="/pelusa-trader/alarms" replace />} />
             <Route path="/pelusa-trader" element={<MainContainer />}>              
               <Route path="alarms" element={<Alarms />} />
               <Route path="battlefield" element={<BattleField />} />
