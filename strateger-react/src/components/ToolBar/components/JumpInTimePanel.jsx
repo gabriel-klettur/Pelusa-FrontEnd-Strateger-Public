@@ -73,12 +73,16 @@ const JumpInTimePanel = ({ setJumpToDate }) => {
     };
 
     return (
-        <div className="h-full w-80 bg-african_violet-400 flex justify-center items-center hover:bg-african_violet-600">
+        <div className="h-full w-80 flex justify-center items-center hover:bg-african_violet-600">
             <Popover className="relative">
-                <PopoverButton>{currentDate || 'Jump To Date'}</PopoverButton>
+                <PopoverButton
+                    className="font-semibold text-african_violet-900 hover:text-white transition-colors duration-300"                    
+                >
+                    {currentDate || 'Jump To Date'}
+                </PopoverButton>
                 <PopoverPanel 
                     anchor="bottom" 
-                    className="absolute z-10 p-4 bg-white border border-african_violet-300 rounded-lg shadow-lg"
+                    className="absolute p-4 w-80 mt-4 bg-african_violet-100/95 shadow-lg rounded-sm space-y-4 z-50"
                 >
                     <div className="flex flex-col gap-4">
                         <div className="flex gap-2">
@@ -127,12 +131,12 @@ const JumpInTimePanel = ({ setJumpToDate }) => {
                                 className="w-12 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-african_violet-500"
                             />
                         </div>
-                        <div className="flex gap-2 justify-end">
+                        <div className="flex gap-2 justify-center">
                             <button
                                 onClick={handleOkClick}
                                 className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                             >
-                                GO TO
+                                GO
                             </button>
                             <button
                                 onClick={handleCurrentDateClick}

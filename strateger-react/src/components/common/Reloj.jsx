@@ -46,7 +46,7 @@ const Reloj = ({ direction = 'up' }) => {
         <Popover.Button className="font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
           {formatTime(localTime)}
         </Popover.Button>
-        <Popover.Panel className={`absolute z-10 p-4 bg-white border border-african_violet-300 rounded-lg shadow-lg ${popoverPosition}`}>
+        <Popover.Panel className={`absolute bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50 ${popoverPosition}`}>
           <div className="mb-2" style={{ color: isMarketOpen(chinaTime, 'China') ? '#16A34A' : '#DC2626' }}>
             <strong>China: </strong>
             {formatTime(chinaTime)}

@@ -21,8 +21,6 @@ const ToolBarContainer = () => {
     const [currentInterval, setCurrentInterval] = useState(initialTemporalidad); 
     const [currentTicker, setCurrentTicker] = useState('BTCUSDT');
     const [jumpToDate, setJumpToDate] = useState(null);    
-
-    
     
     useEffect(() => {
         console.log('currentInterval:', currentInterval);
@@ -31,18 +29,16 @@ const ToolBarContainer = () => {
     }, [currentInterval, currentTicker, jumpToDate]);
 
 
-
-
     return(
         <div className="h-14 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
-            <div className="h-full flex justify-start items-center border-yellow-500 border-4">
+            <div className="h-full flex justify-start items-center">
                 <TickersPanel 
                     currentTicker={currentTicker}
                     setCurrentTicker={setCurrentTicker}
                 />    
             </div>
 
-            <div className="h-full flex justify-center items-center border-green-500 border-4">
+            <div className="h-full flex justify-center items-center">
                 <IntervalBarContainer
                     currentInterval={currentInterval}
                     setCurrentInterval={setCurrentInterval}
@@ -51,17 +47,17 @@ const ToolBarContainer = () => {
                 />   
             </div>
 
-            <div className="h-full flex justify-center items-center border-blue-500 border-4">
-                <JumpInTimePanel
-                    setJumpToDate={setJumpToDate}
-                />
-            </div>
-
-            <div className="h-full flex justify-center items-center border-red-500 border-4">
+            <div className="h-full flex justify-center items-center">
                 <IndicatorsPanel />
             </div>
 
-            <div className="h-full flex justify-end items-center border-cyan-500 border-4">
+            <div className="h-full flex justify-center items-center">
+                <JumpInTimePanel
+                    setJumpToDate={setJumpToDate}
+                />
+            </div>            
+
+            <div className="h-full flex justify-end items-center">
                 <RelojContainer />
             </div>
         </div>
