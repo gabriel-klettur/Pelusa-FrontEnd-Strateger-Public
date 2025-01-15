@@ -6,20 +6,20 @@ const IndicatorsPanel = () => {
 
     const handleIndicatorClick = (indicator, closePopover) => {
         setIndicators(indicator);
-        closePopover(); // Cerrar el PopoverPanel después de la acción
+        closePopover(); // Cerrar el Popover después de seleccionar un indicador
     };
 
     return (
-        <div className="h-full w-40 flex justify-center items-center hover:bg-african_violet-600">
+        <div className="h-full w-40 flex justify-center items-center">
             <Popover className="relative h-full w-full">
                 {({ close }) => (
                     <>
                         <PopoverButton
-                            className="h-full w-full font-semibold text-african_violet-900 hover:text-white transition-colors duration-300"
+                            className="h-full w-full font-semibold text-african_violet-900 bg-transparent hover:bg-african_violet-600 hover:text-white transition-colors duration-300 rounded-sm"
                         >
                             Indicators
                         </PopoverButton>
-                        <PopoverPanel 
+                        <PopoverPanel
                             className="absolute w-full bg-african_violet-100/95 shadow-lg rounded-sm z-50"
                         >
                             <button

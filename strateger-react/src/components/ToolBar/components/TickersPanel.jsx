@@ -3,16 +3,16 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 const TickersPanel = ({ currentTicker, setCurrentTicker }) => {
     const handleTickerClick = (ticker, closePopover) => {
         setCurrentTicker(ticker);
-        closePopover(); // Cerrar el PopoverPanel después de la acción
+        closePopover(); // Cerrar el Popover después de seleccionar un ticker
     };
 
     return (
-        <div className="h-full w-40 flex justify-center items-center hover:bg-african_violet-600">
+        <div className="h-full w-40 flex justify-center items-center">
             <Popover className="relative w-full h-full">
                 {({ close }) => (
                     <>
                         <PopoverButton
-                            className="w-full h-full font-semibold text-african_violet-900 hover:text-white transition-colors duration-300"
+                            className="w-full h-full font-semibold text-african_violet-900 bg-transparent hover:bg-african_violet-600 hover:text-white transition-colors duration-300 rounded-sm"
                         >
                             {currentTicker}
                         </PopoverButton>
@@ -25,7 +25,6 @@ const TickersPanel = ({ currentTicker, setCurrentTicker }) => {
                             >
                                 BTCUSDT
                             </button>
-
                             <button
                                 onClick={() => handleTickerClick('ETH-USDT', close)}
                                 className="block w-full text-center hover:bg-african_violet-300 p-2 text-african_violet-900"

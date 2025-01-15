@@ -45,7 +45,6 @@ const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
         setDay('');
         setHour('');
         setMinute('');
-        // NO cerrar el PopoverPanel
     };
 
     const handleCurrentDateClick = () => {
@@ -55,7 +54,6 @@ const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
         setDay(String(now.getDate()).padStart(2, '0'));
         setHour(String(now.getHours()).padStart(2, '0'));
         setMinute(String(now.getMinutes()).padStart(2, '0'));
-        // NO cerrar el PopoverPanel
     };
 
     const validateInputs = () => {
@@ -77,17 +75,16 @@ const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
     ];
 
     return (
-        <div className="h-full w-96 flex justify-center items-center hover:bg-african_violet-600">
+        <div className="h-full w-96 flex justify-center items-center">
             <Popover className="relative w-full h-full">
                 {({ close }) => (
                     <>
                         <PopoverButton
-                            className="w-full h-full font-semibold text-african_violet-900 hover:text-white transition-colors duration-300"
+                            className="w-full h-full font-semibold text-african_violet-900 bg-transparent hover:bg-african_violet-600 hover:text-white transition-colors duration-300 rounded-sm"
                         >
                             {jumpToDate
                                 ? new Date(jumpToDate).toISOString().slice(0, 10)
-                                : 'Jump To Date'
-                            }
+                                : 'Jump To Date'}
                         </PopoverButton>
                         <PopoverPanel
                             anchor="bottom"
@@ -104,26 +101,26 @@ const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
                                             onChange={(e) => handleInputChange(e.target.value, setter, maxLength, nextRef)}
                                             onKeyDown={(e) => handleKeyDown(e, value, setter, ref)}
                                             ref={ref}
-                                            className="w-16 p-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-african_violet-500"
+                                            className="w-16 p-2 border-2 border-gray-400 text-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-african_violet-500 focus:border-african_violet-500 hover:border-african_violet-400 transition-all duration-200 text-center"                                    
                                         />
                                     ))}
                                 </div>
                                 <div className="flex gap-2 justify-center">
                                     <button
                                         onClick={() => handleOkClick(close)}
-                                        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                                        className="px-5 py-2 border-2 border-green-500 text-green-500 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-200"
                                     >
                                         GO
                                     </button>
                                     <button
                                         onClick={handleCurrentDateClick}
-                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                                        className="px-5 py-2 border-2 border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-200"
                                     >
                                         CurrentDate
                                     </button>
                                     <button
                                         onClick={handleClearClick}
-                                        className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                                        className="px-5 py-2 border-2 border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-colors duration-200"
                                     >
                                         CLEAR
                                     </button>
