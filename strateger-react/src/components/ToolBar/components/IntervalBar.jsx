@@ -1,6 +1,5 @@
 //Path: strateger-react/src/components/ToolBar/components/IntervalBar.jsx
 
-
 const IntervalBar = ({intervals, currentInterval, handleIntervalChange }) => {
 
     const buttonClasses = (interval) =>

@@ -1,6 +1,7 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 
 const TickersPanel = ({ currentTicker, setCurrentTicker }) => {
+    
     const handleTickerClick = (ticker, closePopover) => {
         setCurrentTicker(ticker);
         closePopover(); // Cerrar el Popover después de seleccionar un ticker
