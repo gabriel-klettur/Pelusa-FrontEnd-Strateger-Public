@@ -1,3 +1,4 @@
+//Path: strateger-react/src/components/ToolBar/containers/RelojContainer.jsx
 
 import Reloj from '../../common/Reloj';
 
