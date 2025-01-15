@@ -38,12 +38,12 @@ const Reloj = ({ direction = 'up' }) => {
     return currentTotalMinutes >= openTotalMinutes && currentTotalMinutes <= closeTotalMinutes;
   };
 
-  const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2';
+  const popoverPosition = direction === 'up' ? 'bottom-full mb-2' : 'top-full';
 
   return (
-    <div className="h-full w-40 bg-african_violet-400 flex justify-center items-center hover:bg-african_violet-600 " >
-      <Popover className="relative">
-        <Popover.Button className="font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
+    <div className="h-full w-40 flex justify-center items-center hover:bg-african_violet-600 " >
+      <Popover className="relative h-full w-full">
+        <Popover.Button className="h-full w-full font-semibold text-african_violet-900 hover:text-white transition-colors duration-300">
           {formatTime(localTime)}
         </Popover.Button>
         <Popover.Panel className={`absolute bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50 ${popoverPosition}`}>

@@ -1,27 +1,19 @@
 //Path: strateger-react/src/components/ToolBar/components/JumpInTimePanel.jsx
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 
 const JumpInTimePanel = ({jumpToDate, setJumpToDate }) => {
     const [year, setYear] = useState('');
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
     const [hour, setHour] = useState('');
-    const [minute, setMinute] = useState('');
-    const [currentDate, setCurrentDate] = useState(''); // Estado para almacenar la fecha actual
+    const [minute, setMinute] = useState('');    
 
     const monthRef = useRef(null);
     const dayRef = useRef(null);
     const hourRef = useRef(null);
     const minuteRef = useRef(null);
-
-    useEffect(() => {
-        // Obtener la fecha actual al cargar el componente
-        const now = new Date();
-        const formattedDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
-        setCurrentDate(formattedDate); // Actualizar el estado con la fecha formateada
-    }, []);
 
     const handleInputChange = (value, setter, maxLength, nextRef) => {
         if (value.length > maxLength) {
@@ -84,7 +76,7 @@ const JumpInTimePanel = ({jumpToDate, setJumpToDate }) => {
     ];
 
     return (
-        <div className="h-full w-80 flex justify-center items-center hover:bg-african_violet-600">
+        <div className="h-full w-96 flex justify-center items-center hover:bg-african_violet-600">
             <Popover className="relative w-full h-full">
                 <PopoverButton
                     className="w-full h-full font-semibold text-african_violet-900 hover:text-white transition-colors duration-300 "                    
@@ -96,7 +88,7 @@ const JumpInTimePanel = ({jumpToDate, setJumpToDate }) => {
                 </PopoverButton>
                 <PopoverPanel 
                     anchor="bottom" 
-                    className="absolute p-4 w-96 mt-4 bg-african_violet-100/95 shadow-lg rounded-sm space-y-4 z-50"
+                    className="absolute p-4 w-96 bg-african_violet-100/95 shadow-lg rounded-sm space-y-4 z-50"
                 >
                     <div className="flex flex-col gap-4">
                         <div className="flex gap-2">

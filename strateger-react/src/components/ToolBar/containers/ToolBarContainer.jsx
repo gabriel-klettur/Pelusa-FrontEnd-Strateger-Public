@@ -54,7 +54,7 @@ const ToolBarContainer = () => {
     }, [currentInterval,currentTicker,  startDate, jumpToDate, dispatch]);
 
     return(
-        <div className="h-14 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
+        <div className="h-12 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
             <div className="h-full flex justify-start items-center">
                 <TickersPanel 
                     currentTicker={currentTicker}
