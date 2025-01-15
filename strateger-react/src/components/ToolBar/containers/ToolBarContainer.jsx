@@ -1,7 +1,9 @@
 //Path: strateger-react/src/components/ToolBar/containers/ToolBarContainer.jsx
 
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setCandlestickChartParameters } from 'reduxStore/charts';
 
 import IntervalBarContainer from './IntervalBarContainer';
 import RelojContainer from './RelojContainer';
@@ -29,6 +31,18 @@ const ToolBarContainer = () => {
     }, [currentInterval, currentTicker, jumpToDate]);
 
 
+    const dispatch = useDispatch();
+    const handleIntervalChange = (newInterval) => {
+        setCurrentInterval(newInterval);
+        
+        dispatch(setCandlestickChartParameters({
+          interval: newInterval,
+          startDate: new Date(startDate).toISOString(),
+          endDate: new Date(endDate).toISOString(),
+        }));
+    };
+
+
     return(
         <div className="h-14 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
             <div className="h-full flex justify-start items-center">
@@ -41,10 +55,8 @@ const ToolBarContainer = () => {
             <div className="h-full flex justify-center items-center">
                 <IntervalBarContainer
                     currentInterval={currentInterval}
-                    setCurrentInterval={setCurrentInterval}
-                    startDate={startDate}
-                    endDate={endDate}
-                />   
+                    handleIntervalChange={handleIntervalChange}
+                />
             </div>
 
             <div className="h-full flex justify-center items-center">

@@ -9,10 +9,10 @@ const FiltersPanel = ({filterSectionsConfig, handleCheckboxChange, handleApply, 
             {filterSectionsConfig.map((section) => (
             <div key={section.title}>
                 <FilterSection                
-                title={section.title}
-                items={section.items}
-                onChange={(key) => handleCheckboxChange(section.stateUpdater, key)}
-                gridCols={section.gridCols}
+                    title={section.title}
+                    items={section.items}
+                    onChange={(key) => handleCheckboxChange(section.stateUpdater, key)}
+                    gridCols={section.gridCols}
                 />
                 <hr />          
             </div>
