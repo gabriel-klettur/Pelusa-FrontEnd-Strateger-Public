@@ -15,33 +15,43 @@ import TickersPanel from '../components/TickersPanel';
 
 const ToolBarContainer = () => {
 
+    const dispatch = useDispatch();
+
     const initialTemporalidad = useSelector(selectTemporalidad);
     //!const initialTicker = useSelector(selectTicker);
     const startDate = useSelector(selectStartDate);
-    const endDate = useSelector(selectCurrentDate);
+    const initialEndDate = useSelector(selectCurrentDate);
 
     const [currentInterval, setCurrentInterval] = useState(initialTemporalidad); 
-    const [currentTicker, setCurrentTicker] = useState('BTCUSDT');
-    const [jumpToDate, setJumpToDate] = useState(null);    
+    const [currentTicker, setCurrentTicker] = useState('BTC-USDT');
+    const [jumpToDate, setJumpToDate] = useState(initialEndDate);
     
-    useEffect(() => {
-        console.log('currentInterval:', currentInterval);
-        console.log('currentTicker:', currentTicker);
-        console.log('jumpToDate:', jumpToDate);
-    }, [currentInterval, currentTicker, jumpToDate]);
-
-
-    const dispatch = useDispatch();
-    const handleIntervalChange = (newInterval) => {
-        setCurrentInterval(newInterval);
-        
-        dispatch(setCandlestickChartParameters({
-          interval: newInterval,
-          startDate: new Date(startDate).toISOString(),
-          endDate: new Date(endDate).toISOString(),
-        }));
-    };
-
+    useEffect(() => {        
+        const parameters = {
+            interval: currentInterval,
+            startDate: new Date(startDate).toISOString(),
+            endDate: new Date(jumpToDate).toISOString(),
+            ticker: currentTicker
+        };
+            
+        const hasParametersChanged = () => {
+            const previousParams = JSON.parse(localStorage.getItem('chartParameters')) || {};
+            return (
+                parameters.interval !== previousParams.interval ||
+                parameters.startDate !== previousParams.startDate ||
+                parameters.endDate !== previousParams.endDate ||
+                parameters.ticker !== previousParams.ticker
+            );
+        };
+    
+        if (hasParametersChanged()) {
+            console.log('----------- Parameters -----------------------');            
+            console.log(parameters);
+            
+            dispatch(setCandlestickChartParameters(parameters));            
+            localStorage.setItem('chartParameters', JSON.stringify(parameters));
+        }
+    }, [currentInterval,currentTicker,  startDate, jumpToDate, dispatch]);
 
     return(
         <div className="h-14 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
@@ -55,7 +65,7 @@ const ToolBarContainer = () => {
             <div className="h-full flex justify-center items-center">
                 <IntervalBarContainer
                     currentInterval={currentInterval}
-                    handleIntervalChange={handleIntervalChange}
+                    setCurrentInterval={setCurrentInterval}
                 />
             </div>
 
@@ -65,6 +75,7 @@ const ToolBarContainer = () => {
 
             <div className="h-full flex justify-center items-center">
                 <JumpInTimePanel
+                    jumpToDate={jumpToDate}
                     setJumpToDate={setJumpToDate}
                 />
             </div>            

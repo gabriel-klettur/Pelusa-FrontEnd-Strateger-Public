@@ -47,19 +47,33 @@ const adjustDates = (interval, startDate, endDate) => {
     return { interval, expandedStartDate, expandedEndDate };
   };
 
-export const fetchCandlestickChartData = createAsyncThunk(
+  export const fetchCandlestickChartData = createAsyncThunk(
     'candlestickChart/fetchCandlestickChartData',
-    async ({ interval, startDate, endDate }, { rejectWithValue }) => {
+    async ({ interval = '5m', startDate, endDate, ticker = 'BTC-USDT' }, { rejectWithValue }) => {
       try {
-        const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(interval, startDate, endDate);
+        // Manejo de valores predeterminados para fechas
+        let adjustedStartDate = startDate;
+        let adjustedEndDate = endDate;
   
-        if (!expandedStartDate || !expandedEndDate || expandedStartDate >= expandedEndDate) {
+        adjustedStartDate = startDate || new Date(); // Fecha actual si no hay startDate
+        adjustedEndDate = endDate || new Date();    // Fecha actual si no hay endDate
+          
+        // Validar fechas ajustadas
+        if (!adjustedStartDate || !adjustedEndDate || new Date(adjustedStartDate) >= new Date(adjustedEndDate)) {
           return rejectWithValue('Invalid date range');
         }
   
+        // Ajustar las fechas según el intervalo
+        const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(
+          interval,
+          adjustedStartDate,
+          adjustedEndDate
+        );
+  
+        // Llamada a la API
         const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
           params: {
-            symbol: "BTC-USDT",
+            symbol: ticker,
             interval: adjustedInterval,
             limit: "1440",
             start_date: expandedStartDate.toISOString().slice(0, 19).replace('T', ' '),
@@ -70,13 +84,15 @@ export const fetchCandlestickChartData = createAsyncThunk(
         const resultData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
   
         if (resultData.code === 0) {
-          const formattedData = resultData.data.map(item => [
-            new Date(item.time).getTime(),
-            parseFloat(item.open),
-            parseFloat(item.high),
-            parseFloat(item.low),
-            parseFloat(item.close)
-          ]).filter(item => !isNaN(item[0]));
+          const formattedData = resultData.data
+            .map(item => [
+              new Date(item.time).getTime(),
+              parseFloat(item.open),
+              parseFloat(item.high),
+              parseFloat(item.low),
+              parseFloat(item.close)
+            ])
+            .filter(item => !isNaN(item[0]));
   
           formattedData.sort((a, b) => a[0] - b[0]);
   

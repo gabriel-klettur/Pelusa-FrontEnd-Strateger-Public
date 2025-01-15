@@ -28,7 +28,8 @@ const candlestickChartSlice = createSlice({
     data: [],    
     startDate: null,
     endDate: null,
-    interval: '5m',
+    ticker: null,
+    interval: null,
     markers: markersStates,       
     loading: false,
     error: null,
@@ -39,6 +40,7 @@ const candlestickChartSlice = createSlice({
       state.startDate = new Date(action.payload.startDate).toISOString();
       state.endDate = new Date(action.payload.endDate).toISOString();
       state.interval = action.payload.interval;
+      state.ticker = action.payload.ticker;
     },
     //!------------------------------- Data -------------------------------
     updateChartData(state, action) {      

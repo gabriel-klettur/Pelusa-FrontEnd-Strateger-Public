@@ -2,6 +2,7 @@ export const selectCandlestickChartData = state => state.candlestickChart.data;
 export const selectCandlestickChartStartDate = state => state.candlestickChart.startDate;
 export const selectCandlestickChartEndDate = state => state.candlestickChart.endDate;
 export const selectCandlestickChartInterval = state => state.candlestickChart.interval;
+export const selectCandlestickChartTicker = state => state.candlestickChart.ticker;
 
 export const selectMarkersAlarmDefault = state => state.candlestickChart.markers.alarm.default;
 export const selectMarkersAlarmSelectedByClick = state => state.candlestickChart.markers.alarm.selectedByClick;

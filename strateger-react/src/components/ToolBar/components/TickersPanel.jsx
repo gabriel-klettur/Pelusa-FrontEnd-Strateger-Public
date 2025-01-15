@@ -16,14 +16,14 @@ const TickersPanel = ({currentTicker, setCurrentTicker}) => {
                 </PopoverButton>
                 <PopoverPanel anchor="bottom" className="mt-4 absolute w-40 bg-african_violet-100/95 shadow-lg rounded-sm p-4 space-y-4 z-50">                    
                     <button
-                        onClick={() => handleTickerClick('BTCUSD.PS')}
+                        onClick={() => handleTickerClick('BTC-USDT')}
                         className="block w-full text-left hover:bg-african_violet-300 p-2 text-african_violet-900"
                     >
                         BTCUSDT
                     </button>
                     
                     <button
-                        onClick={() => handleTickerClick('ETHUSDT.PS')}
+                        onClick={() => handleTickerClick('ETH-USDT')}
                         className="block w-full text-left hover:bg-african_violet-300 p-2 text-african_violet-900"
                     >
                         ETHUSDT

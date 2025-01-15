@@ -2,16 +2,14 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-// Definir el estado inicial
-const initialTemporalidad = '5m'; // Define el intervalo inicial como '5m'
 
-// Obtener la fecha actual y formatearla
+const initialTemporalidad = '5m';
 const currentDate = new Date();
 const formattedCurrentDate = currentDate.toISOString();
 
 // Calcular la fecha de inicio (1000 días antes de la fecha actual)
 const startDate = new Date();
-startDate.setDate(currentDate.getDate() - 1000);
+startDate.setDate(currentDate.getDate() - 1000);    //getDate() devuelve el día del mes actual
 const formattedStartDate = startDate.toISOString();
 
 // Slice de Redux

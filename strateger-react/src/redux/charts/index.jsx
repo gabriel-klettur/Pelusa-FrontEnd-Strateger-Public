@@ -10,7 +10,7 @@ import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, set
 import { fetchCandlestickChartData } from './candlestickChartThunks';
 
 //Selectors
-import { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval } from './candlestickChartSelectors';
+import { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectCandlestickChartTicker } from './candlestickChartSelectors';
 import { selectCandlestickChartLoading, selectCandlestickChartError } from './candlestickChartSelectors';
 import { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFiltered  } from './candlestickChartSelectors';
 import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from './candlestickChartSelectors';
@@ -24,7 +24,7 @@ export { setAlarmDefaultMarkers, setAlarmSelectedByClickMarkers, setAlarmFiltere
 export { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers };
 
 //TODO Selectors
-export { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval };
+export { selectCandlestickChartData, selectCandlestickChartStartDate, selectCandlestickChartEndDate, selectCandlestickChartInterval, selectCandlestickChartTicker };
 export { selectCandlestickChartLoading, selectCandlestickChartError };
 export { selectMarkersAlarmDefault, selectMarkersAlarmSelectedByClick, selectMarkersAlarmFiltered };
 export { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot };
