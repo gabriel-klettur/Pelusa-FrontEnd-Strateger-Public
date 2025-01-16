@@ -12,13 +12,13 @@ const IntervalBar = ({intervals, currentInterval, handleIntervalChange }) => {
     return(
         <div className="flex h-full w-full bg-african_violet-300">
             {intervals.map((interval) => (
-            <button
-                key={interval}
-                className={`${buttonClasses(interval)} flex-grow flex-basis-0`}
-                onClick={() => handleIntervalChange(interval)}
-            >
-                {interval}
-            </button>
+                <button
+                    key={interval}
+                    className={`${buttonClasses(interval)} flex-grow flex-basis-0`}
+                    onClick={() => handleIntervalChange(interval)}
+                >
+                    {interval}
+                </button>            
             ))}
         </div>
     );

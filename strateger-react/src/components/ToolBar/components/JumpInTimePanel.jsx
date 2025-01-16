@@ -1,5 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useRef, useState } from 'react';
+import ActionButton from './ActionButton';
 
 const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
     const [year, setYear] = useState('');
@@ -105,25 +106,23 @@ const JumpInTimePanel = ({ jumpToDate, setJumpToDate }) => {
                                         />
                                     ))}
                                 </div>
-                                <div className="flex gap-2 justify-center">
-                                    <button
+                                <div className="flex gap-2 justify-center">                          
+                                    <ActionButton
+                                        text="GO"
                                         onClick={() => handleOkClick(close)}
-                                        className="px-5 py-2 border-2 border-green-500 text-green-500 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-200"
-                                    >
-                                        GO
-                                    </button>
-                                    <button
+                                        className="border-2 border-green-500 text-green-500 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-200"
+                                    />
+                                    <ActionButton
+                                        text="Current Date"
                                         onClick={handleCurrentDateClick}
-                                        className="px-5 py-2 border-2 border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-200"
-                                    >
-                                        CurrentDate
-                                    </button>
-                                    <button
+                                        className="border-2 border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-200"
+                                    />
+                                    <ActionButton
+                                        text="CLEAR"
                                         onClick={handleClearClick}
-                                        className="px-5 py-2 border-2 border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-colors duration-200"
-                                    >
-                                        CLEAR
-                                    </button>
+                                        className="border-2 border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-colors duration-200"
+                                    />
+
                                 </div>
                             </div>
                         </PopoverPanel>
