@@ -1,7 +1,7 @@
 
 
 import DiaryListContainer from "./DiaryListContainer";
-import MainChart from "../../Charts/MainChart/MainChart";
+//import MainChart from "../../Charts/MainChart/MainChart";
 import DiaryCalendar from "../components/DiaryCalendar/DiaryCalendar";
 import DiaryEntryFormContainer from "./DiaryEntryFormContainer";
 
@@ -37,7 +37,7 @@ const DiaryContainer = () => {
       <div className="flex flex-col bg-african_violet-500">
           <div className="grid grid-cols-10">
               <div className="col-span-7 p-1">
-                  <MainChart />                                   {/* CANDLESTICK CHART */}
+                  {/*<MainChart /> */}                                  {/* CANDLESTICK CHART */}
               </div>
               <div className="col-span-3 p-1">
                   <DiaryCalendar results={dataCalendar}/>         {/* CALENDAR */}
