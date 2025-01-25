@@ -7,30 +7,21 @@ import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
 
-import useFetchChartData from '../hooks/useFetchChartData';
-import useSetupChartParameters from '../hooks/useSetupChartParameters';
+import useFetchChartData from '../hooks/useFetchChartData';                 // Request data from the server
+import useSetupChartParameters from '../hooks/useSetupChartParameters';     // Setup chart parameters  
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
-import { selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton} from 'reduxStore/interaction';
 import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from 'reduxStore/interaction';
-import { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton } from 'reduxStore/interaction';
+
+import useChartSettings from '../hooks/useChartSettings';
 
 
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
-    const chartSettings = {
-        showStochasticSerie: useSelector(selectChartStochasticButton),
-        showEmasSerie: useSelector(selectChartEmasButton),
-        showCandlestickSerie: useSelector(selectChartCandleStickButton),
-        
-        showOrdersUsdmMarkers: useSelector(selectOrdersUsdtmButton),
-        showOrdersCoinmMarkers: useSelector(selectOrdersCoinmButton),
-        showOrdersSpotMarkers: useSelector(selectOrdersSpotButton),
-        showOrdersStandardMarkers: useSelector(selectOrdersStandardButton),
-    };
+    const chartSettings = useChartSettings();
 
     const alarmMarkersSettings = {
         showAlarmsMarkers: useSelector(selectAlarmButtons),
