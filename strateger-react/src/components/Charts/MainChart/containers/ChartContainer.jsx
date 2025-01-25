@@ -9,23 +9,17 @@ import CandlestickChartContainer from './CandlestickChartContainer';
 import useFetchChartData from '../hooks/data/useFetchChartData';                        // Request data from the server
 import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';          // Setup chart parameters  
 import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';  // Setup chart components visibility
+import useAlarmMarkersVisibility from '../hooks/useAlarmMarkersVisibility';             // Setup alarm markers visibility 
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';             // Loading overlay component
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';                     // Buttons panel component
 
-import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from 'reduxStore/interaction';
-
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
-    const chartSettings = useChartComponentVisibility();   // Get the chart settings from the store
-
-    const alarmMarkersSettings = {
-        showAlarmsMarkers: useSelector(selectAlarmButtons),
-        showAlarmsSelectedMarkers: useSelector(selectSelectedAlarmsButton),
-        showAlarmsFilteredMarkers: useSelector(selectFilteredAlarmsButton),
-    };
-
+    const chartComponentsVisibility = useChartComponentVisibility();   // Get the chart settings from the store    
+    const alarmMarkersVisibility = useAlarmMarkersVisibility(); // Get the alarm markers settings from the store         
+    
     //!------------------------------ Parameters ------------------------------!//
     const interval = useSelector(selectTemporalidad);
     const startDate = new Date(useSelector(selectStartDate)).toISOString();
@@ -34,7 +28,6 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);
     const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
 
-
     //!------------------------------ Render ------------------------------!//
     return (
         <div className="relative">
@@ -42,26 +35,26 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
                 <ButtonsPanel
-                    chartSettings={chartSettings}                    
+                    chartSettings={chartComponentsVisibility}                    
                     showButtonsPanel={showButtonsPanel}
                     updateShowButtonsPanel={updateShowButtonsPanel}
-                    alarmMarkersSettings={alarmMarkersSettings}                    
+                    alarmMarkersSettings={alarmMarkersVisibility}                    
                 />        
             </div>
 
             <div className="flex flex-col">
-                <div style={{ height: chartSettings.showStochasticSerie ? "400px" : "600px" }}>
+                <div style={{ height: chartComponentsVisibility.showStochasticSerie ? "400px" : "600px" }}>
                     <CandlestickChartContainer
                         data={data}
-                        chartSettings={chartSettings}
+                        chartSettings={chartComponentsVisibility}
                         chartInterval={chartInterval}
-                        alarmMarkersSettings={alarmMarkersSettings}
+                        alarmMarkersSettings={alarmMarkersVisibility}
                     />
                 </div>
-                <div style={{ height: chartSettings.showStochasticSerie ? "200px" : "0px" }}>
+                <div style={{ height: chartComponentsVisibility.showStochasticSerie ? "200px" : "0px" }}>
                     <StochasticChartContainer 
                         data={data} 
-                        chartSettings={chartSettings}                         
+                        chartSettings={chartComponentsVisibility}                         
                  />
                 </div>
             </div>
