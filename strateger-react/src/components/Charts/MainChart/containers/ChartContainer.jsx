@@ -6,18 +6,14 @@ import { selectTemporalidad, selectStartDate, selectCurrentDate } from 'reduxSto
 import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
+import useFetchChartData from '../hooks/data/useFetchChartData';                        // Request data from the server
+import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';          // Setup chart parameters  
+import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';  // Setup chart components visibility
 
-import useFetchChartData from '../hooks/data/useFetchChartData';                 // Request data from the server
-import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';     // Setup chart parameters  
-import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';
-
-import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
-import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
+import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';             // Loading overlay component
+import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';                     // Buttons panel component
 
 import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from 'reduxStore/interaction';
-
-
-
 
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     
