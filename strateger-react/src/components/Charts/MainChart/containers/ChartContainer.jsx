@@ -14,10 +14,10 @@ import useAlarmMarkersVisibility from '../hooks/useAlarmMarkersVisibility';     
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';             // Loading overlay component
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';                     // Buttons panel component
 
-const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
+const ChartContainer = ({ showButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
-    const chartComponentsVisibility = useChartComponentVisibility();   // Get the chart settings from the store    
+    const chartButtonsVisibility = useChartComponentVisibility();   // Get the chart settings from the store    
     const alarmMarkersVisibility = useAlarmMarkersVisibility(); // Get the alarm markers settings from the store         
     
     //!------------------------------ Parameters ------------------------------!//
@@ -35,26 +35,24 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
                 <ButtonsPanel
-                    chartSettings={chartComponentsVisibility}                    
-                    showButtonsPanel={showButtonsPanel}
-                    updateShowButtonsPanel={updateShowButtonsPanel}
-                    alarmMarkersSettings={alarmMarkersVisibility}                    
+                    buttonsVisilibity={chartButtonsVisibility}                    
+                    showButtonsPanel={showButtonsPanel}                    
                 />        
             </div>
 
             <div className="flex flex-col">
-                <div style={{ height: chartComponentsVisibility.showStochasticSerie ? "400px" : "600px" }}>
+                <div style={{ height: chartButtonsVisibility.showStochasticSerie ? "400px" : "600px" }}>
                     <CandlestickChartContainer
                         data={data}
-                        chartSettings={chartComponentsVisibility}
+                        chartSettings={chartButtonsVisibility}
                         chartInterval={chartInterval}
                         alarmMarkersSettings={alarmMarkersVisibility}
                     />
                 </div>
-                <div style={{ height: chartComponentsVisibility.showStochasticSerie ? "200px" : "0px" }}>
+                <div style={{ height: chartButtonsVisibility.showStochasticSerie ? "200px" : "0px" }}>
                     <StochasticChartContainer 
                         data={data} 
-                        chartSettings={chartComponentsVisibility}                         
+                        chartSettings={chartButtonsVisibility}                         
                  />
                 </div>
             </div>

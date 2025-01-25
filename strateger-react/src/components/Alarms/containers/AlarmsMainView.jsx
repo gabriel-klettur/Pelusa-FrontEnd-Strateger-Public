@@ -16,7 +16,7 @@ import { selectAlarmsData, selectFilteredByClickAlarms, selectFilteredByOptionsA
 const AlarmsMainView = () => {
 
     //TODO - Handle the visibility of the buttons panel
-    const { showButtonsPanel, updateShowButtonsPanel } = useShowButtonsPanel({
+    const { showButtonsPanel } = useShowButtonsPanel({
         showChartsButtonsPanel: true,
         showAlarmsButtonsPanel: true,
         showOrdersButtonsPanel: false,
@@ -32,8 +32,7 @@ const AlarmsMainView = () => {
             <div className='grid grid-cols-10'>
                 <div className='col-span-7'>
                     <MainChart
-                        showButtonsPanel={showButtonsPanel}
-                        updateShowButtonsPanel={updateShowButtonsPanel}
+                        showButtonsPanel={showButtonsPanel}                        
                     />
                 </div>
                 <div className='col-span-3 mt-1 mr-1 mb-1'>

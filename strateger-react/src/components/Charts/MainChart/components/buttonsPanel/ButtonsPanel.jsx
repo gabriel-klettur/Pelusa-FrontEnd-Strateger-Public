@@ -16,7 +16,7 @@ import {
     selectFilteredByOptionsAlarmsLength,
 } from "reduxStore/alarm";
 
-const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings }) => {
+const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
     const dispatch = useDispatch();
     const activeButtons = useSelector((state) => state.interaction.Chart.ButtonsPanel.AlarmButtons);
 
@@ -38,7 +38,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleChartMainButtons("stochasticButton"))}
                         indicatorName="Stochastic"
                         bgColor={
-                            chartSettings.showStochasticSerie
+                            buttonsVisilibity.showStochasticSerie
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -47,7 +47,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleChartMainButtons("emasButton"))}
                         indicatorName="Emas"
                         bgColor={
-                            chartSettings.showEmasSerie
+                            buttonsVisilibity.showEmasSerie
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -57,7 +57,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         indicatorName="Candlesticks"
                         buttonReduxId="candleStickButton"
                         bgColor={
-                            chartSettings.showCandlestickSerie
+                            buttonsVisilibity.showCandlestickSerie
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -100,7 +100,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleOrderButton("showOrdersUsdmMarkers"))}
                         indicatorName="Usdm Orders"
                         bgColor={
-                            chartSettings.showOrdersUsdmMarkers
+                            buttonsVisilibity.showOrdersUsdmMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -109,7 +109,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleOrderButton("showOrdersCoinmMarkers"))}
                         indicatorName="Coinm Orders"
                         bgColor={
-                            chartSettings.showOrdersCoinmMarkers
+                            buttonsVisilibity.showOrdersCoinmMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -118,7 +118,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleOrderButton("showOrdersSpotMarkers"))}
                         indicatorName="Spot Orders"
                         bgColor={
-                            chartSettings.showOrdersSpotMarkers
+                            buttonsVisilibity.showOrdersSpotMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
@@ -127,7 +127,7 @@ const ButtonsPanel = ({ chartSettings, showButtonsPanel, alarmMarkersSettings })
                         setShow={() => dispatch(setToggleOrderButton("showOrdersStandardMarkers"))}
                         indicatorName="Standard Orders"
                         bgColor={
-                            chartSettings.showOrdersStandardMarkers
+                            buttonsVisilibity.showOrdersStandardMarkers
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
