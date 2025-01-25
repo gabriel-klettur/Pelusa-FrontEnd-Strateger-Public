@@ -12,11 +12,9 @@ import useSetupChartParameters from '../hooks/useSetupChartParameters';
 import useInitializeChart from '../hooks/useInitializeChart';
 import useInitializeCandlestickSeries from '../hooks/useInitializeCandlestickSeries';
 import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
-import useInitializeStochasticSeries from '../hooks/useInitializeStochasticSeries';
 
 import useSetCandlestickSeriesData from '../hooks/useSetCandlestickSeriesData';
 import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
-import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
@@ -69,15 +67,7 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     useSetupMarkers(candlestickSeriesRef, chartInterval, 
         alarmMarkersSettings.showAlarmsMarkers, alarmMarkersSettings.showAlarmsSelectedMarkers, alarmMarkersSettings.showAlarmsFilteredMarkers,
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
-
-    //!------------------------------ Secondary Chart ------------------------------!//
-    const secondaryChartContainerRef = useRef();
-    const secondChartRef = useInitializeChart(secondaryChartContainerRef);
-
-    const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(secondChartRef);
-
-    //* Hooks
-    useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
+    
 
     //!------------------------------ Render ------------------------------!//
     return (
@@ -98,7 +88,10 @@ const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
                     <CandlestickChartContainer chartContainerRef={mainChartContainerRef} />
                 </div>
                 <div style={{ height: chartSettings.showStochasticSerie ? "200px" : "0px" }}>
-                    <StochasticChartContainer stochasticChartContainerRef={secondaryChartContainerRef} />
+                    <StochasticChartContainer 
+                        data={data} 
+                        chartSettings={chartSettings}                         
+                 />
                 </div>
             </div>
         </div>
