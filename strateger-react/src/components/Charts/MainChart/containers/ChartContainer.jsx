@@ -9,19 +9,20 @@ import CandlestickChartContainer from './CandlestickChartContainer';
 
 import useFetchChartData from '../hooks/data/useFetchChartData';                 // Request data from the server
 import useSetupChartParameters from '../hooks/useSetupChartParameters';     // Setup chart parameters  
+import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';
 
 import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from 'reduxStore/interaction';
 
-import useChartSettings from '../hooks/useChartSettings';
+
 
 
 const ChartContainer = ({ showButtonsPanel, updateShowButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
-    const chartSettings = useChartSettings();   // Get the chart settings from the store
+    const chartSettings = useChartComponentVisibility();   // Get the chart settings from the store
 
     const alarmMarkersSettings = {
         showAlarmsMarkers: useSelector(selectAlarmButtons),

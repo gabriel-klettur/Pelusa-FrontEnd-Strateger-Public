@@ -11,7 +11,7 @@ import {
     selectOrdersStandardButton 
 } from 'reduxStore/interaction';
 
-const useChartSettings = () => {
+const useChartComponentVisibility = () => {
     const chartSettings = {
         showStochasticSerie: useSelector(selectChartStochasticButton),
         showEmasSerie: useSelector(selectChartEmasButton),
@@ -25,4 +25,4 @@ const useChartSettings = () => {
     return chartSettings;
 };
 
-export default useChartSettings;
+export default useChartComponentVisibility;
