@@ -8,7 +8,7 @@ import CandlestickChartContainer from './CandlestickChartContainer';
 
 
 import useFetchChartData from '../hooks/data/useFetchChartData';                 // Request data from the server
-import useSetupChartParameters from '../hooks/useSetupChartParameters';     // Setup chart parameters  
+import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';     // Setup chart parameters  
 import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';

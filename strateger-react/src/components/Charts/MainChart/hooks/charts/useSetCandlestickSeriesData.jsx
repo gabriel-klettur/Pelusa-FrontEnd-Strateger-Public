@@ -1,7 +1,7 @@
 // src/components/CandlestickChart/hooks/useSetCandlestickSeriesData.js
 import { useEffect } from 'react';
-import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
-import { setCandlestickSeriesData } from '../components/series/candlestickSeries';
+import { formatChartData, sortAndRemoveDuplicates } from '../../utils/chartData';
+import { setCandlestickSeriesData } from '../../components/series/candlestickSeries';
 
 const useSetCandlestickSeriesData = (showCandlestickSerie, data, candlestickSeriesRef) => {
   useEffect(() => {

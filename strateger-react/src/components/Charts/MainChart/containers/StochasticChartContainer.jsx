@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import useInitializeStochasticSeries from '../hooks/useInitializeStochasticSeries';
 import useSetStochasticSeriesData from '../hooks/useSetStochasticSeriesData';
-import useInitializeChart from '../hooks/useInitializeChart'; 
+import useInitializeChart from '../hooks/charts/useInitializeChart'; 
 
 const StochasticChartContainer = ({ data, chartSettings }) => {
 

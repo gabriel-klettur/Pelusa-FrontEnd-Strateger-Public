@@ -3,10 +3,10 @@
 import { useRef } from 'react';
 
 import useSetupMarkers from '../hooks/useSetupMarkers';
-import useInitializeChart from '../hooks/useInitializeChart';
-import useInitializeCandlestickSeries from '../hooks/useInitializeCandlestickSeries';
+import useInitializeChart from '../hooks/charts/useInitializeChart';
+import useInitializeCandlestickSeries from '../hooks/charts/useInitializeCandlestickSeries';
 import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
-import useSetCandlestickSeriesData from '../hooks/useSetCandlestickSeriesData';
+import useSetCandlestickSeriesData from '../hooks/charts/useSetCandlestickSeriesData';
 import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
 
 const CandlestickChartContainer = ({data, chartSettings, chartInterval, alarmMarkersSettings}) => {  

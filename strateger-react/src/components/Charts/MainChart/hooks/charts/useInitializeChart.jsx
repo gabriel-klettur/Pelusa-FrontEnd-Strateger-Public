@@ -1,6 +1,6 @@
 // src/components/CandlestickChart/hooks/useInitializeChart.js
 import { useRef, useEffect } from 'react';
-import { initializeChart } from '../config/initializeChart';
+import { initializeChart } from '../../config/initializeChart';
 
 const useInitializeChart = (chartContainerRef) => {
   const chartRef = useRef();
