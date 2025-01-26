@@ -1,27 +1,31 @@
 // Path: strateger-react/src/components/Charts/CandlestickChartChart/config/chartConfig.js
 import { createChart } from 'lightweight-charts';
+import { ColorType } from 'lightweight-charts';
 
 export const initializeChart = (container) => {
   const chart = createChart(container, {
     autoSize: true, // Habilitar autoSize
     layout: {
-      backgroundColor: '#ffffff',
-      textColor: '#000',
+      background: {
+        type: ColorType.Solid,
+        color: '#181c27',
+    },
+      textColor: '#9a9ea7',
     },
     grid: {
       vertLines: {
-        color: '#e1e1e1',
+        color: '#242733',
       },
       horzLines: {
-        color: '#e1e1e1',
+        color: '#242733',
       },
     },
     timeScale: {
       timeVisible: true,
       secondsVisible: false,
-    }
+    },
   });
-
+  
   const updateTimeFormatter = () => {
     const visibleRange = chart.timeScale().getVisibleRange();
     if (!visibleRange) return;
