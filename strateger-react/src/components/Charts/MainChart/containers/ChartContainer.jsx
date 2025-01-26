@@ -1,5 +1,4 @@
 
-import { useSelector } from 'react-redux';
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from 'reduxStore/toolBar';
 
@@ -8,8 +7,7 @@ import CandlestickChartContainer from './CandlestickChartContainer';
 
 import useFetchChartData from '../hooks/data/useFetchChartData';                        // Request data from the server
 import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';          // Setup chart parameters  
-import useChartButtonsVisibility from '../hooks/charts/useChartButtonsVisibility';  // Setup chart components visibility
-import useAlarmMarkersVisibility from '../hooks/useAlarmMarkersVisibility';             // Setup alarm markers visibility 
+import useChartButtonsVisibility from '../hooks/charts/useChartButtonsVisibility';      // Setup chart components visibility
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';             // Loading overlay component
 import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';                     // Buttons panel component
@@ -18,15 +16,10 @@ const ChartContainer = ({ showButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
     const chartButtonsVisibility = useChartButtonsVisibility();   // Get the chart settings from the store    
-    const alarmMarkersVisibility = useAlarmMarkersVisibility(); // Get the alarm markers settings from the store         
-    
+            
     //!------------------------------ Parameters ------------------------------!//
-    const interval = useSelector(selectTemporalidad);
-    const startDate = new Date(useSelector(selectStartDate)).toISOString();
-    const endDate = new Date(useSelector(selectCurrentDate)).toISOString();
-
-    const { chartStartDate, chartEndDate } = useSetupChartParameters(interval, startDate, endDate);
-    const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);
+    const { chartStartDate, chartEndDate } = useSetupChartParameters(selectTemporalidad, selectStartDate, selectCurrentDate);   // Get the chart parameters
+    const { data, loading, chartInterval } = useFetchChartData(chartStartDate, chartEndDate);       // Get the data from the server
 
     //!------------------------------ Render ------------------------------!//
     return (
@@ -45,8 +38,7 @@ const ChartContainer = ({ showButtonsPanel }) => {
                     <CandlestickChartContainer
                         data={data}
                         chartSettings={chartButtonsVisibility}
-                        chartInterval={chartInterval}
-                        alarmMarkersSettings={alarmMarkersVisibility}
+                        chartInterval={chartInterval}                        
                     />
                 </div>
                 <div style={{ height: chartButtonsVisibility.showStochasticSerie ? "200px" : "0px" }}>

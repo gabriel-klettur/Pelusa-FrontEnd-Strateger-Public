@@ -9,7 +9,7 @@ import useInitializeEmasSeries from '../hooks/useInitializeEmasSeries';
 import useSetCandlestickSeriesData from '../hooks/charts/useSetCandlestickSeriesData';
 import useSetEmasSeriesData from '../hooks/useSetEmasSeriesData';
 
-const CandlestickChartContainer = ({data, chartSettings, chartInterval, alarmMarkersSettings}) => {  
+const CandlestickChartContainer = ({data, chartSettings, chartInterval}) => {  
         
         const mainChartContainerRef = useRef();
         const chartRef = useInitializeChart(mainChartContainerRef);
@@ -23,7 +23,7 @@ const CandlestickChartContainer = ({data, chartSettings, chartInterval, alarmMar
         useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);
     
         useSetupMarkers(candlestickSeriesRef, chartInterval, 
-            alarmMarkersSettings.showAlarmsMarkers, alarmMarkersSettings.showAlarmsSelectedMarkers, alarmMarkersSettings.showAlarmsFilteredMarkers,
+            chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredMarkers,
             chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers);
         
     
