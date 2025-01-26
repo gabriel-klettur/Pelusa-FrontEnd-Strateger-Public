@@ -8,7 +8,7 @@ import CandlestickChartContainer from './CandlestickChartContainer';
 
 import useFetchChartData from '../hooks/data/useFetchChartData';                        // Request data from the server
 import useSetupChartParameters from '../hooks/charts/useSetupChartParameters';          // Setup chart parameters  
-import useChartComponentVisibility from '../hooks/charts/useChartComponentVisibility';  // Setup chart components visibility
+import useChartButtonsVisibility from '../hooks/charts/useChartButtonsVisibility';  // Setup chart components visibility
 import useAlarmMarkersVisibility from '../hooks/useAlarmMarkersVisibility';             // Setup alarm markers visibility 
 
 import LoadingOverlay from '../../../common/LoadingOverlay/LoadingOverlay';             // Loading overlay component
@@ -17,7 +17,7 @@ import ButtonsPanel from '../components/buttonsPanel/ButtonsPanel';             
 const ChartContainer = ({ showButtonsPanel }) => {
     
     //!------------------------------ States Show/Hidden Components ------------------------------!//    
-    const chartButtonsVisibility = useChartComponentVisibility();   // Get the chart settings from the store    
+    const chartButtonsVisibility = useChartButtonsVisibility();   // Get the chart settings from the store    
     const alarmMarkersVisibility = useAlarmMarkersVisibility(); // Get the alarm markers settings from the store         
     
     //!------------------------------ Parameters ------------------------------!//
@@ -35,8 +35,8 @@ const ChartContainer = ({ showButtonsPanel }) => {
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
                 <ButtonsPanel
-                    buttonsVisilibity={chartButtonsVisibility}                    
                     showButtonsPanel={showButtonsPanel}                    
+                    buttonsVisilibity={chartButtonsVisibility}                                        
                 />        
             </div>
 

@@ -17,8 +17,7 @@ import {
 } from "reduxStore/alarm";
 
 const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
-    const dispatch = useDispatch();
-    const activeButtons = useSelector((state) => state.interaction.Chart.ButtonsPanel.AlarmButtons);
+    const dispatch = useDispatch();    
 
     const alarmsDataLength = useSelector(selectAlarmsDataLength);
     const filteredByClickAlarmsLength = useSelector(selectFilteredByClickAlarmsLength);
@@ -71,14 +70,19 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                     <ItemChartButton
                         setShow={() => handleAlarmButtonClick("alarms")}
                         indicatorName={`Alarms (${alarmsDataLength})`}
-                        bgColor={activeButtons.alarms ? "bg-african_violet-300" : "bg-african_violet-500"}
+                        bgColor={
+                            buttonsVisilibity.showAlarmsMarkers 
+                                ? "bg-african_violet-300" 
+                                : "bg-african_violet-500"}
                         disabled={alarmsDataLength === 0}
                     />
                     <ItemChartButton
                         setShow={() => handleAlarmButtonClick("selected")}
                         indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
                         bgColor={
-                            activeButtons.selected ? "bg-african_violet-300" : "bg-african_violet-500"
+                            buttonsVisilibity.showSelectedAlarmsMarkers 
+                                ? "bg-african_violet-300" 
+                                : "bg-african_violet-500"
                         }
                         disabled={filteredByClickAlarmsLength === 0}
                     />
@@ -86,7 +90,9 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                         setShow={() => handleAlarmButtonClick("filtered")}
                         indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
                         bgColor={
-                            activeButtons.filtered ? "bg-african_violet-300" : "bg-african_violet-500"
+                            buttonsVisilibity.showFilteredAlarmsMarkers 
+                                ? "bg-african_violet-300" 
+                                : "bg-african_violet-500"
                         }
                         disabled={filteredByOptionsAlarmsLength === 0}
                     />

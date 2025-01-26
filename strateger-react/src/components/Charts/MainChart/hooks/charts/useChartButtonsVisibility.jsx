@@ -5,17 +5,25 @@ import {
     selectChartStochasticButton, 
     selectChartEmasButton, 
     selectChartCandleStickButton, 
+    selectAlarmButtons,
+    selectSelectedAlarmsButton,
+    selectFilteredAlarmsButton,
     selectOrdersUsdtmButton, 
     selectOrdersCoinmButton, 
     selectOrdersSpotButton, 
     selectOrdersStandardButton 
 } from 'reduxStore/interaction';
 
-const useChartComponentVisibility = () => {
+const useChartButtonsVisibility = () => {
     const chartSettings = {
         showStochasticSerie: useSelector(selectChartStochasticButton),
         showEmasSerie: useSelector(selectChartEmasButton),
         showCandlestickSerie: useSelector(selectChartCandleStickButton),
+
+        showAlarmsMarkers: useSelector(selectAlarmButtons),        
+        showSelectedAlarmsMarkers: useSelector(selectSelectedAlarmsButton),
+        showFilteredAlarmsMarkers: useSelector(selectFilteredAlarmsButton),        
+        
         showOrdersUsdmMarkers: useSelector(selectOrdersUsdtmButton),
         showOrdersCoinmMarkers: useSelector(selectOrdersCoinmButton),
         showOrdersSpotMarkers: useSelector(selectOrdersSpotButton),
@@ -25,4 +33,4 @@ const useChartComponentVisibility = () => {
     return chartSettings;
 };
 
-export default useChartComponentVisibility;
+export default useChartButtonsVisibility;
