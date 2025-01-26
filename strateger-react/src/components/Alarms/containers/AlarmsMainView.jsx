@@ -43,7 +43,7 @@ const AlarmsMainView = () => {
                     />                                      
                 </div>
             </div>
-            <div className='mr-1 bg-african_violet-300 rounded-sm'>                
+            <div className='ml-1 mr-1 bg-african_violet-300 rounded-sm'>                
                 <AlarmTablesContainer />           
             </div>
         </div>

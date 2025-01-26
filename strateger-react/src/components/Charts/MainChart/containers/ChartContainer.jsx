@@ -2,7 +2,6 @@
 
 import { selectTemporalidad, selectStartDate, selectCurrentDate } from 'reduxStore/toolBar';
 
-import StochasticChartContainer from './StochasticChartContainer';
 import CandlestickChartContainer from './CandlestickChartContainer';
 
 import useFetchChartData from '../hooks/data/useFetchChartData';                        // Request data from the server
@@ -23,7 +22,7 @@ const ChartContainer = ({ showButtonsPanel }) => {
 
     //!------------------------------ Render ------------------------------!//
     return (
-        <div className="relative">
+        <div className="relative m-1">
             <LoadingOverlay isLoading={loading} />
 
             <div className="absolute top-1 left-1 flex flex-col space-y-1 z-10">                
@@ -34,7 +33,7 @@ const ChartContainer = ({ showButtonsPanel }) => {
             </div>
 
             <div className="flex flex-col">
-                <div className='w-full h-full'>
+                <div style={{ height: "600px" }}>
                     <CandlestickChartContainer
                         data={data}
                         chartSettings={chartButtonsVisibility}

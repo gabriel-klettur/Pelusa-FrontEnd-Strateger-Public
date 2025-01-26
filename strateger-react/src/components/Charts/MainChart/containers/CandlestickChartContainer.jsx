@@ -38,7 +38,7 @@ const CandlestickChartContainer = ({data, chartSettings, chartInterval}) => {
     return(
         <div
             ref={mainChartContainerRef}            
-            className="h-full rounded-t-lg overflow-hidden"
+            className="h-full overflow-hidden"
       ></div>    
     )
 };
