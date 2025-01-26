@@ -26,6 +26,7 @@ export const calculateStochastic = (data, periodK = 14, periodD = 3) => {
   
   export const createStochasticSeries = (chart, color) => {
     return chart.addLineSeries({
+      priceScaleId: 'stochastic',
       color: typeof color === 'string' ? color : String(color),
       lineWidth: 1,
       lastValueVisible: false,

@@ -10,6 +10,9 @@ const useSetStochasticSeriesData = (showStochasticSerie, data, stochasticKSeries
       const sortedData = sortAndRemoveDuplicates(formattedData);
 
       setStochastickSeriesData(stochasticKSeriesRef.current, stochasticDSeriesRef.current, sortedData);
+    } else if(stochasticKSeriesRef.current && stochasticDSeriesRef.current) {
+      stochasticKSeriesRef.current.setData([]);
+      stochasticDSeriesRef.current.setData([]);
     }
   }, [data, stochasticKSeriesRef, stochasticDSeriesRef, showStochasticSerie]);
 };

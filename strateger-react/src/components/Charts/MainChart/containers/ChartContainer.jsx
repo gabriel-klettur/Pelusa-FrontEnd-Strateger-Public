@@ -34,19 +34,13 @@ const ChartContainer = ({ showButtonsPanel }) => {
             </div>
 
             <div className="flex flex-col">
-                <div style={{ height: chartButtonsVisibility.showStochasticSerie ? "400px" : "600px" }}>
+                <div className='w-full h-full'>
                     <CandlestickChartContainer
                         data={data}
                         chartSettings={chartButtonsVisibility}
                         chartInterval={chartInterval}                        
                     />
-                </div>
-                <div style={{ height: chartButtonsVisibility.showStochasticSerie ? "200px" : "0px" }}>
-                    <StochasticChartContainer 
-                        data={data} 
-                        chartSettings={chartButtonsVisibility}                         
-                 />
-                </div>
+                </div>                
             </div>
         </div>
     );

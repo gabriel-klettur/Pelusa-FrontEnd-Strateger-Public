@@ -5,8 +5,10 @@ import { calculateStochastic, createStochasticSeries } from '../indicators/Stoch
 
 export const initializeStochastickSeries = (chart) => {
 
-    const stochasticKSeries = createStochasticSeries(chart, 'purple');
-    const stochasticDSeries = createStochasticSeries(chart, 'green');
+    const stochasticKSeries = createStochasticSeries(chart, 'blue');
+    const stochasticDSeries = createStochasticSeries(chart, 'orange');
+
+    
   
     return { stochasticKSeries, stochasticDSeries };
 };
