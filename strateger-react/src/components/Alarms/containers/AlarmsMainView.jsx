@@ -28,7 +28,7 @@ const AlarmsMainView = () => {
     const filteredByOptionsAlarmsData = useSelector(selectFilteredByOptionsAlarms);
 
     return (
-        <div className="flex flex-col" data-testid="alarms-container">            
+        <div className="flex flex-col bg-african_violet-700 " data-testid="alarms-container">            
             <div className='grid grid-cols-10'>
                 <div className='col-span-7'>
                     <MainChart

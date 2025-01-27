@@ -35,9 +35,9 @@ const ChartContainer = ({ showButtonsPanel }) => {
             
             <div className="flex">
                 {/* Contenedor interno con altura definida */}
-                <div className="flex w-full flex-row" style={{ height: "600px" }}>
+                <div className="flex w-full flex-row bg-african_violet-700" style={{ height: "600px" }}>
                     {/* Toolbar a la izquierda */}
-                    <div className="w-12 flex-shrink-0">
+                    <div className="w-12 flex-shrink-0 bg-african_violet-700 ">
                         <ChartToolBarChartToolBarContainer />
                     </div>
 

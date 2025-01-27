@@ -8,16 +8,19 @@ export const initializeChart = (container) => {
     layout: {
       background: {
         type: ColorType.Solid,
-        color: '#181c27',
+        //color: '#181c27',
+        color: '#ffffff',
     },
       textColor: '#9a9ea7',
     },
     grid: {
       vertLines: {
-        color: '#242733',
+        //color: '#242733',
+        color: '#e1e1e1',
       },
-      horzLines: {
-        color: '#242733',
+      horzLines: {        
+        //color: '#242733',
+        color: '#e1e1e1',
       },
     },
     timeScale: {
