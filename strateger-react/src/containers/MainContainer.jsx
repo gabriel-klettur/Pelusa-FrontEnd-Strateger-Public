@@ -8,9 +8,6 @@ const MainContainer = () => {
         <div className="h-screen"> 
             <Toolbar />
             <div className="flex flex-1"> 
-                <div className="w-12">
-                    <NavBarContainer />
-                </div>
                 <div className="flex-1"> 
                     <Outlet />
                 </div>
