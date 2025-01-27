@@ -4,7 +4,7 @@ const NavBar = ({ selectedTab, handleTabChange, tabs }) => {
     return (
         <TabGroup vertical selectedIndex={selectedTab} onChange={handleTabChange}>
             <div className="flex">
-                <TabList className="w-12 h-auto mt-1">
+                <TabList className="w-12 h-auto">
                     {tabs.map((tab, index) => (
                         <Tab
                             key={index}
