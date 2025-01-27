@@ -1,10 +1,10 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSelectedTab, selectSelectedTab } from 'reduxStore/tab/tabSlice';
+import { setSelectedTab, selectSelectedTab } from 'reduxStore/tab/tabSlice';    //! Should be moved to interactionSlice
 
 // Import the NavBar component
-import NavBar from '../components/NavBar';
+import TabBar from '../../common/TabBar';
 
 // Import or define your images
 import battleFieldIcon from '../assets/icons/battleField.svg';
@@ -54,7 +54,7 @@ const NavBarContainer = () => {
 
     return (
       <>
-        <NavBar
+        <TabBar
             selectedTab={selectedTab}
             handleTabChange={handleTabChange}
             tabs={tabs}
