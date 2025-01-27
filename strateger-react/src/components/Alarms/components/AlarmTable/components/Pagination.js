@@ -27,7 +27,7 @@ const Pagination = ({ page, hasMore, setHasMore, endIndex, totalDataLength, offs
   };
 
   return (
-    <div className="flex justify-between mt-6">
+    <div className="flex justify-between p-1">
       <button
         className={`px-5 py-2 font-semibold rounded-lg shadow-md transition-colors duration-200 ${
           page === 0

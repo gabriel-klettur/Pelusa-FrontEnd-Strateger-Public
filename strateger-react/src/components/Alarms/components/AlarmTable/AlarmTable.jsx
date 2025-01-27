@@ -48,16 +48,18 @@ const AlarmTable = ({ data, page, hasMore, setHasMore, offset, setPage }) => {
         columns={columnsHeaders} 
         renderRow={renderRow}         
       />
-      <Pagination 
-        page={page} 
-        hasMore={hasMore} 
-        setHasMore={setHasMore}
-        endIndex={page * 20 + paginatedData.length} 
-        totalDataLength={totalDataLength}  
-        offset={offset}   
-        setPage={setPage} 
-        fetchData={fetchAlarms} 
-      />
+      <div className=''>
+        <Pagination 
+          page={page} 
+          hasMore={hasMore} 
+          setHasMore={setHasMore}
+          endIndex={page * 20 + paginatedData.length} 
+          totalDataLength={totalDataLength}  
+          offset={offset}   
+          setPage={setPage} 
+          fetchData={fetchAlarms} 
+        />
+      </div>
     </>
   );
 };
