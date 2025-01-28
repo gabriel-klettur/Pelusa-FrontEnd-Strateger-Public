@@ -5,11 +5,6 @@ import { formatChartData, sortAndRemoveDuplicates } from '../../utils/chartData'
 
 const useSetStochasticSeriesData = (showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef) => {
   useEffect(() => {
-    console.log("📌 useSetStochasticSeriesData: Estado de las referencias antes de setData:", {
-      stochasticK: stochasticKSeriesRef.current,
-      stochasticD: stochasticDSeriesRef.current
-    });
-
 
     if (!stochasticKSeriesRef.current || !stochasticDSeriesRef.current) {
       console.error("⚠️ useSetStochasticSeriesData: Alguna de las series Stochastic no está definida.");

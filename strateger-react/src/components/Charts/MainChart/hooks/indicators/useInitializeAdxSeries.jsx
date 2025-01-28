@@ -21,12 +21,6 @@ const useInitializeAdxSeries = (chartRef) => {
       minusDISeriesRef.current = minusDISeries;
       keyLevelSeriesRef.current = keyLevelSeries;
 
-      console.log("✅ useInitializeAdxSeries: Series ADX correctamente inicializadas", {
-        adx: adxSeriesRef.current,
-        plusDI: plusDISeriesRef.current,
-        minusDI: minusDISeriesRef.current,
-        keyLevel: keyLevelSeriesRef.current
-      });
     }
   }, [chartRef]);
 

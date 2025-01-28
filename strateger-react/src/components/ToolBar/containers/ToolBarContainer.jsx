@@ -44,10 +44,7 @@ const ToolBarContainer = () => {
             );
         };
     
-        if (hasParametersChanged()) {
-            console.log('----------- Parameters -----------------------');            
-            console.log(parameters);
-            
+        if (hasParametersChanged()) {            
             dispatch(setCandlestickChartParameters(parameters));            
             localStorage.setItem('chartParameters', JSON.stringify(parameters));
         }

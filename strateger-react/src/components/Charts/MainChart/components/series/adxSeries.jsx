@@ -6,9 +6,7 @@ export const initializeADXSeries = (chart) => {
   if (!chart) {
     console.error("⚠️ initializeADXSeries: Chart no está definido.");
     return { adxSeries: null, plusDISeries: null, minusDISeries: null, keyLevelSeries: null };
-  }
-
-  console.log("✅ Creando ADX Series en el chart");
+  }  
 
   const { adxSeries, plusDISeries, minusDISeries, keyLevelSeries } = createADXSeries(chart);
 
