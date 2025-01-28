@@ -17,12 +17,13 @@ const ItemChartButton = ({ setShow, indicatorName, icon, isVisible, onClick, dis
   return (
     <button
       onClick={handleClick}
-      className={`px-1 py-1 text-white rounded rounded-xs flex items-center justify-center ${bgColor} ${
+      className={`px-2 py-1 text-white rounded rounded-xs flex items-center justify-center space-x-2 ${bgColor} ${
         disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
       }`}
       disabled={disabled}
     >
-      {icon ? <img src={icon} alt={indicatorName} className="w-8 h-8" /> : indicatorName}
+      {icon && <img src={icon} alt={indicatorName} className="w-6 h-6" />}
+      {indicatorName && <span>{indicatorName}</span>}
     </button>
   );
 };
