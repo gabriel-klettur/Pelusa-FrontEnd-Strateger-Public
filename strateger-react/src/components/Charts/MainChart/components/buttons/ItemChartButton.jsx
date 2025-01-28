@@ -1,11 +1,15 @@
 // Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
 
-const ItemChartButton = ({ setShow, indicatorName, bgColor, onClick, disabled }) => {
+const ItemChartButton = ({ setShow, indicatorName, isVisible, onClick, disabled }) => {
+  const bgColor = isVisible
+    ? "bg-african_violet-300"
+    : "bg-african_violet-500";
+
   const handleClick = () => {
-    if (!disabled) { // Asegúrate de que el botón no esté deshabilitado antes de ejecutar
-      setShow(); 
+    if (!disabled) {
+      setShow();
       if (onClick) {
-        onClick(); // Sincroniza con el tab correspondiente
+        onClick();
       }
     }
   };
