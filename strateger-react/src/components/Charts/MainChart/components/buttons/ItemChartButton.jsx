@@ -1,6 +1,6 @@
-// Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
+//Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
 
-const ItemChartButton = ({ setShow, indicatorName, isVisible, onClick, disabled }) => {
+const ItemChartButton = ({ setShow, indicatorName, icon, isVisible, onClick, disabled }) => {
   const bgColor = isVisible
     ? "bg-african_violet-300"
     : "bg-african_violet-500";
@@ -17,12 +17,12 @@ const ItemChartButton = ({ setShow, indicatorName, isVisible, onClick, disabled 
   return (
     <button
       onClick={handleClick}
-      className={`px-1 py-1 text-white rounded rounded-xs ${bgColor} ${
+      className={`px-1 py-1 text-white rounded rounded-xs flex items-center justify-center ${bgColor} ${
         disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
       }`}
       disabled={disabled}
     >
-      {indicatorName}
+      {icon ? <img src={icon} alt={indicatorName} className="w-8 h-8" /> : indicatorName}
     </button>
   );
 };

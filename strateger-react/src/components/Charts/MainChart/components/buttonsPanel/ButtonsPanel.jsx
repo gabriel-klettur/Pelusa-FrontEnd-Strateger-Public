@@ -16,6 +16,9 @@ import {
     selectFilteredByOptionsAlarmsLength,
 } from "reduxStore/alarm";
 
+import candlestickIcon from '../../../assets/candlestick.svg';
+import lineIcon from '../../../assets/line.svg';
+
 const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
     const dispatch = useDispatch();    
 
@@ -31,6 +34,24 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
     return (
         <div className="flex flex-col space-y-1">
             {/* Sección: Charts Buttons */}
+
+            {showButtonsPanel.showChartsButtonsPanel && (
+                <div className="flex space-x-1">
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("candleStickButton"))}
+                        icon={candlestickIcon}  
+                        isVisible={buttonsVisilibity.showCandlestickSerie}
+                    />
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("lineButton"))}
+                        icon={lineIcon}  
+                        isVisible={buttonsVisilibity.showLineSerie}
+                    />
+                </div>
+            )}
+
+            {/* Sección: Indicators Buttons */}
+
             {showButtonsPanel.showChartsButtonsPanel && (
                 <div className="flex space-x-1">
                     <ItemChartButton
@@ -42,11 +63,6 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                         setShow={() => dispatch(setToggleChartMainButtons("emasButton"))}
                         indicatorName="Emas"
                         isVisible={ buttonsVisilibity.showEmasSerie }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("candleStickButton"))}
-                        indicatorName="Candlesticks"                        
-                        isVisible={ buttonsVisilibity.showCandlestickSerie }
                     />
                     <ItemChartButton
                         setShow={() => dispatch(setToggleChartMainButtons("sqzMomentumButton"))}
