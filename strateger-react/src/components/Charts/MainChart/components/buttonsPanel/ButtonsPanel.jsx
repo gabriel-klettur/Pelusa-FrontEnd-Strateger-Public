@@ -1,6 +1,7 @@
 //Path: src/components/Charts/MainChart/components/buttons/ButtonsPanel.jsx
 
 import ItemChartButton from "../buttons/ItemChartButton";
+import ExpandableButtonPanel from "../buttons/ExpandableButtonPanel";
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -53,39 +54,49 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
             {/* Sección: Indicators Buttons */}
 
             {showButtonsPanel.showChartsButtonsPanel && (
-                <div className="flex space-x-1">
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("stochasticButton"))}
-                        indicatorName="Stochastic"
-                        isVisible={ buttonsVisilibity.showStochasticSerie }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("emasButton"))}
-                        indicatorName="Emas"
-                        isVisible={ buttonsVisilibity.showEmasSerie }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("sqzMomentumButton"))}
-                        indicatorName="SQZ Momentum"
-                        isVisible={ buttonsVisilibity.showSQZMOMENTUMSerie }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("adxButton"))}
-                        indicatorName="ADX"
-                        isVisible={ buttonsVisilibity.showAdxSerie }
-                    />                    
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("rsiButton"))}
-                        indicatorName="RSI"
-                        isVisible={ buttonsVisilibity.showRSISerie }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("bollingerButton"))}
-                        indicatorName="Bollinger Bands"
-                        isVisible={ buttonsVisilibity.showBollingerSerie }
-                        disabled={true}                        
-                    />
-                </div>
+                 <ExpandableButtonPanel
+                 title="Indicators"
+                 buttons={
+                    [
+                        {
+                            id: "stochastic",
+                            setShow: () => dispatch(setToggleChartMainButtons("stochasticButton")),                            
+                            indicatorName: "Stochastic",                            
+                            isVisible: buttonsVisilibity.showStochasticSerie,                            
+                        },
+                        {
+                            id: "emas",
+                            setShow: () => dispatch(setToggleChartMainButtons("emasButton")),
+                            indicatorName: "Emas",
+                            isVisible: buttonsVisilibity.showEmasSerie,
+                        },
+                        {
+                            id: "sqzMomentum",
+                            setShow: () => dispatch(setToggleChartMainButtons("sqzMomentumButton")),
+                            indicatorName: "SQZ Momentum",
+                            isVisible: buttonsVisilibity.showSQZMOMENTUMSerie,
+                        },
+                        {
+                            id: "adx",
+                            setShow: () => dispatch(setToggleChartMainButtons("adxButton")),
+                            indicatorName: "ADX",
+                            isVisible: buttonsVisilibity.showAdxSerie,
+                        },
+                        {
+                            id: "rsi",
+                            setShow: () => dispatch(setToggleChartMainButtons("rsiButton")),
+                            indicatorName: "RSI",
+                            isVisible: buttonsVisilibity.showRSISerie,
+                        },
+                        {
+                            id: "bollinger",
+                            setShow: () => dispatch(setToggleChartMainButtons("bollingerButton")),
+                            indicatorName: "Bollinger Bands",
+                            isVisible: buttonsVisilibity.showBollingerSerie,
+                            disabled: true,
+                        },
+                    ]}
+                />
             )}
 
             {/* Sección: Alarms Buttons */}

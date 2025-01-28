@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useState } from 'react';
-import indicatorsIcon from '../assets/indicators.svg';
+import indicatorsIcon from '../../../assets/indicators.svg';
 import ActionButton from './ActionButton';
 
 const IndicatorsPanel = () => {
