@@ -77,16 +77,7 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
-                    />
-                    <ItemChartButton
-                        setShow={() => dispatch(setToggleChartMainButtons("bollingerButton"))}
-                        indicatorName="Bollinger Bands"
-                        bgColor={
-                            buttonsVisilibity.showBollingerSerie
-                                ? "bg-african_violet-300"
-                                : "bg-african_violet-500"
-                        }
-                    />
+                    />                    
                     <ItemChartButton
                         setShow={() =>{                                
                                 dispatch(setToggleChartMainButtons("rsiButton"))
@@ -98,6 +89,16 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }
+                    />
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("bollingerButton"))}
+                        indicatorName="Bollinger Bands"
+                        bgColor={
+                            buttonsVisilibity.showBollingerSerie
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                        disabled={true}                        
                     />
                 </div>
             )}
