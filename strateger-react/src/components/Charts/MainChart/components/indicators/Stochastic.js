@@ -20,7 +20,7 @@ export const calculateStochastic = (data, periodK = 14, periodD = 3) => {
         dValues.push({ time: dSlice[dSlice.length - 1].time, value: dValue });
       }
     }
-  
+
     return { kValues, dValues };
   };
   
@@ -28,7 +28,7 @@ export const calculateStochastic = (data, periodK = 14, periodD = 3) => {
     return chart.addLineSeries({
       priceScaleId: 'stochastic',
       color: typeof color === 'string' ? color : String(color),
-      lineWidth: 1,
+      lineWidth: 2,
       lastValueVisible: false,
       crossHairMarkerVisible: false,
       priceLineVisible: false,

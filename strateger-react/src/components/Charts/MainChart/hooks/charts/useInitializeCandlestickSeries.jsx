@@ -1,4 +1,4 @@
-// src/components/CandlestickChart/hooks/useCandlestickSeries.js
+//Path: strateger-react/src/components/Charts/MainChart/hooks/charts/useInitializeCandlestickSeries.jsx
 import { useRef, useEffect } from 'react';
 import { initialCandlestickSeries } from '../../components/series/candlestickSeries';
 

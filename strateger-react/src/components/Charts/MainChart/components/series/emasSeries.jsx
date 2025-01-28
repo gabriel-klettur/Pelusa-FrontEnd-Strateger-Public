@@ -10,7 +10,7 @@ export const initializeEmasSeries = (chart) => {
     return { ema10Series, ema55Series, ema200Series };
 };
 
-export const setEmasSeriesData = (ema10Series, ema55Series, ema200Series, sortedData) => {    
+export const setEmasSeriesData = (ema10Series, ema55Series, ema200Series, sortedData) => {        
     const ema10Data = calculateEMA(sortedData, 10);
     const ema55Data = calculateEMA(sortedData, 55);
     const ema200Data = calculateEMA(sortedData, 200);

@@ -1,7 +1,7 @@
 // src/components/CandlestickChart/hooks/useSetEmasSeriesData.js
 import { useEffect } from 'react';
-import { setEmasSeriesData } from '../components/series/emasSeries';
-import { formatChartData, sortAndRemoveDuplicates } from '../utils/chartData';
+import { setEmasSeriesData } from '../../components/series/emasSeries';
+import { formatChartData, sortAndRemoveDuplicates } from '../../utils/chartData';
 
 const useSetEmasSeriesData = (showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef) => {
   useEffect(() => {

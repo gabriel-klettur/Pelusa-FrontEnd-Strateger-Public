@@ -1,5 +1,6 @@
+//Path: strateger-react/src/components/Charts/MainChart/hooks/indicators/useInitializeStochasticSeries.jsx
 import { useEffect, useRef } from 'react';
-import { initializeStochastickSeries } from '../components/series/stochastickSeries';
+import { initializeStochastickSeries } from '../../components/series/stochastickSeries';
 
 const useInitializeStochasticSeries = (chartRef) => {    
   const stochasticKSeriesRef = useRef();
@@ -13,18 +14,6 @@ const useInitializeStochasticSeries = (chartRef) => {
     }
   
   }, [chartRef]);
-
-  if (chartRef.current) {
-    chartRef.current.priceScale('stochastic').applyOptions({
-      visible: true,       
-      ticksVisible: true, // Mostrar ticks (equivalente a `drawTicks` de versiones previas)
-      scaleMargins: {
-        top: 0.1,
-        bottom: 0.1,
-      },
-    });
-  }
-
 
   return { stochasticKSeriesRef, stochasticDSeriesRef };
 };

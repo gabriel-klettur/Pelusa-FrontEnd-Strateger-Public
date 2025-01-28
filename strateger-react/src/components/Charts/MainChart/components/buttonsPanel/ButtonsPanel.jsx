@@ -53,10 +53,48 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                     />
                     <ItemChartButton
                         setShow={() => dispatch(setToggleChartMainButtons("candleStickButton"))}
-                        indicatorName="Candlesticks"
-                        buttonReduxId="candleStickButton"
+                        indicatorName="Candlesticks"                        
                         bgColor={
                             buttonsVisilibity.showCandlestickSerie
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                    />
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("sqzMomentumButton"))}
+                        indicatorName="SQZ Momentum"
+                        bgColor={
+                            buttonsVisilibity.showSQZMOMENTUMSerie
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                    />
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("adxButton"))}
+                        indicatorName="ADX"
+                        bgColor={
+                            buttonsVisilibity.showAdxSerie
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                    />
+                    <ItemChartButton
+                        setShow={() => dispatch(setToggleChartMainButtons("bollingerButton"))}
+                        indicatorName="Bollinger Bands"
+                        bgColor={
+                            buttonsVisilibity.showBollingerSerie
+                                ? "bg-african_violet-300"
+                                : "bg-african_violet-500"
+                        }
+                    />
+                    <ItemChartButton
+                        setShow={() =>{                                
+                                dispatch(setToggleChartMainButtons("rsiButton"))
+                            }
+                        }
+                        indicatorName="RSI"
+                        bgColor={
+                            buttonsVisilibity.showRSISerie
                                 ? "bg-african_violet-300"
                                 : "bg-african_violet-500"
                         }

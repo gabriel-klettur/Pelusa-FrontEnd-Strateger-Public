@@ -10,6 +10,8 @@ const initialState = {
             stochasticButton: false,
             emasButton: false,
             candleStickButton: true,
+            sqzMomentumButton: false,
+            rsiButton: false,
         },
         AlarmButtons:{
             alarms: true,

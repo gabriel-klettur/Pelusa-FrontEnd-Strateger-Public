@@ -7,9 +7,7 @@ export const initializeStochastickSeries = (chart) => {
 
     const stochasticKSeries = createStochasticSeries(chart, 'blue');
     const stochasticDSeries = createStochasticSeries(chart, 'orange');
-
     
-  
     return { stochasticKSeries, stochasticDSeries };
 };
 

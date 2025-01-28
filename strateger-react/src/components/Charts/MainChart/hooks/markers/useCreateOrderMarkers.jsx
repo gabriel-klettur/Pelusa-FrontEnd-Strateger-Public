@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../components/markers/Orders';
+import { mapOrdersToMarkers, sortAndFilterMarkers as sortAndFilterOrderMarkers } from '../../components/markers/Orders';
 
 const useCreateOrderMarkers = (chartInterval, selectOrders, setOrderMarkers) => {
     const dispatch = useDispatch();

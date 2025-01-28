@@ -20,6 +20,7 @@ export const calculateEMA = (data, period) => {
   export const createEMASeries = (chart, color) => {
     return chart.addLineSeries({
       color: typeof color === 'string' ? color : String(color), // Ensure color is a string
+      priceScaleId: 'emas',
       lineWidth: 2,
       lastValueVisible: false,
       crossHairMarkerVisible: false,

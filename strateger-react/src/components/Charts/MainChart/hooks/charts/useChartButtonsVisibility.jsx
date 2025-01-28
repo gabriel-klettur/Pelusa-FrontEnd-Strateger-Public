@@ -1,17 +1,19 @@
-//Path: strateger-react/src/components/Charts/MainChart/hooks/useChartSettings.jsx
+//Path: strateger-react/src/components/Charts/MainChart/hooks/charts/useChartButtonsVisibility.jsx
 
 import { useSelector } from 'react-redux';
 import { 
     selectChartStochasticButton, 
     selectChartEmasButton, 
     selectChartCandleStickButton, 
+    selectChartSQZMomentumButton,
     selectAlarmButtons,
     selectSelectedAlarmsButton,
     selectFilteredAlarmsButton,
     selectOrdersUsdtmButton, 
     selectOrdersCoinmButton, 
     selectOrdersSpotButton, 
-    selectOrdersStandardButton 
+    selectOrdersStandardButton,
+    selectChartRSIButton 
 } from 'reduxStore/interaction';
 
 const useChartButtonsVisibility = () => {
@@ -19,6 +21,9 @@ const useChartButtonsVisibility = () => {
         showStochasticSerie: useSelector(selectChartStochasticButton),
         showEmasSerie: useSelector(selectChartEmasButton),
         showCandlestickSerie: useSelector(selectChartCandleStickButton),
+        showSQZMOMENTUMSerie: useSelector(selectChartSQZMomentumButton), 
+        showRSISerie: useSelector(selectChartRSIButton), // Nuevo botón para RSI
+
 
         showAlarmsMarkers: useSelector(selectAlarmButtons),        
         showSelectedAlarmsMarkers: useSelector(selectSelectedAlarmsButton),

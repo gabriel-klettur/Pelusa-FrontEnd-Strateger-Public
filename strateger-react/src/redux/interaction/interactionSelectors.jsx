@@ -3,6 +3,10 @@
 export const selectChartStochasticButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.stochasticButton;
 export const selectChartEmasButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.emasButton;
 export const selectChartCandleStickButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.candleStickButton;
+export const selectChartSQZMomentumButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.sqzMomentumButton;
+export const selectChartRSIButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.rsiButton;
+  
+  
 
 export const selectAlarmButtons = (state) => state.interaction.Chart.ButtonsPanel.AlarmButtons.alarms;
 export const selectSelectedAlarmsButton = (state) => state.interaction.Chart.ButtonsPanel.AlarmButtons.selected;

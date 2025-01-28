@@ -1,6 +1,6 @@
-// src/components/CandlestickChart/hooks/useEmasSeries.js
+//Path: strateger-react/src/components/Charts/MainChart/hooks/useInitializeEmasSeries.jsx
 import { useRef, useEffect } from 'react';
-import { initializeEmasSeries } from '../components/series/emasSeries';
+import { initializeEmasSeries } from '../../components/series/emasSeries';
 
 const useInitializeEmasSeries = (chartRef) => {
   const ema10SeriesRef = useRef();
