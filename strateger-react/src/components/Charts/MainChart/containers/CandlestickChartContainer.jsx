@@ -35,12 +35,7 @@ const CandlestickChartContainer = ({data, chartSettings, chartInterval}) => {
         const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
         const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
         const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
-        const { 
-            adxSeriesRef, 
-            plusDISeriesRef, 
-            minusDISeriesRef, 
-            keyLevelSeriesRef 
-        } = useInitializeAdxSeries(chartRef);
+        const { adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef } = useInitializeAdxSeries(chartRef);
     
         //!----------------------- Incorportation of data -----------------------------!//
         useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
