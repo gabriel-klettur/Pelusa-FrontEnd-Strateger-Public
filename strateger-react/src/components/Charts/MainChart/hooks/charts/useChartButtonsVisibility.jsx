@@ -13,7 +13,8 @@ import {
     selectOrdersCoinmButton, 
     selectOrdersSpotButton, 
     selectOrdersStandardButton,
-    selectChartRSIButton 
+    selectChartRSIButton,
+    selectChartAdxButton
 } from 'reduxStore/interaction';
 
 const useChartButtonsVisibility = () => {
@@ -22,8 +23,8 @@ const useChartButtonsVisibility = () => {
         showEmasSerie: useSelector(selectChartEmasButton),
         showCandlestickSerie: useSelector(selectChartCandleStickButton),
         showSQZMOMENTUMSerie: useSelector(selectChartSQZMomentumButton), 
-        showRSISerie: useSelector(selectChartRSIButton), // Nuevo botón para RSI
-
+        showRSISerie: useSelector(selectChartRSIButton), 
+        showAdxSerie: useSelector(selectChartAdxButton), 
 
         showAlarmsMarkers: useSelector(selectAlarmButtons),        
         showSelectedAlarmsMarkers: useSelector(selectSelectedAlarmsButton),

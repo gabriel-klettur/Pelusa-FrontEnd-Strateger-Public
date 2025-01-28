@@ -12,6 +12,7 @@ const initialState = {
             candleStickButton: true,
             sqzMomentumButton: false,
             rsiButton: false,
+            adxButton: false,
         },
         AlarmButtons:{
             alarms: true,

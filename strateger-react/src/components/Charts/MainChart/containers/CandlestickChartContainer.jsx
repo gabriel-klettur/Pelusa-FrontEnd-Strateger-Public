@@ -14,6 +14,8 @@ import useInitializeStochasticSeries from '../hooks/indicators/useInitializeStoc
 import useSetStochasticSeriesData from '../hooks/indicators/useSetStochasticSeriesData';
 import useInitializeRSISeries from '../hooks/indicators/useInitializeRSISeries';
 import useSetRSISeriesData from '../hooks/indicators/useSetRSISeriesData';
+import useInitializeAdxSeries from '../hooks/indicators/useInitializeAdxSeries';
+import useSetAdxSeriesData from '../hooks/indicators/useSetAdxSeriesData';
 
 import useInitializeSQZSeries from '../hooks/indicators/useInitializeSQZSeries';
 import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
@@ -33,20 +35,21 @@ const CandlestickChartContainer = ({data, chartSettings, chartInterval}) => {
         const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
         const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
         const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
+        const { 
+            adxSeriesRef, 
+            plusDISeriesRef, 
+            minusDISeriesRef, 
+            keyLevelSeriesRef 
+        } = useInitializeAdxSeries(chartRef);
     
         //!----------------------- Incorportation of data -----------------------------!//
         useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
         useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
         useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
-        useSetSQZSeriesData(
-            chartSettings.showSQZMOMENTUMSerie, 
-            data, 
-            positiveIncreasingRef, 
-            positiveDecreasingRef, 
-            negativeDecreasingRef, 
-            negativeIncreasingRef
-        );
+        useSetSQZSeriesData(chartSettings.showSQZMOMENTUMSerie, data, positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef);
         useSetRSISeriesData(chartSettings.showRSISerie, data, rsiSeriesRef);       
+        
+        useSetAdxSeriesData(chartSettings.showAdxSerie, data, adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef);
         
         useSetupMarkers(candlestickSeriesRef, chartInterval, 
             chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredMarkers,

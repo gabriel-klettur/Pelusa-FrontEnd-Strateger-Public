@@ -1,3 +1,5 @@
+//Path: strateger-react/src/components/Charts/MainChart/components/indicators/adx.jsx
+
 export const calculateADX = (data, period = 14) => {
     if (!data || data.length < period) return { adx: [], plusDI: [], minusDI: [] };
   
@@ -55,7 +57,7 @@ export const calculateADX = (data, period = 14) => {
   
   export const createADXSeries = (chart) => {
     const adxSeries = chart.addLineSeries({
-      color: 'orange', // ADX en naranja
+      color: 'black', // ADX en naranja
       priceScaleId: 'adx',
       lineWidth: 2,
       lastValueVisible: false,
@@ -82,9 +84,9 @@ export const calculateADX = (data, period = 14) => {
     });
   
     const keyLevelSeries = chart.addLineSeries({
-      color: 'yellow', // Key level en amarillo
+      color: 'black', // Key level en amarillo
       priceScaleId: 'adx',
-      lineWidth: 1,
+      lineWidth: 2,
       lastValueVisible: false,
       crossHairMarkerVisible: false,
       priceLineVisible: false,

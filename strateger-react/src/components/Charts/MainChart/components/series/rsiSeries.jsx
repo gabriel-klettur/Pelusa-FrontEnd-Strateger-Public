@@ -4,6 +4,7 @@ import { calculateRSI, createRSISeries } from '../indicators/rsi';
 
 export const initializeRSISeries = (chart) => {
   const rsiSeries = createRSISeries(chart, 'blue');
+  
   return { rsiSeries };
 };
 
