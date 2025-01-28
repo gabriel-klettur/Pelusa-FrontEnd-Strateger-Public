@@ -13,22 +13,6 @@ export const calculateSQZMOMENTUM = (data, lengthBB = 20, multBB = 2.0, lengthKC
       const highPrices = sliceKC.map(candle => candle.high);
       const lowPrices = sliceKC.map(candle => candle.low);
 
-      // 📌 **Cálculo de Bandas de Bollinger (BB)**
-      const meanBB = closePrices.reduce((sum, value) => sum + value, 0) / lengthBB;
-      const stdDevBB = Math.sqrt(
-          closePrices.reduce((sum, value) => sum + Math.pow(value - meanBB, 2), 0) / lengthBB
-      );
-
-      const upperBB = meanBB + multBB * stdDevBB;
-      const lowerBB = meanBB - multBB * stdDevBB;
-
-      // 📌 **Cálculo de Canales de Keltner (KC)**
-      const meanKC = closePrices.reduce((sum, value) => sum + value, 0) / lengthKC;
-      const range = sliceKC.map(candle => candle.high - candle.low);
-      const avgRange = range.reduce((sum, value) => sum + value, 0) / lengthKC;
-      const upperKC = meanKC + multKC * avgRange;
-      const lowerKC = meanKC - multKC * avgRange;
-
       // 📌 **Momentum Calculation**
       const highestHigh = Math.max(...highPrices);
       const lowestLow = Math.min(...lowPrices);
