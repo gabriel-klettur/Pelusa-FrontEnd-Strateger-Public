@@ -1,6 +1,6 @@
 //Path: strateger-react/src/components/Charts/MainChart/components/buttons/ItemChartButton.jsx
 
-const ItemChartButton = ({ setShow, indicatorName, icon, isVisible, onClick, disabled }) => {
+const ItemChartButton = ({ setShow, buttonName, icon, isVisible, onClick, disabled }) => {
   const bgColor = isVisible
     ? "bg-african_violet-300"
     : "bg-african_violet-500";
@@ -22,8 +22,8 @@ const ItemChartButton = ({ setShow, indicatorName, icon, isVisible, onClick, dis
       }`}
       disabled={disabled}
     >
-      {icon && <img src={icon} alt={indicatorName} className="w-6 h-6" />}
-      {indicatorName && <span>{indicatorName}</span>}
+      {icon && <img src={icon} alt={buttonName} className="w-6 h-6" />}
+      {buttonName && <span>{buttonName}</span>}
     </button>
   );
 };

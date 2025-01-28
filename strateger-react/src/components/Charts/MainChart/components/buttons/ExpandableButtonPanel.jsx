@@ -14,7 +14,7 @@ const ExpandableButtonPanel = ({ buttons, title }) => {
     <div className="flex space-x-1 items-center">
       {/* Botón principal: Solo se muestra si los botones están colapsados */}
       {!expanded && (
-        <ItemChartButton setShow={toggleExpand} indicatorName={title} icon={indicatorsIcon}/>
+        <ItemChartButton setShow={toggleExpand} buttonName={title} icon={indicatorsIcon}/>
       )}
 
       {/* Contenedor animado */}
@@ -25,11 +25,11 @@ const ExpandableButtonPanel = ({ buttons, title }) => {
       >
         {/* Renderizar los botones solo si expanded es true */}
         {expanded &&
-          buttons.map(({ id, setShow, indicatorName, isVisible, disabled }) => (
+          buttons.map(({ id, setShow, buttonName, isVisible, disabled }) => (
             <ItemChartButton
               key={id}
               setShow={setShow}
-              indicatorName={indicatorName}
+              buttonName={buttonName}
               isVisible={isVisible}
               disabled={disabled}
               className={`transition-all duration-300 ease-in-out ${

@@ -61,37 +61,37 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                         {
                             id: "stochastic",
                             setShow: () => dispatch(setToggleChartMainButtons("stochasticButton")),                            
-                            indicatorName: "Stochastic",                            
+                            buttonName: "Stochastic",                            
                             isVisible: buttonsVisilibity.showStochasticSerie,                            
                         },
                         {
                             id: "emas",
                             setShow: () => dispatch(setToggleChartMainButtons("emasButton")),
-                            indicatorName: "Emas",
+                            buttonName: "Emas",
                             isVisible: buttonsVisilibity.showEmasSerie,
                         },
                         {
                             id: "sqzMomentum",
                             setShow: () => dispatch(setToggleChartMainButtons("sqzMomentumButton")),
-                            indicatorName: "SQZ Momentum",
+                            buttonName: "SQZ Momentum",
                             isVisible: buttonsVisilibity.showSQZMOMENTUMSerie,
                         },
                         {
                             id: "adx",
                             setShow: () => dispatch(setToggleChartMainButtons("adxButton")),
-                            indicatorName: "ADX",
+                            buttonName: "ADX",
                             isVisible: buttonsVisilibity.showAdxSerie,
                         },
                         {
                             id: "rsi",
                             setShow: () => dispatch(setToggleChartMainButtons("rsiButton")),
-                            indicatorName: "RSI",
+                            buttonName: "RSI",
                             isVisible: buttonsVisilibity.showRSISerie,
                         },
                         {
                             id: "bollinger",
                             setShow: () => dispatch(setToggleChartMainButtons("bollingerButton")),
-                            indicatorName: "Bollinger Bands",
+                            buttonName: "Bollinger Bands",
                             isVisible: buttonsVisilibity.showBollingerSerie,
                             disabled: true,
                         },
@@ -104,19 +104,19 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                 <div className="flex space-x-1">
                     <ItemChartButton
                         setShow={() => handleAlarmButtonClick("alarms")}
-                        indicatorName={`Alarms (${alarmsDataLength})`}
+                        buttonName={`Alarms (${alarmsDataLength})`}
                         isVisible={ buttonsVisilibity.showAlarmsMarkers }
                         disabled={alarmsDataLength === 0}
                     />
                     <ItemChartButton
                         setShow={() => handleAlarmButtonClick("selected")}
-                        indicatorName={`Selected Alarms (${filteredByClickAlarmsLength})`}
+                        buttonName={`Selected Alarms (${filteredByClickAlarmsLength})`}
                         isVisible={ buttonsVisilibity.showSelectedAlarmsMarkers }
                         disabled={filteredByClickAlarmsLength === 0}
                     />
                     <ItemChartButton
                         setShow={() => handleAlarmButtonClick("filtered")}
-                        indicatorName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
+                        buttonName={`Filtered Alarms (${filteredByOptionsAlarmsLength})`}
                         isVisible={ buttonsVisilibity.showFilteredAlarmsMarkers }
                         disabled={filteredByOptionsAlarmsLength === 0}
                     />
@@ -128,22 +128,22 @@ const ButtonsPanel = ({ buttonsVisilibity, showButtonsPanel }) => {
                 <div className="flex space-x-1">
                     <ItemChartButton
                         setShow={() => dispatch(setToggleOrderButton("showOrdersUsdmMarkers"))}
-                        indicatorName="Usdm Orders"
+                        buttonName="Usdm Orders"
                         isVisible={ buttonsVisilibity.showOrdersUsdmMarkers }
                     />
                     <ItemChartButton
                         setShow={() => dispatch(setToggleOrderButton("showOrdersCoinmMarkers"))}
-                        indicatorName="Coinm Orders"
+                        buttonName="Coinm Orders"
                         isVisible={ buttonsVisilibity.showOrdersCoinmMarkers }
                     />
                     <ItemChartButton
                         setShow={() => dispatch(setToggleOrderButton("showOrdersSpotMarkers"))}
-                        indicatorName="Spot Orders"
+                        buttonName="Spot Orders"
                         isVisible={ buttonsVisilibity.showOrdersSpotMarkers }
                     />
                     <ItemChartButton
                         setShow={() => dispatch(setToggleOrderButton("showOrdersStandardMarkers"))}
-                        indicatorName="Standard Orders"
+                        buttonName="Standard Orders"
                         isVisible={ buttonsVisilibity.showOrdersStandardMarkers }
                     />
                 </div>
