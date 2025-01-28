@@ -1,46 +1,85 @@
 //Path: strateger-react/src/components/Charts/MainChart/components/indicators/sqzmom.jsx
 
-export const calculateSQZMOMENTUM = (data, period = 20) => {
-    if (!data || data.length < period) return { momentum: [] };
-  
-    const momentum = [];
-  
-    for (let i = period - 1; i < data.length; i++) {
-      const slice = data.slice(i - period + 1, i + 1);
-      const closes = slice.map(candle => candle.close);
-      const mean = closes.reduce((sum, value) => sum + value, 0) / period;
-      const stdDev = Math.sqrt(
-        closes.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / period
+export const calculateSQZMOMENTUM = (data, lengthBB = 20, multBB = 2.0, lengthKC = 20, multKC = 1.5) => {
+  if (!data || data.length < Math.max(lengthBB, lengthKC)) return { momentum: [] };
+
+  const momentum = [];
+
+  for (let i = Math.max(lengthBB, lengthKC) - 1; i < data.length; i++) {
+      const sliceBB = data.slice(i - lengthBB + 1, i + 1);
+      const sliceKC = data.slice(i - lengthKC + 1, i + 1);
+
+      const closePrices = sliceBB.map(candle => candle.close);
+      const highPrices = sliceKC.map(candle => candle.high);
+      const lowPrices = sliceKC.map(candle => candle.low);
+
+      // 📌 **Cálculo de Bandas de Bollinger (BB)**
+      const meanBB = closePrices.reduce((sum, value) => sum + value, 0) / lengthBB;
+      const stdDevBB = Math.sqrt(
+          closePrices.reduce((sum, value) => sum + Math.pow(value - meanBB, 2), 0) / lengthBB
       );
-  
-      const lastClose = slice[slice.length - 1].close;
-      const squeezeMomentum = (lastClose - mean) / stdDev;
-  
-      momentum.push({ time: slice[slice.length - 1].time, value: squeezeMomentum });
-    }
-  
-    return { momentum };
+
+      const upperBB = meanBB + multBB * stdDevBB;
+      const lowerBB = meanBB - multBB * stdDevBB;
+
+      // 📌 **Cálculo de Canales de Keltner (KC)**
+      const meanKC = closePrices.reduce((sum, value) => sum + value, 0) / lengthKC;
+      const range = sliceKC.map(candle => candle.high - candle.low);
+      const avgRange = range.reduce((sum, value) => sum + value, 0) / lengthKC;
+      const upperKC = meanKC + multKC * avgRange;
+      const lowerKC = meanKC - multKC * avgRange;
+
+      // 📌 **Momentum Calculation**
+      const highestHigh = Math.max(...highPrices);
+      const lowestLow = Math.min(...lowPrices);
+      const avgExtreme = (highestHigh + lowestLow) / 2;
+      const linregMomentum = closePrices[lengthKC - 1] - avgExtreme;
+
+      momentum.push({ time: data[i].time, value: linregMomentum });
+  }
+
+  return { momentum };
 };
   
-export const createSQZMOMENTUMSeries = (chart, positiveColor = 'green', negativeColor = 'red') => {
-    const positiveSeries = chart.addHistogramSeries({
-      color: positiveColor,
-      priceScaleId: 'momentum',
-      lastValueVisible: false,
-      crossHairMarkerVisible: false,
-      priceLineVisible: false,
-      lineWidth: 1,
-    });
-  
-    const negativeSeries = chart.addHistogramSeries({
-      color: negativeColor,
-      priceScaleId: 'momentum',
-      lastValueVisible: false,
-      crossHairMarkerVisible: false,
-      priceLineVisible: false,
-      lineWidth: 1,
-    });
-  
-    return { positiveSeries, negativeSeries };
+export const createSQZMOMENTUMSeries = (chart) => {
+  const positiveIncreasing = chart.addHistogramSeries({
+    color: 'rgba(0, 255, 0, 1)',  // 🔹 Verde Claro (Momentum positivo creciente)
+    priceScaleId: 'momentum',
+    lastValueVisible: false,
+    crossHairMarkerVisible: false,
+    priceLineVisible: false,
+    lineWidth: 1,
+  });
+
+  const positiveDecreasing = chart.addHistogramSeries({
+    color: 'rgba(0, 128, 0, 1)',  // 🔹 Verde Oscuro (Momentum positivo decreciente)
+    priceScaleId: 'momentum',
+    lastValueVisible: false,
+    crossHairMarkerVisible: false,
+    priceLineVisible: false,
+    lineWidth: 1,
+  });
+
+  const negativeDecreasing = chart.addHistogramSeries({
+    color: 'rgba(255, 0, 0, 1)',  // 🔹 Rojo Claro (Momentum negativo decreciente)
+    priceScaleId: 'momentum',
+    lastValueVisible: false,
+    crossHairMarkerVisible: false,
+    priceLineVisible: false,
+    lineWidth: 1,
+  });
+
+  const negativeIncreasing = chart.addHistogramSeries({
+    color: 'rgba(128, 0, 0, 1)',  // 🔹 Rojo Oscuro (Momentum negativo creciente)
+    priceScaleId: 'momentum',
+    lastValueVisible: false,
+    crossHairMarkerVisible: false,
+    priceLineVisible: false,
+    lineWidth: 1,
+  });
+
+  return {
+    positiveSeries: [positiveIncreasing, positiveDecreasing],
+    negativeSeries: [negativeDecreasing, negativeIncreasing]
+  };
 };
-  

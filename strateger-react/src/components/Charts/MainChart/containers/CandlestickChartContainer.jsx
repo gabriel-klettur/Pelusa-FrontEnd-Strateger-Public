@@ -31,14 +31,21 @@ const CandlestickChartContainer = ({data, chartSettings, chartInterval}) => {
         
         const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
         const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
-        const { positiveSeriesRef, negativeSeriesRef } = useInitializeSQZSeries(chartRef);
+        const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
         const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
     
         //!----------------------- Incorportation of data -----------------------------!//
         useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
         useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
         useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
-        useSetSQZSeriesData(chartSettings.showSQZMOMENTUMSerie, data, positiveSeriesRef, negativeSeriesRef);
+        useSetSQZSeriesData(
+            chartSettings.showSQZMOMENTUMSerie, 
+            data, 
+            positiveIncreasingRef, 
+            positiveDecreasingRef, 
+            negativeDecreasingRef, 
+            negativeIncreasingRef
+        );
         useSetRSISeriesData(chartSettings.showRSISerie, data, rsiSeriesRef);       
         
         useSetupMarkers(candlestickSeriesRef, chartInterval, 

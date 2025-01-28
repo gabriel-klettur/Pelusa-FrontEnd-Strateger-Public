@@ -4,18 +4,24 @@ import { useEffect } from 'react';
 import { setSQZSeriesData } from '../../components/series/sqzSeries';
 import { formatChartData, sortAndRemoveDuplicates } from '../../utils/chartData';
 
-const useSetSQZSeriesData = (showSeries, data, positiveSeriesRef, negativeSeriesRef, period = 20) => {
+const useSetSQZSeriesData = (showSeries, data, positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef, period = 20) => {
   useEffect(() => {
-    
-    if (showSeries && positiveSeriesRef.current && negativeSeriesRef.current) {
+    if (showSeries && positiveIncreasingRef.current && positiveDecreasingRef.current && negativeDecreasingRef.current && negativeIncreasingRef.current) {
       const formattedData = formatChartData(data);
       const sortedData = sortAndRemoveDuplicates(formattedData);
-      setSQZSeriesData(positiveSeriesRef.current, negativeSeriesRef.current, sortedData, period);
-    } else if (positiveSeriesRef.current && negativeSeriesRef.current) {
-      positiveSeriesRef.current.setData([]);
-      negativeSeriesRef.current.setData([]);
+      setSQZSeriesData(
+        [positiveIncreasingRef.current, positiveDecreasingRef.current],
+        [negativeDecreasingRef.current, negativeIncreasingRef.current],
+        sortedData,
+        period
+      );
+    } else if (positiveIncreasingRef.current && positiveDecreasingRef.current && negativeDecreasingRef.current && negativeIncreasingRef.current) {
+      positiveIncreasingRef.current.setData([]);
+      positiveDecreasingRef.current.setData([]);
+      negativeDecreasingRef.current.setData([]);
+      negativeIncreasingRef.current.setData([]);
     }
-  }, [showSeries, data, positiveSeriesRef, negativeSeriesRef, period]);
+  }, [showSeries, data, positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef, period]);
 };
 
 export default useSetSQZSeriesData;
