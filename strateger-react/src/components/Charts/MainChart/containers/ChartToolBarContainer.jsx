@@ -32,11 +32,7 @@ const ChartToolBar = () => {
             handleTabChange={handleTabChange}
             tabs={tabs}
         />
-    )
-    
-
-
-
+    )    
 }
 
 export default ChartToolBar;

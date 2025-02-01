@@ -4,7 +4,7 @@ import indicatorsIcon from '../../../assets/indicators.svg';
 import ActionButton from './ActionButton';
 
 const IndicatorsPanel = () => {
-    const [indicators, setIndicators] = useState([]);
+    const [ setIndicators] = useState([]);
 
     const handleIndicatorClick = (indicator, closePopover) => {
         setIndicators(indicator);
