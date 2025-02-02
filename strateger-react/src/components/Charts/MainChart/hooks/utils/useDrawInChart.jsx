@@ -15,7 +15,7 @@ const useDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
     
         // Convertir el timestamp a segundos (si es necesario)
         const timeInSeconds = selectedData[0] > 1e10 ? Math.floor(selectedData[0] / 1000) : selectedData[0];
-        const point = { time: timeInSeconds, price: selectedData[4] };
+        const pointCoordinates = { time: timeInSeconds, price: selectedData[4] };
     
         const formatTimestamp = (timestamp) => {
           const date = new Date(timestamp * 1000);
@@ -24,11 +24,12 @@ const useDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
             hour: "2-digit", minute: "2-digit", second: "2-digit" 
           });
         };
-        console.log(`refence candle: ${formatTimestamp(point.time)} | Price: ${point.price}`);
+        console.log(`refence candle: ${formatTimestamp(pointCoordinates.time)} | Price: ${pointCoordinates.price}`);
           
         // Crear la instancia del plugin para anclar el círculo a esa vela
         const chart = chartRef.current;
-        const pointTool = new PointDrawingTool(chart, candlestickSeriesRef.current, point, 'blue');
+        const pointTool = new PointDrawingTool(chart, candlestickSeriesRef.current, pointCoordinates, 'red', 15, 0.5);
+        
     
         if (typeof candlestickSeriesRef.current.attachPrimitive === 'function') {
           candlestickSeriesRef.current.attachPrimitive(pointTool);
@@ -40,7 +41,7 @@ const useDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
     
         // Suscribirse a cambios en el rango visible para actualizar la posición (anclaje dinámico)
         const updateOnRangeChange = () => {
-          pointTool.updatePoint(point);
+          pointTool.updatePoint(pointCoordinates);
         };
         chart.timeScale().subscribeVisibleTimeRangeChange(updateOnRangeChange);
     
@@ -48,7 +49,7 @@ const useDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
         setTimeout(() => {
           chart.applyOptions({});
           chart.timeScale().fitContent();
-          pointTool.updatePoint(point);
+          pointTool.updatePoint(pointCoordinates);
         }, 1000);
     
         return () => {

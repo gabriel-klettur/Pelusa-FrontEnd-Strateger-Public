@@ -25,11 +25,13 @@ import {
 	private _point: IPointCoordinates;
 	private _color: string;
 	private _radius: number;
+	private _opacity: number;
   
-	constructor(point: IPointCoordinates, color: string, radius: number) {
+	constructor(point: IPointCoordinates, color: string, radius: number, opacity: number) {
 	  this._point = point;
 	  this._color = color;
 	  this._radius = radius;
+	  this._opacity = opacity;
 	}
   
 	draw(target: CanvasRenderingTarget2D): void {
@@ -44,31 +46,37 @@ import {
 		}
 		console.log("✅ [PointPaneRenderer] Drawing at coordinates:", this._point);
   
-		const ctx = scope.context as CanvasRenderingContext2D;
-		ctx.fillStyle = this._color;
+		const ctx = scope.context as CanvasRenderingContext2D;	//! Get the 2D context of the canvas
   
-		// Draw the circle with the specified radius
+		ctx.save(); // Guarda el estado actual del contexto
+		ctx.globalAlpha = this._opacity; // Establece un 50% de opacidad
 		ctx.beginPath();
 		ctx.arc(this._point.x, this._point.y, this._radius, 0, 2 * Math.PI);
+		ctx.fillStyle = this._color; // Aquí puedes usar un color sólido como 'red'
 		ctx.fill();
+		
+		ctx.strokeStyle = this._color;		
+		ctx.lineWidth = 3;
+
 		ctx.stroke();
+		ctx.restore(); // Restaura el estado del contexto para no afectar otros dibujos
   
-		// Draw a crosshair with the double radius in the same position
-		ctx.beginPath();
-		ctx.moveTo(this._point.x - this._radius * 1.5, this._point.y);
-		ctx.lineTo(this._point.x + this._radius * 1.5, this._point.y);
-		ctx.moveTo(this._point.x, this._point.y - this._radius * 1.5);
-		ctx.lineTo(this._point.x, this._point.y + this._radius * 1.5);
-		ctx.strokeStyle = 'red';
-		ctx.lineWidth = 2;
+		//! Draw a crosshair with the double radius in the same position
+		//ctx.beginPath();
+		//ctx.moveTo(this._point.x - this._radius * 1.5, this._point.y);
+		//ctx.lineTo(this._point.x + this._radius * 1.5, this._point.y);
+		//ctx.moveTo(this._point.x, this._point.y - this._radius * 1.5);
+		//ctx.lineTo(this._point.x, this._point.y + this._radius * 1.5);
+		//ctx.strokeStyle = 'red';
+		//ctx.lineWidth = 2;
 		ctx.stroke();
   		
-		// Draw a circle in the center of the crosshair
-		ctx.beginPath();
-		ctx.arc(200, 200, 10, 0, 2 * Math.PI);
-		ctx.fillStyle = 'yellow';
-		ctx.fill();
-		ctx.stroke();
+		//! Draw a circle in the center of the crosshair
+		//ctx.beginPath();
+		//ctx.arc(200, 200, 10, 0, 2 * Math.PI);
+		//ctx.fillStyle = 'yellow';
+		//ctx.fill();
+		//ctx.stroke();
 	  });
 	}
   }
@@ -114,7 +122,7 @@ import {
 	}
   
 	renderer(): ISeriesPrimitivePaneRenderer {
-	  return new PointPaneRenderer(this._point, this._source.color, this._source.radius);
+	  return new PointPaneRenderer(this._point, this._source.color, this._source.radius, this._source.opacity);
 	}
   }
   
@@ -125,6 +133,7 @@ import {
 	public point: IPoint;
 	public color: string;
 	public radius: number;
+	public opacity: number;
 	private _paneViews: PointPaneView[];
   
 	constructor(
@@ -132,13 +141,16 @@ import {
 	  series: ISeriesApi<SeriesType>,
 	  point: IPoint,
 	  color: string = 'red',
-	  radius: number = 40
+	  radius: number = 40,
+	  opacity: number = 0.5
+
 	) {
 	  this.chart = chart;
 	  this.series = series;
 	  this.point = point;
 	  this.color = color;
-	  this.radius = radius;
+	  this.radius = radius
+	  this.opacity = opacity;
 	  this._paneViews = [new PointPaneView(this)];
 	}
   	

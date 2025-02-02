@@ -12,9 +12,9 @@ const useClickShowPos = (chartRef, candlestickSeriesRef) => {
       const clickedPrice = series.coordinateToPrice(param.point.y);
       console.log("Click in Chart - Time:", clickedTime, "Price:", clickedPrice);
     };
-    chart.subscribeClick(handleChartClick);
+    chart.subscribeClick(handleChartClick);         //! Event handler for click on the chart
     return () => {
-      chart.unsubscribeClick(handleChartClick);
+      chart.unsubscribeClick(handleChartClick);     //! Remove the event handler, necessary for cleanup when the component is unmounted
     };
   }, [chartRef, candlestickSeriesRef]);    
 };

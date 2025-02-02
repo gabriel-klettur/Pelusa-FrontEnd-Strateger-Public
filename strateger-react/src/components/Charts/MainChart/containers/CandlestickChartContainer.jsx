@@ -1,5 +1,5 @@
 // Path: strateger-react/src/components/Charts/CandlestickChartChart/containers/CandlestickChartContainer.js
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 //!---- Chart ----!//
 import useInitializeChart from '../hooks/charts/useInitializeChart';
@@ -23,6 +23,9 @@ import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 import useClickShowPos from '../hooks/utils/useClickShowPos';
 import useDrawInChart from '../hooks/utils/useDrawInChart';
+
+//!---- NUEVO: Hook para gestionar las herramientas de dibujo ----!//
+import useDrawingTools from '../hooks/utils/useDrawingTools';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
     const mainChartContainerRef = useRef(); // Contenedor principal del gráfico
@@ -53,8 +56,33 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     useDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);
     useClickShowPos(chartRef, candlestickSeriesRef);
 
+    // Estado para el modo de dibujo seleccionado: 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
+    const [selectedTool, setSelectedTool] = useState('null');
+    
+    // Se pasa además la ref del contenedor al hook de dibujo
+    useDrawingTools(chartRef, candlestickSeriesRef, mainChartContainerRef, selectedTool);
+
+    // Función para actualizar el modo de dibujo desde la toolbar
+    const handleToolSelection = (tool) => {
+      setSelectedTool(tool);
+    };
+
     return (
-        <div ref={mainChartContainerRef} className="h-full overflow-hidden"></div>    
+      <div className="chart-container relative">
+        {/* Toolbar de dibujo */}
+        <div className="toolbar absolute top-0 left-0 z-10 p-2 bg-gray-200 flex gap-2">
+          <button onClick={() => handleToolSelection('point')}>Punto</button>
+          <button onClick={() => handleToolSelection('line')}>Línea</button>
+          <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>
+          <button onClick={() => handleToolSelection('circle')}>Círculo</button>
+          <button onClick={() => handleToolSelection('brush')}>Brocha</button>
+          {/* Botón para desactivar el dibujo */}
+          <button onClick={() => handleToolSelection(null)}>Desactivar</button>
+        </div>
+        {/* Contenedor principal del gráfico */}
+        <div ref={mainChartContainerRef} style={{ height: '593px', width: '100%' }} className="overflow-hidden"></div>
+
+      </div>
     );
 };
 
