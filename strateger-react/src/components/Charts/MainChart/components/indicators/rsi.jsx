@@ -1,4 +1,6 @@
-//Path: strateger-react/src/components/Charts/MainChart/components/indicators/rsi.jsx
+// Path: strateger-react/src/components/Charts/MainChart/components/indicators/rsi.jsx
+
+import { LineSeries } from 'lightweight-charts';
 
 export const calculateRSI = (data, period = 14) => {
   if (!data || data.length < period) {
@@ -40,6 +42,7 @@ export const calculateRSI = (data, period = 14) => {
       avgGain = (avgGain * (period - 1)) / period;
     }
 
+    // Evitar división por cero
     avgLoss = avgLoss || 0.0001;
     const rs = avgGain / avgLoss;
     const rsiValue = 100 - 100 / (1 + rs);    
@@ -53,18 +56,13 @@ export const calculateRSI = (data, period = 14) => {
   return { rsi };
 };
 
-
 export const createRSISeries = (chart, color = 'blue') => {
-    return chart.addLineSeries({
-      priceScaleId: 'rsi',
-      color: typeof color === 'string' ? color : String(color), // Asegurar que el color sea una cadena      
-      lineWidth: 2,
-      lastValueVisible: false,
-      crossHairMarkerVisible: false,
-      priceLineVisible: false,
-    });
+  return chart.addSeries(LineSeries, {
+    priceScaleId: 'rsi',
+    color: typeof color === 'string' ? color : String(color),
+    lineWidth: 2,
+    lastValueVisible: false,
+    crossHairMarkerVisible: false,
+    priceLineVisible: false,
+  });
 };
-  
-
-  
-  
