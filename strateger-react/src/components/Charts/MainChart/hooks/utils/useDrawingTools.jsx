@@ -26,8 +26,16 @@ const useDrawingTools = (chartRef, seriesRef, containerRef, selectedTool) => {
   const [activeTool, setActiveTool] = useState(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
+  
+
   useEffect(() => {
+
+    
+
     if (!chartRef.current || !seriesRef.current || !containerRef.current) return;
+
+    console.log(`Tool selected: ${selectedTool}`);
+
     const chart = chartRef.current;
     const container = containerRef.current; // Usamos la ref del contenedor
 

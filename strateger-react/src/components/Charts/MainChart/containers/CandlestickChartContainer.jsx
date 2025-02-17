@@ -33,6 +33,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     
     const isChartReady = useChartReady(chartRef, candlestickSeriesRef);
+    const [selectedTool, setSelectedTool] = useState('null'); // TODO Estado para el modo de dibujo seleccionado: 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
 
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
@@ -53,19 +54,24 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers
     );            
 
-    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);   //TODO Hook de ejemplo para dibujar en el grafico un circulo y anclarlo a una vela
-    useClickShowPos(chartRef, candlestickSeriesRef);                      //TODO Hook de ejemplo para mostrar la posición en el gráfico al hacer click
 
-    // Estado para el modo de dibujo seleccionado: 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
-    const [selectedTool, setSelectedTool] = useState('null');
+    //!----------------- Battle ground ---------------------------------!//
+
+
+    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    //TODO Hook de ejemplo para dibujar en el grafico un circulo y anclarlo a una vela
+
+
+    useClickShowPos(chartRef, candlestickSeriesRef);                              //TODO Hook de ejemplo para mostrar la posición en el gráfico al hacer click
+
+    
+    
     
     // Se pasa además la ref del contenedor al hook de dibujo
-    useDrawingTools(chartRef, candlestickSeriesRef, mainChartContainerRef, selectedTool);
+    //useDrawingTools(chartRef, candlestickSeriesRef, mainChartContainerRef, selectedTool);   //TODO Hook para gestionar las herramientas de dibujo
 
     // Función para actualizar el modo de dibujo desde la toolbar
     const handleToolSelection = (tool) => {
-      setSelectedTool(tool);
-      console.log(`Tool selected: ${tool}`);
+      setSelectedTool(tool);      
     };
 
     return (

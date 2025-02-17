@@ -1,50 +1,62 @@
-// Path: src/hooks/useDrawInChart.js
 import { useEffect } from 'react';
-import { PointDrawingTool } from '../../components/PointDrawingTool';
+import { CircleDrawingTool } from '../../components/CircleDrawingTool';
 
 const useExampleDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
     useEffect(() => {
-
         //! 1. Verificamos las condiciones iniciales
-        if (!isChartReady || data.length === 0) return;
-    
-        //! 2. Seleccionamos el punto de refencia (vela)
-        const selectedData = data[10];
-        if (!selectedData) {
-          console.error("There is not enough data to select the reference candle.");
-          return;
-        }    
+        if (!isChartReady) return;
 
-        //! 3.Convertir el timestamp a segundos (si es necesario)
-        const timeInSeconds = selectedData[0] > 1e10 ? Math.floor(selectedData[0] / 1000) : selectedData[0];
-        const pointCoordinates = { time: timeInSeconds, price: selectedData[4] };
-    
-        //! 4. Formatear el timestamp
-        const formatTimestamp = (timestamp) => {
-          const date = new Date(timestamp * 1000);
-          return date.toLocaleString("es-ES", { 
-            day: "2-digit", month: "2-digit", year: "numeric", 
-            hour: "2-digit", minute: "2-digit", second: "2-digit" 
-          });
-        };
-        console.log(`refence candle: ${formatTimestamp(pointCoordinates.time)} | Price: ${pointCoordinates.price}`);
-          
-        //! 5. Crear y adjuntar un marcador al grafico
-        const chart = chartRef.current;
-        const pointTool = new PointDrawingTool(chart, candlestickSeriesRef.current, pointCoordinates, 'red', 15, 0.5);
-        
-        //! 6. Adjuntar el marcador al gráfico y chequear el método disponible
-        if (typeof candlestickSeriesRef.current.attachPrimitive === 'function') {
-          candlestickSeriesRef.current.attachPrimitive(pointTool);  //* attachPrimitive agrega una primitiva especificamente a la serie de velas
-        } else if (typeof chart.addPrimitive === 'function') {
-          chart.addPrimitive(pointTool);                            //* addPrimitive agrega una primitiva al gráfico globalmente al grafico
-        } else {
-          console.warn("No method found to attach primitives. Check the version of lightweight-charts.");
+        //! 2. Seleccionamos los puntos de referencia (velas)
+        const selectedCandles = [1400, 1404, 1420].map(index => data[index]).filter(Boolean);
+
+        if (selectedCandles.length !== 3) {
+            console.error("❌ Not enough data to select all reference candles.");
+            return;
         }
-            
-        //!7.  Suscribirse a cambios en el rango visible para actualizar la posición (anclaje dinámico)
+
+        //! 3. Convertimos timestamps y creamos coordenadas de los círculos
+        const circlesData = [
+            { time: selectedCandles[0][0], price: selectedCandles[0][4], color: 'red' },    // Circulo rojo en la vela 4
+            { time: selectedCandles[1][0], price: selectedCandles[1][4], color: 'blue' },   // Circulo azul en la vela 10
+            { time: selectedCandles[2][0], price: selectedCandles[2][4], color: 'green' }   // Circulo verde en la vela 20
+        ].map(circle => ({
+            time: circle.time > 1e10 ? Math.floor(circle.time / 1000) : circle.time,  // Convertir a segundos si es necesario
+            price: circle.price,
+            color: circle.color
+        }));
+
+        //! 4. Crear y adjuntar los círculos al gráfico
+        const chart = chartRef.current;
+        const series = candlestickSeriesRef.current;
+
+        // Crear los círculos originales
+        const circles = circlesData.map(({ time, price, color }) =>           
+          new CircleDrawingTool(chart, series, { time, price }, color, 15, 0.5)                     
+        );
+
+        // Crear los círculos desplazados
+        const offsetCircles = circlesData.map(({ time, price, color }) => 
+            new CircleDrawingTool(chart, series, { time: time - 1000, price: price + 10000 }, color, 10, 0.5)
+        );
+
+        //! 5. Adjuntar los círculos originales y desplazados al gráfico
+        [...circles, ...offsetCircles].forEach(circle => {
+            if (typeof series.attachPrimitive === 'function') {
+                series.attachPrimitive(circle);
+                console.log(`Primitive attached to candlestick series: ${circle.color}`);
+            } else if (typeof chart.addPrimitive === 'function') {
+                chart.addPrimitive(circle);
+                console.log(`Primitive attached to chart: ${circle.color}`);
+            } else {
+                console.warn("No method found to attach primitives. Check the version of lightweight-charts.");
+            }
+        });
+
+        //! 6. Suscribirse a cambios en el rango visible para actualizar la posición de los círculos
         const updateOnRangeChange = () => {
-          pointTool.updatePoint(pointCoordinates);
+            [...circles, ...offsetCircles].forEach((circle, index) => {
+                circle.updateCircle({ time: circlesData[index % 3].time, price: circlesData[index % 3].price });
+            });
         };
         chart.timeScale().subscribeVisibleTimeRangeChange(updateOnRangeChange);
 
