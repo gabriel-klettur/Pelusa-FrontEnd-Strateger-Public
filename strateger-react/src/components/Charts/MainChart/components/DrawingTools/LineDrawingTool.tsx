@@ -1,8 +1,8 @@
 import {
 	ISeriesApi,
 	IChartApi,
-	ISeriesPrimitivePaneRenderer,
-	ISeriesPrimitivePaneView,
+	IPrimitivePaneRenderer,
+	IPrimitivePaneView,
 	SeriesType,	
 } from 'lightweight-charts';
 import { CanvasRenderingTarget2D } from 'fancy-canvas';
@@ -20,7 +20,7 @@ export interface ILine {
     end: IPoint;
 }
 
-class LinePaneRenderer implements ISeriesPrimitivePaneRenderer {
+class LinePaneRenderer implements IPrimitivePaneRenderer {
     private _start: IPointCoordinates;
     private _end: IPointCoordinates;
     private _color: string;
@@ -55,7 +55,7 @@ class LinePaneRenderer implements ISeriesPrimitivePaneRenderer {
     }
 }
 
-class LinePaneView implements ISeriesPrimitivePaneView {
+class LinePaneView implements IPrimitivePaneView {
     private _source: LineDrawingTool;
     private _start: IPointCoordinates = { x: null, y: null };
     private _end: IPointCoordinates = { x: null, y: null };
@@ -92,7 +92,7 @@ class LinePaneView implements ISeriesPrimitivePaneView {
         this._end = { x: endX, y: endY };
     }
 
-    renderer(): ISeriesPrimitivePaneRenderer {
+    renderer(): IPrimitivePaneRenderer {
         return new LinePaneRenderer(this._start, this._end, this._source.color, this._source.lineWidth, this._source.opacity);
     }
 }
@@ -128,7 +128,7 @@ export class LineDrawingTool implements IDrawingTool {
         this._paneViews.forEach(view => view.update());
     }
 
-    paneViews(): ISeriesPrimitivePaneView[] {
+    paneViews(): IPrimitivePaneView[] {
         return this._paneViews;
     }
 }

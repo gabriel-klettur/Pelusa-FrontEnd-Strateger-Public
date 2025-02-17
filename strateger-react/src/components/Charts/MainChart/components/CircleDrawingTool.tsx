@@ -3,8 +3,8 @@
 import { 
 	ISeriesApi, 
 	IChartApi, 
-	ISeriesPrimitivePaneRenderer, 
-	ISeriesPrimitivePaneView, 
+	IPrimitivePaneRenderer, 
+	IPrimitivePaneView, 
 	SeriesType, 
 	Time 
   } from 'lightweight-charts';
@@ -23,7 +23,7 @@ import {
   //!----------------------------------------------------------------------------------------------------------------------------------------
   //!--------------------------------------------------  Dibuja el circulo en canvas --------------------------------------------------------
   //!----------------------------------------------------------------------------------------------------------------------------------------
-  class CirclePaneRenderer implements ISeriesPrimitivePaneRenderer {
+  class CirclePaneRenderer implements IPrimitivePaneRenderer {
 	private _point: ICircleCoordinates;
 	private _color: string;
 	private _radius: number;
@@ -72,7 +72,7 @@ import {
   //!----------------------------------------------------------------------------------------------------------------------------------------
   //!------------------------------------------  Calcula la posicion del Circulo en el Grafico ----------------------------------------------
   //!----------------------------------------------------------------------------------------------------------------------------------------
-  class CirclePaneView implements ISeriesPrimitivePaneView {
+  class CirclePaneView implements IPrimitivePaneView {
 	private _source: CircleDrawingTool;
 	private _point: ICircleCoordinates = { x: null, y: null };
   
@@ -107,7 +107,7 @@ import {
 	  this._point = { x, y };
 	}
   
-	renderer(): ISeriesPrimitivePaneRenderer {
+	renderer(): IPrimitivePaneRenderer {
 	  return new CirclePaneRenderer(this._point, this._source.color, this._source.radius, this._source.opacity);
 	}
   }
@@ -151,7 +151,7 @@ import {
 	  });
 	}
   
-	paneViews(): ISeriesPrimitivePaneView[] {
+	paneViews(): IPrimitivePaneView[] {
 	  return this._paneViews;
 	}
   }

@@ -1,7 +1,7 @@
 // Archivo: DrawingTools.tsx
 
 import {	
-	ISeriesPrimitivePaneView,	
+	IPrimitivePaneView,	
 	Time
 } from 'lightweight-charts';
 
@@ -21,7 +21,7 @@ export interface IPointCoordinates {
 
 // Una interfaz base para nuestros drawing tools
 export interface IDrawingTool {
-	paneViews(): ISeriesPrimitivePaneView[];
+	paneViews(): IPrimitivePaneView[];
 }
 
 

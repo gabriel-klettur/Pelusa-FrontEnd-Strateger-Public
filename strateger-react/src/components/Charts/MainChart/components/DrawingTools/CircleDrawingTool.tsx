@@ -1,8 +1,8 @@
 import {
 	ISeriesApi,
 	IChartApi,
-	ISeriesPrimitivePaneRenderer,
-	ISeriesPrimitivePaneView,
+	IPrimitivePaneRenderer,
+	IPrimitivePaneView,
 	SeriesType,	
 } from 'lightweight-charts';
 import { CanvasRenderingTarget2D } from 'fancy-canvas';
@@ -19,7 +19,7 @@ export interface ICircle {
     edge: IPoint; // Se usa para calcular el radio
 }
 
-class CirclePaneRenderer implements ISeriesPrimitivePaneRenderer {
+class CirclePaneRenderer implements IPrimitivePaneRenderer {
     private _center: IPointCoordinates;
     private _edge: IPointCoordinates;
     private _color: string;
@@ -75,7 +75,7 @@ class CirclePaneRenderer implements ISeriesPrimitivePaneRenderer {
     }
 }
 
-class CirclePaneView implements ISeriesPrimitivePaneView {
+class CirclePaneView implements IPrimitivePaneView {
     private _source: CircleDrawingTool;
     private _center: IPointCoordinates = { x: null, y: null };
     private _edge: IPointCoordinates = { x: null, y: null };
@@ -111,7 +111,7 @@ class CirclePaneView implements ISeriesPrimitivePaneView {
         this._edge = { x: edgeX, y: edgeY };
     }
 
-    renderer(): ISeriesPrimitivePaneRenderer {
+    renderer(): IPrimitivePaneRenderer {
         return new CirclePaneRenderer(
             this._center,
             this._edge,
@@ -157,7 +157,7 @@ export class CircleDrawingTool implements IDrawingTool {
         this._paneViews.forEach(view => view.update());
     }
 
-    paneViews(): ISeriesPrimitivePaneView[] {
+    paneViews(): IPrimitivePaneView[] {
         return this._paneViews;
     }
 }

@@ -1,8 +1,8 @@
 import {
 	ISeriesApi,
 	IChartApi,
-	ISeriesPrimitivePaneRenderer,
-	ISeriesPrimitivePaneView,
+	IPrimitivePaneRenderer,
+	IPrimitivePaneView,
 	SeriesType,	
 } from 'lightweight-charts';
 import { CanvasRenderingTarget2D } from 'fancy-canvas';
@@ -14,7 +14,7 @@ import { IDrawingTool } from './DrawingTools';
 // 1️⃣ Herramienta de Dibujo de Punto (ya existente)
 // =====================================================
 
-class PointPaneRenderer implements ISeriesPrimitivePaneRenderer {
+class PointPaneRenderer implements IPrimitivePaneRenderer {
     private _point: IPointCoordinates;
     private _color: string;
     private _radius: number;
@@ -48,7 +48,7 @@ class PointPaneRenderer implements ISeriesPrimitivePaneRenderer {
     }
 }
 
-class PointPaneView implements ISeriesPrimitivePaneView {
+class PointPaneView implements IPrimitivePaneView {
     private _source: PointDrawingTool;
     private _point: IPointCoordinates = { x: null, y: null };
 
@@ -75,7 +75,7 @@ class PointPaneView implements ISeriesPrimitivePaneView {
         this._point = { x, y };
     }
 
-    renderer(): ISeriesPrimitivePaneRenderer {
+    renderer(): IPrimitivePaneRenderer {
         return new PointPaneRenderer(this._point, this._source.color, this._source.radius, this._source.opacity);
     }
 }
@@ -111,7 +111,7 @@ export class PointDrawingTool implements IDrawingTool {
         this._paneViews.forEach((paneView) => paneView.update());
     }
 
-    paneViews(): ISeriesPrimitivePaneView[] {
+    paneViews(): IPrimitivePaneView[] {
         return this._paneViews;
     }
 }

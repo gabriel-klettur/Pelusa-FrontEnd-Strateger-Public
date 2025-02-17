@@ -1,8 +1,8 @@
 import {
 	ISeriesApi,
 	IChartApi,
-	ISeriesPrimitivePaneRenderer,
-	ISeriesPrimitivePaneView,
+	IPrimitivePaneRenderer,
+	IPrimitivePaneView,
 	SeriesType,	
 } from 'lightweight-charts';
 import { CanvasRenderingTarget2D } from 'fancy-canvas';
@@ -19,7 +19,7 @@ export interface IRectangle {
     end: IPoint;   // Esquina opuesta
 }
 
-class RectanglePaneRenderer implements ISeriesPrimitivePaneRenderer {
+class RectanglePaneRenderer implements IPrimitivePaneRenderer {
     private _start: IPointCoordinates;
     private _end: IPointCoordinates;
     private _color: string;
@@ -69,7 +69,7 @@ class RectanglePaneRenderer implements ISeriesPrimitivePaneRenderer {
     }
 }
 
-class RectanglePaneView implements ISeriesPrimitivePaneView {
+class RectanglePaneView implements IPrimitivePaneView {
     private _source: RectangleDrawingTool;
     private _start: IPointCoordinates = { x: null, y: null };
     private _end: IPointCoordinates = { x: null, y: null };
@@ -105,7 +105,7 @@ class RectanglePaneView implements ISeriesPrimitivePaneView {
         this._end = { x: endX, y: endY };
     }
 
-    renderer(): ISeriesPrimitivePaneRenderer {
+    renderer(): IPrimitivePaneRenderer {
         return new RectanglePaneRenderer(this._start, this._end, this._source.color, this._source.lineWidth, this._source.opacity, this._source.fill);
     }
 }
@@ -144,7 +144,7 @@ export class RectangleDrawingTool implements IDrawingTool {
         this._paneViews.forEach(view => view.update());
     }
 
-    paneViews(): ISeriesPrimitivePaneView[] {
+    paneViews(): IPrimitivePaneView[] {
         return this._paneViews;
     }
 }

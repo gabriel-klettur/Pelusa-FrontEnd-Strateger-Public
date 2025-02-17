@@ -1,8 +1,8 @@
 import {
 	ISeriesApi,
 	IChartApi,
-	ISeriesPrimitivePaneRenderer,
-	ISeriesPrimitivePaneView,
+	IPrimitivePaneRenderer,
+	IPrimitivePaneView,
 	SeriesType,	
 } from 'lightweight-charts';
 import { CanvasRenderingTarget2D } from 'fancy-canvas';
@@ -19,7 +19,7 @@ export interface IBrush {
 	points: IPoint[]; // Lista de puntos en orden para formar el trazo
 }
 
-class BrushPaneRenderer implements ISeriesPrimitivePaneRenderer {
+class BrushPaneRenderer implements IPrimitivePaneRenderer {
 	private _points: IPointCoordinates[];
 	private _color: string;
 	private _lineWidth: number;
@@ -54,7 +54,7 @@ class BrushPaneRenderer implements ISeriesPrimitivePaneRenderer {
 	}
 }
 
-class BrushPaneView implements ISeriesPrimitivePaneView {
+class BrushPaneView implements IPrimitivePaneView {
 	private _source: BrushDrawingTool;
 	private _points: IPointCoordinates[] = [];
 
@@ -81,7 +81,7 @@ class BrushPaneView implements ISeriesPrimitivePaneView {
 		});
 	}
 
-	renderer(): ISeriesPrimitivePaneRenderer {
+	renderer(): IPrimitivePaneRenderer {
 		return new BrushPaneRenderer(this._points, this._source.color, this._source.lineWidth, this._source.opacity);
 	}
 }
@@ -123,7 +123,7 @@ export class BrushDrawingTool implements IDrawingTool {
 		this._paneViews.forEach(view => view.update());
 	}
 
-	paneViews(): ISeriesPrimitivePaneView[] {
+	paneViews(): IPrimitivePaneView[] {
 		return this._paneViews;
 	}
 }
