@@ -22,9 +22,9 @@ import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 //!---- Markers ----!//
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 import useClickShowPos from '../hooks/utils/useClickShowPos';
-import useDrawInChart from '../hooks/utils/useDrawInChart';
 
 //!---- NUEVO: Hook para gestionar las herramientas de dibujo ----!//
+import useExampleDrawInChart from '../hooks/utils/useExampleDrawInChart';
 import useDrawingTools from '../hooks/utils/useDrawingTools';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
@@ -53,8 +53,8 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers
     );            
 
-    useDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);
-    useClickShowPos(chartRef, candlestickSeriesRef);
+    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);   //TODO Hook de ejemplo para dibujar en el grafico un circulo y anclarlo a una vela
+    useClickShowPos(chartRef, candlestickSeriesRef);                      //TODO Hook de ejemplo para mostrar la posición en el gráfico al hacer click
 
     // Estado para el modo de dibujo seleccionado: 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
     const [selectedTool, setSelectedTool] = useState('null');
@@ -65,6 +65,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     // Función para actualizar el modo de dibujo desde la toolbar
     const handleToolSelection = (tool) => {
       setSelectedTool(tool);
+      console.log(`Tool selected: ${tool}`);
     };
 
     return (

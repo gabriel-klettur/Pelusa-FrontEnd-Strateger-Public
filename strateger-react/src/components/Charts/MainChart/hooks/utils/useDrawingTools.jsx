@@ -1,13 +1,11 @@
 // Path: strateger-react/src/hooks/utils/useDrawingTools.js
 import { useEffect, useState } from 'react';
-// Importamos las herramientas de dibujo previamente definidas
-import {
-  PointDrawingTool,
-  LineDrawingTool,
-  RectangleDrawingTool,
-  CircleDrawingTool,
-  BrushDrawingTool
-} from '../../components/DrawingTools';
+
+import { LineDrawingTool } from '../../components/DrawingTools/LineDrawingTool';
+import { PointDrawingTool } from '../../components/DrawingTools/PointDrawingTool';
+import { RectangleDrawingTool } from '../../components/DrawingTools/RectangleDrawingTool';
+import { CircleDrawingTool } from '../../components/DrawingTools/CircleDrawingTool';
+import { BrushDrawingTool } from '../../components/DrawingTools/BrushDrawingTool';
 
 /**
  * Helper para convertir la coordenada Y en precio.
