@@ -4,7 +4,7 @@ import { CircleDrawingTool } from '../../components/CircleDrawingTool';
 const useExampleDrawInChart = (chartRef, candlestickSeriesRef, data, isChartReady) => {
     useEffect(() => {
         //! 1. Verificamos las condiciones iniciales
-        if (!isChartReady) return;
+        if (!isChartReady || data.length === 0) return;
 
         //! 2. Seleccionamos los puntos de referencia (velas)
         const selectedCandles = [1400, 1404, 1420].map(index => data[index]).filter(Boolean);

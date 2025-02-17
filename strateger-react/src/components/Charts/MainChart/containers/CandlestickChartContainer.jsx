@@ -54,17 +54,10 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
         chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers
     );            
 
-
     //!----------------- Battle ground ---------------------------------!//
-
-
     useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    //TODO Hook de ejemplo para dibujar en el grafico un circulo y anclarlo a una vela
-
-
     useClickShowPos(chartRef, candlestickSeriesRef);                              //TODO Hook de ejemplo para mostrar la posición en el gráfico al hacer click
-
-    
-    
+        
     
     // Se pasa además la ref del contenedor al hook de dibujo
     //useDrawingTools(chartRef, candlestickSeriesRef, mainChartContainerRef, selectedTool);   //TODO Hook para gestionar las herramientas de dibujo
