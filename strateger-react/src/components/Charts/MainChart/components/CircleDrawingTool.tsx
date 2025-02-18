@@ -46,7 +46,7 @@ import {
 			console.log("⚠️ [CirclePaneRenderer] The point is outside the visible area of the chart, it will not be drawn.", this._point);
 		  	return;
 		}
-		console.log("✅ [CirclePaneRenderer] Drawing at coordinates:", this._point);
+		//console.log("✅ [CirclePaneRenderer] Drawing at coordinates:", this._point);
   
 		const ctx = scope.context as CanvasRenderingContext2D;					// Obtiene el contexto del canvas, lo que permite dibujar
   
@@ -72,6 +72,7 @@ import {
   //!----------------------------------------------------------------------------------------------------------------------------------------
   //!------------------------------------------  Calcula la posicion del Circulo en el Grafico ----------------------------------------------
   //!----------------------------------------------------------------------------------------------------------------------------------------
+
   class CirclePaneView implements IPrimitivePaneView {
 	private _source: CircleDrawingTool;
 	private _point: ICircleCoordinates = { x: null, y: null };
@@ -80,30 +81,15 @@ import {
 	  this._source = source;
 	}
   
-	//Method that calculates the position of the point in the chart
-	update(): void {	    
+	// Método que calcula la posición del punto en el gráfico
+	update(): void {
 	  const series = this._source.series;
 	  const chart = this._source.chart;
-  
-	  // get the visible range of the chart
-	  const visibleRange = chart.timeScale().getVisibleRange();
-	  if (!visibleRange) {
-		console.log("⏳ [CirclePaneView] Waiting for the visible range of the chart...");		
-		return;
-	  }
-  
-	  // Use the time of the point, but adjust it to be within the visible range
-	  let adjustedTime = this._source.point.time;
-	  if (adjustedTime < visibleRange.from) {
-		adjustedTime = visibleRange.from;
-	  } else if (adjustedTime > visibleRange.to) {
-		adjustedTime = visibleRange.to;
-	  }
-  
-	  // Convert the time and price to coordinates
-	  const x = chart.timeScale().timeToCoordinate(adjustedTime);
+	  
+	  // Usamos directamente el time original y el price original
+	  const x = chart.timeScale().timeToCoordinate(this._source.point.time);
 	  const y = series.priceToCoordinate(this._source.point.price);
-  	  
+	  
 	  this._point = { x, y };
 	}
   
@@ -144,7 +130,7 @@ import {
   	
 	// Call this method to update the position of the reference candle
 	updateCircle(newPoint: IPoint): void {
-	  console.log("🔄 [CircleDrawingTool] Updating Circle:", newPoint);
+	  //console.log("🔄 [CircleDrawingTool] Updating Circle:", newPoint);
 	  this.point = newPoint;
 	  this._paneViews.forEach((paneView) => {
 		paneView.update();

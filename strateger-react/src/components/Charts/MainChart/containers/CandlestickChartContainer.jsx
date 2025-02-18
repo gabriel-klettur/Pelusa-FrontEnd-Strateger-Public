@@ -23,9 +23,10 @@ import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 import useClickShowPos from '../hooks/utils/useClickShowPos';
 
-//!---- NUEVO: Hook para gestionar las herramientas de dibujo ----!//
+//!---- Herramientas de Dibujo ----!//
 import useExampleDrawInChart from '../hooks/utils/useExampleDrawInChart';
-import useDrawingTools from '../hooks/utils/useDrawingTools';
+//import useDrawingTools from '../hooks/utils/useDrawingTools';
+import useCircleDrawingOnClick from '../hooks/drawing/useCircleDrawingOnClick';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
     const mainChartContainerRef = useRef(); // Contenedor principal del gráfico
@@ -33,7 +34,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     
     const isChartReady = useChartReady(chartRef, candlestickSeriesRef);
-    const [selectedTool, setSelectedTool] = useState('null'); // TODO Estado para el modo de dibujo seleccionado: 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
+    const [selectedTool, setSelectedTool] = useState(null); // 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
 
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
@@ -55,13 +56,12 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     );            
 
     //!----------------- Battle ground ---------------------------------!//
-    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    //TODO Hook de ejemplo para dibujar en el grafico un circulo y anclarlo a una vela
-    useClickShowPos(chartRef, candlestickSeriesRef);                              //TODO Hook de ejemplo para mostrar la posición en el gráfico al hacer click
-        
-    
-    // Se pasa además la ref del contenedor al hook de dibujo
-    //useDrawingTools(chartRef, candlestickSeriesRef, mainChartContainerRef, selectedTool);   //TODO Hook para gestionar las herramientas de dibujo
+    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    
+    //useClickShowPos(chartRef, candlestickSeriesRef);  // Hook de ejemplo para mostrar la posición en el gráfico al hacer click
 
+    // Usamos el nuevo hook para dibujar el círculo al hacer click, solo si la herramienta "circle" está seleccionada
+    useCircleDrawingOnClick(chartRef, candlestickSeriesRef, data, selectedTool, setSelectedTool);
+        
     // Función para actualizar el modo de dibujo desde la toolbar
     const handleToolSelection = (tool) => {
       setSelectedTool(tool);      
@@ -74,14 +74,18 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           <button onClick={() => handleToolSelection('point')}>Punto</button>
           <button onClick={() => handleToolSelection('line')}>Línea</button>
           <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>
-          <button onClick={() => handleToolSelection('circle')}>Círculo</button>
+          <button 
+            onClick={() => handleToolSelection('circle')}
+            className={selectedTool === 'circle' ? 'bg-green-500 text-white' : ''}
+          >
+            Círculo
+          </button>
           <button onClick={() => handleToolSelection('brush')}>Brocha</button>
           {/* Botón para desactivar el dibujo */}
           <button onClick={() => handleToolSelection(null)}>Desactivar</button>
         </div>
         {/* Contenedor principal del gráfico */}
         <div ref={mainChartContainerRef} style={{ height: '593px', width: '100%' }} className="overflow-hidden"></div>
-
       </div>
     );
 };

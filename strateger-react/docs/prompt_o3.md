@@ -1,0 +1,1 @@
+Actua como un experto en React y lightweight-charts 5.0.2 de tradingview.
