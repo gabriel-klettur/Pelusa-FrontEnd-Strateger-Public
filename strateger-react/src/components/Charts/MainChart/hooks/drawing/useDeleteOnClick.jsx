@@ -11,57 +11,55 @@ const useDeleteOnClick = (
 ) => {
   useEffect(() => {
     if (
-      !chartRef.current ||
-      !candlestickSeriesRef.current ||
-      selectedTool !== 'delete'
+        !chartRef.current ||
+        !candlestickSeriesRef.current ||
+        selectedTool !== 'delete'
     ) {
-      return;
+        return;
     }
 
     const chart = chartRef.current;
     const series = candlestickSeriesRef.current;
 
     const handleChartClick = (param) => {
-      const clickX = param.point.x;
-      const clickY = param.point.y;
+        const clickX = param.point.x;
+        const clickY = param.point.y;
 
-      let circleToRemove = null;
+        let circleToRemove = null;
+        for (const circle of circles) {
+            const centerX = chart.timeScale().timeToCoordinate(circle.originalPoint.time);
+            const centerY = series.priceToCoordinate(circle.originalPoint.price);
+            const dx = clickX - centerX;
+            const dy = clickY - centerY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-      circles.forEach((circle) => {
-        // Convertir la posición original del círculo (time/price) a coordenadas en píxeles
-        const centerX = chart.timeScale().timeToCoordinate(circle.originalPoint.time);
-        const centerY = series.priceToCoordinate(circle.originalPoint.price);
-        const dx = clickX - centerX;
-        const dy = clickY - centerY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Suponiendo que "circle.radius" está en píxeles
-        if (distance <= circle.radius) {
-          circleToRemove = circle;
+            if (distance <= circle.radius) {
+                circleToRemove = circle;
+                break; // Salir del ciclo al encontrar el primer círculo que cumple la condición
+            }
         }
-      });
 
-      if (circleToRemove) {
-        // Eliminar el círculo del gráfico
-        if (typeof series.detachPrimitive === 'function') {
-          series.detachPrimitive(circleToRemove);
-        } else if (typeof chart.removePrimitive === 'function') {
-          chart.removePrimitive(circleToRemove);
-        } else if (typeof circleToRemove.dispose === 'function') {
-          circleToRemove.dispose();
+        if (circleToRemove) {
+            // Eliminar el círculo del gráfico
+            if (typeof series.detachPrimitive === 'function') {
+                series.detachPrimitive(circleToRemove);
+            } else if (typeof chart.removePrimitive === 'function') {
+                chart.removePrimitive(circleToRemove);
+            } else if (typeof circleToRemove.dispose === 'function') {
+                circleToRemove.dispose();
+            }
+            // Actualizar el estado eliminando el círculo
+            setCircles((prevCircles) =>
+            prevCircles.filter((c) => c !== circleToRemove)
+            );
+            // Salir del modo "delete"
+            setSelectedTool(null);
         }
-        // Actualizar el estado eliminando el círculo
-        setCircles((prevCircles) =>
-          prevCircles.filter((c) => c !== circleToRemove)
-        );
-        // Salir del modo "delete"
-        setSelectedTool(null);
-      }
     };
 
     chart.subscribeClick(handleChartClick);
     return () => {
-      chart.unsubscribeClick(handleChartClick);
+        chart.unsubscribeClick(handleChartClick);
     };
   }, [chartRef, candlestickSeriesRef, circles, selectedTool, setCircles, setSelectedTool]);
 };
