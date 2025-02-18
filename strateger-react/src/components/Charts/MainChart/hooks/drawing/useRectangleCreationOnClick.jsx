@@ -60,7 +60,7 @@ const useRectangleCreationOnClick = (
         if (onNewRectangleCreated) onNewRectangleCreated(newRect);
         // Reiniciar el punto pendiente para permitir dibujar otro rectángulo
         pendingStartPointRef.current = null;
-        // Opcional: setSelectedTool(null);
+        setSelectedTool(null);
       }
     };
 
