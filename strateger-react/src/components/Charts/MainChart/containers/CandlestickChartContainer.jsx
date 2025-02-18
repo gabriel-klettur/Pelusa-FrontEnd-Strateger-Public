@@ -94,8 +94,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
             className={selectedTool === 'delete' ? 'bg-green-500 text-white' : ''}
           >
             Eliminar
-          </button>
-          <button onClick={() => handleToolSelection('point')}>Punto</button>
+          </button>        
           <button onClick={() => handleToolSelection('line')}>Línea</button>
           <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>
           <button 

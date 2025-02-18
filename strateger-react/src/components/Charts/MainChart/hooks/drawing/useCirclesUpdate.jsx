@@ -8,8 +8,7 @@ const useCirclesUpdate = (chartRef, circles) => {
       const currentChart = chartRef.current;
       const updateAllCircles = () => {
         if (!isMounted || !currentChart) return;
-        circles.forEach((circle) => {
-          // Si tu herramienta de dibujo tiene una forma de comprobar si está descartada, úsala aquí
+        circles.forEach((circle) => {          
           if (circle.originalPoint) {
             circle.updateCircle(circle.originalPoint);
           }
