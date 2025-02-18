@@ -119,16 +119,6 @@ import {
     public opacity: number;
     private _paneViews: LinePaneView[];
   
-    /**
-     * Crea una instancia de la herramienta para dibujar líneas.
-     * @param chart Instancia del gráfico.
-     * @param series Instancia de la serie donde se dibuja.
-     * @param start Punto de inicio (time/price).
-     * @param end Punto de fin (time/price).
-     * @param color Color de la línea.
-     * @param lineWidth Grosor de la línea.
-     * @param opacity Opacidad de la línea.
-     */
     constructor(
       chart: IChartApi,
       series: ISeriesApi<SeriesType>,
@@ -146,23 +136,21 @@ import {
       this.lineWidth = lineWidth;
       this.opacity = opacity;
       this._paneViews = [new LinePaneView(this)];
+  
+      // ¡Agregamos la actualización inicial para que se calculen las coordenadas!
+      this.updateLine(this.start, this.end);
     }
   
-    /**
-     * Actualiza la línea con nuevos puntos.
-     * @param newStart Nuevo punto de inicio.
-     * @param newEnd Nuevo punto de fin.
-     */
     updateLine(newStart: IPoint, newEnd: IPoint): void {
+      console.log("LineDrawingTool: updateLine() llamado", { newStart, newEnd });
       this.start = newStart;
       this.end = newEnd;
       this._paneViews.forEach((paneView) => paneView.update());
     }
   
-    // Si deseas actualizar solo uno de los puntos, puedes agregar métodos específicos (por ejemplo, updateStart o updateEnd).
-  
     paneViews(): IPrimitivePaneView[] {
       return this._paneViews;
     }
   }
+  
   

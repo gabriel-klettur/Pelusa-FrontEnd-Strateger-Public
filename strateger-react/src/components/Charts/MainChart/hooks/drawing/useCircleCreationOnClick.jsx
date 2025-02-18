@@ -13,12 +13,7 @@ const useCircleCreationOnClick = (
   onNewCircleCreated // Callback para notificar la creación de un nuevo círculo
 ) => {
   useEffect(() => {
-    if (
-      !chartRef.current ||
-      !candlestickSeriesRef.current ||
-      selectedTool !== 'circle'
-    )
-      return;
+    if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'circle') return;
 
     const chart = chartRef.current;
     const series = candlestickSeriesRef.current;
