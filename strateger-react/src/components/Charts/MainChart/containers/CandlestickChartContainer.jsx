@@ -22,125 +22,168 @@ import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 
 //!---- Herramientas de Dibujo ----!//
-//import useDrawingTools from '../hooks/utils/useDrawingTools';
 import useCircleDrawingOnClick from '../hooks/drawing/useCircleDrawingOnClick';
 import useLineDrawingOnClick from '../hooks/drawing/useLineDrawingOnClick';
 import useRectangleDrawingOnClick from '../hooks/drawing/useRectangleDrawingOnClick';
 import useDeleteOnClick from '../hooks/drawing/useDeleteOnClick';
+import useBrushDrawingOnClick from '../hooks/drawing/useBrushDrawingOnClick';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
-    const mainChartContainerRef = useRef(); // Contenedor principal del gráfico
-    const chartRef = useInitializeChart(mainChartContainerRef);
-    const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
-    
-    const [selectedTool, setSelectedTool] = useState(null);   // 'delete' | 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
+  // Ref del contenedor del gráfico
+  const mainChartContainerRef = useRef();
+  const chartRef = useInitializeChart(mainChartContainerRef);
+  const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
+  
+  // Herramientas de dibujo (selectedTool puede ser: 'delete', 'line', 'rectangle', 'circle', 'brush', etc.)
+  const [selectedTool, setSelectedTool] = useState(null);
 
-    const [circles, setCircles] = useState([]);               // Lista de círculos dibujados en el gráfico
-    const [lines, setLines] = useState([]);         // Líneas dibujadas
-    const [rectangles, setRectangles] = useState([]);  // Estado para rectángulos
+  // Estados para primitivas de dibujo
+  const [circles, setCircles] = useState([]);
+  const [lines, setLines] = useState([]);
+  const [rectangles, setRectangles] = useState([]);
+  const [brushStrokes, setBrushStrokes] = useState([]);
 
-    const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
-    const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
-    const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
-    const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
-    const { adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef } = useInitializeAdxSeries(chartRef);
+  // Inicialización de indicadores
+  const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
+  const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
+  const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
+  const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
+  const { adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef } = useInitializeAdxSeries(chartRef);
 
-    useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
-    useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
-    useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
-    useSetSQZSeriesData(chartSettings.showSQZMOMENTUMSerie, data, positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef);
-    useSetRSISeriesData(chartSettings.showRSISerie, data, rsiSeriesRef);       
-    useSetAdxSeriesData(chartSettings.showAdxSerie, data, adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef);
-    
-    useSetupMarkers(
-        candlestickSeriesRef, chartInterval, 
-        chartSettings.showAlarmsMarkers, chartSettings.showAlarmsSelectedMarkers, chartSettings.showAlarmsFilteredMarkers,
-        chartSettings.showOrdersUsdmMarkers, chartSettings.showOrdersCoinmMarkers, chartSettings.showOrdersSpotMarkers, chartSettings.showOrdersStandardMarkers
-    );            
+  useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
+  useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
+  useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
+  useSetSQZSeriesData(
+    chartSettings.showSQZMOMENTUMSerie,
+    data,
+    positiveIncreasingRef,
+    positiveDecreasingRef,
+    negativeDecreasingRef,
+    negativeIncreasingRef
+  );
+  useSetRSISeriesData(chartSettings.showRSISerie, data, rsiSeriesRef);       
+  useSetAdxSeriesData(
+    chartSettings.showAdxSerie,
+    data,
+    adxSeriesRef,
+    plusDISeriesRef,
+    minusDISeriesRef,
+    keyLevelSeriesRef
+  );
+  
+  useSetupMarkers(
+    candlestickSeriesRef, chartInterval, 
+    chartSettings.showAlarmsMarkers,
+    chartSettings.showAlarmsSelectedMarkers,
+    chartSettings.showAlarmsFilteredMarkers,
+    chartSettings.showOrdersUsdmMarkers,
+    chartSettings.showOrdersCoinmMarkers,
+    chartSettings.showOrdersSpotMarkers,
+    chartSettings.showOrdersStandardMarkers
+  );            
 
-    //!----------------- Battle ground ---------------------------------!//
-    //useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    
-    //useClickShowPos(chartRef, candlestickSeriesRef);  // Hook de ejemplo para mostrar la posición en el gráfico al hacer click
+  //!----------------- Hooks de Dibujo -----------------//
+  useCircleDrawingOnClick(
+    chartRef,
+    candlestickSeriesRef,
+    data,
+    selectedTool,
+    setSelectedTool,
+    circles,
+    setCircles
+  );   
+  
+  useLineDrawingOnClick(
+    chartRef,
+    candlestickSeriesRef,
+    selectedTool,
+    setSelectedTool,
+    lines,
+    setLines
+  );
+  
+  useRectangleDrawingOnClick(
+    chartRef,
+    candlestickSeriesRef,
+    selectedTool,
+    setSelectedTool,
+    rectangles,
+    setRectangles
+  );
 
-    useCircleDrawingOnClick(
-      chartRef,
-      candlestickSeriesRef,
-      data,
-      selectedTool,
-      setSelectedTool,
-      circles,
-      setCircles
-    );   
-    
-    useDeleteOnClick(
-      chartRef,
-      candlestickSeriesRef,
-      circles,
-      setCircles,
-      lines,
-      setLines,
-      rectangles,
-      setRectangles,
-      selectedTool,
-      setSelectedTool
-    );
+  useBrushDrawingOnClick(
+    mainChartContainerRef, // Se pasa el ref del contenedor para la brocha
+    chartRef,
+    candlestickSeriesRef,
+    selectedTool,
+    setSelectedTool,
+    brushStrokes,
+    setBrushStrokes
+  );
 
-    useLineDrawingOnClick(
-      chartRef,
-      candlestickSeriesRef,
-      selectedTool,
-      setSelectedTool,
-      lines,
-      setLines
-    );
+  useDeleteOnClick(
+    chartRef,
+    candlestickSeriesRef,
+    circles,
+    setCircles,
+    lines,
+    setLines,
+    rectangles,
+    setRectangles,
+    brushStrokes,
+    setBrushStrokes,
+    selectedTool,
+    setSelectedTool
+  );
+  
+  // Función para cambiar la herramienta de dibujo
+  const handleToolSelection = (tool) => {
+    setSelectedTool(tool);      
+  };
 
-    useRectangleDrawingOnClick(
-      chartRef,
-      candlestickSeriesRef,
-      selectedTool,
-      setSelectedTool,
-      rectangles,
-      setRectangles
-    );
-    
-    // Función para actualizar el modo de dibujo desde la toolbar
-    const handleToolSelection = (tool) => {
-      setSelectedTool(tool);      
-    };
-
-    return (
-      <div className="chart-container relative">
-        {/* Toolbar de dibujo */}
-        <div className="toolbar absolute top-0 left-0 z-10 p-2 bg-gray-200 flex gap-2">
+  return (
+    <div className="chart-container relative">
+      {/* Toolbar de dibujo */}
+      <div className="toolbar absolute top-0 left-0 z-10 p-2 bg-gray-200 flex gap-2">
         <button
-            onClick={() => handleToolSelection('delete')}
-            className={selectedTool === 'delete' ? 'bg-green-500 text-white' : ''}
-          >
-            Eliminar
-          </button>        
-          <button onClick={() => handleToolSelection('line')} className={selectedTool === 'line' ? 'bg-green-500 text-white' : ''}>
-            Línea
-          </button>
-          <button 
-            onClick={() => handleToolSelection('rectangle')}
-            className={selectedTool === 'rectangle' ? 'bg-green-500 text-white' : ''}
-          >
-            Rectángulo
-          </button>
-          <button 
-            onClick={() => handleToolSelection('circle')}
-            className={selectedTool === 'circle' ? 'bg-green-500 text-white' : ''}
-          >
-            Círculo
-          </button>
-          <button onClick={() => handleToolSelection('brush')}>Brocha</button>
-          {/* Botón para desactivar el dibujo */}
-          <button onClick={() => handleToolSelection(null)}>Desactivar</button>
-        </div>
-        {/* Contenedor principal del gráfico */}
-        <div ref={mainChartContainerRef} style={{ height: '593px', width: '100%' }} className="overflow-hidden"></div>
+          onClick={() => handleToolSelection('delete')}
+          className={selectedTool === 'delete' ? 'bg-green-500 text-white' : ''}
+        >
+          Eliminar
+        </button>        
+        <button
+          onClick={() => handleToolSelection('line')}
+          className={selectedTool === 'line' ? 'bg-green-500 text-white' : ''}
+        >
+          Línea
+        </button>
+        <button
+          onClick={() => handleToolSelection('rectangle')}
+          className={selectedTool === 'rectangle' ? 'bg-green-500 text-white' : ''}
+        >
+          Rectángulo
+        </button>
+        <button
+          onClick={() => handleToolSelection('circle')}
+          className={selectedTool === 'circle' ? 'bg-green-500 text-white' : ''}
+        >
+          Círculo
+        </button>
+        <button
+          onClick={() => handleToolSelection('brush')}
+          className={selectedTool === 'brush' ? 'bg-green-500 text-white' : ''}
+        >
+          Brocha
+        </button>
       </div>
-    );
+      {/* Contenedor principal del gráfico */}
+      <div
+        ref={mainChartContainerRef}
+        style={{ height: '593px', width: '100%' }}
+        className="overflow-hidden"
+      ></div>
+    </div>
+  );
 };
 
 export default CandlestickChartContainer;

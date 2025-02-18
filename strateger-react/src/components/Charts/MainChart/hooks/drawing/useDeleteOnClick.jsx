@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-// Función auxiliar para calcular la distancia de un punto a un segmento (para líneas)
+// Función auxiliar para calcular la distancia de un punto a un segmento (para líneas y brush)
 const getDistancePointToSegment = (px, py, x1, y1, x2, y2) => {
   const dx = x2 - x1;
   const dy = y2 - y1;
@@ -34,6 +34,8 @@ const useDeleteOnClick = (
   setLines,
   rectangles,
   setRectangles,
+  brushStrokes,
+  setBrushStrokes,
   selectedTool,
   setSelectedTool
 ) => {
@@ -54,17 +56,16 @@ const useDeleteOnClick = (
       const clickY = param.point.y;
 
       let primitiveToRemove = null;
-      let primitiveType = null; // "circle", "line" o "rectangle"
+      let primitiveType = null; // "circle", "line", "rectangle" o "brush"
 
-      // Primero buscamos en los círculos
+      // Buscar en círculos
       for (const circle of circles) {
-        // Suponemos que cada círculo tiene 'originalPoint' y 'radius'
+        // Se asume que cada círculo tiene 'originalPoint' y 'radius'
         const centerX = chart.timeScale().timeToCoordinate(circle.originalPoint.time);
         const centerY = series.priceToCoordinate(circle.originalPoint.price);
         const dx = clickX - centerX;
         const dy = clickY - centerY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-
         if (distance <= circle.radius) {
           primitiveToRemove = circle;
           primitiveType = 'circle';
@@ -72,17 +73,14 @@ const useDeleteOnClick = (
         }
       }
 
-      // Si no se encontró ningún círculo, buscamos entre las líneas
+      // Buscar en líneas
       if (!primitiveToRemove) {
         for (const line of lines) {
-          // Suponemos que cada línea tiene propiedades 'start' y 'end'
           const startX = chart.timeScale().timeToCoordinate(line.start.time);
           const startY = series.priceToCoordinate(line.start.price);
           const endX = chart.timeScale().timeToCoordinate(line.end.time);
           const endY = series.priceToCoordinate(line.end.price);
-          
           const distance = getDistancePointToSegment(clickX, clickY, startX, startY, endX, endY);
-          // Umbral de 5 píxeles (ajústalo si es necesario)
           if (distance <= 5) {
             primitiveToRemove = line;
             primitiveType = 'line';
@@ -91,21 +89,17 @@ const useDeleteOnClick = (
         }
       }
 
-      // Si aún no se encontró, buscamos entre los rectángulos
+      // Buscar en rectángulos
       if (!primitiveToRemove) {
         for (const rect of rectangles) {
-          // Suponemos que cada rectángulo tiene 'start' y 'end'
           const x1 = chart.timeScale().timeToCoordinate(rect.start.time);
           const y1 = series.priceToCoordinate(rect.start.price);
           const x2 = chart.timeScale().timeToCoordinate(rect.end.time);
           const y2 = series.priceToCoordinate(rect.end.price);
-          // Calculamos la esquina superior izquierda y dimensiones
           const rectX = Math.min(x1, x2);
           const rectY = Math.min(y1, y2);
           const rectWidth = Math.abs(x2 - x1);
           const rectHeight = Math.abs(y2 - y1);
-
-          // Verificamos si el click está dentro del rectángulo
           if (
             clickX >= rectX &&
             clickX <= rectX + rectWidth &&
@@ -119,8 +113,28 @@ const useDeleteOnClick = (
         }
       }
 
+      // Buscar en trazos de brocha
+      if (!primitiveToRemove) {
+        for (const brush of brushStrokes) {
+          let found = false;
+          for (const segment of brush.segments) {
+            const startX = chart.timeScale().timeToCoordinate(segment.start.time);
+            const startY = series.priceToCoordinate(segment.start.price);
+            const endX = chart.timeScale().timeToCoordinate(segment.end.time);
+            const endY = series.priceToCoordinate(segment.end.price);
+            const distance = getDistancePointToSegment(clickX, clickY, startX, startY, endX, endY);
+            if (distance <= 5) {
+              primitiveToRemove = brush;
+              primitiveType = 'brush';
+              found = true;
+              break;
+            }
+          }
+          if (found) break;
+        }
+      }
+
       if (primitiveToRemove) {
-        // Eliminar la primitiva del gráfico
         if (typeof series.detachPrimitive === 'function') {
           series.detachPrimitive(primitiveToRemove);
         } else if (typeof chart.removePrimitive === 'function') {
@@ -129,21 +143,15 @@ const useDeleteOnClick = (
           primitiveToRemove.dispose();
         }
 
-        // Actualizar el estado según el tipo de primitiva
         if (primitiveType === 'circle') {
-          setCircles((prevCircles) =>
-            prevCircles.filter((c) => c !== primitiveToRemove)
-          );
+          setCircles((prev) => prev.filter((c) => c !== primitiveToRemove));
         } else if (primitiveType === 'line') {
-          setLines((prevLines) =>
-            prevLines.filter((l) => l !== primitiveToRemove)
-          );
+          setLines((prev) => prev.filter((l) => l !== primitiveToRemove));
         } else if (primitiveType === 'rectangle') {
-          setRectangles((prevRectangles) =>
-            prevRectangles.filter((r) => r !== primitiveToRemove)
-          );
+          setRectangles((prev) => prev.filter((r) => r !== primitiveToRemove));
+        } else if (primitiveType === 'brush') {
+          setBrushStrokes((prev) => prev.filter((b) => b !== primitiveToRemove));
         }
-        // Salir del modo "delete"
         setSelectedTool(null);
       }
     };
@@ -158,10 +166,12 @@ const useDeleteOnClick = (
     circles,
     lines,
     rectangles,
+    brushStrokes,
     selectedTool,
     setCircles,
     setLines,
     setRectangles,
+    setBrushStrokes,
     setSelectedTool,
   ]);
 };
