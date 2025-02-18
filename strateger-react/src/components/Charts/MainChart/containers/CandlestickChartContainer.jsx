@@ -75,6 +75,8 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       candlestickSeriesRef,
       circles,
       setCircles,
+      lines,
+      setLines,
       selectedTool,
       setSelectedTool
     );
