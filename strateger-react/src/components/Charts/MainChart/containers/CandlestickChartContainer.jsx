@@ -25,6 +25,7 @@ import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 //!---- Herramientas de Dibujo ----!//
 //import useDrawingTools from '../hooks/utils/useDrawingTools';
 import useCircleDrawingOnClick from '../hooks/drawing/useCircleDrawingOnClick';
+import useDeleteOnClick from '../hooks/drawing/useDeleteOnClick';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
     const mainChartContainerRef = useRef(); // Contenedor principal del gráfico
@@ -32,7 +33,9 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
     
     const isChartReady = useChartReady(chartRef, candlestickSeriesRef);
-    const [selectedTool, setSelectedTool] = useState(null); // 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
+    const [selectedTool, setSelectedTool] = useState(null);   // 'delete' | 'point' | 'line' | 'rectangle' | 'circle' | 'brush' | null  
+
+    const [circles, setCircles] = useState([]);               // Lista de círculos dibujados en el gráfico
 
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
@@ -57,9 +60,26 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     //useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    
     //useClickShowPos(chartRef, candlestickSeriesRef);  // Hook de ejemplo para mostrar la posición en el gráfico al hacer click
 
-    // Usamos el nuevo hook para dibujar el círculo al hacer click, solo si la herramienta "circle" está seleccionada
-    useCircleDrawingOnClick(chartRef, candlestickSeriesRef, data, selectedTool, setSelectedTool);
-        
+    useCircleDrawingOnClick(
+      chartRef,
+      candlestickSeriesRef,
+      data,
+      selectedTool,
+      setSelectedTool,
+      circles,
+      setCircles
+    );   
+    
+    useDeleteOnClick(
+      chartRef,
+      candlestickSeriesRef,
+      circles,
+      setCircles,
+      selectedTool,
+      setSelectedTool
+    );
+
+    
     // Función para actualizar el modo de dibujo desde la toolbar
     const handleToolSelection = (tool) => {
       setSelectedTool(tool);      
@@ -69,7 +89,12 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       <div className="chart-container relative">
         {/* Toolbar de dibujo */}
         <div className="toolbar absolute top-0 left-0 z-10 p-2 bg-gray-200 flex gap-2">
-          <button onClick={() => handleToolSelection('point')}>Eliminar</button>
+        <button
+            onClick={() => handleToolSelection('delete')}
+            className={selectedTool === 'delete' ? 'bg-green-500 text-white' : ''}
+          >
+            Eliminar
+          </button>
           <button onClick={() => handleToolSelection('point')}>Punto</button>
           <button onClick={() => handleToolSelection('line')}>Línea</button>
           <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>

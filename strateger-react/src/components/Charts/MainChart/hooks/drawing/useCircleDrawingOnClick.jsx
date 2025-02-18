@@ -1,5 +1,4 @@
 //Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useCircleDrawingOnClick.jsx
-import { useState } from 'react';
 import useCircleCreationOnClick from './useCircleCreationOnClick';
 import useCirclesUpdate from './useCirclesUpdate';
 
@@ -9,10 +8,10 @@ const useCircleDrawingOnClick = (
   candlestickSeriesRef,
   data,
   selectedTool,
-  setSelectedTool
-) => {
-  // Estado para almacenar la lista de círculos
-  const [circles, setCircles] = useState([]);
+  setSelectedTool,
+  circles,
+  setCircles
+) => {    
 
   // Callback que se ejecuta cuando se crea un nuevo círculo
   const handleNewCircle = (newCircle) => {
