@@ -21,10 +21,8 @@ import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 
 //!---- Markers ----!//
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
-import useClickShowPos from '../hooks/utils/useClickShowPos';
 
 //!---- Herramientas de Dibujo ----!//
-import useExampleDrawInChart from '../hooks/utils/useExampleDrawInChart';
 //import useDrawingTools from '../hooks/utils/useDrawingTools';
 import useCircleDrawingOnClick from '../hooks/drawing/useCircleDrawingOnClick';
 
@@ -56,7 +54,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     );            
 
     //!----------------- Battle ground ---------------------------------!//
-    useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    
+    //useExampleDrawInChart(chartRef, candlestickSeriesRef, data, isChartReady);    
     //useClickShowPos(chartRef, candlestickSeriesRef);  // Hook de ejemplo para mostrar la posición en el gráfico al hacer click
 
     // Usamos el nuevo hook para dibujar el círculo al hacer click, solo si la herramienta "circle" está seleccionada
@@ -71,6 +69,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       <div className="chart-container relative">
         {/* Toolbar de dibujo */}
         <div className="toolbar absolute top-0 left-0 z-10 p-2 bg-gray-200 flex gap-2">
+          <button onClick={() => handleToolSelection('point')}>Eliminar</button>
           <button onClick={() => handleToolSelection('point')}>Punto</button>
           <button onClick={() => handleToolSelection('line')}>Línea</button>
           <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>

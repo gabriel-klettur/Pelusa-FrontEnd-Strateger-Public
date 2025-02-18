@@ -136,6 +136,7 @@ import {
 		paneView.update();
 	  });
 	}
+	
   
 	paneViews(): IPrimitivePaneView[] {
 	  return this._paneViews;
