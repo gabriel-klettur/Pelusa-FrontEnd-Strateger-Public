@@ -27,6 +27,7 @@ import useLineDrawingOnClick from '../hooks/drawing/useLineDrawingOnClick';
 import useRectangleDrawingOnClick from '../hooks/drawing/useRectangleDrawingOnClick';
 import useDeleteOnClick from '../hooks/drawing/useDeleteOnClick';
 import useBrushDrawingOnClick from '../hooks/drawing/useBrushDrawingOnClick';
+import useTextDrawingOnClick from '../hooks/drawing/useTextDrawingOnClick';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
   // Ref del contenedor del gráfico
@@ -42,6 +43,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   const [lines, setLines] = useState([]);
   const [rectangles, setRectangles] = useState([]);
   const [brushStrokes, setBrushStrokes] = useState([]);
+  const [textTools, setTextTools] = useState([]);
 
   // Inicialización de indicadores
   const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
@@ -132,8 +134,20 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     setRectangles,
     brushStrokes,
     setBrushStrokes,
+    textTools,
+    setTextTools,
     selectedTool,
     setSelectedTool
+  );
+
+  useTextDrawingOnClick(
+    mainChartContainerRef,
+    chartRef,
+    candlestickSeriesRef,
+    selectedTool,
+    setSelectedTool,
+    textTools,
+    setTextTools
   );
   
   // Función para cambiar la herramienta de dibujo
@@ -191,6 +205,18 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     });
     setBrushStrokes([]);
 
+    // Eliminamos textos
+    textTools.forEach((text) => {
+      if (typeof candlestickSeriesRef.current?.detachPrimitive === 'function') {
+        candlestickSeriesRef.current.detachPrimitive(text);
+      } else if (typeof chartRef.current?.removePrimitive === 'function') {
+        chartRef.current.removePrimitive(text);
+      } else if (typeof text.dispose === 'function') {
+        text.dispose();
+      }
+    });
+    setTextTools([]);
+
     // Si se desea, también se desactiva cualquier herramienta
     setSelectedTool(null);
   };
@@ -229,6 +255,9 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           className={selectedTool === 'brush' ? 'bg-green-500 text-white' : ''}
         >
           Brocha
+        </button>
+        <button onClick={() => handleToolSelection('text')} className={selectedTool === 'text' ? 'bg-green-500 text-white' : ''}>
+          Text
         </button>
         <button
           onClick={handleClearAll}

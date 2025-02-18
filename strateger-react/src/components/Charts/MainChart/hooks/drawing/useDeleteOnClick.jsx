@@ -7,7 +7,6 @@ const getDistancePointToSegment = (px, py, x1, y1, x2, y2) => {
   const dx = x2 - x1;
   const dy = y2 - y1;
   if (dx === 0 && dy === 0) {
-    // El segmento es un punto
     return Math.sqrt((px - x1) ** 2 + (py - y1) ** 2);
   }
   const t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
@@ -36,6 +35,8 @@ const useDeleteOnClick = (
   setRectangles,
   brushStrokes,
   setBrushStrokes,
+  textTools,
+  setTextTools,
   selectedTool,
   setSelectedTool
 ) => {
@@ -56,11 +57,10 @@ const useDeleteOnClick = (
       const clickY = param.point.y;
 
       let primitiveToRemove = null;
-      let primitiveType = null; // "circle", "line", "rectangle" o "brush"
+      let primitiveType = null; // "circle", "line", "rectangle", "brush" o "text"
 
       // Buscar en círculos
       for (const circle of circles) {
-        // Se asume que cada círculo tiene 'originalPoint' y 'radius'
         const centerX = chart.timeScale().timeToCoordinate(circle.originalPoint.time);
         const centerY = series.priceToCoordinate(circle.originalPoint.price);
         const dx = clickX - centerX;
@@ -134,7 +134,27 @@ const useDeleteOnClick = (
         }
       }
 
+      // Buscar en textos
+      if (!primitiveToRemove) {
+        for (const textTool of textTools) {
+          const textX = chart.timeScale().timeToCoordinate(textTool.point.time);
+          const textY = series.priceToCoordinate(textTool.point.price);
+          // Suponemos un área de 100x30 píxeles (puedes ajustar según el tamaño de la fuente)
+          if (
+            clickX >= textX &&
+            clickX <= textX + 100 &&
+            clickY >= textY - 30 &&
+            clickY <= textY
+          ) {
+            primitiveToRemove = textTool;
+            primitiveType = 'text';
+            break;
+          }
+        }
+      }
+
       if (primitiveToRemove) {
+        // Eliminar la primitiva del gráfico
         if (typeof series.detachPrimitive === 'function') {
           series.detachPrimitive(primitiveToRemove);
         } else if (typeof chart.removePrimitive === 'function') {
@@ -143,6 +163,7 @@ const useDeleteOnClick = (
           primitiveToRemove.dispose();
         }
 
+        // Actualizar el estado según el tipo de primitiva
         if (primitiveType === 'circle') {
           setCircles((prev) => prev.filter((c) => c !== primitiveToRemove));
         } else if (primitiveType === 'line') {
@@ -151,6 +172,8 @@ const useDeleteOnClick = (
           setRectangles((prev) => prev.filter((r) => r !== primitiveToRemove));
         } else if (primitiveType === 'brush') {
           setBrushStrokes((prev) => prev.filter((b) => b !== primitiveToRemove));
+        } else if (primitiveType === 'text') {
+          setTextTools((prev) => prev.filter((t) => t !== primitiveToRemove));
         }
         setSelectedTool(null);
       }
@@ -167,11 +190,13 @@ const useDeleteOnClick = (
     lines,
     rectangles,
     brushStrokes,
+    textTools,
     selectedTool,
     setCircles,
     setLines,
     setRectangles,
     setBrushStrokes,
+    setTextTools,
     setSelectedTool,
   ]);
 };
