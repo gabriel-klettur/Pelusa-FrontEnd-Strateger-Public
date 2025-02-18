@@ -25,6 +25,7 @@ import useSetupMarkers from '../hooks/markers/useSetupMarkers';
 //import useDrawingTools from '../hooks/utils/useDrawingTools';
 import useCircleDrawingOnClick from '../hooks/drawing/useCircleDrawingOnClick';
 import useLineDrawingOnClick from '../hooks/drawing/useLineDrawingOnClick';
+import useRectangleDrawingOnClick from '../hooks/drawing/useRectangleDrawingOnClick';
 import useDeleteOnClick from '../hooks/drawing/useDeleteOnClick';
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {  
@@ -36,6 +37,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
 
     const [circles, setCircles] = useState([]);               // Lista de círculos dibujados en el gráfico
     const [lines, setLines] = useState([]);         // Líneas dibujadas
+    const [rectangles, setRectangles] = useState([]);  // Estado para rectángulos
 
     const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
     const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
@@ -77,6 +79,8 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       setCircles,
       lines,
       setLines,
+      rectangles,
+      setRectangles,
       selectedTool,
       setSelectedTool
     );
@@ -88,6 +92,15 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       setSelectedTool,
       lines,
       setLines
+    );
+
+    useRectangleDrawingOnClick(
+      chartRef,
+      candlestickSeriesRef,
+      selectedTool,
+      setSelectedTool,
+      rectangles,
+      setRectangles
     );
     
     // Función para actualizar el modo de dibujo desde la toolbar
@@ -108,7 +121,12 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           <button onClick={() => handleToolSelection('line')} className={selectedTool === 'line' ? 'bg-green-500 text-white' : ''}>
             Línea
           </button>
-          <button onClick={() => handleToolSelection('rectangle')}>Rectángulo</button>
+          <button 
+            onClick={() => handleToolSelection('rectangle')}
+            className={selectedTool === 'rectangle' ? 'bg-green-500 text-white' : ''}
+          >
+            Rectángulo
+          </button>
           <button 
             onClick={() => handleToolSelection('circle')}
             className={selectedTool === 'circle' ? 'bg-green-500 text-white' : ''}
