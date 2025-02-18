@@ -9,10 +9,11 @@ const useCircleDrawingOnClick = (
   selectedTool,
   setSelectedTool
 ) => {
-  // Ref para guardar la instancia del círculo creado por el click
-  const circleRef = useRef(null);
+  // Ref para almacenar todas las instancias de círculos creados
+  const circlesRef = useRef([]);
+  // Ref para llevar un contador de IDs
+  const idCounterRef = useRef(0);
 
-  // 1. useEffect para crear el círculo al hacer click
   useEffect(() => {
     if (
       !chartRef.current ||
@@ -32,7 +33,7 @@ const useCircleDrawingOnClick = (
       const clickedTime = chart.timeScale().coordinateToTime(clickX);
       const clickedPrice = series.coordinateToPrice(clickY);
 
-      // Buscar la vela más cercana en "data" (para anclar horizontalmente)
+      // Buscar la vela más cercana en "data"
       let closestCandle = data[0];
       let minDiff = Infinity;
       data.forEach((candle) => {
@@ -54,34 +55,40 @@ const useCircleDrawingOnClick = (
           ? Math.floor(closestCandle[0] / 1000)
           : closestCandle[0];
 
-      // El punto original: time de la vela (para anclaje) y price del click (posición vertical)
+      // Usamos el time de la vela y el price del click
       const originalPoint = { time: candleTime, price: clickedPrice };
 
-      // Crear la instancia del círculo y almacenar el punto original en una propiedad
+      // Incrementar y asignar un ID único al círculo
+      const circleId = idCounterRef.current++;
+      
+      // Crear la instancia del círculo y almacenar el punto original
       const circleTool = new CircleDrawingTool(
         chart,
         series,
         originalPoint,
-        'orange', // Color verde para indicar que se ha dibujado
+        'green', // Color verde para indicar que se ha dibujado
         15,      // Radio
         0.5      // Opacidad
       );
-      circleTool.originalPoint = originalPoint; // Guardamos el punto de anclaje
+      circleTool.originalPoint = originalPoint;
+      circleTool.id = circleId;  // Asignamos el ID
 
       // Actualización inicial para calcular la posición
       circleTool.updateCircle(originalPoint);
 
       // Adjuntar el círculo al gráfico
       if (typeof series.attachPrimitive === 'function') {
-        series.attachPrimitive(circleTool);        
+        series.attachPrimitive(circleTool);
+        console.log(`Círculo ${circleId} adjuntado a la serie de velas.`);
       } else if (typeof chart.addPrimitive === 'function') {
-        chart.addPrimitive(circleTool);        
+        chart.addPrimitive(circleTool);
+        console.log(`Círculo ${circleId} adjuntado al gráfico.`);
       } else {
         console.warn("No se encontró método para adjuntar primitivas.");
       }
 
-      // Guardamos la instancia en el ref
-      circleRef.current = circleTool;
+      // Agregar la nueva instancia al array de círculos
+      circlesRef.current.push(circleTool);
 
       // Reiniciamos la herramienta para que el botón vuelva a su estado original
       setSelectedTool(null);
@@ -94,24 +101,25 @@ const useCircleDrawingOnClick = (
     };
   }, [chartRef, candlestickSeriesRef, data, selectedTool, setSelectedTool]);
 
-  // 2. useEffect para actualizar la posición del círculo cuando cambie el timeScale
+  // Suscribirse a cambios en el timeScale para actualizar TODOS los círculos
   useEffect(() => {
     if (!chartRef.current) return;
     const chart = chartRef.current;
 
-    // Función que se ejecuta cuando cambia el rango visible
-    const updateCircleOnRangeChange = () => {
-      if (circleRef.current && circleRef.current.originalPoint) {
-        circleRef.current.updateCircle(circleRef.current.originalPoint);        
-      }
+    const updateAllCircles = () => {
+      circlesRef.current.forEach((circle) => {
+        if (circle.originalPoint) {
+          circle.updateCircle(circle.originalPoint);
+          console.log(`Círculo ${circle.id} actualizado con:`, circle.originalPoint);
+        }
+      });
     };
 
-    chart.timeScale().subscribeVisibleTimeRangeChange(updateCircleOnRangeChange);
+    chart.timeScale().subscribeVisibleTimeRangeChange(updateAllCircles);
     return () => {
-      chart.timeScale().unsubscribeVisibleTimeRangeChange(updateCircleOnRangeChange);
+      chart.timeScale().unsubscribeVisibleTimeRangeChange(updateAllCircles);
     };
   }, [chartRef]);
-
 };
 
 export default useCircleDrawingOnClick;
