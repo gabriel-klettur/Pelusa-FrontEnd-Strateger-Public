@@ -141,6 +141,61 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     setSelectedTool(tool);      
   };
 
+  // Función para eliminar todos los dibujos
+  const handleClearAll = () => {
+    // Eliminamos círculos
+    circles.forEach((circle) => {
+      if (typeof candlestickSeriesRef.current?.detachPrimitive === 'function') {
+        candlestickSeriesRef.current.detachPrimitive(circle);
+      } else if (typeof chartRef.current?.removePrimitive === 'function') {
+        chartRef.current.removePrimitive(circle);
+      } else if (typeof circle.dispose === 'function') {
+        circle.dispose();
+      }
+    });
+    setCircles([]);
+
+    // Eliminamos líneas
+    lines.forEach((line) => {
+      if (typeof candlestickSeriesRef.current?.detachPrimitive === 'function') {
+        candlestickSeriesRef.current.detachPrimitive(line);
+      } else if (typeof chartRef.current?.removePrimitive === 'function') {
+        chartRef.current.removePrimitive(line);
+      } else if (typeof line.dispose === 'function') {
+        line.dispose();
+      }
+    });
+    setLines([]);
+
+    // Eliminamos rectángulos
+    rectangles.forEach((rect) => {
+      if (typeof candlestickSeriesRef.current?.detachPrimitive === 'function') {
+        candlestickSeriesRef.current.detachPrimitive(rect);
+      } else if (typeof chartRef.current?.removePrimitive === 'function') {
+        chartRef.current.removePrimitive(rect);
+      } else if (typeof rect.dispose === 'function') {
+        rect.dispose();
+      }
+    });
+    setRectangles([]);
+
+    // Eliminamos trazos de brocha
+    brushStrokes.forEach((brush) => {
+      if (typeof candlestickSeriesRef.current?.detachPrimitive === 'function') {
+        candlestickSeriesRef.current.detachPrimitive(brush);
+      } else if (typeof chartRef.current?.removePrimitive === 'function') {
+        chartRef.current.removePrimitive(brush);
+      } else if (typeof brush.dispose === 'function') {
+        brush.dispose();
+      }
+    });
+    setBrushStrokes([]);
+
+    // Si se desea, también se desactiva cualquier herramienta
+    setSelectedTool(null);
+  };
+
+
   return (
     <div className="chart-container relative">
       {/* Toolbar de dibujo */}
@@ -174,6 +229,12 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           className={selectedTool === 'brush' ? 'bg-green-500 text-white' : ''}
         >
           Brocha
+        </button>
+        <button
+          onClick={handleClearAll}
+          className="bg-red-500 text-white"
+        >
+          Eliminar Todo
         </button>
       </div>
       {/* Contenedor principal del gráfico */}
