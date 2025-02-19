@@ -177,8 +177,13 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     }
   }, [selectedTool, handleClearAll, dispatch]);
   
+  const resetTool = () => {
+    dispatch(setSelectedChartTool(null));
+    console.log('resetTool');
+  };
+
   // Usamos el custom hook para el Delta Tooltip
-  useDeltaToolTip(selectedTool, chartRef, candlestickSeriesRef);
+  useDeltaToolTip(selectedTool, chartRef, candlestickSeriesRef, resetTool);
 
 
   return (

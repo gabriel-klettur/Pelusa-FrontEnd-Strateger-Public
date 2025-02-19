@@ -1,3 +1,12 @@
+/*
+  File: delta-tooltip.ts
+  Location: src/components/Charts/MainChart/plugins/delta-tooltip/delta-tooltip.ts
+
+  Nota: Asegúrate de tener los siguientes archivos auxiliares en tu proyecto:
+    - src/helpers/delegate.ts
+    - src/helpers/time.ts
+*/
+
 import {
 	CrosshairMode,
 	ISeriesPrimitive,
@@ -5,24 +14,19 @@ import {
 	LineData,
 	WhitespaceData,
 	CandlestickData,
-	ColorType,
-	LineStyleOptions,
-	AreaStyleOptions,
-	IPrimitivePaneView,
 	Time,
 } from 'lightweight-charts';
 import { Delegate, ISubscription } from '../helpers/delegate';
 import { convertTime, formattedDateAndTime } from '../helpers/time';
+import { MultiTouchCrosshairPaneView, TooltipCrosshairLineData } from './crosshair-line-pane';
 import {
-	MultiTouchCrosshairPaneView,
-	TooltipCrosshairLineData,
-} from './crosshair-line-pane';
-import { DeltaSingleTooltipData, DeltaTooltipData, DeltaTooltipPaneView } from './delta-tooltip-pane';
-import {
-	MultiTouchChartEvents,
-	MultiTouchInteraction,
-} from './multi-touch-chart-events';
+	DeltaSingleTooltipData,
+	DeltaTooltipData,
+	DeltaTooltipPaneView,
+} from './delta-tooltip-pane';
+import { MultiTouchChartEvents, MultiTouchInteraction } from './multi-touch-chart-events';
 
+/** Opciones por defecto para el tooltip */
 const defaultOptions: TooltipPrimitiveOptions = {
 	lineColor: 'rgba(0, 0, 0, 0.2)',
 	priceExtractor: (data: LineData | CandlestickData | WhitespaceData) => {
@@ -54,17 +58,24 @@ export interface ActiveRange {
 	positive: boolean;
 }
 
+/**
+ * Plugin Delta Tooltip: muestra la diferencia entre dos puntos en el gráfico.
+ * Además, deshabilita el scroll y el escalado mientras se utiliza.
+ */
 export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 	private _options: TooltipPrimitiveOptions;
-	_crosshairPaneView: MultiTouchCrosshairPaneView;
-	_deltaTooltipPaneView: DeltaTooltipPaneView;
-	_paneViews: IPrimitivePaneView[];
-	_crosshairData: TooltipCrosshairLineData[] = [];
-	_tooltipData: Partial<DeltaTooltipData>;
-	_attachedParams: SeriesAttachedParameter<Time> | undefined;
-	_touchChartEvents: MultiTouchChartEvents | null = null;
-
+	private _crosshairPaneView: MultiTouchCrosshairPaneView;
+	private _deltaTooltipPaneView: DeltaTooltipPaneView;
+	private _paneViews: any[]; // IPrimitivePaneView[]
+	private _crosshairData: TooltipCrosshairLineData[] = [];
+	private _tooltipData: Partial<DeltaTooltipData>;
+	private _attachedParams: SeriesAttachedParameter<Time> | undefined;
+	private _touchChartEvents: MultiTouchChartEvents | null = null;
 	private _activeRange: Delegate<ActiveRange | null> = new Delegate();
+
+	// Propiedades para almacenar las opciones previas del gráfico
+	private _prevHandleScroll!: boolean | any;
+	private _prevHandleScale!: boolean | any;
 
 	constructor(options: Partial<TooltipPrimitiveOptions>) {
 		this._options = {
@@ -81,22 +92,37 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 
 	attached(param: SeriesAttachedParameter<Time>): void {
 		this._attachedParams = param;
+		const chart = param.chart;
+
+		// Almacenar las opciones actuales y deshabilitar scroll y scale
+		this._prevHandleScroll = chart.options().handleScroll;
+		this._prevHandleScale = chart.options().handleScale;
+		chart.applyOptions({
+			handleScroll: false,
+			handleScale: false,
+		});
+
 		this._setCrosshairMode();
-		this._touchChartEvents = new MultiTouchChartEvents(param.chart, {
+		this._touchChartEvents = new MultiTouchChartEvents(chart, {
 			simulateMultiTouchUsingMouseDrag: true,
 		});
 		this._touchChartEvents.leave().subscribe(() => {
 			this._activeRange.fire(null);
 			this._hideCrosshair();
 		}, this);
-		this._touchChartEvents
-			.move()
-			.subscribe((interactions: MultiTouchInteraction) => {
-				this._showTooltip(interactions);
-			}, this);
+		this._touchChartEvents.move().subscribe((interactions: MultiTouchInteraction) => {
+			this._showTooltip(interactions);
+		}, this);
 	}
 
 	detached(): void {
+		if (this._attachedParams?.chart) {
+			// En lugar de restaurar los valores previos, forzamos a true
+			this._attachedParams.chart.applyOptions({
+				handleScroll: true,
+				handleScale: true,
+			});
+		}
 		if (this._touchChartEvents) {
 			this._touchChartEvents.leave().unsubscribeAll(this);
 			this._touchChartEvents.move().unsubscribeAll(this);
@@ -167,7 +193,7 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 		});
 		const series = this.series();
 		if (series) {
-			// We need to draw the crosshair markers ourselves since there can be multiple points now.
+			// Deshabilitamos el marcador del crosshair para que lo dibujemos nosotros
 			series.applyOptions({ crosshairMarkerVisible: false });
 		}
 	}
@@ -188,7 +214,7 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 			return '#FFFFFF';
 		}
 		const backgroundOptions = chart.options().layout.background;
-		if (backgroundOptions.type === ColorType.Solid) {
+		if (backgroundOptions.type === 'solid') {
 			return backgroundOptions.color;
 		}
 		return backgroundOptions.topColor;
@@ -201,8 +227,8 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 		}
 		const seriesOptions = series.options();
 		return (
-			(seriesOptions as LineStyleOptions).color ||
-			(seriesOptions as AreaStyleOptions).lineColor ||
+			(seriesOptions as any).color ||
+			(seriesOptions as any).lineColor ||
 			'#888'
 		);
 	}
@@ -240,9 +266,8 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 				if (point.index >= firstPointIndex) {
 					tooltips.push(state);
 				} else {
-					tooltips.unshift(state); // place at front so order is correct.
+					tooltips.unshift(state);
 				}
-
 				crosshairData.push({
 					x: point.x,
 					priceY,
@@ -266,7 +291,9 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 			const positive = priceChange >= 0;
 			deltaContent.deltaTopLine = (positive ? '+' : '') + priceChange.toFixed(2);
 			deltaContent.deltaBottomLine = (positive ? '+' : '') + pctChange.toFixed(2) + '%';
-			deltaContent.deltaBackgroundColor = positive ? 'rgb(4,153,129, 0.2)' : 'rgb(239,83,80, 0.2)';
+			deltaContent.deltaBackgroundColor = positive
+				? 'rgba(4,153,129, 0.2)'
+				: 'rgba(239,83,80, 0.2)';
 			deltaContent.deltaTextColor = positive ? 'rgb(4,153,129)' : 'rgb(239,83,80)';
 			this._activeRange.fire({
 				from: priceValues[correctOrder ? 0 : 1][1] + 1,
@@ -279,6 +306,5 @@ export class DeltaTooltipPrimitive implements ISeriesPrimitive<Time> {
 			this._activeRange.fire(null);
 		}
 		this.setData(crosshairData, deltaContent);
-
 	}
 }
