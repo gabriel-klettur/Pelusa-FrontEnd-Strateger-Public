@@ -6,7 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   Chart: {
     ToolsPanel:{
-      selectedChartTool: 'click',
+      selectedChartTool: null,
     },
     ButtonsPanel: {
         ChartButtons:{

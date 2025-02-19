@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setSelectedChartTool } from '../../../../redux/interaction/interactionSlice';
 
-import TabBar from '../../../common/TabBar';
+import TabBar from '../components/ToolBar';
 
 import clickIcon from '../../assets/touch_app.svg';
 import deleteIcon from '../../assets/delete.svg';
@@ -11,17 +11,19 @@ import rectangleIcon from '../../assets/rectangle.svg';
 import textIcon from '../../assets/text.svg';
 import brushIcon from '../../assets/brush.svg';
 import trendLineIcon from '../../assets/trend_line.svg';
+import circleIcon from '../../assets/circle.svg';
 
 
 const tabs= [
-    { name: 'null',        icon: clickIcon,            disabled: false },    
+    { name: 'null',         icon: clickIcon,            disabled: false },    
     { name: 'brush',        icon: brushIcon,            disabled: false },
     { name: 'line',         icon: trendLineIcon,        disabled: false },    
+    { name: 'circle',       icon: circleIcon,           disabled: false },
     { name: 'rectangle',    icon: rectangleIcon,        disabled: false },
     { name: 'text',         icon: textIcon,             disabled: false },    
     { name: 'ruler',        icon: rulerIcon,            disabled: false },    
     { name: 'delete',       icon: deleteIcon,           disabled: false },
-    { name: 'deleteAll',       icon: deleteAllIcon,        disabled: false },
+    { name: 'deleteAll',    icon: deleteAllIcon,        disabled: false },
 ];
 
 const ChartToolBar = () => {
