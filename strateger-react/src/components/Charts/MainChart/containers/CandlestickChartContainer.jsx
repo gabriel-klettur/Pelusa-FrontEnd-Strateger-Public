@@ -33,7 +33,7 @@ import useTextDrawingOnClick from '../hooks/drawing/useTextDrawingOnClick';
 import clearChartDrawings from '../hooks/drawing/clearChartDrawing';
 
 //!---- Plugins ----!//
-import { DeltaTooltipPrimitive } from '../plugins/delta-tooltip/delta-tooltip';
+import useDeltaToolTip from '../hooks/tools/useDeltaToolTip';
 
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => { 
@@ -176,32 +176,10 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
       }, 100); // 🔹 Pequeño delay para asegurar que Redux actualice el estado antes de limpiar
     }
   }, [selectedTool, handleClearAll, dispatch]);
+  
+  // Usamos el custom hook para el Delta Tooltip
+  useDeltaToolTip(selectedTool, chartRef, candlestickSeriesRef);
 
-  // Ref para guardar la instancia del tooltip
-  const tooltipRef = useRef(null);
-
-  useEffect(() => {
-    if (chartRef.current && candlestickSeriesRef.current) {
-      if (selectedTool === 'ruler') {
-        // Solo creamos el tooltip si no existe ya
-        if (!tooltipRef.current) {
-          console.log('📏 Herramienta de regla seleccionada');
-          const deltaTooltip = new DeltaTooltipPrimitive({
-            lineColor: 'rgba(0, 0, 0, 0.2)',
-            // Otras opciones que desees configurar
-          });
-          candlestickSeriesRef.current.attachPrimitive(deltaTooltip);
-          tooltipRef.current = deltaTooltip;
-        }
-      } else {
-        // Si la herramienta ya no es "ruler", desmontamos el tooltip si existe
-        if (tooltipRef.current && typeof tooltipRef.current.detached === 'function') {
-          tooltipRef.current.detached();
-          tooltipRef.current = null;
-        }
-      }
-    }
-  }, [selectedTool, chartRef, candlestickSeriesRef]);
 
   return (
     <div className="chart-container relative">
