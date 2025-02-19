@@ -1,8 +1,8 @@
 import { Tab, TabGroup, TabList } from '@headlessui/react';
 
-const NavBar = ({ selectedTab, handleTabChange, tabs }) => {
+const NavBar = ({  handleTabChange, tabs }) => {
     return (
-        <TabGroup vertical selectedIndex={selectedTab} onChange={handleTabChange}>
+        <TabGroup vertical  onChange={handleTabChange}>
             <div className="flex">
                 <TabList className="w-12 h-auto">
                     {tabs.map((tab, index) => (

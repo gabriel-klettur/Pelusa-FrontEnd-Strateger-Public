@@ -7,8 +7,7 @@ const useCircleDrawingOnClick = (
   chartRef,
   candlestickSeriesRef,
   data,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   circles,
   setCircles
 ) => {    
@@ -23,8 +22,7 @@ const useCircleDrawingOnClick = (
     chartRef,
     candlestickSeriesRef,
     data,
-    selectedTool,
-    setSelectedTool,
+    selectedTool,    
     handleNewCircle
   );
 

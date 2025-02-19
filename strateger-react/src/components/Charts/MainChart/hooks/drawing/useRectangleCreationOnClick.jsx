@@ -1,13 +1,17 @@
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
+
 import { RectangleDrawingTool } from '../../components/DrawingTools/RectangleDrawingTool';
 
 const useRectangleCreationOnClick = (
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   onNewRectangleCreated // Callback para notificar la creación del nuevo rectángulo
 ) => {
+
+  const dispatch = useDispatch();
   // Almacena el primer click (punto de inicio)
   const pendingStartPointRef = useRef(null);
 
@@ -60,7 +64,7 @@ const useRectangleCreationOnClick = (
         if (onNewRectangleCreated) onNewRectangleCreated(newRect);
         // Reiniciar el punto pendiente para permitir dibujar otro rectángulo
         pendingStartPointRef.current = null;
-        setSelectedTool(null);
+        dispatch(setSelectedChartTool(null));          
       }
     };
 
@@ -68,7 +72,7 @@ const useRectangleCreationOnClick = (
     return () => {
       chart.unsubscribeClick(handleChartClick);
     };
-  }, [chartRef, candlestickSeriesRef, selectedTool, setSelectedTool, onNewRectangleCreated]);
+  }, [chartRef, candlestickSeriesRef, selectedTool, dispatch, onNewRectangleCreated]);
 };
 
 export default useRectangleCreationOnClick;

@@ -2,15 +2,19 @@
 
 import { useEffect } from 'react';
 import { TextDrawingTool } from '../../components/DrawingTools/TextDrawingTool';
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
 
 const useTextCreationOnClick = (
   containerRef, // Ref del contenedor del gráfico
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   onNewTextCreated // Callback que recibe la nueva instancia de TextDrawingTool
 ) => {
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'text') {
       return;
@@ -65,13 +69,13 @@ const useTextCreationOnClick = (
             }
           }
           removeInput();
-          setSelectedTool(null);
+          dispatch(setSelectedChartTool(null));          
         }
       };
 
       const handleBlur = () => {
         removeInput();
-        setSelectedTool(null);
+        dispatch(setSelectedChartTool(null));          
       };
 
       input.addEventListener('keydown', handleKeyDown);
@@ -82,7 +86,7 @@ const useTextCreationOnClick = (
     return () => {
       container.removeEventListener('click', handleClick);
     };
-  }, [containerRef, chartRef, candlestickSeriesRef, selectedTool, setSelectedTool, onNewTextCreated]);
+  }, [containerRef, chartRef, candlestickSeriesRef, selectedTool, onNewTextCreated, dispatch]);
 };
 
 export default useTextCreationOnClick;

@@ -1,5 +1,7 @@
-import TabBar from '../../../common/TabBar';
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../redux/interaction/interactionSlice';
 
+import TabBar from '../../../common/TabBar';
 
 import clickIcon from '../../assets/touch_app.svg';
 import deleteIcon from '../../assets/delete.svg';
@@ -12,25 +14,27 @@ import trendLineIcon from '../../assets/trend_line.svg';
 
 
 const tabs= [
-    { name: 'Click',        icon: clickIcon,            disabled: false },    
+    { name: 'null',        icon: clickIcon,            disabled: false },    
     { name: 'brush',        icon: brushIcon,            disabled: false },
     { name: 'line',         icon: trendLineIcon,        disabled: false },    
     { name: 'rectangle',    icon: rectangleIcon,        disabled: false },
     { name: 'text',         icon: textIcon,             disabled: false },    
     { name: 'ruler',        icon: rulerIcon,            disabled: false },    
     { name: 'delete',       icon: deleteIcon,           disabled: false },
-    { name: 'delete',       icon: deleteAllIcon,        disabled: false },
+    { name: 'deleteAll',       icon: deleteAllIcon,        disabled: false },
 ];
 
 const ChartToolBar = () => {
 
+    const dispatch = useDispatch();
+
     const handleTabChange = (index) => {
-        console.log(index);
+        console.log(`Tab seleccionado: ${tabs[index].name}, disable: ${tabs[index].disabled}`);        
+        dispatch(setSelectedChartTool(tabs[index].name));
     };
 
     return(
-        <TabBar
-            selectedTab={0}
+        <TabBar            
             handleTabChange={handleTabChange}
             tabs={tabs}
         />

@@ -2,14 +2,18 @@
 
 import { useEffect, useRef } from 'react';
 import { LineDrawingTool } from '../../components/DrawingTools/LineDrawingTool';
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
 
 const useLineCreationOnClick = (
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   onNewLineCreated
 ) => {
+
+  const dispatch = useDispatch();
+
   // Ref para almacenar el punto de inicio pendiente (primer click)
   const pendingStartPointRef = useRef(null);
 
@@ -75,7 +79,7 @@ const useLineCreationOnClick = (
         pendingStartPointRef.current = null;
         //console.log("9. Punto de inicio pendiente reiniciado.");
         // Reiniciar la herramienta para volver al estado original
-        setSelectedTool(null);
+        dispatch(setSelectedChartTool(null));          
       }
     };
 
@@ -85,7 +89,7 @@ const useLineCreationOnClick = (
       //console.log("11. Desubscribiendo el evento click del gráfico para creación de línea.");
       chart.unsubscribeClick(handleChartClick);
     };
-  }, [chartRef, candlestickSeriesRef, selectedTool, setSelectedTool, onNewLineCreated]);
+  }, [chartRef, candlestickSeriesRef, selectedTool, onNewLineCreated]);
 };
 
 export default useLineCreationOnClick;

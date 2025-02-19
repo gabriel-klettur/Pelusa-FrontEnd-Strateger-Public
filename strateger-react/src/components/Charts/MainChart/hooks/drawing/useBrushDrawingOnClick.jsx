@@ -7,8 +7,7 @@ const useBrushDrawingOnClick = (
   containerRef,
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   brushStrokes,
   setBrushStrokes
 ) => {
@@ -21,8 +20,7 @@ const useBrushDrawingOnClick = (
     containerRef,
     chartRef,
     candlestickSeriesRef,
-    selectedTool,
-    setSelectedTool,
+    selectedTool,    
     handleNewBrush
   );
 

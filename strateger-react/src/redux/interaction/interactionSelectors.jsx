@@ -1,5 +1,7 @@
 
 
+export const selectSelectedChartTool = (state) => state.interaction.Chart.ToolsPanel.selectedChartTool;
+
 export const selectChartStochasticButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.stochasticButton;
 export const selectChartEmasButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.emasButton;
 export const selectChartCandleStickButton = (state) => state.interaction.Chart.ButtonsPanel.ChartButtons.candleStickButton;

@@ -4,8 +4,7 @@ import useRectangleUpdate from './useRectangleUpdate';
 const useRectangleDrawingOnClick = (
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   rectangles,
   setRectangles
 ) => {
@@ -16,8 +15,7 @@ const useRectangleDrawingOnClick = (
   useRectangleCreationOnClick(
     chartRef,
     candlestickSeriesRef,
-    selectedTool,
-    setSelectedTool,
+    selectedTool,    
     handleNewRectangle
   );
 

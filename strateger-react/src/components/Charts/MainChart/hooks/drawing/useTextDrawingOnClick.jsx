@@ -8,8 +8,7 @@ const useTextDrawingOnClick = (
   containerRef,
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   textTools,
   setTextTools
 ) => {
@@ -21,8 +20,7 @@ const useTextDrawingOnClick = (
     containerRef,
     chartRef,
     candlestickSeriesRef,
-    selectedTool,
-    setSelectedTool,
+    selectedTool,    
     handleNewText
   );
 

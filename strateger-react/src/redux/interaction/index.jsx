@@ -5,8 +5,11 @@ import interactionReducer from './interactionSlice';
 import { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton } from './interactionSlice';
 import { setActiveTab, setActiveButton } from './interactionSlice';
 import { setActiveRadarDataset } from './interactionSlice';
+import { setSelectedChartTool } from './interactionSlice';
 
 //SELECTORS
+
+import { selectSelectedChartTool } from './interactionSelectors';
 
 import { selectChartAdxButton, selectChartRSIButton, selectChartSQZMomentumButton, selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton } from './interactionSelectors';
 import { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton } from './interactionSelectors';
@@ -17,9 +20,13 @@ import { selectActiveRadarDataset } from './interactionSelectors';
 //TODO ACTIONS
 export { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleAlarmTab, setToggleOrderButton };
 export { setActiveTab, setActiveButton };
-export {setActiveRadarDataset};
+export { setActiveRadarDataset};
+export { setSelectedChartTool };
 
 //SELECTORS
+
+export { selectSelectedChartTool };
+
 export { selectChartAdxButton, selectChartRSIButton, selectChartSQZMomentumButton, selectChartStochasticButton, selectChartEmasButton, selectChartCandleStickButton };
 export { selectAlarmButtons, selectSelectedAlarmsButton, selectFilteredAlarmsButton };
 export { selectOrdersUsdtmButton, selectOrdersCoinmButton, selectOrdersSpotButton, selectOrdersStandardButton };

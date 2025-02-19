@@ -6,8 +6,7 @@ import useLineUpdate from './useLineUpdate';
 const useLineDrawingOnClick = (
   chartRef,
   candlestickSeriesRef,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   lines,
   setLines
 ) => {
@@ -20,8 +19,7 @@ const useLineDrawingOnClick = (
   useLineCreationOnClick(
     chartRef,
     candlestickSeriesRef,
-    selectedTool,
-    setSelectedTool,
+    selectedTool,    
     handleNewLine
   );
 

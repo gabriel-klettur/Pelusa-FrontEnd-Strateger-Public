@@ -2,15 +2,20 @@
 
 import { useEffect, useRef } from 'react';
 import { BrushDrawingTool } from '../../components/DrawingTools/BrushDrawingTool';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
+
+import { useDispatch } from 'react-redux';
 
 const useBrushCreationOnClick = (
   containerRef,  // Nuevo parámetro: ref del contenedor del gráfico
   chartRef,
   candlestickSeriesRef,
   selectedTool,
-  setSelectedTool,
   onNewBrushCreated // Callback para notificar la creación de un nuevo trazo de brocha
 ) => {
+
+  const dispatch = useDispatch();
+
   const isDrawingRef = useRef(false);
   const currentBrushRef = useRef(null);
   const lastPointRef = useRef(null);
@@ -79,7 +84,7 @@ const useBrushCreationOnClick = (
       currentBrushRef.current = null;
       lastPointRef.current = null;
       // Opcional: desactivar la herramienta automáticamente
-      setSelectedTool(null);
+      dispatch(setSelectedChartTool(null));          
     };
 
     container.addEventListener('mousedown', handleMouseDown);
@@ -91,7 +96,7 @@ const useBrushCreationOnClick = (
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [containerRef, chartRef, candlestickSeriesRef, selectedTool, setSelectedTool, onNewBrushCreated]);
+  }, [containerRef, chartRef, candlestickSeriesRef, selectedTool, dispatch, onNewBrushCreated]);
 };
 
 export default useBrushCreationOnClick;

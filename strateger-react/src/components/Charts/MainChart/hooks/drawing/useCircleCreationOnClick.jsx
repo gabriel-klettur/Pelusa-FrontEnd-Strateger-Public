@@ -1,4 +1,7 @@
 //Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useCircleCreationOnClick.jsx
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
+
 import { useEffect } from 'react';
 import { CircleDrawingTool } from '../../components/DrawingTools/CircleDrawingTool';
 import { getClosestCandle } from '../../utils/getClosestCandle';
@@ -8,11 +11,13 @@ const useCircleCreationOnClick = (
   chartRef,
   candlestickSeriesRef,
   data,
-  selectedTool,
-  setSelectedTool,
+  selectedTool,  
   onNewCircleCreated // Callback para notificar la creación de un nuevo círculo
 ) => {
-  useEffect(() => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {        
     if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'circle') return;
 
     const chart = chartRef.current;
@@ -64,14 +69,14 @@ const useCircleCreationOnClick = (
       if (onNewCircleCreated) onNewCircleCreated(newCircle);
 
       // Reiniciar la herramienta para volver al estado original
-      setSelectedTool(null);
+      dispatch(setSelectedChartTool(null));
     };
 
     chart.subscribeClick(handleChartClick);
     return () => {
       chart.unsubscribeClick(handleChartClick);
     };
-  }, [chartRef, candlestickSeriesRef, data, selectedTool, setSelectedTool, onNewCircleCreated]);
+  }, [chartRef, candlestickSeriesRef, data, selectedTool, onNewCircleCreated, dispatch]);
 };
 
 export default useCircleCreationOnClick;

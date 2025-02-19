@@ -5,6 +5,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   Chart: {
+    ToolsPanel:{
+      selectedChartTool: 'click',
+    },
     ButtonsPanel: {
         ChartButtons:{
             stochasticButton: false,
@@ -42,6 +45,10 @@ const interactionSlice = createSlice({
   initialState,
   reducers: {  
 
+    //TODO ------------ Chart Tools ------------//
+    setSelectedChartTool(state, action) {
+      state.Chart.ToolsPanel.selectedChartTool = action.payload;
+    },
     //TODO ------------ Radar Dataset ------------//
     setActiveRadarDataset(state, action) {
       state.activeRadarDataset = action.payload;
@@ -53,6 +60,7 @@ const interactionSlice = createSlice({
       state.Chart.ButtonsPanel.ChartButtons[buttonReduxId] = !state.Chart.ButtonsPanel.ChartButtons[buttonReduxId];
     },
 
+    //TODO ------------ Alarm Buttons ------------//
     setToggleChartAlarmButtons(state, action) {
       const buttonReduxId = action.payload;      
     
@@ -72,6 +80,7 @@ const interactionSlice = createSlice({
       }
     },
     
+    //TODO ------------ Order Buttons ------------//
     setToggleOrderButton(state, action) {
       const buttonReduxId = action.payload;
       //! Desactiva todos los OrderButtons
@@ -134,6 +143,6 @@ const interactionSlice = createSlice({
 
 });
 
-export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab, setActiveTab, setActiveButton, setActiveRadarDataset } = interactionSlice.actions;
+export const { setToggleChartMainButtons, setToggleChartAlarmButtons, setToggleOrderButton, setToggleAlarmTab, setActiveTab, setActiveButton, setActiveRadarDataset, setSelectedChartTool } = interactionSlice.actions;
 
 export default interactionSlice.reducer;

@@ -2,6 +2,9 @@
 
 import { useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setSelectedChartTool } from '../../../../../redux/interaction';
+
 // Función auxiliar para calcular la distancia de un punto a un segmento (para líneas y brush)
 const getDistancePointToSegment = (px, py, x1, y1, x2, y2) => {
   const dx = x2 - x1;
@@ -37,9 +40,10 @@ const useDeleteOnClick = (
   setBrushStrokes,
   textTools,
   setTextTools,
-  selectedTool,
-  setSelectedTool
+  selectedTool,  
 ) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (
       !chartRef.current ||
@@ -175,7 +179,7 @@ const useDeleteOnClick = (
         } else if (primitiveType === 'text') {
           setTextTools((prev) => prev.filter((t) => t !== primitiveToRemove));
         }
-        setSelectedTool(null);
+        dispatch(setSelectedChartTool(null));          
       }
     };
 
@@ -197,7 +201,7 @@ const useDeleteOnClick = (
     setRectangles,
     setBrushStrokes,
     setTextTools,
-    setSelectedTool,
+    dispatch,
   ]);
 };
 
