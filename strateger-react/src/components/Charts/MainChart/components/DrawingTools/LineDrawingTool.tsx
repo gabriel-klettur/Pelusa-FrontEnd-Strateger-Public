@@ -142,7 +142,7 @@ import {
     }
   
     updateLine(newStart: IPoint, newEnd: IPoint): void {
-      console.log("LineDrawingTool: updateLine() llamado", { newStart, newEnd });
+      //console.log("LineDrawingTool: updateLine() llamado", { newStart, newEnd });
       this.start = newStart;
       this.end = newEnd;
       this._paneViews.forEach((paneView) => paneView.update());

@@ -42,10 +42,10 @@ const useBrushCreationOnClick = (
       // Adjuntamos la primitiva al gráfico desde el hook
       if (typeof series.attachPrimitive === 'function') {
         series.attachPrimitive(newBrush);
-        console.log("useBrushCreationOnClick: attached brush using series.attachPrimitive");
+        //console.log("useBrushCreationOnClick: attached brush using series.attachPrimitive");
       } else if (typeof chart.addPrimitive === 'function') {
         chart.addPrimitive(newBrush);
-        console.log("useBrushCreationOnClick: attached brush using chart.addPrimitive");
+        //console.log("useBrushCreationOnClick: attached brush using chart.addPrimitive");
       } else {
         console.warn("useBrushCreationOnClick: no method found to attach brush primitive");
       }

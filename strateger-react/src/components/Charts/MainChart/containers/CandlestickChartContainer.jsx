@@ -230,31 +230,31 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           onClick={() => handleToolSelection('delete')}
           className={selectedTool === 'delete' ? 'bg-green-500 text-white' : ''}
         >
-          Eliminar
+          delete
         </button>        
         <button
           onClick={() => handleToolSelection('line')}
           className={selectedTool === 'line' ? 'bg-green-500 text-white' : ''}
         >
-          Línea
+          Line
         </button>
         <button
           onClick={() => handleToolSelection('rectangle')}
           className={selectedTool === 'rectangle' ? 'bg-green-500 text-white' : ''}
         >
-          Rectángulo
+          Rectangle
         </button>
         <button
           onClick={() => handleToolSelection('circle')}
           className={selectedTool === 'circle' ? 'bg-green-500 text-white' : ''}
         >
-          Círculo
+          Circle
         </button>
         <button
           onClick={() => handleToolSelection('brush')}
           className={selectedTool === 'brush' ? 'bg-green-500 text-white' : ''}
         >
-          Brocha
+          Brush
         </button>
         <button onClick={() => handleToolSelection('text')} className={selectedTool === 'text' ? 'bg-green-500 text-white' : ''}>
           Text
@@ -263,7 +263,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
           onClick={handleClearAll}
           className="bg-red-500 text-white"
         >
-          Eliminar Todo
+          Delete all
         </button>
       </div>
       {/* Contenedor principal del gráfico */}

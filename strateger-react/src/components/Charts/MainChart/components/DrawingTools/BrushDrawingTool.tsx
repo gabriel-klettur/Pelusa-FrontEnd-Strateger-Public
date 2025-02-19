@@ -54,7 +54,7 @@ import {
 	}
   
 	draw(target: CanvasRenderingTarget2D): void {
-	  console.log("BrushPaneRenderer: draw() called");
+	  //console.log("BrushPaneRenderer: draw() called");
 	  target.useBitmapCoordinateSpace((scope: any) => {
 		const ctx = scope.context as CanvasRenderingContext2D;
 		ctx.save();

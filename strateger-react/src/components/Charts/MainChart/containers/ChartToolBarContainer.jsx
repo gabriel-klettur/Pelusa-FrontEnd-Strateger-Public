@@ -3,6 +3,7 @@ import TabBar from '../../../common/TabBar';
 
 import clickIcon from '../../assets/touch_app.svg';
 import deleteIcon from '../../assets/delete.svg';
+import deleteAllIcon from '../../assets/delete_all.svg';
 import rulerIcon from '../../assets/ruler.svg';
 import rectangleIcon from '../../assets/rectangle.svg';
 import textIcon from '../../assets/text.svg';
@@ -11,13 +12,14 @@ import trendLineIcon from '../../assets/trend_line.svg';
 
 
 const tabs= [
-    { name: 'Click',        icon: clickIcon,        disabled: false },
-    { name: 'Delete',       icon: deleteIcon,       disabled: false },
-    { name: 'Ruler',        icon: rulerIcon,        disabled: false },
-    { name: 'Rectangle',    icon: rectangleIcon,    disabled: false },
-    { name: 'Text',         icon: textIcon,         disabled: false },
-    { name: 'Brush',        icon: brushIcon,        disabled: false },
-    { name: 'Trend Line',   icon: trendLineIcon,    disabled: false },
+    { name: 'Click',        icon: clickIcon,            disabled: false },    
+    { name: 'brush',        icon: brushIcon,            disabled: false },
+    { name: 'line',         icon: trendLineIcon,        disabled: false },    
+    { name: 'rectangle',    icon: rectangleIcon,        disabled: false },
+    { name: 'text',         icon: textIcon,             disabled: false },    
+    { name: 'ruler',        icon: rulerIcon,            disabled: false },    
+    { name: 'delete',       icon: deleteIcon,           disabled: false },
+    { name: 'delete',       icon: deleteAllIcon,        disabled: false },
 ];
 
 const ChartToolBar = () => {
