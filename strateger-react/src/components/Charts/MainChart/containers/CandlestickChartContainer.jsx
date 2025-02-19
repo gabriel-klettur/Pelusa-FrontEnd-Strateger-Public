@@ -150,12 +150,6 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     setTextTools
   );
   
-  // Función para cambiar la herramienta de dibujo
-  const handleToolSelection = (tool) => {
-    dispatch(setSelectedChartTool(tool));          
-    console.log(`Herramienta seleccionada: ${tool}`);
-  };
-  
 
   // ✅ Función para limpiar todos los dibujos
   const handleClearAll = useCallback(() => {
