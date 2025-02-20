@@ -43,8 +43,24 @@ const candlestickChartSlice = createSlice({
       state.ticker = action.payload.ticker;
     },
     //!------------------------------- Data -------------------------------
-    updateChartData(state, action) {      
-      state.data = action.payload;                  
+    updateChartData(state, action) {
+      const newData = action.payload; // Array de velas [time, open, high, low, close]
+      
+      // Crea un mapa de las velas actuales, usando el timestamp como clave.
+      const dataMap = {};
+      state.data.forEach(candle => {
+        const [time] = candle;
+        dataMap[time] = candle;
+      });
+    
+      // Para cada vela nueva, sobrescribe la existente (o se agrega si no existe)
+      newData.forEach(candle => {
+        const [time] = candle;
+        dataMap[time] = candle;
+      });
+    
+      // Reconstruye el array a partir del mapa y ordénalo por el timestamp
+      state.data = Object.values(dataMap).sort((a, b) => a[0] - b[0]);
     },
     //!------------------------------ Alarms ------------------------------
     setAlarmDefaultMarkers(state, action) {

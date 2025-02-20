@@ -51,7 +51,6 @@ const ChartContainer = ({ showButtonsPanel }) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }

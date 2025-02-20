@@ -94,7 +94,9 @@ const adjustDates = (interval, startDate, endDate) => {
             ])
             .filter(item => !isNaN(item[0]));
   
-          formattedData.sort((a, b) => a[0] - b[0]);
+          formattedData.sort((a, b) => a[0] - b[0]);          
+
+          console.log('Obteniendo informacion de velas sin WebSocket');
   
           const currentBTCPrice = formattedData[formattedData.length - 1]?.[4] || null;
   
