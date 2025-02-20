@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateChartData } from 'reduxStore/charts';
 
-const useWebSocketComponent = ({chartInterval, chartTicker}) => {    
+const useWebSocketComponent = ({chartInterval, chartTicker = 'BTC-USDT'}) => {    
   const dispatch = useDispatch();
 
   useEffect(() => {
 
     if(chartInterval === null || chartTicker === null) return;
 
-    console.log("useWebSocketComponent", chartInterval, chartTicker);
+    console.log("------------- useWebSocketComponent", chartInterval, chartTicker);
     const ws = new WebSocket(`ws://192.168.1.2:8000/bingx/main/ws`);
   
     const params = {
-      symbol: "BTC-USDT",
-      interval: "1m",
+      symbol: chartTicker,
+      interval: chartInterval,
       limit: "100",
       start_date: "None",
       end_date: "None"

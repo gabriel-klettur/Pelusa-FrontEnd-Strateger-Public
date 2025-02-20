@@ -31,7 +31,7 @@ const useFetchChartData = (chartStartDate, chartEndDate) => {
     }
   }, [chartStartDate, chartEndDate, chartInterval, chartTicker, dispatch]);
 
-  useWebSocketComponent(chartInterval, chartTicker);
+  useWebSocketComponent({ chartInterval, chartTicker });
 
   return { data, loading, chartInterval };
 };
