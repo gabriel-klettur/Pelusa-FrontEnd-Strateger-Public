@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setSelectedChartTool } from '../../../../redux/interaction/interactionSlice';
 
-import TabBar from '../components/ToolBar';
+import ToolBar from '../components/ToolBar';
 
 import clickIcon from '../../assets/touch_app.svg';
 import deleteIcon from '../../assets/delete.svg';
@@ -36,7 +36,7 @@ const ChartToolBar = () => {
     };
 
     return(
-        <TabBar            
+        <ToolBar            
             handleTabChange={handleTabChange}
             tabs={tabs}
         />
