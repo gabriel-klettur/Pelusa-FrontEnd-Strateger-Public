@@ -1,5 +1,4 @@
 // src/components/CandlestickChart/hooks/useFetchChartData.js
-//!!! ESTE HOOK DEBERIA MOVERSE A UNA CARPETA MAS GENERICA????? PARECE QUE ESTA ESCONDIDO, CUANDO ESTE MISMO HOOK SE ACTIVA EN VARIOS COMPONENTES NO?
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
