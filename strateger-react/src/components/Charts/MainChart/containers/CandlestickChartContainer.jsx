@@ -4,19 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedChartTool, setSelectedChartTool } from '../../../../redux/interaction';
 
 import useChart from '../hooks/charts/useChart';
+import useIndicators from '../hooks/indicators/useIndicators';
 
 
-//!---- Indicators ----!//
-import useInitializeEmasSeries from '../hooks/indicators/useInitializeEmasSeries';
-import useSetEmasSeriesData from '../hooks/indicators/useSetEmasSeriesData';
-import useInitializeStochasticSeries from '../hooks/indicators/useInitializeStochasticSeries';
-import useSetStochasticSeriesData from '../hooks/indicators/useSetStochasticSeriesData';
-import useInitializeRSISeries from '../hooks/indicators/useInitializeRSISeries';
-import useSetRSISeriesData from '../hooks/indicators/useSetRSISeriesData';
-import useInitializeAdxSeries from '../hooks/indicators/useInitializeAdxSeries';
-import useSetAdxSeriesData from '../hooks/indicators/useSetAdxSeriesData';
-import useInitializeSQZSeries from '../hooks/indicators/useInitializeSQZSeries';
-import useSetSQZSeriesData from '../hooks/indicators/useSetSQZSeriesData';
 
 //!---- Markers ----!//
 import useSetupMarkers from '../hooks/markers/useSetupMarkers';
@@ -39,11 +29,12 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   const dispatch = useDispatch();
 
   const { mainChartContainerRef, chartRef, candlestickSeriesRef } = useChart({chartSettings, data});
+  useIndicators({chartSettings, chartRef, data});
 
-  
+
+
   // Herramientas de dibujo (selectedTool puede ser: 'delete', 'line', 'rectangle', 'circle', 'brush', etc.)
   const selectedTool = useSelector(selectSelectedChartTool);
-
   // Estados para primitivas de dibujo
   const [circles, setCircles] = useState([]);
   const [lines, setLines] = useState([]);
@@ -51,36 +42,6 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   const [brushStrokes, setBrushStrokes] = useState([]);
   const [textTools, setTextTools] = useState([]);
 
-  // Inicialización de indicadores
-  const { ema10SeriesRef, ema55SeriesRef, ema200SeriesRef } = useInitializeEmasSeries(chartRef);
-  const { stochasticKSeriesRef, stochasticDSeriesRef } = useInitializeStochasticSeries(chartRef);                
-  const { positiveIncreasingRef, positiveDecreasingRef, negativeDecreasingRef, negativeIncreasingRef } = useInitializeSQZSeries(chartRef);
-  const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
-  const { adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef } = useInitializeAdxSeries(chartRef);
-
-  
-
-  //!----------------- Hooks de Indicadores -----------------//
-  useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
-  useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
-  useSetSQZSeriesData(
-    chartSettings.showSQZMOMENTUMSerie,
-    data,
-    positiveIncreasingRef,
-    positiveDecreasingRef,
-    negativeDecreasingRef,
-    negativeIncreasingRef
-  );
-  useSetRSISeriesData(chartSettings.showRSISerie, data, rsiSeriesRef);       
-  useSetAdxSeriesData(
-    chartSettings.showAdxSerie,
-    data,
-    adxSeriesRef,
-    plusDISeriesRef,
-    minusDISeriesRef,
-    keyLevelSeriesRef
-  );
-  
   //!----------------- Hooks de Marcadores -----------------//
 
   useSetupMarkers(
