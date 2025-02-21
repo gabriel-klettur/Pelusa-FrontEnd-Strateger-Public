@@ -9,9 +9,9 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   
   const { mainChartContainerRef, chartRef, candlestickSeriesRef } = useChart({chartSettings, data});
   
-  useIndicators({chartSettings, chartRef, data});
-  useDrawing({mainChartContainerRef, chartRef, candlestickSeriesRef, data})
+  useIndicators({chartSettings, chartRef, data});  
   useMarkers({candlestickSeriesRef, chartInterval, chartSettings});            
+  useDrawing({mainChartContainerRef, chartRef, candlestickSeriesRef, data})
 
   return (
     <div className="chart-container relative">          

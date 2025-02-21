@@ -12,6 +12,7 @@ const ItemChartButton = ({ setShow, buttonName, icon, isVisible, onClick, disabl
         onClick();
       }
     }
+    
   };
 
   return (
