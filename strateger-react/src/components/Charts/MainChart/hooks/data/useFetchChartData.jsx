@@ -9,7 +9,7 @@ import {
   selectCandlestickChartInterval,
   selectCandlestickChartTicker
 } from 'reduxStore/charts';
-import useWebSocketComponent from '../../components/useWebSocketComponent';                      // Websocket component
+import useWebSocketChartData from './useWebSocketChartData';                      // Websocket component
 
 
 const useFetchChartData = (chartStartDate, chartEndDate) => {
@@ -30,7 +30,7 @@ const useFetchChartData = (chartStartDate, chartEndDate) => {
     }
   }, [chartStartDate, chartEndDate, chartInterval, chartTicker, dispatch]);
 
-  useWebSocketComponent({ chartInterval, chartTicker });
+  useWebSocketChartData({ chartInterval, chartTicker });
 
   return { data, loading, chartInterval };
 };

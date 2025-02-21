@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateChartData } from 'reduxStore/charts';
 
-const useWebSocketComponent = ({chartInterval, chartTicker = 'BTC-USDT'}) => {    
+const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {    
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -85,4 +85,4 @@ const useWebSocketComponent = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
   return null;
 };
 
-export default useWebSocketComponent;
+export default useWebSocketChartData;
