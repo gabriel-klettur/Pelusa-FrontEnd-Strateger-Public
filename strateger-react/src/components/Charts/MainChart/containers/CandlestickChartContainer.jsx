@@ -5,39 +5,19 @@ import useDrawing from '../hooks/drawing/useDrawing';
 
 
 //!---- Markers ----!//
-import useSetupMarkers from '../hooks/markers/useSetupMarkers';
+import useMarkers from '../hooks/markers/useMarkers';
 
 
-const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => { 
+const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {   
   
-  
-
   const { mainChartContainerRef, chartRef, candlestickSeriesRef } = useChart({chartSettings, data});
+  
   useIndicators({chartSettings, chartRef, data});
   useDrawing({mainChartContainerRef, chartRef, candlestickSeriesRef, data})
-
-
-
-  //!----------------- Hooks de Marcadores -----------------//
-
-  useSetupMarkers(
-    candlestickSeriesRef, chartInterval, 
-    chartSettings.showAlarmsMarkers,
-    chartSettings.showAlarmsSelectedMarkers,
-    chartSettings.showAlarmsFilteredMarkers,
-    chartSettings.showOrdersUsdmMarkers,
-    chartSettings.showOrdersCoinmMarkers,
-    chartSettings.showOrdersSpotMarkers,
-    chartSettings.showOrdersStandardMarkers
-  );            
-
-  
-
+  useMarkers({candlestickSeriesRef, chartInterval, chartSettings});            
 
   return (
-    <div className="chart-container relative">
-      
-      {/* Contenedor principal del gráfico */}
+    <div className="chart-container relative">          
       <div
         ref={mainChartContainerRef}
         style={{ height: '593px', width: '100%' }}

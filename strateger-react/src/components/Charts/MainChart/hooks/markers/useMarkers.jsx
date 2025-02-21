@@ -14,17 +14,7 @@ import { selectFilteredOrdersUsdtm, selectFilteredOrdersCoinm, selectFilteredOrd
 import { selectMarkersOrderUsdm, selectMarkersOrderCoinm, selectMarkersOrderStandard, selectMarkersOrderSpot } from 'reduxStore/charts';
 import { setOrderUsdmMarkers, setOrderCoinmMarkers, setOrderStandardMarkers, setOrderSpotMarkers } from 'reduxStore/charts';
 
-const useSetupMarkers = (
-  candlestickSeriesRef, 
-  chartInterval, 
-  showAlarmsMarkers, 
-  showAlarmsSelectedMarkers, 
-  showAlarmsFilteredMarkers,
-  showOrdersUsdmMarkers, 
-  showOrdersCoinmMarkers, 
-  showOrdersStandardMarkers, 
-  showOrdersSpotMarkers
-) => {
+const useMarkers = ({candlestickSeriesRef, chartInterval, chartSettings}) => {
   //!------------------------------------ Create markers for alarms ------------------------------------  
 
   const alarmDefaultMarkers = useSelector(selectMarkersAlarmDefault);    
@@ -51,19 +41,19 @@ const useSetupMarkers = (
   const combinedMarkers = [];
 
 // Solo un conjunto de marcadores será seleccionado
-if (showAlarmsMarkers) {
+if (chartSettings.showAlarmsMarkers) {
   combinedMarkers.push(...alarmDefaultMarkers);
-} else if (showAlarmsSelectedMarkers) {
+} else if (chartSettings.showAlarmsSelectedMarkers) {
   combinedMarkers.push(...alarmSelectedByClickMarkers);
-} else if (showAlarmsFilteredMarkers) {
+} else if (chartSettings.showAlarmsFilteredMarkers) {
   combinedMarkers.push(...alarmFiltered);
-} else if (showOrdersUsdmMarkers) {
+} else if (chartSettings.showOrdersUsdmMarkers) {
   combinedMarkers.push(...orderUsdmMarkers);
-} else if (showOrdersCoinmMarkers) {
+} else if (chartSettings.showOrdersCoinmMarkers) {
   combinedMarkers.push(...orderCoinmMarkers);
-} else if (showOrdersStandardMarkers) {
+} else if (chartSettings.showOrdersStandardMarkers) {
   combinedMarkers.push(...orderStandardMarkers);
-} else if (showOrdersSpotMarkers) {
+} else if (chartSettings.showOrdersSpotMarkers) {
   combinedMarkers.push(...orderSpotMarkers);
 } else {
   // Si ninguno de los marcadores está activado, asegura que el array esté vacío
@@ -74,4 +64,4 @@ if (showAlarmsMarkers) {
   useSetMarkersOnSerie(candlestickSeriesRef, combinedMarkers);   
 };
 
-export default useSetupMarkers;
+export default useMarkers;
