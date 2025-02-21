@@ -8,8 +8,7 @@ const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
   useEffect(() => {
 
     if(chartInterval === null || chartTicker === null) return;
-
-    console.log("------------- useWebSocketComponent", chartInterval, chartTicker);
+    
     const ws = new WebSocket(`ws://192.168.1.2:8000/bingx/main/ws`);
   
     const params = {
@@ -24,7 +23,7 @@ const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
     let intervalId;
   
     ws.onopen = () => {
-      console.log('Conectado al WebSocket');
+      
       // Envía la solicitud inicial
       ws.send(JSON.stringify(params));
   
@@ -60,13 +59,12 @@ const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
   
           // 6. Actualizamos la data en Redux
           dispatch(updateChartData(formattedData));
-  
-          console.log("Utilizando WebSocket");
+            
         } else {
-          console.error("Respuesta con error o datos no válidos", secondLevel);
+          console.error("Not valid data or Error in anwser", secondLevel);
         }
       } catch (error) {
-        console.error("Error al parsear mensaje:", error);
+        console.error("Parsing message Error:", error);
       }
     };
   
@@ -76,8 +74,7 @@ const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
   
     // Limpieza al desmontar el componente
     return () => {
-      clearInterval(intervalId);
-      console.log('Desconectado del WebSocket');
+      clearInterval(intervalId);      
       ws.close();
     };
   }, [dispatch, chartInterval, chartTicker]);

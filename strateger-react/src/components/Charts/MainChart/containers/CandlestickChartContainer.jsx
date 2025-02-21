@@ -1,12 +1,9 @@
 // Path: strateger-react/src/components/Charts/CandlestickChartChart/containers/CandlestickChartContainer.js
+
 import useChart from '../hooks/charts/useChart';
 import useIndicators from '../hooks/indicators/useIndicators';
 import useDrawing from '../hooks/drawing/useDrawing';
-
-
-//!---- Markers ----!//
 import useMarkers from '../hooks/markers/useMarkers';
-
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {   
   
