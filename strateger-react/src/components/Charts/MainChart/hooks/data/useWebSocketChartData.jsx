@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateChartData } from 'reduxStore/charts';
+import { config } from '../../../../../config';
 
 const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {    
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ const useWebSocketChartData = ({chartInterval, chartTicker = 'BTC-USDT'}) => {
 
     if(chartInterval === null || chartTicker === null) return;
     
-    const ws = new WebSocket(`ws://192.168.1.2:8000/bingx/main/ws`);
+    const ws = new WebSocket(`${config.apiUrlWS}/bingx/main/ws`);    
   
     const params = {
       symbol: chartTicker,
