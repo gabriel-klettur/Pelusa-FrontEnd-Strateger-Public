@@ -1,12 +1,10 @@
 // Path: strateger-react/src/components/Charts/CandlestickChartChart/containers/CandlestickChartContainer.js
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedChartTool, setSelectedChartTool } from '../../../../redux/interaction';
 
-//!---- Chart ----!//
-import useInitializeChart from '../hooks/charts/useInitializeChart';
-import useInitializeCandlestickSeries from '../hooks/charts/useInitializeCandlestickSeries';
-import useSetCandlestickSeriesData from '../hooks/charts/useSetCandlestickSeriesData';
+import useChart from '../hooks/charts/useChart';
+
 
 //!---- Indicators ----!//
 import useInitializeEmasSeries from '../hooks/indicators/useInitializeEmasSeries';
@@ -40,10 +38,8 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   
   const dispatch = useDispatch();
 
-  // Ref del contenedor del gráfico
-  const mainChartContainerRef = useRef();
-  const chartRef = useInitializeChart(mainChartContainerRef);
-  const candlestickSeriesRef = useInitializeCandlestickSeries(chartRef);
+  const { mainChartContainerRef, chartRef, candlestickSeriesRef } = useChart({chartSettings, data});
+
   
   // Herramientas de dibujo (selectedTool puede ser: 'delete', 'line', 'rectangle', 'circle', 'brush', etc.)
   const selectedTool = useSelector(selectSelectedChartTool);
@@ -62,7 +58,9 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   const { rsiSeriesRef } = useInitializeRSISeries(chartRef);
   const { adxSeriesRef, plusDISeriesRef, minusDISeriesRef, keyLevelSeriesRef } = useInitializeAdxSeries(chartRef);
 
-  useSetCandlestickSeriesData(chartSettings.showCandlestickSerie, data, candlestickSeriesRef);
+  
+
+  //!----------------- Hooks de Indicadores -----------------//
   useSetEmasSeriesData(chartSettings.showEmasSerie, data, ema10SeriesRef, ema55SeriesRef, ema200SeriesRef);    
   useSetStochasticSeriesData(chartSettings.showStochasticSerie, data, stochasticKSeriesRef, stochasticDSeriesRef);
   useSetSQZSeriesData(
@@ -83,6 +81,8 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     keyLevelSeriesRef
   );
   
+  //!----------------- Hooks de Marcadores -----------------//
+
   useSetupMarkers(
     candlestickSeriesRef, chartInterval, 
     chartSettings.showAlarmsMarkers,
@@ -181,6 +181,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
     dispatch(setSelectedChartTool(null));
     console.log('resetTool');
   };
+
 
   // Usamos el custom hook para el Delta Tooltip
   useDeltaToolTip(selectedTool, chartRef, candlestickSeriesRef, resetTool);
