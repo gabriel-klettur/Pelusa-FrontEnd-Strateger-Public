@@ -28,7 +28,7 @@ const candlestickChartSlice = createSlice({
     data: [],    
     startDate: null,
     endDate: null,
-    ticker: null,
+    ticker: 'BTC-USDT',
     interval: null,
     markers: markersStates,       
     loading: false,

@@ -4,6 +4,7 @@ import useChart from '../hooks/charts/useChart';
 import useIndicators from '../hooks/indicators/useIndicators';
 import useDrawing from '../hooks/drawing/useDrawing';
 import useMarkers from '../hooks/markers/useMarkers';
+import useDetectChartLimit from '../hooks/data/useDetectChartLimit';  // ✅ Importamos el nuevo hook
 
 const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {   
   
@@ -12,6 +13,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   useIndicators({chartSettings, chartRef, data});  
   useMarkers({candlestickSeriesRef, chartInterval, chartSettings});            
   useDrawing({mainChartContainerRef, chartRef, candlestickSeriesRef, data})
+  useDetectChartLimit(chartRef);  // ✅ Llamamos al nuevo hook aquí
 
   return (
     <div className="chart-container relative">          
