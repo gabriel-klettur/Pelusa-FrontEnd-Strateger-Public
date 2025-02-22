@@ -35,21 +35,19 @@ const useDetectChartLimit = (chartRef) => {
     const handleTimeRangeChange = async (timeRange) => {
         if (!timeRange) return;
 
-        const firstCandleTime = Math.floor(data[0][0] / 1000); // Convertimos a segundos
+        const firstCandleInMilliseconds = data[0][0]; // Timestamp en milisegundos
+        const firstCandleTimeInSeconds = Math.floor(data[0][0] / 1000); // Convertimos a segundos
         const { from } = timeRange;
 
-        if (from <= firstCandleTime) {
+        if (from <= firstCandleTimeInSeconds) {
             const now = Date.now(); // Timestamp actual en milisegundos
             if (now - lastLogTimeRef.current >= 5000) { // Esperamos 5 segundos entre logs                
                 lastLogTimeRef.current = now; // Actualizamos el último tiempo del log                
-
-                //! ----------------- Adjust Dates -----------------
-                const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(chartInterval, "None" , data[0][0]);
-                        
-                const toISOStringEndDate = expandedEndDate.toISOString().slice(0, 19).replace('T', ' ');
                 
+                //! ----------------- Adjust Dates -----------------
+                const { formatedEndDate } = adjustDates(chartInterval, "None" , firstCandleInMilliseconds);                
+                                                        
                 //! ----------------- API CALL -----------------
-
                 try {                    
                     const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
                         params: {
@@ -57,7 +55,7 @@ const useDetectChartLimit = (chartRef) => {
                             interval: chartInterval,
                             limit: "1440",
                             start_date: "None",
-                            end_date: toISOStringEndDate,
+                            end_date: formatedEndDate,
                         }
                     });
 
@@ -67,15 +65,11 @@ const useDetectChartLimit = (chartRef) => {
                     if (!Array.isArray(formatedResponse.formattedData)) {
                         throw new Error("❌ `formattedData` Invalid array");
                     }
-                    
-                    
+                                        
                     dispatch(updateChartData(formatedResponse.formattedData));
 
-
-
-
                 } catch (error) {
-                    console.error("⚠️ Error al obtener velas:", error);
+                    console.error("⚠️ Error to fetch data:", error);
                 }
             }
         }

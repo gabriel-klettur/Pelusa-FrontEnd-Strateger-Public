@@ -12,23 +12,21 @@ import { formatDataFetching } from './utils';
       try {              
 
         //! ----------------- Adjust Dates -----------------
-        const { interval: adjustedInterval, expandedStartDate, expandedEndDate } = adjustDates(
+        const { interval: adjustedInterval, formatedStartDate, formatedEndDate } = adjustDates(
           interval,
           startDate,
           endDate
         );
 
-        const toISOStringStartDate = expandedStartDate.toISOString().slice(0, 19).replace('T', ' ');
-        const toISOStringEndDate = expandedEndDate.toISOString().slice(0, 19).replace('T', ' ');
-  
+
         //! ----------------- API CALL ----------------- 
         const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
           params: {
             symbol: ticker,
             interval: adjustedInterval,
             limit: "1440",
-            start_date: toISOStringStartDate,
-            end_date: toISOStringEndDate
+            start_date: formatedStartDate,
+            end_date: formatedEndDate
           }
         });              
 
