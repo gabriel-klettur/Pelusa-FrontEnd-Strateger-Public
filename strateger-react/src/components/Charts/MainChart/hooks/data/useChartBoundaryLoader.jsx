@@ -11,7 +11,7 @@ import {
 
 import { adjustDates, formatDataFetching } from "../../../../../redux/charts/utils";
 
-const useDetectChartLimit = (chartRef) => {
+const useChartBoundaryLoader  = (chartRef) => {
   
   const dispatch = useDispatch();
   const data = useSelector(selectCandlestickChartData);  
@@ -90,4 +90,4 @@ const useDetectChartLimit = (chartRef) => {
 
 };
 
-export default useDetectChartLimit;
+export default useChartBoundaryLoader ;
