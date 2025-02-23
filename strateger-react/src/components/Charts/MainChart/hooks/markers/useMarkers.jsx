@@ -41,7 +41,8 @@ import {
   setOrderSpotMarkers,
 } from 'reduxStore/charts';
 
-const useMarkers = ({ candlestickSeriesRef, chartInterval, chartSettings }) => {  
+const useMarkers = ({ candlestickSeriesRef, chartInterval, chartSettings }) => {    
+
   const alarmDefaultMarkers = useSelector(selectMarkersAlarmDefault);
   const alarmSelectedByClickMarkers = useSelector(selectMarkersAlarmSelectedByClick);
   const alarmFiltered = useSelector(selectMarkersAlarmFiltered);
@@ -58,8 +59,8 @@ const useMarkers = ({ candlestickSeriesRef, chartInterval, chartSettings }) => {
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersUsdtm, setOrderUsdmMarkers);
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersCoinm, setOrderCoinmMarkers);
   useCreateOrderMarkers(chartInterval, selectFilteredOrdersSpot, setOrderStandardMarkers);
-  useCreateOrderMarkers(chartInterval, selectFilteredOrdersStandard, setOrderSpotMarkers);
-  
+  useCreateOrderMarkers(chartInterval, selectFilteredOrdersStandard, setOrderSpotMarkers);  
+    
   const combinedMarkers = [];  
 
   if (chartSettings.showAlarmsMarkers) {        
@@ -79,8 +80,9 @@ const useMarkers = ({ candlestickSeriesRef, chartInterval, chartSettings }) => {
   } else {    
     combinedMarkers.length = 0;
   }
-  
+
   useSetMarkersOnSerie(candlestickSeriesRef, combinedMarkers);
+    
 };
 
 export default useMarkers;

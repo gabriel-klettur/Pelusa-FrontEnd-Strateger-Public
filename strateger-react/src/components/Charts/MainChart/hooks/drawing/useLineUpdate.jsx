@@ -1,5 +1,3 @@
-// Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useLineUpdate.jsx
-
 import { useEffect } from 'react';
 
 const useLineUpdate = (chartRef, lines) => {
@@ -8,9 +6,8 @@ const useLineUpdate = (chartRef, lines) => {
     const chart = chartRef.current;
 
     const updateAllLines = () => {
+      if (!chartRef.current) return; // ⚠️ Evita errores si el gráfico fue eliminado
       lines.forEach((line) => {
-        // Se asume que la instancia de LineDrawingTool tiene el método updateLine
-        // y que almacena sus puntos de inicio y fin en line.start y line.end
         if (line.start && line.end) {
           line.updateLine(line.start, line.end);
         }

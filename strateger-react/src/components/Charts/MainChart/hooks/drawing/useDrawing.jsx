@@ -26,7 +26,8 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
     const [lines, setLines] = useState([]);
     const [rectangles, setRectangles] = useState([]);
     const [brushStrokes, setBrushStrokes] = useState([]);
-    const [textTools, setTextTools] = useState([]);
+    const [textTools, setTextTools] = useState([]);    
+    
 
     //!----------------- Hooks de Dibujo -----------------//
     useCircleDrawingOnClick(
@@ -44,15 +45,15 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         selectedTool,    
         lines,
         setLines
-    );
-    
+    );    
+
     useRectangleDrawingOnClick(
         chartRef,
         candlestickSeriesRef,
         selectedTool,    
         rectangles,
         setRectangles
-    );
+    );        
 
     useBrushDrawingOnClick(
         mainChartContainerRef,
@@ -61,7 +62,7 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         selectedTool,    
         brushStrokes,
         setBrushStrokes
-    );
+    );    
 
     useDeleteOnClick(
         chartRef,
@@ -78,7 +79,7 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         setTextTools,
         selectedTool,    
     );
-
+    
     useTextDrawingOnClick(
         mainChartContainerRef,
         chartRef,
@@ -86,8 +87,8 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         selectedTool,    
         textTools,
         setTextTools
-    );
-        
+    );        
+
     const handleClearAll = useCallback(() => {
         clearChartDrawings(
         candlestickSeriesRef,
@@ -99,7 +100,7 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         textTools, setTextTools,
         dispatch
         );
-    }, [candlestickSeriesRef, chartRef, circles, lines, rectangles, brushStrokes, textTools, dispatch]);
+    }, [candlestickSeriesRef, chartRef, circles, lines, rectangles, brushStrokes, textTools, dispatch]);    
 
     // ✅ Se activa la limpieza cuando 'deleteAll' es seleccionado
     useEffect(() => {
@@ -116,9 +117,9 @@ const useDrawing = ({mainChartContainerRef, chartRef, candlestickSeriesRef, data
         console.log('resetTool');
     };
 
-
     // Usamos el custom hook para el Delta Tooltip
     useDeltaToolTip(selectedTool, chartRef, candlestickSeriesRef, resetTool);
+        
 }
 
 export default useDrawing;

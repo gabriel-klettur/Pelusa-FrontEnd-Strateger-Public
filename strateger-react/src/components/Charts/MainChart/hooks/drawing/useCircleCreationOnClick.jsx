@@ -15,13 +15,15 @@ const useCircleCreationOnClick = (
   onNewCircleCreated // Callback para notificar la creación de un nuevo círculo
 ) => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   useEffect(() => {        
     if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'circle') return;
 
     const chart = chartRef.current;
     const series = candlestickSeriesRef.current;
+
+    if (!chart || !series) return;
 
     const handleChartClick = (param) => {
       const clickX = param.point.x;

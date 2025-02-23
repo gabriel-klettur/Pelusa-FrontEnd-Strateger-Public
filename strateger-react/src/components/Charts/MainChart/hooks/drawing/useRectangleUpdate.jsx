@@ -6,6 +6,7 @@ const useRectangleUpdate = (chartRef, rectangles) => {
     const chart = chartRef.current;
 
     const updateAllRectangles = () => {
+      if (!chartRef.current) return; // ⚠️ Evita errores si el gráfico fue eliminado
       rectangles.forEach((rect) => {
         if (rect.start && rect.end) {
           rect.updateRectangle(rect.start, rect.end);

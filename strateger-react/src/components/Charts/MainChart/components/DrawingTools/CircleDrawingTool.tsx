@@ -130,16 +130,19 @@ import {
   	
 	// Call this method to update the position of the reference candle
 	updateCircle(newPoint: IPoint): void {
-	  //console.log("🔄 [CircleDrawingTool] Updating Circle:", newPoint);
-	  this.point = newPoint;
-	  this._paneViews.forEach((paneView) => {
-		paneView.update();
-	  });
+		if (!this.chart || !this.series) {
+		  console.warn("⚠️ [CircleDrawingTool] No se puede actualizar el círculo: el gráfico o la serie han sido eliminados.");
+		  return;
+		}
+		
+		this.point = newPoint;
+		this._paneViews.forEach((paneView) => {
+		  paneView.update();
+		});
 	}
-	
   
 	paneViews(): IPrimitivePaneView[] {
-	  return this._paneViews;
+		return this.chart ? this._paneViews : []; // Si el gráfico ya no existe, devuelve un array vacío
 	}
   }
   

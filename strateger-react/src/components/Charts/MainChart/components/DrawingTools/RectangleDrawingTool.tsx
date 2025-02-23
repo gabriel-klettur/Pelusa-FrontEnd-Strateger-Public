@@ -88,10 +88,22 @@ import {
       const chart = this._source.chart;
       const series = this._source.series;
       const { start, end } = this._source;
+
+      if (!chart || !series) {
+        console.warn("⚠️ [RectanglePaneView] No se puede actualizar: el gráfico o la serie han sido eliminados.");
+        return;
+      }
+
       const x1 = chart.timeScale().timeToCoordinate(start.time);
       const y1 = series.priceToCoordinate(start.price);
       const x2 = chart.timeScale().timeToCoordinate(end.time);
       const y2 = series.priceToCoordinate(end.price);
+
+      if (x1 === null || y1 === null || x2 === null || y2 === null) {
+        console.warn("⚠️ [RectanglePaneView] Coordenadas inválidas. No se actualizará el rectángulo.");
+        return;
+      }
+
       const x = (x1 !== null && x2 !== null) ? Math.min(x1, x2) : null;
       const y = (y1 !== null && y2 !== null) ? Math.min(y1, y2) : null;
       const width = (x1 !== null && x2 !== null) ? Math.abs(x2 - x1) : null;
@@ -165,14 +177,19 @@ import {
      * @param newStart Nuevo punto de inicio.
      * @param newEnd Nuevo punto opuesto.
      */
+    
     updateRectangle(newStart: IPoint, newEnd: IPoint): void {
+      if (!this.chart || !this.series) {
+        console.warn("⚠️ [LineDrawingTool] No se puede actualizar la línea: el gráfico ha sido eliminado.");
+        return;
+      }
       this.start = newStart;
       this.end = newEnd;
       this._paneViews.forEach((paneView) => paneView.update());
     }
   
     paneViews(): IPrimitivePaneView[] {
-      return this._paneViews;
+      return this.chart ? this._paneViews : [];
     }
   }
   

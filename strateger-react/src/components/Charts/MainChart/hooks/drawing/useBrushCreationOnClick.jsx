@@ -31,6 +31,8 @@ const useBrushCreationOnClick = (
     const container = containerRef.current;
 
     const handleMouseDown = (event) => {
+      if (!chartRef.current || !candlestickSeriesRef.current) return; // ⚠️ Validación extra
+
       isDrawingRef.current = true;
       const rect = container.getBoundingClientRect();
       const clickX = event.clientX - rect.left;
@@ -38,6 +40,12 @@ const useBrushCreationOnClick = (
       
       const startTime = chart.timeScale().coordinateToTime(clickX);
       const startPrice = series.coordinateToPrice(clickY);
+
+      if (startTime === null || startPrice === null) {
+        console.warn("⚠️ [useBrushCreationOnClick] Coordenadas inválidas, ignorando clic.");
+        return;
+      }
+
       const startPoint = { time: startTime, price: startPrice };
 
       lastPointRef.current = startPoint;
@@ -69,6 +77,9 @@ const useBrushCreationOnClick = (
       
       const moveTime = chart.timeScale().coordinateToTime(moveX);
       const movePrice = series.coordinateToPrice(moveY);
+
+      if (moveTime === null || movePrice === null) return;
+      
       const newPoint = { time: moveTime, price: movePrice };
 
       // Agregamos un segmento al trazo

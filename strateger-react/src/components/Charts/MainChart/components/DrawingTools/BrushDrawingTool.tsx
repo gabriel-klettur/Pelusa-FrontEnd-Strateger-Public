@@ -89,16 +89,27 @@ import {
 	}
   
 	update(): void {
-	  const chart = this._source.chart;
-	  const series = this._source.series;
-	  this._computedSegments = this._source.segments.map(seg => {
-		const startX = chart.timeScale().timeToCoordinate(seg.start.time);
-		const startY = series.priceToCoordinate(seg.start.price);
-		const endX = chart.timeScale().timeToCoordinate(seg.end.time);
-		const endY = series.priceToCoordinate(seg.end.price);
-		return { startX, startY, endX, endY };
-	  });
-	  //console.log("BrushPaneView: update() computed segments", this._computedSegments);
+		const chart = this._source.chart;
+		const series = this._source.series;
+  
+		if (!chart || !series) {
+		  console.warn("⚠️ [BrushPaneView] No se puede actualizar: el gráfico o la serie han sido eliminados.");
+		  return;
+		}
+  
+		this._computedSegments = this._source.segments.map(seg => {
+		  const startX = chart.timeScale().timeToCoordinate(seg.start.time);
+		  const startY = series.priceToCoordinate(seg.start.price);
+		  const endX = chart.timeScale().timeToCoordinate(seg.end.time);
+		  const endY = series.priceToCoordinate(seg.end.price);
+  
+		  if (startX === null || startY === null || endX === null || endY === null) {
+			console.warn("⚠️ [BrushPaneView] Coordenadas inválidas, ignorando segmento.");
+			return { startX: null, startY: null, endX: null, endY: null };
+		  }
+  
+		  return { startX, startY, endX, endY };
+		}).filter(segment => segment.startX !== null && segment.startY !== null);
 	}
   
 	renderer(): IPrimitivePaneRenderer {
@@ -171,11 +182,15 @@ import {
 	 */
 	updateBrush(): void {
 	  this._paneViews.forEach(view => view.update());
+	  if (!this.chart || !this.series) {
+        console.warn("⚠️ [BrushDrawingTool] No se puede actualizar la brocha: el gráfico ha sido eliminado.");
+        return;
+      }
 	  //console.log("BrushDrawingTool: updateBrush called");
 	}
   
 	paneViews(): IPrimitivePaneView[] {
-	  return this._paneViews;
+		return this.chart ? this._paneViews : [];
 	}
   }
   

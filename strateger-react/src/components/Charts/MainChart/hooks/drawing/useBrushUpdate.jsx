@@ -8,6 +8,7 @@ const useBrushUpdate = (chartRef, brushStrokes) => {
     const chart = chartRef.current;
 
     const updateAllBrushStrokes = () => {
+      if (!chartRef.current) return; // ⚠️ Evita errores si el gráfico fue eliminado
       brushStrokes.forEach((brush) => {
         if (typeof brush.updateBrush === 'function') {
           brush.updateBrush();

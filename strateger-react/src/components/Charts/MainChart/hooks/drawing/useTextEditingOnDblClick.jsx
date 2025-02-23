@@ -15,6 +15,8 @@ const useTextEditingOnDblClick = (
     const series = candlestickSeriesRef.current;
     const container = containerRef.current;
 
+    
+
     const handleDblClick = (event) => {
       const rect = container.getBoundingClientRect();
       const clickX = event.clientX - rect.left;

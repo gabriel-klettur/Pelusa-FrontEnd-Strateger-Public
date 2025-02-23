@@ -1,5 +1,3 @@
-//Path: strateger-react/src/components/Charts/MainChart/hooks/charts/useInitializeChart.jsx
-
 import { useRef, useEffect } from 'react';
 import { initializeChart } from '../../config/initializeChart';
 
@@ -7,16 +5,23 @@ const useInitializeChart = (chartContainerRef) => {
   const chartRef = useRef();
 
   useEffect(() => {
-    if (chartContainerRef.current) {
-      chartRef.current = initializeChart(chartContainerRef.current);
+    if (!chartContainerRef.current) return;
+
+    // 💥 Eliminar gráfico anterior antes de crear uno nuevo
+    if (chartRef.current) {
+      chartRef.current.remove();
+      chartRef.current = null;
     }
+
+    chartRef.current = initializeChart(chartContainerRef.current);
 
     return () => {
       if (chartRef.current) {
         chartRef.current.remove();
+        chartRef.current = null;
       }
     };
-  }, [chartContainerRef]);
+  }, [chartContainerRef]); // ⚠️ Agrega `chartContainerRef` a las dependencias
 
   return chartRef;
 };

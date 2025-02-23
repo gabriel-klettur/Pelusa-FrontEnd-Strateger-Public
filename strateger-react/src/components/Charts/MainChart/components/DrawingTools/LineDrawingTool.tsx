@@ -88,6 +88,12 @@ import {
       const series = this._source.series;
       const chart = this._source.chart;
       const { start, end } = this._source;
+
+      if (!chart || !series) {
+        console.warn("⚠️ [LinePaneView] No se puede actualizar: el gráfico o la serie han sido eliminados.");
+        return;
+      }
+
       const startX = chart.timeScale().timeToCoordinate(start.time);
       const startY = series.priceToCoordinate(start.price);
       const endX = chart.timeScale().timeToCoordinate(end.time);
@@ -142,14 +148,18 @@ import {
     }
   
     updateLine(newStart: IPoint, newEnd: IPoint): void {
-      //console.log("LineDrawingTool: updateLine() llamado", { newStart, newEnd });
+      if (!this.chart || !this.series) {
+        console.warn("⚠️ [LineDrawingTool] No se puede actualizar la línea: el gráfico ha sido eliminado.");
+        return;
+      }
+
       this.start = newStart;
       this.end = newEnd;
       this._paneViews.forEach((paneView) => paneView.update());
     }
-  
+
     paneViews(): IPrimitivePaneView[] {
-      return this._paneViews;
+      return this.chart ? this._paneViews : [];
     }
   }
   

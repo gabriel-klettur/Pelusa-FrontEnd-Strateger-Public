@@ -24,11 +24,21 @@ const useRectangleCreationOnClick = (
     const series = candlestickSeriesRef.current;
 
     const handleChartClick = (param) => {
+
+      if (!chartRef.current || !candlestickSeriesRef.current) return;   // 🔹 Previene errores si el gráfico ya no existe
+
       const clickX = param.point.x;
       const clickY = param.point.y;
       // Convertir la posición del click a time/price
       const clickedTime = chart.timeScale().coordinateToTime(clickX);
       const clickedPrice = series.coordinateToPrice(clickY);
+
+      if (clickedTime === null || clickedPrice === null) {
+        console.warn("⚠️ [useRectangleCreationOnClick] Coordenadas inválidas, ignorando clic.");
+        return;
+      }
+
+
       const point = { time: clickedTime, price: clickedPrice };
 
       if (pendingStartPointRef.current === null) {

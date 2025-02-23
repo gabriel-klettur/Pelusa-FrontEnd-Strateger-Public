@@ -17,15 +17,13 @@ const useLineCreationOnClick = (
   // Ref para almacenar el punto de inicio pendiente (primer click)
   const pendingStartPointRef = useRef(null);
 
-  useEffect(() => {
-    // Solo se activa si el modo seleccionado es 'line'
-    if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'line') {
-      //console.log("1. 🚱 useLineCreationOnClick: No se cumple la condición para activar la herramienta de línea");
-      return;
-    }
+  useEffect(() => {    
+    if (!chartRef.current || !candlestickSeriesRef.current || selectedTool !== 'line') return;    
 
     const chart = chartRef.current;
     const series = candlestickSeriesRef.current;
+
+    if (!chart || !series) return;
 
     const handleChartClick = (param) => {
       //console.log("2. handleChartClick: Click detectado", param);
@@ -89,7 +87,7 @@ const useLineCreationOnClick = (
       //console.log("11. Desubscribiendo el evento click del gráfico para creación de línea.");
       chart.unsubscribeClick(handleChartClick);
     };
-  }, [chartRef, candlestickSeriesRef, selectedTool, onNewLineCreated]);
+  }, [chartRef, candlestickSeriesRef, selectedTool, onNewLineCreated, dispatch]);
 };
 
 export default useLineCreationOnClick;

@@ -8,6 +8,7 @@ const useTextUpdate = (chartRef, textTools) => {
     const chart = chartRef.current;
 
     const updateAllTexts = () => {
+      if (!chartRef.current) return; // ⚠️ Evita errores si el gráfico fue eliminado
       textTools.forEach((textTool) => {
         textTool.paneViews().forEach(view => view.update());
       });
