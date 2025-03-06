@@ -5,9 +5,9 @@ import {
 	Time
 } from 'lightweight-charts';
 
-// =====================================================
-// Interfaces comunes para puntos y coordenadas
-// =====================================================
+//! =====================================================
+//! -------- Common Interfaces for Drawing Tools --------
+//! =====================================================
 
 export interface IPoint {
 	time: Time;

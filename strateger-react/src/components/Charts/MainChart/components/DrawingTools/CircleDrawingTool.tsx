@@ -21,7 +21,7 @@ import {
   }
   
   //!----------------------------------------------------------------------------------------------------------------------------------------
-  //!--------------------------------------------------  Dibuja el circulo en canvas --------------------------------------------------------
+  //!--------------------------------------------------  Draw a Circle in Canvas ------------------------------------------------------------
   //!----------------------------------------------------------------------------------------------------------------------------------------
   class CirclePaneRenderer implements IPrimitivePaneRenderer {
 	private _point: ICircleCoordinates;
@@ -37,7 +37,7 @@ import {
 	}
   
 	draw(target: CanvasRenderingTarget2D): void {
-	  target.useBitmapCoordinateSpace((scope: any) => {							//scope es un objeto proporcionado por useBitmapCoordinateSpace() que encapsulta la informacion del canvas
+	  target.useBitmapCoordinateSpace((scope: any) => {							
 		if (this._point.x === null || this._point.y === null) {
 			console.log("❌ [CirclePaneRenderer] Cannot draw: Null coordinates", this._point);
 		  	return;
@@ -46,23 +46,22 @@ import {
 			console.log("⚠️ [CirclePaneRenderer] The point is outside the visible area of the chart, it will not be drawn.", this._point);
 		  	return;
 		}
-		//console.log("✅ [CirclePaneRenderer] Drawing at coordinates:", this._point);
-  
-		const ctx = scope.context as CanvasRenderingContext2D;					// Obtiene el contexto del canvas, lo que permite dibujar
-  
-		ctx.save(); 															// Guarda el estado actual del contexto
-		ctx.globalAlpha = this._opacity; 										// Establece una  opacidad
-		ctx.beginPath();														// Inicia un nuevo trazo
 		
-		ctx.arc(this._point.x, this._point.y, this._radius, 0, 2 * Math.PI);	// Dibuja un circulo
-		ctx.fillStyle = this._color; 											// Establece el color de relleno
-		ctx.fill();																// Rellena el circulo
+		const ctx = scope.context as CanvasRenderingContext2D;					//!<-- This is the key to access the canvas context
+  
+		ctx.save(); 															
+		ctx.globalAlpha = this._opacity; 										
+		ctx.beginPath();														
 		
-		ctx.strokeStyle = this._color;											// Establece el color de la linea
-		ctx.lineWidth = 3;														// Establece el ancho de la linea
-		ctx.stroke();															// Dibuja el circulo borde del circulo
+		ctx.arc(this._point.x, this._point.y, this._radius, 0, 2 * Math.PI);	
+		ctx.fillStyle = this._color; 											
+		ctx.fill();																
+		
+		ctx.strokeStyle = this._color;											
+		ctx.lineWidth = 3;														
+		ctx.stroke();															
 
-		ctx.restore(); 															// Restaura el estado del contexto para no afectar otros dibujos
+		ctx.restore(); 															
   		
 	  });
 	}
@@ -70,7 +69,7 @@ import {
   
 
   //!----------------------------------------------------------------------------------------------------------------------------------------
-  //!------------------------------------------  Calcula la posicion del Circulo en el Grafico ----------------------------------------------
+  //!------------------------------------------  Compute the position of the circle in the chart --------------------------------------------
   //!----------------------------------------------------------------------------------------------------------------------------------------
 
   class CirclePaneView implements IPrimitivePaneView {
@@ -80,13 +79,11 @@ import {
 	constructor(source: CircleDrawingTool) {
 	  this._source = source;
 	}
-  
-	// Método que calcula la posición del punto en el gráfico
+  	
 	update(): void {
 	  const series = this._source.series;
 	  const chart = this._source.chart;
-	  
-	  // Usamos directamente el time original y el price original
+	  	  
 	  const x = chart.timeScale().timeToCoordinate(this._source.point.time);
 	  const y = series.priceToCoordinate(this._source.point.price);
 	  
@@ -127,11 +124,10 @@ import {
 	  this.opacity = opacity;
 	  this._paneViews = [new CirclePaneView(this)];
 	}
-  	
-	// Call this method to update the position of the reference candle
+  		
 	updateCircle(newPoint: IPoint): void {
 		if (!this.chart || !this.series) {
-		  console.warn("⚠️ [CircleDrawingTool] No se puede actualizar el círculo: el gráfico o la serie han sido eliminados.");
+		  console.warn("⚠️ [CircleDrawingTool] Its not possible to update the circle: the chart or the series has been removed.");
 		  return;
 		}
 		
@@ -142,7 +138,7 @@ import {
 	}
   
 	paneViews(): IPrimitivePaneView[] {
-		return this.chart ? this._paneViews : []; // Si el gráfico ya no existe, devuelve un array vacío
+		return this.chart ? this._paneViews : [];
 	}
   }
   

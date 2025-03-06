@@ -7,8 +7,7 @@ const ToolBar = ({ tabs }) => {
   const selectedTool = useSelector(selectSelectedChartTool);
 
   const handleTabClick = (index) => {
-    const tool = tabs[index].name;
-    console.log(`Tab clicked: ${tool}`);
+    const tool = tabs[index].name;    
 
     // Si el tab clickeado es el mismo que el actual, forzamos una "reseteada".
     if (selectedTool === tool) {
