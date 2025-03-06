@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 // Función auxiliar para calcular la distancia de un punto a un segmento (para líneas y brush)
 const getDistancePointToSegment = (px, py, x1, y1, x2, y2) => {

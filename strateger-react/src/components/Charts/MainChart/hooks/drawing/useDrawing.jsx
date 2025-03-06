@@ -6,13 +6,13 @@ import { setSelectedChartTool } from '../../../../../redux/interaction';
 import { selectSelectedChartTool } from '../../../../../redux/interaction';
 
 //!---- Drawing Tools ----!//
-import useCircleDrawingOnClick from './useCircleDrawingOnClick';
-import useLineDrawingOnClick from './useLineDrawingOnClick';
-import useRectangleDrawingOnClick from './useRectangleDrawingOnClick';
-import useDeleteOnClick from './useDeleteOnClick';
-import useBrushDrawingOnClick from './useBrushDrawingOnClick';
-import useTextDrawingOnClick from './useTextDrawingOnClick';
-import clearChartDrawings from './clearChartDrawing';
+import useCircleDrawingOnClick from './circle/useCircleDrawingOnClick';
+import useLineDrawingOnClick from './line/useLineDrawingOnClick';
+import useRectangleDrawingOnClick from './rectangle/useRectangleDrawingOnClick';
+import useDeleteOnClick from './cleaner/useDeleteOnClick';
+import useBrushDrawingOnClick from './brush/useBrushDrawingOnClick';
+import useTextDrawingOnClick from './text/useTextDrawingOnClick';
+import clearChartDrawings from './cleaner/clearChartDrawing';
 
 //!---- Plugins ----!//
 import useDeltaToolTip from '../tools/useDeltaToolTip';

@@ -1,8 +1,8 @@
 // Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useBrushCreationOnClick.jsx
 
 import { useEffect, useRef } from 'react';
-import { BrushDrawingTool } from '../../components/DrawingTools/BrushDrawingTool';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { BrushDrawingTool } from '../../../components/DrawingTools/BrushDrawingTool';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 import { useDispatch } from 'react-redux';
 

@@ -1,9 +1,9 @@
 // Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useLineCreationOnClick.jsx
 
 import { useEffect, useRef } from 'react';
-import { LineDrawingTool } from '../../components/DrawingTools/LineDrawingTool';
+import { LineDrawingTool } from '../../../components/DrawingTools/LineDrawingTool';
 import { useDispatch } from 'react-redux';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 const useLineCreationOnClick = (
   chartRef,

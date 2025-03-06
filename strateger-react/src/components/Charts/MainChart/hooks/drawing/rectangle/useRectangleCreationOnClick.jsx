@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
-import { RectangleDrawingTool } from '../../components/DrawingTools/RectangleDrawingTool';
+import { RectangleDrawingTool } from '../../../components/DrawingTools/RectangleDrawingTool';
 
 const useRectangleCreationOnClick = (
   chartRef,

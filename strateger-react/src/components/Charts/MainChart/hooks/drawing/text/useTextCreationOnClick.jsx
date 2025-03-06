@@ -1,9 +1,9 @@
 // Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useTextCreationOnClick.jsx
 
 import { useEffect } from 'react';
-import { TextDrawingTool } from '../../components/DrawingTools/TextDrawingTool';
+import { TextDrawingTool } from '../../../components/DrawingTools/TextDrawingTool';
 import { useDispatch } from 'react-redux';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 const useTextCreationOnClick = (
   containerRef, // Ref del contenedor del gráfico

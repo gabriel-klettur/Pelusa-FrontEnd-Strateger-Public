@@ -1,10 +1,10 @@
 //Path: strateger-react/src/components/Charts/MainChart/hooks/drawing/useCircleCreationOnClick.jsx
 import { useDispatch } from 'react-redux';
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 import { useEffect } from 'react';
-import { CircleDrawingTool } from '../../components/DrawingTools/CircleDrawingTool';
-import { getClosestCandle } from '../../utils/getClosestCandle';
+import { CircleDrawingTool } from '../../../components/DrawingTools/CircleDrawingTool';
+import { getClosestCandle } from '../../../utils/getClosestCandle';
 
 //TODO Hook encargado de crear un círculo al hacer click en el gráfico
 const useCircleCreationOnClick = (

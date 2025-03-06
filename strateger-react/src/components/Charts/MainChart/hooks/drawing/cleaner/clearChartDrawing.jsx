@@ -1,4 +1,4 @@
-import { setSelectedChartTool } from '../../../../../redux/interaction';
+import { setSelectedChartTool } from '../../../../../../redux/interaction';
 
 const clearChartDrawings = (
     candlestickSeriesRef, 
