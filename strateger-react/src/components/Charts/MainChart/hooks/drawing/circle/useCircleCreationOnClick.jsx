@@ -33,6 +33,11 @@ const useCircleCreationOnClick = (
       const clickedTime = chart.timeScale().coordinateToTime(clickX);
       const clickedPrice = series.coordinateToPrice(clickY);
 
+      if (clickedTime === null || clickedPrice === null) {
+        console.warn("⚠️ [useCircleCreationOnClick] Coordenadas inválidas, ignorando clic.");
+        return;
+      }
+
       // Obtener la vela más cercana usando el helper
       const closestCandle = getClosestCandle(data, clickedTime);
       const candleTime =

@@ -31,7 +31,7 @@ const useBrushCreationOnClick = (
     const container = containerRef.current;
 
     const handleMouseDown = (event) => {
-      if (!chartRef.current || !candlestickSeriesRef.current) return; // ⚠️ Validación extra
+      if (!chartRef.current || !candlestickSeriesRef.current) return;
 
       isDrawingRef.current = true;
       const rect = container.getBoundingClientRect();

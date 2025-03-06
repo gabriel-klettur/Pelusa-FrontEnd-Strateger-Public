@@ -35,8 +35,13 @@ const useLineCreationOnClick = (
       // Convertir la posición del click a time y price
       const clickedTime = chart.timeScale().coordinateToTime(clickX);
       const clickedPrice = series.coordinateToPrice(clickY);
-      //console.log("4. Coordenadas convertidas a time/price:", { clickedTime, clickedPrice });
 
+      if (clickedTime === null || clickedPrice === null) {
+        console.warn("⚠️ [useLineCreationOnClick] Coordenadas inválidas, ignorando clic.");
+        return;
+      }
+
+      //console.log("4. Coordenadas convertidas a time/price:", { clickedTime, clickedPrice });
       const point = { time: clickedTime, price: clickedPrice };
 
       if (pendingStartPointRef.current === null) {

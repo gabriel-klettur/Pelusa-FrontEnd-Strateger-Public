@@ -31,6 +31,12 @@ const useTextCreationOnClick = (
 
       const time = chart.timeScale().coordinateToTime(clickX);
       const price = series.coordinateToPrice(clickY);
+
+      if (time === null || price === null) {
+        console.warn("⚠️ [useTextCreationOnClick] Coordenadas inválidas, ignorando clic.");
+        return;
+      }
+
       const point = { time, price };
 
       // Creamos un input superpuesto en la posición del click
