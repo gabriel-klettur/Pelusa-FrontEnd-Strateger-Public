@@ -3,10 +3,13 @@
     "target": "es6",
     "module": "esnext",
     "jsx": "react-jsx",
-    "strict": true,    
+    "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "esModuleInterop": true
-  }
+  },
+  // estas dos claves suelen ir al mismo nivel que "compilerOptions"
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
