@@ -38,8 +38,8 @@ const App = () => {
         <>
           <ToastConfig />          
           <Routes>            
-            <Route path="/pelusa-trader" element={<Navigate to="/pelusa-trader/alarms" replace />} />
-            <Route path="/pelusa-trader" element={<MainContainer />}>              
+            <Route path="" element={<Navigate to="/alarms" replace />} />
+            <Route path="" element={<MainContainer />}>              
               <Route path="alarms" element={<Alarms />} />
               <Route path="battlefield" element={<BattleField />} />
               <Route path="orders" element={<Orders />} /> 
