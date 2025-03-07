@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCandlestickChartParameters } from 'reduxStore/charts';
 
-const useChartsParameters = ({currentInterval, currentTicker, startDate, jumpToDate}) => {
+const useSetChartsParameters = ({currentInterval, currentTicker, startDate, jumpToDate}) => {
 
     const dispatch = useDispatch();
 
@@ -31,4 +31,4 @@ const useChartsParameters = ({currentInterval, currentTicker, startDate, jumpToD
     }, [currentInterval,currentTicker,  startDate, jumpToDate, dispatch]);
 }
 
-export default useChartsParameters;
+export default useSetChartsParameters;

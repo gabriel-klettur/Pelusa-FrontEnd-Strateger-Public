@@ -10,7 +10,7 @@ import { selectTemporalidad, selectCurrentDate, selectStartDate, selectTicker } 
 import JumpInTimePanel from '../components/JumpInTimePanel';
 
 import TickersPanel from '../components/TickersPanel';
-import useChartsParameters from './hooks/useChartsParameters';
+import useSetChartsParameters from '../hooks/useSetChartsParameters';
 
 const ToolBarContainer = () => {
     
@@ -24,7 +24,7 @@ const ToolBarContainer = () => {
     const [currentTicker, setCurrentTicker] = useState(initialTicker);
     const [jumpToDate, setJumpToDate] = useState(initialEndDate);
     
-    useChartsParameters({currentInterval, currentTicker, startDate, jumpToDate});
+    useSetChartsParameters({currentInterval, currentTicker, startDate, jumpToDate});
 
     return(
         <div className="h-12 grid grid-flow-col auto-cols-auto gap-x-4 bg-african_violet-300">
