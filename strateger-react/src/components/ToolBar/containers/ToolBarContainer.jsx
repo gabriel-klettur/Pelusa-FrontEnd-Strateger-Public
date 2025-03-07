@@ -10,7 +10,7 @@ import RelojContainer from './RelojContainer';
 
 import { selectTemporalidad, selectCurrentDate, selectStartDate } from 'reduxStore/toolBar';
 import JumpInTimePanel from '../components/JumpInTimePanel';
-import IndicatorsPanel from '../components/IndicatorsPanel';
+
 import TickersPanel from '../components/TickersPanel';
 
 const ToolBarContainer = () => {
@@ -64,10 +64,6 @@ const ToolBarContainer = () => {
                     currentInterval={currentInterval}
                     setCurrentInterval={setCurrentInterval}
                 />
-            </div>
-
-            <div className="h-full flex justify-center items-center">
-                <IndicatorsPanel />
             </div>
 
             <div className="h-full flex justify-center items-center">
