@@ -1,6 +1,6 @@
 //Path: strateger-react/src/components/ToolBar/containers/RelojContainer.jsx
 
-import Reloj from '../../common/Reloj';
+import Reloj from '../../common/Clock/Clock';
 
 const RelojContainer = () => {
     return(

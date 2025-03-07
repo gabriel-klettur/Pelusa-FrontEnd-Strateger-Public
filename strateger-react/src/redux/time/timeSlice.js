@@ -7,6 +7,7 @@ const initialState = {
   chinaTime: new Date().toISOString(),
   usTime: new Date().toISOString(),
   germanyTime: new Date().toISOString(),
+  ukTime: new Date().toISOString(),
 };
 
 const timeSlice = createSlice({
@@ -19,6 +20,7 @@ const timeSlice = createSlice({
       state.chinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })).toISOString();
       state.usTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' })).toISOString();
       state.germanyTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' })).toISOString();
+      state.ukTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/London' })).toISOString();
     },
   },
 });
