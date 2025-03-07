@@ -6,6 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialTemporalidad = '5m';
 const currentDate = new Date();
 const formattedCurrentDate = currentDate.toISOString();
+const initialTicker = 'BTC-USDT';
 
 // Calcular la fecha de inicio (1000 días antes de la fecha actual)
 const startDate = new Date();
@@ -16,11 +17,15 @@ const formattedStartDate = startDate.toISOString();
 const toolBarSlice = createSlice({
   name: 'toolBar',
   initialState: {
+    ticker: initialTicker,
     temporalidad: initialTemporalidad,
     currentDate: formattedCurrentDate,
     startDate: formattedStartDate,
   },
   reducers: {
+    setTicker: (state, action) => {
+      state.ticker = action.payload;
+    },
     setTemporalidad: (state, action) => {
       state.temporalidad = action.payload;
     },
@@ -34,7 +39,7 @@ const toolBarSlice = createSlice({
 });
 
 // Exportar las acciones
-export const { setTemporalidad, setCurrentDate, setStartDate } = toolBarSlice.actions;
+export const { setTemporalidad, setCurrentDate, setStartDate, setTicker } = toolBarSlice.actions;
 
 // Exportar el reducer
 export default toolBarSlice.reducer;

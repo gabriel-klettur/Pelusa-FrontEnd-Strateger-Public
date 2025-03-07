@@ -4,3 +4,4 @@
 export const selectTemporalidad = (state) => state.toolBar.temporalidad;
 export const selectCurrentDate = (state) => state.toolBar.currentDate;
 export const selectStartDate = (state) => state.toolBar.startDate;
+export const selectTicker = (state) => state.toolBar.ticker;
