@@ -4,7 +4,7 @@ export const config = {
     : 'https://api.beelzebot.com:8000',
   apiUrlWS: process.env.REACT_APP_MODE_DEVELOPING?.toLowerCase() === 'true'
     ? 'ws://192.168.1.2:8000'
-    : 'ws://api.beelzebot.com:8000',
+    : 'wss://api.beelzebot.com:8000',
 };
 
 
