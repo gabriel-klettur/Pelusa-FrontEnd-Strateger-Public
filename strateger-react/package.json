@@ -2,7 +2,7 @@
   "name": "strateger-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/pelusa-trader",
+  "homepage": "",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@headlessui/react": "^2.0.4",
