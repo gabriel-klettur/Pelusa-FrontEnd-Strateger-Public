@@ -8,7 +8,7 @@ import {
     updateChartData
 } from "reduxStore/charts";
 
-import { adjustDates, formatDataFetching } from "../../../../../redux/charts/utils";
+import { adjustDates, formatDataFetching, intervalMapping } from "../../../../../redux/charts/utils";
 
 const useChartBoundaryLoader = (chartRef, data) => {
   
@@ -38,12 +38,11 @@ const useChartBoundaryLoader = (chartRef, data) => {
         const fromMilliseconds = from * 1000;
         const toMilliseconds = to * 1000;
 
-        // Filtrar solo las velas visibles en el gráfico
+        //* Filter candles that are visible on the chart
         const visibleCandles = data.filter(([timestamp]) => 
             timestamp >= fromMilliseconds && timestamp <= toMilliseconds
         );
-
-        // Detectar gaps y rellenarlos automáticamente
+        
         await detectDataGaps(lastGapFillTimeRef, visibleCandles, chartInterval, chartTicker, dispatch);
     };
 
@@ -51,44 +50,13 @@ const useChartBoundaryLoader = (chartRef, data) => {
     const handleBoundaryLoading = async (timeRange) => {
         if (!timeRange || !data.length) return;
 
+        const { from } = timeRange;
         const firstCandleInMilliseconds = data[0][0]; // Timestamp en ms
         const firstCandleTimeInSeconds = Math.floor(data[0][0] / 1000);
-        const { from } = timeRange;
+        
+        // Detectar si no hay datos
+        await detectNoDataBeginning(from, firstCandleTimeInSeconds, chartInterval, chartTicker, dispatch, lastLogTimeRef, firstCandleInMilliseconds);
 
-        if (from <= firstCandleTimeInSeconds) {
-            const now = Date.now();
-            if (now - lastLogTimeRef.current >= 5000) { 
-                lastLogTimeRef.current = now; 
-                
-                //! Ajustar Fechas
-                const { formatedEndDate } = adjustDates(chartInterval, "None", firstCandleInMilliseconds);                
-                                                        
-                //! Llamada a la API
-                try {                    
-                    const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
-                        params: {
-                            symbol: chartTicker || 'BTC-USDT',
-                            interval: chartInterval,
-                            limit: "1440",
-                            start_date: "None",
-                            end_date: formatedEndDate,
-                        }
-                    });
-
-                    //! Formatear Data
-                    const formatedResponse = formatDataFetching({ response });
-                    
-                    if (!Array.isArray(formatedResponse.formattedData)) {
-                        throw new Error("❌ `formattedData` Invalid array");
-                    }
-                                        
-                    dispatch(updateChartData(formatedResponse.formattedData));
-
-                } catch (error) {
-                    console.error("⚠️ Error al cargar datos:", error);
-                }
-            }
-        }
     };
 
     //! ----------------- Suscribirse a Cambios en el Gráfico -----------------
@@ -107,68 +75,74 @@ const useChartBoundaryLoader = (chartRef, data) => {
 
 };
 
+const detectNoDataBeginning = async (from, firstCandleTimeInSeconds, chartInterval, chartTicker, dispatch, lastLogTimeRef, firstCandleInMilliseconds) => {
+    if (from <= firstCandleTimeInSeconds) {
+        const now = Date.now();
+        if (now - lastLogTimeRef.current >= 5000) { 
+            lastLogTimeRef.current = now; 
+                        
+            const { formatedEndDate } = adjustDates(chartInterval, "None", firstCandleInMilliseconds);                
+                                 
+            await apiCall(chartTicker, chartInterval, "None", formatedEndDate, dispatch);                        
+        }
+    }
+}
+
+
 //! ----------------- Detectar Gaps en Velas Visibles -----------------
 const detectDataGaps = async (lastGapFillTimeRef, candlestickData, interval, chartTicker, dispatch) => {
     if (candlestickData.length < 2) return;
 
     const now = Date.now();
     if (now - lastGapFillTimeRef.current < 5000) {        
-        return; // Evita múltiples llamadas en menos de 5 segundos
+        return; 
     }
 
-    lastGapFillTimeRef.current = now; // Actualiza el último tiempo de petición
+    lastGapFillTimeRef.current = now;
 
-    const intervalMapping = {
-        '1m': 60 * 1000, '5m': 5 * 60 * 1000, '15m': 15 * 60 * 1000, '30m': 30 * 60 * 1000,
-        '1h': 60 * 60 * 1000, '4h': 4 * 60 * 60 * 1000, '1d': 24 * 60 * 60 * 1000
-    };
-
-    const expectedGap = intervalMapping[interval] || 0;
-    if (!expectedGap) {
-        console.error("⛔ Intervalo inválido en detectDataGaps:", interval);
+    const expectedGap = intervalMapping[interval]*1000 || 0;
+    if (!expectedGap) {        
         return;
-    }
-
+    }     
     for (let i = 1; i < candlestickData.length; i++) {
-        const prevCandleTime = candlestickData[i - 1][0]; // Timestamp de la vela anterior
-        const currentCandleTime = candlestickData[i][0]; // Timestamp de la vela actual
-        const gap = currentCandleTime - prevCandleTime;
+        const prevCandleTime = candlestickData[i - 1][0]
+        const currentCandleTime = candlestickData[i][0];
+        const gap = currentCandleTime - prevCandleTime;        
 
-        if (gap > expectedGap * 1.5) { 
-            console.warn(`⚠️ Gap detectado: Falta de datos entre ${new Date(prevCandleTime).toISOString()} y ${new Date(currentCandleTime).toISOString()}. Diferencia: ${gap / 1000} seg.`);
+        if (gap > expectedGap*1.5) {             
             
-            //! 🔥 Llamar a la API para rellenar los datos faltantes
-            await fillMissingCandles(prevCandleTime, chartTicker, interval, dispatch);
-            break; // Solo hacemos una petición por ciclo para evitar sobrecarga
+            const { formatedStartDate } = adjustDates(interval, prevCandleTime, "None");        
+
+            await apiCall(chartTicker, interval, formatedStartDate, "None", dispatch);
+            break; 
         }
     }
 };
 
-const fillMissingCandles = async (prevCandleTime, chartTicker, interval, dispatch) => {
-    try {
-        //! ✅ Usamos `adjustDates` para obtener `start_date` en el formato correcto
-        const { formatedStartDate } = adjustDates(interval, prevCandleTime, "None");        
-
+const apiCall = async (chartTicker, chartInterval, formatedStartDate = "None", formatedEndDate = "None", dispatch) => {
+    //! Llamada a la API
+    try {                    
         const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
             params: {
                 symbol: chartTicker || 'BTC-USDT',
-                interval: interval,
+                interval: chartInterval,
                 limit: "1440",
-                start_date: formatedStartDate, // ✅ Ahora está formateado correctamente
-                end_date: "None",
+                start_date: formatedStartDate,
+                end_date: formatedEndDate,
             }
         });
-        
-        const formattedResponse = formatDataFetching({ response });
 
-        if (!Array.isArray(formattedResponse.formattedData)) {
+        //! Formatear Data
+        const formatedResponse = formatDataFetching({ response });
+        
+        if (!Array.isArray(formatedResponse.formattedData)) {
             throw new Error("❌ `formattedData` Invalid array");
         }
-        
-        dispatch(updateChartData(formattedResponse.formattedData));        
+                            
+        dispatch(updateChartData(formatedResponse.formattedData));
 
     } catch (error) {
-        console.error("⚠️ Error al rellenar datos faltantes:", error);
+        console.error("⚠️ Error al cargar datos:", error);
     }
 };
 
