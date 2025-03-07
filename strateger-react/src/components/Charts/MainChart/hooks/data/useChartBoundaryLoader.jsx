@@ -83,7 +83,7 @@ const detectNoDataBeginning = async (from, firstCandleTimeInSeconds, chartInterv
                         
             const { formatedEndDate } = adjustDates(chartInterval, "None", firstCandleInMilliseconds);                
                                  
-            await apiCall(chartTicker, chartInterval, "None", formatedEndDate, dispatch);                        
+            await getKlineData(chartTicker, chartInterval, "None", formatedEndDate, dispatch);                        
         }
     }
 }
@@ -113,13 +113,13 @@ const detectDataGaps = async (lastGapFillTimeRef, candlestickData, interval, cha
             
             const { formatedStartDate } = adjustDates(interval, prevCandleTime, "None");        
 
-            await apiCall(chartTicker, interval, formatedStartDate, "None", dispatch);
+            await getKlineData(chartTicker, interval, formatedStartDate, "None", dispatch);
             break; 
         }
     }
 };
 
-const apiCall = async (chartTicker, chartInterval, formatedStartDate = "None", formatedEndDate = "None", dispatch) => {
+const getKlineData = async (chartTicker, chartInterval, formatedStartDate = "None", formatedEndDate = "None", dispatch) => {
     //! Llamada a la API
     try {                    
         const response = await axios.get(`${config.apiURL}/bingx/main/get-k-line-data`, {
