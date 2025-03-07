@@ -13,7 +13,7 @@ const CandlestickChartContainer = ({ data, chartSettings, chartInterval }) => {
   useIndicators({chartSettings, chartRef, data});  
   useMarkers({candlestickSeriesRef, chartInterval, chartSettings});            
   useDrawing({mainChartContainerRef, chartRef, candlestickSeriesRef, data})
-  useChartBoundaryLoader(chartRef);  
+  useChartBoundaryLoader(chartRef, data);  
   
   return (
     <div className="chart-container relative">          
