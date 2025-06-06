@@ -1,37 +1,41 @@
-// Path: src/components/Charts/MainChart/hooks/useSetMarkersOnSerie.jsx
-
 import { useEffect, useRef } from 'react';
 import { createSeriesMarkers } from 'lightweight-charts';
 
-/**
- * Hook para asignar markers a una serie candlestick usando la API de Lightweight Charts 5.x.
- * @param {object} candlestickSeriesRef - useRef() que apunta a la serie de velas.
- * @param {Array} combinedMarkers - Arreglo de markers que se mostrarán en la serie.
- */
 const useSetMarkersOnSerie = (candlestickSeriesRef, combinedMarkers) => {
-  // Guardamos la instancia de la primitiva "markers" en un ref
-  const markersPrimitiveRef = useRef(null);
+  const markersRef = useRef(null);
+  const prevMarkersRef = useRef([]); // Guardar los marcadores anteriores
 
   useEffect(() => {
-    // Si la serie no está lista, no hacemos nada
-    const series = candlestickSeriesRef.current;
-    if (!series) return;
-
-    // Si todavía no se ha creado la instancia de markers, la creamos
-    if (!markersPrimitiveRef.current) {
-      markersPrimitiveRef.current = createSeriesMarkers(series, combinedMarkers || []);
-    } else {
-      // De lo contrario, simplemente actualizamos los markers existentes
-      markersPrimitiveRef.current.setMarkers(combinedMarkers || []);
+    if (!candlestickSeriesRef?.current) {      
+      return;
     }
 
-    // Cleanup opcional: al desmontar el hook, podemos limpiar los markers
+    // ✅ Guardamos la referencia en una variable local para evitar cambios inesperados
+    const seriesInstance = candlestickSeriesRef.current;
+
+    // ✅ Verificar si los marcadores han cambiado antes de actualizar
+    const markersHaveChanged = JSON.stringify(prevMarkersRef.current) !== JSON.stringify(combinedMarkers);
+
+    if (!markersHaveChanged) {      
+      return;
+    }
+    
+    if (!markersRef.current) {
+      markersRef.current = createSeriesMarkers(seriesInstance, combinedMarkers || []);
+    } else {
+      markersRef.current.setMarkers(combinedMarkers || []);
+    }
+
+    // Guardar los marcadores actuales para comparar en la próxima actualización
+    prevMarkersRef.current = combinedMarkers;
+
     return () => {
-      if (markersPrimitiveRef.current) {
-        markersPrimitiveRef.current.setMarkers([]);
+      if (!seriesInstance) {        
+        markersRef.current?.setMarkers([]); // Solo eliminar cuando el gráfico ya no existe
+        markersRef.current = null;
       }
     };
-  }, [candlestickSeriesRef, combinedMarkers]);
+  }, [candlestickSeriesRef, combinedMarkers]); // ⚠️ `combinedMarkers` sigue aquí, pero evitamos actualizaciones innecesarias
 };
 
 export default useSetMarkersOnSerie;

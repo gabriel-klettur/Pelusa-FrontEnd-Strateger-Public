@@ -1,4 +1,4 @@
-//Path: strateger-react/src/redux/alarm/alarmThunks.jsx
+// Path: strateger-react/src/redux/alarm/alarmThunks.jsx
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -13,10 +13,10 @@ export const fetchAlarms = createAsyncThunk(
       const state = getState();
       const currentData = selectAlarmsData(state); // Obtener las alarmas actuales del Redux store      
 
-      //! Simulación del token en localStorage - Deberias implementar tu propio sistema de autenticación
-      //! El sistema de autenficacion se realizara utilizando Redux.
-      //! Para ello se debera crear un nuevo slice de Redux llamado authSlice.jsx
-      //! En este slice se almacenara el token de autenticación y se crearan los thunks necesarios para realizar el login y logout del usuario.
+      //! Simulación del token en localStorage - Deberías implementar tu propio sistema de autenticación
+      //! El sistema de autenticación se realizará utilizando Redux.
+      //! Para ello se deberá crear un nuevo slice de Redux llamado authSlice.jsx
+      //! En este slice se almacenará el token de autenticación y se crearán los thunks necesarios para realizar el login y logout del usuario.
       const simulatedToken = 'your-auth-token-here'; // Reemplaza con un token válido para pruebas
       localStorage.setItem('authToken', simulatedToken);
 
@@ -41,14 +41,12 @@ export const fetchAlarms = createAsyncThunk(
       const newData = response.data;
       const combinedData = [...currentData, ...newData];
       
-      
-       // Usar Set para eliminar duplicados
+      // Usar Set para eliminar duplicados basados en el ID
       const uniqueData = Array.from(
-        new Set(combinedData.map((alarm) => alarm.id)) // Crear un Set con los IDs únicos
-      ).map((id) => combinedData.find((alarm) => alarm.id === id)); // Mapear IDs únicos a objetos completos
+        new Set(combinedData.map((alarm) => alarm.id))
+      ).map((id) => combinedData.find((alarm) => alarm.id === id));
 
-
-      // Ordenar los datos únicos antes de retornarlos
+      // Ordenar los datos únicos antes de retornarlos (más reciente primero)
       return uniqueData.sort((a, b) => b.id - a.id);
     } catch (error) {
       // Manejar errores y enviar el mensaje al estado de rechazo
@@ -56,4 +54,3 @@ export const fetchAlarms = createAsyncThunk(
     }
   }
 );
-

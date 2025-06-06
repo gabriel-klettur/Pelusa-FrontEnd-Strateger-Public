@@ -13,7 +13,7 @@ import ToastConfig from './utils/ToastConfig';
 
 import Alarms from './components/Alarms/Alarms';
 import Orders from './components/Orders/Orders';
-import { StrategyCard } from './components/Strategy';
+import { Strategy } from './components/Strategy';
 import { Diary } from './components/Diary';
 import { Account } from './components/Account';
 import { Position } from './components/Positions';
@@ -43,7 +43,7 @@ const App = () => {
               <Route path="alarms" element={<Alarms />} />
               <Route path="battlefield" element={<BattleField />} />
               <Route path="orders" element={<Orders />} /> 
-              <Route path="strategy" element={<StrategyCard />} />
+              <Route path="strategy" element={<Strategy />} />
               <Route path="diary" element={<Diary />} />
               <Route path="account" element={<Account />} />
               <Route path="positions" element={<Position />} />
