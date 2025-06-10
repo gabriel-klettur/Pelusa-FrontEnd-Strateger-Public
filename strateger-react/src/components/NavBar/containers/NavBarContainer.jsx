@@ -24,9 +24,9 @@ import LaboratoryIcon from '../assets/icons/lab.svg';
 
 // Define the tabs and their corresponding icons
 const tabs = [    
-    { name: 'Alarmas',          icon: AlarmsIcon,       route:'/alarms',        disabled: false },
-    { name: 'Estrategias',      icon: StrategyIcon,     route:'/Strategy',      disabled: false },    
+    { name: 'Alarmas',          icon: AlarmsIcon,       route:'/alarms',        disabled: false },    
     { name: 'Órdenes',          icon: OrdersIcon,       route:'/Orders',        disabled: false },
+    { name: 'Estrategias',      icon: StrategyIcon,     route:'/Strategy',      disabled: true },    
     { name: 'Battle Field',     icon: battleFieldIcon,  route:'/battleField',   disabled: true },    
     { name: 'Diario',           icon: DiaryIcon,        route:'/Diary',         disabled: true },
     { name: 'Account',          icon: AccountIcon,      route:'/Account',       disabled: true },
