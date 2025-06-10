@@ -38,7 +38,7 @@ const orderSlice = createSlice({
     spot: initialOrderState,
     standard: initialOrderState ,
     selectedOrderId: null,
-    selectedTab: 'usdtm'      
+    selectedTab: 'coinm'      
   },
 
   //TODO -----------------------------------------------------------------------

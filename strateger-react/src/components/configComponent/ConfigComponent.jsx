@@ -4,7 +4,9 @@
 const ConfigComponent = () => {
     return(
         <>
-            HI!
+            <div>
+                
+            </div>
         </>
     )
    

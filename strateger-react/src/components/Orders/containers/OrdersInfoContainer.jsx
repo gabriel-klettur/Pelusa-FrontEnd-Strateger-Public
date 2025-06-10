@@ -2,7 +2,6 @@
 const OrdersInfoContainer = () => {
     return (
         <div>
-            HI!
         </div>
     );
 }
