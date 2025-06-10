@@ -11,6 +11,8 @@ export const fetchOrdersUsdtm = createAsyncThunk(
 
     const response = await axios.get(`${config.apiURL}/bingx/usdtm/get-all-full-orders`, { params });
     const data = JSON.parse(response.data);  
+    console.log('fetchOrdersUsdtm - raw response:', response.data);
+    console.log('fetchOrdersUsdtm - parsed data:', data);
     if (data && data.data && data.data.orders) {
       return data.data.orders;
     } else {
@@ -28,6 +30,8 @@ export const fetchOrdersCoinm = createAsyncThunk(
 
     const response = await axios.get(`${config.apiURL}/bingx/coinm/query-history-orders`, { params });
     const data = JSON.parse(response.data);  
+    console.log('fetchOrdersCoinm - raw response:', response.data);
+    console.log('fetchOrdersCoinm - parsed data:', data);
     if (data && data.data && data.data.orders) {
       return data.data.orders;
     } else {
@@ -45,7 +49,8 @@ export const fetchOrdersSpot = createAsyncThunk(
 
     const response = await axios.get(`${config.apiURL}/bingx/spot/get-order-history`, { params });
     const data = JSON.parse(response.data);  
-
+    console.log('fetchOrdersSpot - raw response:', response.data);
+    console.log('fetchOrdersSpot - parsed data:', data);
     if (data && data.data && data.data.orders) {
       return data.data.orders;
     } else {
@@ -63,7 +68,8 @@ export const fetchOrdersStandard = createAsyncThunk(
 
     const response = await axios.get(`${config.apiURL}/bingx/standard/query-historical-orders`);    
     const data = JSON.parse(response.data);  
-
+    console.log('fetchOrdersStandard - raw response:', response.data);
+    console.log('fetchOrdersStandard - parsed data:', data);
     if (data && data.data) {      
       return data.data;
     } else {
@@ -71,4 +77,3 @@ export const fetchOrdersStandard = createAsyncThunk(
     }
   }
 );
-
